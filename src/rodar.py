@@ -15,11 +15,12 @@ from pathlib import Path
 
 import prompts_lib
 import validador
-from cliente import ClienteAnthropic, ControleCusto, TetoExcedido
+from cliente import ESFORCO, MODELO, ClienteAnthropic, ControleCusto, TetoExcedido
 
 RAIZ = Path(__file__).resolve().parent.parent
 BRUTOS = RAIZ / "resultados" / "brutos"
-MAX_TOKENS = {"T1": 400, "T2": 400, "T3": 1000, "T4": 400}
+# folga para o raciocínio oculto (conta como saída); o teto de gasto continua valendo
+MAX_TOKENS = {"T1": 2000, "T2": 2000, "T3": 3000, "T4": 2000}
 
 
 def selecionar(modo, casos):
@@ -49,6 +50,7 @@ def executar(modo, cliente, casos, gabarito, pasta=BRUTOS, versao="v1"):
                     "caso": caso["id"], "tipo": caso["tipo"], "repeticao": rep, "resposta": r["texto"],
                     "tokens_entrada": r["tokens_entrada"], "tokens_saida": r["tokens_saida"],
                     "custo_usd": r["custo_usd"], "latencia_s": r["latencia_s"], "tentativas": r["tentativas"],
+                    "stop_reason": r.get("stop_reason"), "esforco": ESFORCO, "modelo": MODELO,
                     "avaliacao": aval}, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
                 novas += 1
     return feitas, novas

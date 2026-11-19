@@ -14,6 +14,11 @@ from custo import carregar_precos, custo_usd
 RAIZ = Path(__file__).resolve().parent.parent
 MODELO = "claude-haiku-5-5"
 TETO_USD = 1.00
+# O claude-haiku-5-5 NÃO aceita temperature/top_p/top_k (a API devolve erro 400 e o SDK 1.x
+# nem expõe o argumento). Por isso não há temperatura 0: a variação é medida pelas 3 repetições.
+# O raciocínio adaptativo vem ligado por padrão; fixamos o esforço em "low" para limitar o
+# raciocínio oculto e o custo. Registrado em cada resultado bruto.
+ESFORCO = "low"
 MAX_TENTATIVAS = 3          # 1 chamada + 2 retries; depois disso, para e relata
 ESPERA_S = (2.0, 5.0)
 # estimativa conservadora para a reserva: 1 token a cada 2 caracteres (PT-BR tem mais tokens por caractere)
@@ -82,13 +87,15 @@ class ClienteAnthropic:
                 raise RuntimeError("ANTHROPIC_API_KEY ausente (use .env local ou variável de ambiente)")
             import anthropic  # importado aqui para os testes não exigirem o SDK
             self._sdk = anthropic.Anthropic(max_retries=0)  # retry é controlado por nós
-        kwargs = dict(model=MODELO, max_tokens=max_tokens, temperature=0,
+        kwargs = dict(model=MODELO, max_tokens=max_tokens,
+                      extra_body={"output_config": {"effort": ESFORCO}},
                       messages=[{"role": "user", "content": user}])
         if system:
             kwargs["system"] = system
         r = self._sdk.messages.create(**kwargs)
         texto = "".join(b.text for b in r.content if getattr(b, "type", "") == "text")
-        return {"texto": texto, "tokens_entrada": r.usage.input_tokens, "tokens_saida": r.usage.output_tokens}
+        return {"texto": texto, "tokens_entrada": r.usage.input_tokens, "tokens_saida": r.usage.output_tokens,
+                "stop_reason": getattr(r, "stop_reason", None)}
 
     def chamar(self, system: str, user: str, max_tokens: int) -> dict:
         est_in = (len(system) + len(user)) // CARACTERES_POR_TOKEN_RESERVA + 1

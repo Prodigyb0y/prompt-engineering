@@ -138,3 +138,34 @@ def test_rodar_grava_bruto_e_retoma(tmp_path):
     assert len(chamadas) == 10
     _, tecs, reps = rodar.selecionar("completo", casos)
     assert tecs == ["T1", "T2", "T3", "T4"] and reps == 3 and len(casos) * len(tecs) * reps == 600
+
+
+def test_requisicao_nao_envia_temperature(tmp_path, monkeypatch):
+    """claude-haiku-5-5 rejeita temperature/top_p/top_k; o SDK 1.x nem aceita o argumento."""
+    visto = {}
+
+    class Bloco:
+        type, text = "text", "{}"
+
+    class Uso:
+        input_tokens, output_tokens = 10, 5
+
+    class Resp:
+        content, usage, stop_reason = [Bloco()], Uso(), "end_turn"
+
+    class Msgs:
+        def create(self, **kw):
+            visto.update(kw)
+            return Resp()
+
+    class SDK:
+        messages = Msgs()
+
+    monkeypatch.setenv("ANTHROPIC_API_KEY", "x")
+    cli = c.ClienteAnthropic(c.ControleCusto(tmp_path / "g.json"), PRECOS)
+    cli._sdk = SDK()
+    r = cli.chamar("sys", "oi", 100)
+    assert not ({"temperature", "top_p", "top_k"} & set(visto))
+    assert visto["model"] == "claude-haiku-5-5" and visto["system"] == "sys"
+    assert visto["extra_body"] == {"output_config": {"effort": c.ESFORCO}}
+    assert r["stop_reason"] == "end_turn"
