@@ -1,0 +1,14 @@
+# Segredos
+.env
+.env.*
+!.env.example
+
+# Saídas locais
+logs/
+resultados/brutos/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+.pytest_cache/
