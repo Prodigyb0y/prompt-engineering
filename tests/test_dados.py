@@ -16,7 +16,8 @@ def test_validacao_do_gabarito_passa():
 def test_arquivos_congelados_nao_mudaram():
     for linha in (DADOS / "CONGELADO.sha256").read_text().splitlines():
         esperado, nome = linha.split()
-        assert hashlib.sha256((DADOS / nome).read_bytes()).hexdigest() == esperado, f"{nome} mudou depois do congelamento"
+        conteudo = (DADOS / nome).read_bytes().replace(b"\r\n", b"\n")  # ignora CRLF do checkout no Windows
+        assert hashlib.sha256(conteudo).hexdigest() == esperado, f"{nome} mudou depois do congelamento"
 
 
 def test_50_casos_e_gabarito_completo():
@@ -31,4 +32,5 @@ def test_geracao_e_deterministica(tmp_path, monkeypatch):
     monkeypatch.setattr(gerar_dados, "DADOS", tmp_path)
     gerar_dados.main()
     for nome in ["casos_teste.json", "gabarito.json", "exemplos_fewshot.json"]:
-        assert (tmp_path / nome).read_bytes() == (DADOS / nome).read_bytes(), f"{nome} não é reproduzível com seed 42"
+        gerado = (tmp_path / nome).read_bytes().replace(b"\r\n", b"\n")
+        assert gerado == (DADOS / nome).read_bytes().replace(b"\r\n", b"\n"), f"{nome} não é reproduzível com seed 42"

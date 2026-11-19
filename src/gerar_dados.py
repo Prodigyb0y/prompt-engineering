@@ -208,7 +208,7 @@ def main():
     DADOS.mkdir(exist_ok=True)
     for nome, obj in [("casos_teste.json", casos), ("gabarito.json", gabarito),
                       ("registros_fonte.json", fonte), ("exemplos_fewshot.json", fewshot)]:
-        (DADOS / nome).write_text(json.dumps(obj, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+        (DADOS / nome).write_text(json.dumps(obj, ensure_ascii=False, indent=2) + "\n", encoding="utf-8", newline="\n")
     print(f"Gerados: {len(casos)} casos, {len(gabarito)} gabaritos, {len(fewshot)} exemplos few-shot (seed {SEED}).")
 
 

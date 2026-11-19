@@ -81,7 +81,7 @@ def gerar():
     PASTA.mkdir(exist_ok=True)
     for d in definicoes():
         d = {**d, "hash12": hash_prompt(d["system"], d["user_template"])}
-        (PASTA / nome_arquivo(d)).write_text(json.dumps(d, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+        (PASTA / nome_arquivo(d)).write_text(json.dumps(d, ensure_ascii=False, indent=2) + "\n", encoding="utf-8", newline="\n")
         print(nome_arquivo(d), d["hash12"])
 
 
