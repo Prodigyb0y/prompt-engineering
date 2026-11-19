@@ -53,6 +53,7 @@ def executar(modo, cliente, casos, gabarito, pasta=BRUTOS, versao="v1"):
                     "stop_reason": r.get("stop_reason"), "esforco": ESFORCO, "modelo": MODELO,
                     "avaliacao": aval}, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
                 novas += 1
+                print(f"[{tid} {caso['id']} r{rep}] ok={aval['caso_correto']} custo=US$ {r['custo_usd']:.6f} gasto={cliente.controle.gasto:.6f}", flush=True)
     return feitas, novas
 
 
