@@ -1,0 +1,252 @@
+[
+  {
+    "id": "C44",
+    "tipo": "fornecedor_apelido",
+    "texto": "Preciso comprar 25 cx de caneta esferográfica (solicitante: Marketing). Valor unitário R$ 380,00. Pode ser com a Ponto Certo. Prazo: 22 de outubro de 2026."
+  },
+  {
+    "id": "C21",
+    "tipo": "valor_br",
+    "texto": "Oi, preciso de 40 un de caneta esferográfica para a área de Compras. Cada unidade custa R$ 15.800,00. Pode ser com a Distribuidora Pinheiro. precisa chegar em 10 de setembro de 2026."
+  },
+  {
+    "id": "C18",
+    "tipo": "unidades_variadas",
+    "texto": "Oi, preciso de 25cx de etiqueta adesiva para a área de Compras. preço de tabela: R$ 2450,75 por unidade. Fornecedor: Distribuidora Pinheiro. Entrega até 17-ago-2026."
+  },
+  {
+    "id": "C42",
+    "tipo": "fornecedor_apelido",
+    "texto": "Oi, preciso de 20 caixas de parafuso sextavado (solicitante: Produção). Cada unidade custa R$ 120,00. Fornecedor: Vale Verde. Prazo: 22-jul-2026."
+  },
+  {
+    "id": "C13",
+    "tipo": "campos_faltando",
+    "texto": "Oi, preciso de 25 un de toner preto. Valor unitário R$ 35,00. Pode ser com a Papelaria Aurora Ltda. precisa chegar em 08/09/2026."
+  },
+  {
+    "id": "C26",
+    "tipo": "valor_br",
+    "texto": "Preciso comprar 15 m de tubo PVC 50mm (solicitante: Logística). Cada unidade custa R$ 1.200,00. Fornecedor: Químicos Horizonte. Prazo: 2026-06-10."
+  },
+  {
+    "id": "C24",
+    "tipo": "valor_br",
+    "texto": "Pedido de compra: 10 l de tinta acrílica branca (solicitante: Financeiro). preço de tabela: R$ 12.999,00 por unidade. cotação feita com Químicos Horizonte. Entrega até 12 de janeiro de 2026."
+  },
+  {
+    "id": "C35",
+    "tipo": "data_formato",
+    "texto": "Bom dia! Solicito 3 l de óleo lubrificante (solicitante: Logística). Cada unidade custa R$ 120,00. cotação feita com Informática Bitmais. precisa chegar em 14-jul-2026."
+  },
+  {
+    "id": "C30",
+    "tipo": "moeda_simbolo",
+    "texto": "Pedido de compra: 15 caixas de etiqueta adesiva para a área de Marketing. Valor unitário US$ 3,90. cotação feita com Informática Bitmais. Entrega até 2026-08-22."
+  },
+  {
+    "id": "C39",
+    "tipo": "data_relativa",
+    "texto": "Oi, preciso de 50 un de cabo de rede cat6 para a área de Compras. Valor unitário R$ 120,00. Fornecedor: Químicos Horizonte. Entrega daqui 15 dias."
+  },
+  {
+    "id": "C37",
+    "tipo": "data_formato",
+    "texto": "Oi, preciso de 50 litros de óleo lubrificante para a área de RH. preço de tabela: R$ 1200,00 por unidade. Pode ser com a Distribuidora Pinheiro. Entrega até 27/03/2026."
+  },
+  {
+    "id": "C25",
+    "tipo": "valor_br",
+    "texto": "Pedido de compra: 2 l de álcool isopropílico para a área de RH. preço de tabela: R$ 12.999,00 por unidade. Fornecedor: Eletrotécnica Faísca. Entrega até 24-mar-2026."
+  },
+  {
+    "id": "C38",
+    "tipo": "data_relativa",
+    "texto": "Preciso comprar 8 caixas de caneta esferográfica (solicitante: Compras). Cada unidade custa R$ 35,00. Pode ser com a Informática Bitmais. Entrega em 10 dias úteis."
+  },
+  {
+    "id": "C50",
+    "tipo": "duas_quantidades",
+    "texto": "Preciso comprar 3 l de tinta acrílica branca (solicitante: Financeiro). Hoje temos 60 em estoque, mas não dá. Cada unidade custa R$ 2450,75. Pode ser com a Eletrotécnica Faísca. Prazo: 04-abr-2026."
+  },
+  {
+    "id": "C20",
+    "tipo": "unidades_variadas",
+    "texto": "Pedido de compra: 15unidades de fita adesiva para a área de Compras. Valor unitário R$ 8,90. Pode ser com a Metalúrgica Vale Verde. Entrega até 2026-10-19."
+  },
+  {
+    "id": "C04",
+    "tipo": "completa",
+    "texto": "Bom dia! Solicito 50 l de óleo lubrificante para a área de Logística. Cada unidade custa R$ 35,00. Pode ser com a Tecidos Santa Clara. precisa chegar em 02-fev-2026."
+  },
+  {
+    "id": "C45",
+    "tipo": "ruido",
+    "texto": "kkk, Oi, presiso de 25 m de cabo elétrico 2,5mm para a área de Financeiro. preço de tabela: R$ 2450,75 por unidade. Pode ser com a Papelaria Aurora Ltda. precisa chegar em 09-dez-2026 \n\n-- enviado do meu celular"
+  },
+  {
+    "id": "C49",
+    "tipo": "duas_quantidades",
+    "texto": "Preciso comprar 15 unidades de papel A4 para a área de Marketing. Hoje temos 30 em estoque, mas não dá. Valor unitário R$ 12,50. Pode ser com a Papelaria Aurora Ltda. Entrega até 11-ago-2026."
+  },
+  {
+    "id": "C19",
+    "tipo": "unidades_variadas",
+    "texto": "Pedido de compra: 12metros de cabo de rede cat6 (solicitante: Manutenção). Valor unitário R$ 2450,75. cotação feita com Embalagens Ponto Certo. Prazo: 2026-11-19."
+  },
+  {
+    "id": "C09",
+    "tipo": "campos_faltando",
+    "texto": "Bom dia! Solicito 40 metros de cabo elétrico 2,5mm (solicitante: Manutenção). Fornecedor: Embalagens Ponto Certo. precisa chegar em 2026-09-25."
+  },
+  {
+    "id": "C33",
+    "tipo": "data_formato",
+    "texto": "Preciso comprar 25 unidades de cadeira ergonômica (solicitante: Marketing). Valor unitário R$ 380,00. cotação feita com Informática Bitmais. Prazo: 17 de dezembro de 2026."
+  },
+  {
+    "id": "C22",
+    "tipo": "valor_br",
+    "texto": "Pedido de compra: 20 unidades de monitor 24 polegadas para a área de Financeiro. Valor unitário R$ 12.999,00. Pode ser com a Metalúrgica Vale Verde. precisa chegar em 9 de agosto de 2026."
+  },
+  {
+    "id": "C03",
+    "tipo": "completa",
+    "texto": "Preciso comprar 3 l de álcool isopropílico para a área de RH. Cada unidade custa R$ 120,00. Fornecedor: Tecidos Santa Clara. precisa chegar em 2026-06-28."
+  },
+  {
+    "id": "C15",
+    "tipo": "unidades_variadas",
+    "texto": "Bom dia! Solicito 50l de óleo lubrificante para a área de Marketing. preço de tabela: R$ 8,90 por unidade. Pode ser com a Papelaria Aurora Ltda. Prazo: 22 de janeiro de 2026."
+  },
+  {
+    "id": "C34",
+    "tipo": "data_formato",
+    "texto": "Pedido de compra: 8 unidades de cadeira ergonômica para a área de Logística. Valor unitário R$ 49,90. Fornecedor: Químicos Horizonte. Entrega até 2026-08-03."
+  },
+  {
+    "id": "C28",
+    "tipo": "moeda_simbolo",
+    "texto": "Pedido de compra: 50 cx de fita adesiva (solicitante: Compras). preço de tabela: € 89,90 por unidade. Fornecedor: Químicos Horizonte. precisa chegar em 2026-07-01."
+  },
+  {
+    "id": "C23",
+    "tipo": "valor_br",
+    "texto": "Bom dia! Solicito 20 m de cabo elétrico 2,5mm para a área de Marketing. Cada unidade custa R$ 1.200,00. cotação feita com Papelaria Aurora Ltda. Prazo: 14 de dezembro de 2026."
+  },
+  {
+    "id": "C32",
+    "tipo": "data_formato",
+    "texto": "Oi, preciso de 5 cx de papel A4 (solicitante: RH). Valor unitário R$ 2450,75. Pode ser com a Informática Bitmais. precisa chegar em 26/03/2026."
+  },
+  {
+    "id": "C08",
+    "tipo": "completa",
+    "texto": "Preciso comprar 100 l de tinta acrílica branca para a área de Manutenção. Cada unidade custa R$ 8,90. Pode ser com a Distribuidora Pinheiro. precisa chegar em 28-jan-2026."
+  },
+  {
+    "id": "C02",
+    "tipo": "completa",
+    "texto": "Preciso comprar 5 cx de papel A4 (solicitante: RH). Cada unidade custa R$ 49,90. Fornecedor: Papelaria Aurora Ltda. Prazo: 19 de agosto de 2026."
+  },
+  {
+    "id": "C10",
+    "tipo": "campos_faltando",
+    "texto": "Pedido de compra: 40 un de fita adesiva (solicitante: Financeiro). Fornecedor: Distribuidora Pinheiro."
+  },
+  {
+    "id": "C31",
+    "tipo": "moeda_simbolo",
+    "texto": "Preciso comprar 2 un de fita adesiva (solicitante: Compras). Cada unidade custa € 310,00. Fornecedor: Informática Bitmais. precisa chegar em 16 de abril de 2026."
+  },
+  {
+    "id": "C29",
+    "tipo": "moeda_simbolo",
+    "texto": "Bom dia! Solicito 12 unidades de teclado sem fio (solicitante: Produção). Valor unitário US$ 89.90. Pode ser com a Distribuidora Pinheiro. Entrega até 2026-12-10."
+  },
+  {
+    "id": "C27",
+    "tipo": "moeda_simbolo",
+    "texto": "Pedido de compra: 2 unidades de cadeira ergonômica (solicitante: Produção). preço de tabela: US$ 3.90 por unidade. Fornecedor: Tecidos Santa Clara. precisa chegar em 09-fev-2026."
+  },
+  {
+    "id": "C01",
+    "tipo": "completa",
+    "texto": "Oi, preciso de 5 caixas de parafuso sextavado para a área de Financeiro. Valor unitário R$ 8,90. Fornecedor: Metalúrgica Vale Verde. precisa chegar em 5 de abril de 2026."
+  },
+  {
+    "id": "C46",
+    "tipo": "ruido",
+    "texto": "URGENTE!! Pedido de compra: 3 metros de tubo PVC 50mm (solicitante: Compras). preço de tabela: R$ 380,00 por unidade. cotação feita com Químicos Horizonte. Prazo: 2026-05-08 \n\n-- enviado do meu celular"
+  },
+  {
+    "id": "C05",
+    "tipo": "completa",
+    "texto": "Bom dia! Solicito 10 l de detergente industrial para a área de TI. Cada unidade custa R$ 49,90. Pode ser com a Metalúrgica Vale Verde. precisa chegar em 2026-06-07."
+  },
+  {
+    "id": "C36",
+    "tipo": "data_formato",
+    "texto": "Bom dia! Solicito 2 unidades de papel A4 (solicitante: Marketing). Cada unidade custa R$ 380,00. Pode ser com a Eletrotécnica Faísca. Entrega até 10 de junho de 2026."
+  },
+  {
+    "id": "C12",
+    "tipo": "campos_faltando",
+    "texto": "Oi, preciso de 20 quilos de solda em barra para a área de Logística. Fornecedor: Tecidos Santa Clara."
+  },
+  {
+    "id": "C16",
+    "tipo": "unidades_variadas",
+    "texto": "Bom dia! Solicito 5cx de caneta esferográfica para a área de Marketing. Cada unidade custa R$ 2450,75. Pode ser com a Metalúrgica Vale Verde. Entrega até 15-fev-2026."
+  },
+  {
+    "id": "C11",
+    "tipo": "campos_faltando",
+    "texto": "Preciso comprar 5 un de cabo de rede cat6. Prazo: 8 de janeiro de 2026."
+  },
+  {
+    "id": "C06",
+    "tipo": "completa",
+    "texto": "Pedido de compra: 100 metros de tubo PVC 50mm para a área de Produção. Valor unitário R$ 4,50. cotação feita com Embalagens Ponto Certo. Entrega até 2026-01-08."
+  },
+  {
+    "id": "C43",
+    "tipo": "fornecedor_apelido",
+    "texto": "Preciso comprar 4 caixas de caneta esferográfica (solicitante: RH). Cada unidade custa R$ 49,90. Fornecedor: Bitmais. Prazo: 17/12/2026."
+  },
+  {
+    "id": "C17",
+    "tipo": "unidades_variadas",
+    "texto": "Bom dia! Solicito 12metros de cabo elétrico 2,5mm (solicitante: TI). Valor unitário R$ 49,90. Fornecedor: Informática Bitmais. precisa chegar em 13/01/2026."
+  },
+  {
+    "id": "C47",
+    "tipo": "ruido",
+    "texto": "att, Bom dia! Solicito 8 un de caneta esferográfica para a área de Financeiro. Valor unitário R$ 35,00. cotação feita com Embalagens Ponto Certo. Prazo: 04-abr-2026 obrigado!!"
+  },
+  {
+    "id": "C41",
+    "tipo": "data_relativa",
+    "texto": "Oi, preciso de 25 cx de parafuso sextavado (solicitante: Financeiro). preço de tabela: R$ 380,00 por unidade. cotação feita com Químicos Horizonte. Entrega daqui 15 dias."
+  },
+  {
+    "id": "C14",
+    "tipo": "campos_faltando",
+    "texto": "Oi, preciso de 5 un de teclado sem fio. preço de tabela: R$ 1200,00 por unidade. Prazo: 05-set-2026."
+  },
+  {
+    "id": "C07",
+    "tipo": "completa",
+    "texto": "Pedido de compra: 40 un de caneta esferográfica (solicitante: RH). preço de tabela: R$ 49,90 por unidade. Pode ser com a Distribuidora Pinheiro. Entrega até 2026-08-05."
+  },
+  {
+    "id": "C48",
+    "tipo": "duas_quantidades",
+    "texto": "Oi, preciso de 4 unidades de teclado sem fio para a área de Produção. Hoje temos 9 em estoque, mas não dá. preço de tabela: R$ 2450,75 por unidade. Pode ser com a Distribuidora Pinheiro. precisa chegar em 1 de maio de 2026."
+  },
+  {
+    "id": "C40",
+    "tipo": "data_relativa",
+    "texto": "Bom dia! Solicito 15 litros de tinta acrílica branca para a área de TI. Valor unitário R$ 35,00. Pode ser com a Informática Bitmais. Entrega em 10 dias úteis."
+  }
+]

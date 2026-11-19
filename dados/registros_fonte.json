@@ -1,0 +1,1147 @@
+{
+  "C01": {
+    "tipo": "completa",
+    "registro": {
+      "solicitante_area": "Financeiro",
+      "item": "parafuso sextavado",
+      "quantidade": 5,
+      "unidade": "cx",
+      "prazo_entrega": "2026-04-05",
+      "valor_unitario": 8.9,
+      "moeda": "BRL",
+      "fornecedor": "Metalúrgica Vale Verde"
+    },
+    "trechos": {
+      "quantidade": "5",
+      "unidade": "caixas",
+      "item": "parafuso sextavado",
+      "solicitante_area": "Financeiro",
+      "valor_unitario": "R$ 8,90",
+      "fornecedor": "Metalúrgica Vale Verde",
+      "prazo_entrega": "5 de abril de 2026"
+    },
+    "extras": {}
+  },
+  "C02": {
+    "tipo": "completa",
+    "registro": {
+      "solicitante_area": "RH",
+      "item": "papel A4",
+      "quantidade": 5,
+      "unidade": "cx",
+      "prazo_entrega": "2026-08-19",
+      "valor_unitario": 49.9,
+      "moeda": "BRL",
+      "fornecedor": "Papelaria Aurora Ltda"
+    },
+    "trechos": {
+      "quantidade": "5",
+      "unidade": "cx",
+      "item": "papel A4",
+      "solicitante_area": "RH",
+      "valor_unitario": "R$ 49,90",
+      "fornecedor": "Papelaria Aurora Ltda",
+      "prazo_entrega": "19 de agosto de 2026"
+    },
+    "extras": {}
+  },
+  "C03": {
+    "tipo": "completa",
+    "registro": {
+      "solicitante_area": "RH",
+      "item": "álcool isopropílico",
+      "quantidade": 3,
+      "unidade": "l",
+      "prazo_entrega": "2026-06-28",
+      "valor_unitario": 120,
+      "moeda": "BRL",
+      "fornecedor": "Tecidos Santa Clara"
+    },
+    "trechos": {
+      "quantidade": "3",
+      "unidade": "l",
+      "item": "álcool isopropílico",
+      "solicitante_area": "RH",
+      "valor_unitario": "R$ 120,00",
+      "fornecedor": "Tecidos Santa Clara",
+      "prazo_entrega": "2026-06-28"
+    },
+    "extras": {}
+  },
+  "C04": {
+    "tipo": "completa",
+    "registro": {
+      "solicitante_area": "Logística",
+      "item": "óleo lubrificante",
+      "quantidade": 50,
+      "unidade": "l",
+      "prazo_entrega": "2026-02-02",
+      "valor_unitario": 35,
+      "moeda": "BRL",
+      "fornecedor": "Tecidos Santa Clara"
+    },
+    "trechos": {
+      "quantidade": "50",
+      "unidade": "l",
+      "item": "óleo lubrificante",
+      "solicitante_area": "Logística",
+      "valor_unitario": "R$ 35,00",
+      "fornecedor": "Tecidos Santa Clara",
+      "prazo_entrega": "02-fev-2026"
+    },
+    "extras": {}
+  },
+  "C05": {
+    "tipo": "completa",
+    "registro": {
+      "solicitante_area": "TI",
+      "item": "detergente industrial",
+      "quantidade": 10,
+      "unidade": "l",
+      "prazo_entrega": "2026-06-07",
+      "valor_unitario": 49.9,
+      "moeda": "BRL",
+      "fornecedor": "Metalúrgica Vale Verde"
+    },
+    "trechos": {
+      "quantidade": "10",
+      "unidade": "l",
+      "item": "detergente industrial",
+      "solicitante_area": "TI",
+      "valor_unitario": "R$ 49,90",
+      "fornecedor": "Metalúrgica Vale Verde",
+      "prazo_entrega": "2026-06-07"
+    },
+    "extras": {}
+  },
+  "C06": {
+    "tipo": "completa",
+    "registro": {
+      "solicitante_area": "Produção",
+      "item": "tubo PVC 50mm",
+      "quantidade": 100,
+      "unidade": "m",
+      "prazo_entrega": "2026-01-08",
+      "valor_unitario": 4.5,
+      "moeda": "BRL",
+      "fornecedor": "Embalagens Ponto Certo"
+    },
+    "trechos": {
+      "quantidade": "100",
+      "unidade": "metros",
+      "item": "tubo PVC 50mm",
+      "solicitante_area": "Produção",
+      "valor_unitario": "R$ 4,50",
+      "fornecedor": "Embalagens Ponto Certo",
+      "prazo_entrega": "2026-01-08"
+    },
+    "extras": {}
+  },
+  "C07": {
+    "tipo": "completa",
+    "registro": {
+      "solicitante_area": "RH",
+      "item": "caneta esferográfica",
+      "quantidade": 40,
+      "unidade": "un",
+      "prazo_entrega": "2026-08-05",
+      "valor_unitario": 49.9,
+      "moeda": "BRL",
+      "fornecedor": "Distribuidora Pinheiro"
+    },
+    "trechos": {
+      "quantidade": "40",
+      "unidade": "un",
+      "item": "caneta esferográfica",
+      "solicitante_area": "RH",
+      "valor_unitario": "R$ 49,90",
+      "fornecedor": "Distribuidora Pinheiro",
+      "prazo_entrega": "2026-08-05"
+    },
+    "extras": {}
+  },
+  "C08": {
+    "tipo": "completa",
+    "registro": {
+      "solicitante_area": "Manutenção",
+      "item": "tinta acrílica branca",
+      "quantidade": 100,
+      "unidade": "l",
+      "prazo_entrega": "2026-01-28",
+      "valor_unitario": 8.9,
+      "moeda": "BRL",
+      "fornecedor": "Distribuidora Pinheiro"
+    },
+    "trechos": {
+      "quantidade": "100",
+      "unidade": "l",
+      "item": "tinta acrílica branca",
+      "solicitante_area": "Manutenção",
+      "valor_unitario": "R$ 8,90",
+      "fornecedor": "Distribuidora Pinheiro",
+      "prazo_entrega": "28-jan-2026"
+    },
+    "extras": {}
+  },
+  "C09": {
+    "tipo": "campos_faltando",
+    "registro": {
+      "solicitante_area": "Manutenção",
+      "item": "cabo elétrico 2,5mm",
+      "quantidade": 40,
+      "unidade": "m",
+      "prazo_entrega": "2026-09-25",
+      "valor_unitario": null,
+      "moeda": null,
+      "fornecedor": "Embalagens Ponto Certo"
+    },
+    "trechos": {
+      "quantidade": "40",
+      "unidade": "metros",
+      "item": "cabo elétrico 2,5mm",
+      "solicitante_area": "Manutenção",
+      "fornecedor": "Embalagens Ponto Certo",
+      "prazo_entrega": "2026-09-25"
+    },
+    "extras": {}
+  },
+  "C10": {
+    "tipo": "campos_faltando",
+    "registro": {
+      "solicitante_area": "Financeiro",
+      "item": "fita adesiva",
+      "quantidade": 40,
+      "unidade": "un",
+      "prazo_entrega": null,
+      "valor_unitario": null,
+      "moeda": null,
+      "fornecedor": "Distribuidora Pinheiro"
+    },
+    "trechos": {
+      "quantidade": "40",
+      "unidade": "un",
+      "item": "fita adesiva",
+      "solicitante_area": "Financeiro",
+      "fornecedor": "Distribuidora Pinheiro"
+    },
+    "extras": {}
+  },
+  "C11": {
+    "tipo": "campos_faltando",
+    "registro": {
+      "solicitante_area": null,
+      "item": "cabo de rede cat6",
+      "quantidade": 5,
+      "unidade": "un",
+      "prazo_entrega": "2026-01-08",
+      "valor_unitario": null,
+      "moeda": null,
+      "fornecedor": null
+    },
+    "trechos": {
+      "quantidade": "5",
+      "unidade": "un",
+      "item": "cabo de rede cat6",
+      "prazo_entrega": "8 de janeiro de 2026"
+    },
+    "extras": {}
+  },
+  "C12": {
+    "tipo": "campos_faltando",
+    "registro": {
+      "solicitante_area": "Logística",
+      "item": "solda em barra",
+      "quantidade": 20,
+      "unidade": "kg",
+      "prazo_entrega": null,
+      "valor_unitario": null,
+      "moeda": null,
+      "fornecedor": "Tecidos Santa Clara"
+    },
+    "trechos": {
+      "quantidade": "20",
+      "unidade": "quilos",
+      "item": "solda em barra",
+      "solicitante_area": "Logística",
+      "fornecedor": "Tecidos Santa Clara"
+    },
+    "extras": {}
+  },
+  "C13": {
+    "tipo": "campos_faltando",
+    "registro": {
+      "solicitante_area": null,
+      "item": "toner preto",
+      "quantidade": 25,
+      "unidade": "un",
+      "prazo_entrega": "2026-09-08",
+      "valor_unitario": 35,
+      "moeda": "BRL",
+      "fornecedor": "Papelaria Aurora Ltda"
+    },
+    "trechos": {
+      "quantidade": "25",
+      "unidade": "un",
+      "item": "toner preto",
+      "valor_unitario": "R$ 35,00",
+      "fornecedor": "Papelaria Aurora Ltda",
+      "prazo_entrega": "08/09/2026"
+    },
+    "extras": {}
+  },
+  "C14": {
+    "tipo": "campos_faltando",
+    "registro": {
+      "solicitante_area": null,
+      "item": "teclado sem fio",
+      "quantidade": 5,
+      "unidade": "un",
+      "prazo_entrega": "2026-09-05",
+      "valor_unitario": 1200,
+      "moeda": "BRL",
+      "fornecedor": null
+    },
+    "trechos": {
+      "quantidade": "5",
+      "unidade": "un",
+      "item": "teclado sem fio",
+      "valor_unitario": "R$ 1200,00",
+      "prazo_entrega": "05-set-2026"
+    },
+    "extras": {}
+  },
+  "C15": {
+    "tipo": "unidades_variadas",
+    "registro": {
+      "solicitante_area": "Marketing",
+      "item": "óleo lubrificante",
+      "quantidade": 50,
+      "unidade": "l",
+      "prazo_entrega": "2026-01-22",
+      "valor_unitario": 8.9,
+      "moeda": "BRL",
+      "fornecedor": "Papelaria Aurora Ltda"
+    },
+    "trechos": {
+      "quantidade": "50",
+      "unidade": "l",
+      "item": "óleo lubrificante",
+      "solicitante_area": "Marketing",
+      "valor_unitario": "R$ 8,90",
+      "fornecedor": "Papelaria Aurora Ltda",
+      "prazo_entrega": "22 de janeiro de 2026"
+    },
+    "extras": {}
+  },
+  "C16": {
+    "tipo": "unidades_variadas",
+    "registro": {
+      "solicitante_area": "Marketing",
+      "item": "caneta esferográfica",
+      "quantidade": 5,
+      "unidade": "cx",
+      "prazo_entrega": "2026-02-15",
+      "valor_unitario": 2450.75,
+      "moeda": "BRL",
+      "fornecedor": "Metalúrgica Vale Verde"
+    },
+    "trechos": {
+      "quantidade": "5",
+      "unidade": "cx",
+      "item": "caneta esferográfica",
+      "solicitante_area": "Marketing",
+      "valor_unitario": "R$ 2450,75",
+      "fornecedor": "Metalúrgica Vale Verde",
+      "prazo_entrega": "15-fev-2026"
+    },
+    "extras": {}
+  },
+  "C17": {
+    "tipo": "unidades_variadas",
+    "registro": {
+      "solicitante_area": "TI",
+      "item": "cabo elétrico 2,5mm",
+      "quantidade": 12,
+      "unidade": "m",
+      "prazo_entrega": "2026-01-13",
+      "valor_unitario": 49.9,
+      "moeda": "BRL",
+      "fornecedor": "Informática Bitmais"
+    },
+    "trechos": {
+      "quantidade": "12",
+      "unidade": "metros",
+      "item": "cabo elétrico 2,5mm",
+      "solicitante_area": "TI",
+      "valor_unitario": "R$ 49,90",
+      "fornecedor": "Informática Bitmais",
+      "prazo_entrega": "13/01/2026"
+    },
+    "extras": {}
+  },
+  "C18": {
+    "tipo": "unidades_variadas",
+    "registro": {
+      "solicitante_area": "Compras",
+      "item": "etiqueta adesiva",
+      "quantidade": 25,
+      "unidade": "cx",
+      "prazo_entrega": "2026-08-17",
+      "valor_unitario": 2450.75,
+      "moeda": "BRL",
+      "fornecedor": "Distribuidora Pinheiro"
+    },
+    "trechos": {
+      "quantidade": "25",
+      "unidade": "cx",
+      "item": "etiqueta adesiva",
+      "solicitante_area": "Compras",
+      "valor_unitario": "R$ 2450,75",
+      "fornecedor": "Distribuidora Pinheiro",
+      "prazo_entrega": "17-ago-2026"
+    },
+    "extras": {}
+  },
+  "C19": {
+    "tipo": "unidades_variadas",
+    "registro": {
+      "solicitante_area": "Manutenção",
+      "item": "cabo de rede cat6",
+      "quantidade": 12,
+      "unidade": "m",
+      "prazo_entrega": "2026-11-19",
+      "valor_unitario": 2450.75,
+      "moeda": "BRL",
+      "fornecedor": "Embalagens Ponto Certo"
+    },
+    "trechos": {
+      "quantidade": "12",
+      "unidade": "metros",
+      "item": "cabo de rede cat6",
+      "solicitante_area": "Manutenção",
+      "valor_unitario": "R$ 2450,75",
+      "fornecedor": "Embalagens Ponto Certo",
+      "prazo_entrega": "2026-11-19"
+    },
+    "extras": {}
+  },
+  "C20": {
+    "tipo": "unidades_variadas",
+    "registro": {
+      "solicitante_area": "Compras",
+      "item": "fita adesiva",
+      "quantidade": 15,
+      "unidade": "un",
+      "prazo_entrega": "2026-10-19",
+      "valor_unitario": 8.9,
+      "moeda": "BRL",
+      "fornecedor": "Metalúrgica Vale Verde"
+    },
+    "trechos": {
+      "quantidade": "15",
+      "unidade": "unidades",
+      "item": "fita adesiva",
+      "solicitante_area": "Compras",
+      "valor_unitario": "R$ 8,90",
+      "fornecedor": "Metalúrgica Vale Verde",
+      "prazo_entrega": "2026-10-19"
+    },
+    "extras": {}
+  },
+  "C21": {
+    "tipo": "valor_br",
+    "registro": {
+      "solicitante_area": "Compras",
+      "item": "caneta esferográfica",
+      "quantidade": 40,
+      "unidade": "un",
+      "prazo_entrega": "2026-09-10",
+      "valor_unitario": 15800,
+      "moeda": "BRL",
+      "fornecedor": "Distribuidora Pinheiro"
+    },
+    "trechos": {
+      "quantidade": "40",
+      "unidade": "un",
+      "item": "caneta esferográfica",
+      "solicitante_area": "Compras",
+      "valor_unitario": "R$ 15.800,00",
+      "fornecedor": "Distribuidora Pinheiro",
+      "prazo_entrega": "10 de setembro de 2026"
+    },
+    "extras": {}
+  },
+  "C22": {
+    "tipo": "valor_br",
+    "registro": {
+      "solicitante_area": "Financeiro",
+      "item": "monitor 24 polegadas",
+      "quantidade": 20,
+      "unidade": "un",
+      "prazo_entrega": "2026-08-09",
+      "valor_unitario": 12999,
+      "moeda": "BRL",
+      "fornecedor": "Metalúrgica Vale Verde"
+    },
+    "trechos": {
+      "quantidade": "20",
+      "unidade": "unidades",
+      "item": "monitor 24 polegadas",
+      "solicitante_area": "Financeiro",
+      "valor_unitario": "R$ 12.999,00",
+      "fornecedor": "Metalúrgica Vale Verde",
+      "prazo_entrega": "9 de agosto de 2026"
+    },
+    "extras": {}
+  },
+  "C23": {
+    "tipo": "valor_br",
+    "registro": {
+      "solicitante_area": "Marketing",
+      "item": "cabo elétrico 2,5mm",
+      "quantidade": 20,
+      "unidade": "m",
+      "prazo_entrega": "2026-12-14",
+      "valor_unitario": 1200,
+      "moeda": "BRL",
+      "fornecedor": "Papelaria Aurora Ltda"
+    },
+    "trechos": {
+      "quantidade": "20",
+      "unidade": "m",
+      "item": "cabo elétrico 2,5mm",
+      "solicitante_area": "Marketing",
+      "valor_unitario": "R$ 1.200,00",
+      "fornecedor": "Papelaria Aurora Ltda",
+      "prazo_entrega": "14 de dezembro de 2026"
+    },
+    "extras": {}
+  },
+  "C24": {
+    "tipo": "valor_br",
+    "registro": {
+      "solicitante_area": "Financeiro",
+      "item": "tinta acrílica branca",
+      "quantidade": 10,
+      "unidade": "l",
+      "prazo_entrega": "2026-01-12",
+      "valor_unitario": 12999,
+      "moeda": "BRL",
+      "fornecedor": "Químicos Horizonte"
+    },
+    "trechos": {
+      "quantidade": "10",
+      "unidade": "l",
+      "item": "tinta acrílica branca",
+      "solicitante_area": "Financeiro",
+      "valor_unitario": "R$ 12.999,00",
+      "fornecedor": "Químicos Horizonte",
+      "prazo_entrega": "12 de janeiro de 2026"
+    },
+    "extras": {}
+  },
+  "C25": {
+    "tipo": "valor_br",
+    "registro": {
+      "solicitante_area": "RH",
+      "item": "álcool isopropílico",
+      "quantidade": 2,
+      "unidade": "l",
+      "prazo_entrega": "2026-03-24",
+      "valor_unitario": 12999,
+      "moeda": "BRL",
+      "fornecedor": "Eletrotécnica Faísca"
+    },
+    "trechos": {
+      "quantidade": "2",
+      "unidade": "l",
+      "item": "álcool isopropílico",
+      "solicitante_area": "RH",
+      "valor_unitario": "R$ 12.999,00",
+      "fornecedor": "Eletrotécnica Faísca",
+      "prazo_entrega": "24-mar-2026"
+    },
+    "extras": {}
+  },
+  "C26": {
+    "tipo": "valor_br",
+    "registro": {
+      "solicitante_area": "Logística",
+      "item": "tubo PVC 50mm",
+      "quantidade": 15,
+      "unidade": "m",
+      "prazo_entrega": "2026-06-10",
+      "valor_unitario": 1200,
+      "moeda": "BRL",
+      "fornecedor": "Químicos Horizonte"
+    },
+    "trechos": {
+      "quantidade": "15",
+      "unidade": "m",
+      "item": "tubo PVC 50mm",
+      "solicitante_area": "Logística",
+      "valor_unitario": "R$ 1.200,00",
+      "fornecedor": "Químicos Horizonte",
+      "prazo_entrega": "2026-06-10"
+    },
+    "extras": {}
+  },
+  "C27": {
+    "tipo": "moeda_simbolo",
+    "registro": {
+      "solicitante_area": "Produção",
+      "item": "cadeira ergonômica",
+      "quantidade": 2,
+      "unidade": "un",
+      "prazo_entrega": "2026-02-09",
+      "valor_unitario": 3.9,
+      "moeda": "USD",
+      "fornecedor": "Tecidos Santa Clara"
+    },
+    "trechos": {
+      "quantidade": "2",
+      "unidade": "unidades",
+      "item": "cadeira ergonômica",
+      "solicitante_area": "Produção",
+      "valor_unitario": "US$ 3.90",
+      "fornecedor": "Tecidos Santa Clara",
+      "prazo_entrega": "09-fev-2026"
+    },
+    "extras": {}
+  },
+  "C28": {
+    "tipo": "moeda_simbolo",
+    "registro": {
+      "solicitante_area": "Compras",
+      "item": "fita adesiva",
+      "quantidade": 50,
+      "unidade": "cx",
+      "prazo_entrega": "2026-07-01",
+      "valor_unitario": 89.9,
+      "moeda": "EUR",
+      "fornecedor": "Químicos Horizonte"
+    },
+    "trechos": {
+      "quantidade": "50",
+      "unidade": "cx",
+      "item": "fita adesiva",
+      "solicitante_area": "Compras",
+      "valor_unitario": "€ 89,90",
+      "fornecedor": "Químicos Horizonte",
+      "prazo_entrega": "2026-07-01"
+    },
+    "extras": {}
+  },
+  "C29": {
+    "tipo": "moeda_simbolo",
+    "registro": {
+      "solicitante_area": "Produção",
+      "item": "teclado sem fio",
+      "quantidade": 12,
+      "unidade": "un",
+      "prazo_entrega": "2026-12-10",
+      "valor_unitario": 89.9,
+      "moeda": "USD",
+      "fornecedor": "Distribuidora Pinheiro"
+    },
+    "trechos": {
+      "quantidade": "12",
+      "unidade": "unidades",
+      "item": "teclado sem fio",
+      "solicitante_area": "Produção",
+      "valor_unitario": "US$ 89.90",
+      "fornecedor": "Distribuidora Pinheiro",
+      "prazo_entrega": "2026-12-10"
+    },
+    "extras": {}
+  },
+  "C30": {
+    "tipo": "moeda_simbolo",
+    "registro": {
+      "solicitante_area": "Marketing",
+      "item": "etiqueta adesiva",
+      "quantidade": 15,
+      "unidade": "cx",
+      "prazo_entrega": "2026-08-22",
+      "valor_unitario": 3.9,
+      "moeda": "USD",
+      "fornecedor": "Informática Bitmais"
+    },
+    "trechos": {
+      "quantidade": "15",
+      "unidade": "caixas",
+      "item": "etiqueta adesiva",
+      "solicitante_area": "Marketing",
+      "valor_unitario": "US$ 3,90",
+      "fornecedor": "Informática Bitmais",
+      "prazo_entrega": "2026-08-22"
+    },
+    "extras": {}
+  },
+  "C31": {
+    "tipo": "moeda_simbolo",
+    "registro": {
+      "solicitante_area": "Compras",
+      "item": "fita adesiva",
+      "quantidade": 2,
+      "unidade": "un",
+      "prazo_entrega": "2026-04-16",
+      "valor_unitario": 310,
+      "moeda": "EUR",
+      "fornecedor": "Informática Bitmais"
+    },
+    "trechos": {
+      "quantidade": "2",
+      "unidade": "un",
+      "item": "fita adesiva",
+      "solicitante_area": "Compras",
+      "valor_unitario": "€ 310,00",
+      "fornecedor": "Informática Bitmais",
+      "prazo_entrega": "16 de abril de 2026"
+    },
+    "extras": {}
+  },
+  "C32": {
+    "tipo": "data_formato",
+    "registro": {
+      "solicitante_area": "RH",
+      "item": "papel A4",
+      "quantidade": 5,
+      "unidade": "cx",
+      "prazo_entrega": "2026-03-26",
+      "valor_unitario": 2450.75,
+      "moeda": "BRL",
+      "fornecedor": "Informática Bitmais"
+    },
+    "trechos": {
+      "quantidade": "5",
+      "unidade": "cx",
+      "item": "papel A4",
+      "solicitante_area": "RH",
+      "valor_unitario": "R$ 2450,75",
+      "fornecedor": "Informática Bitmais",
+      "prazo_entrega": "26/03/2026"
+    },
+    "extras": {}
+  },
+  "C33": {
+    "tipo": "data_formato",
+    "registro": {
+      "solicitante_area": "Marketing",
+      "item": "cadeira ergonômica",
+      "quantidade": 25,
+      "unidade": "un",
+      "prazo_entrega": "2026-12-17",
+      "valor_unitario": 380,
+      "moeda": "BRL",
+      "fornecedor": "Informática Bitmais"
+    },
+    "trechos": {
+      "quantidade": "25",
+      "unidade": "unidades",
+      "item": "cadeira ergonômica",
+      "solicitante_area": "Marketing",
+      "valor_unitario": "R$ 380,00",
+      "fornecedor": "Informática Bitmais",
+      "prazo_entrega": "17 de dezembro de 2026"
+    },
+    "extras": {}
+  },
+  "C34": {
+    "tipo": "data_formato",
+    "registro": {
+      "solicitante_area": "Logística",
+      "item": "cadeira ergonômica",
+      "quantidade": 8,
+      "unidade": "un",
+      "prazo_entrega": "2026-08-03",
+      "valor_unitario": 49.9,
+      "moeda": "BRL",
+      "fornecedor": "Químicos Horizonte"
+    },
+    "trechos": {
+      "quantidade": "8",
+      "unidade": "unidades",
+      "item": "cadeira ergonômica",
+      "solicitante_area": "Logística",
+      "valor_unitario": "R$ 49,90",
+      "fornecedor": "Químicos Horizonte",
+      "prazo_entrega": "2026-08-03"
+    },
+    "extras": {}
+  },
+  "C35": {
+    "tipo": "data_formato",
+    "registro": {
+      "solicitante_area": "Logística",
+      "item": "óleo lubrificante",
+      "quantidade": 3,
+      "unidade": "l",
+      "prazo_entrega": "2026-07-14",
+      "valor_unitario": 120,
+      "moeda": "BRL",
+      "fornecedor": "Informática Bitmais"
+    },
+    "trechos": {
+      "quantidade": "3",
+      "unidade": "l",
+      "item": "óleo lubrificante",
+      "solicitante_area": "Logística",
+      "valor_unitario": "R$ 120,00",
+      "fornecedor": "Informática Bitmais",
+      "prazo_entrega": "14-jul-2026"
+    },
+    "extras": {}
+  },
+  "C36": {
+    "tipo": "data_formato",
+    "registro": {
+      "solicitante_area": "Marketing",
+      "item": "papel A4",
+      "quantidade": 2,
+      "unidade": "un",
+      "prazo_entrega": "2026-06-10",
+      "valor_unitario": 380,
+      "moeda": "BRL",
+      "fornecedor": "Eletrotécnica Faísca"
+    },
+    "trechos": {
+      "quantidade": "2",
+      "unidade": "unidades",
+      "item": "papel A4",
+      "solicitante_area": "Marketing",
+      "valor_unitario": "R$ 380,00",
+      "fornecedor": "Eletrotécnica Faísca",
+      "prazo_entrega": "10 de junho de 2026"
+    },
+    "extras": {}
+  },
+  "C37": {
+    "tipo": "data_formato",
+    "registro": {
+      "solicitante_area": "RH",
+      "item": "óleo lubrificante",
+      "quantidade": 50,
+      "unidade": "l",
+      "prazo_entrega": "2026-03-27",
+      "valor_unitario": 1200,
+      "moeda": "BRL",
+      "fornecedor": "Distribuidora Pinheiro"
+    },
+    "trechos": {
+      "quantidade": "50",
+      "unidade": "litros",
+      "item": "óleo lubrificante",
+      "solicitante_area": "RH",
+      "valor_unitario": "R$ 1200,00",
+      "fornecedor": "Distribuidora Pinheiro",
+      "prazo_entrega": "27/03/2026"
+    },
+    "extras": {}
+  },
+  "C38": {
+    "tipo": "data_relativa",
+    "registro": {
+      "solicitante_area": "Compras",
+      "item": "caneta esferográfica",
+      "quantidade": 8,
+      "unidade": "cx",
+      "prazo_entrega": null,
+      "valor_unitario": 35,
+      "moeda": "BRL",
+      "fornecedor": "Informática Bitmais"
+    },
+    "trechos": {
+      "quantidade": "8",
+      "unidade": "caixas",
+      "item": "caneta esferográfica",
+      "solicitante_area": "Compras",
+      "valor_unitario": "R$ 35,00",
+      "fornecedor": "Informática Bitmais",
+      "prazo_relativo": "em 10 dias úteis"
+    },
+    "extras": {}
+  },
+  "C39": {
+    "tipo": "data_relativa",
+    "registro": {
+      "solicitante_area": "Compras",
+      "item": "cabo de rede cat6",
+      "quantidade": 50,
+      "unidade": "un",
+      "prazo_entrega": null,
+      "valor_unitario": 120,
+      "moeda": "BRL",
+      "fornecedor": "Químicos Horizonte"
+    },
+    "trechos": {
+      "quantidade": "50",
+      "unidade": "un",
+      "item": "cabo de rede cat6",
+      "solicitante_area": "Compras",
+      "valor_unitario": "R$ 120,00",
+      "fornecedor": "Químicos Horizonte",
+      "prazo_relativo": "daqui 15 dias"
+    },
+    "extras": {}
+  },
+  "C40": {
+    "tipo": "data_relativa",
+    "registro": {
+      "solicitante_area": "TI",
+      "item": "tinta acrílica branca",
+      "quantidade": 15,
+      "unidade": "l",
+      "prazo_entrega": null,
+      "valor_unitario": 35,
+      "moeda": "BRL",
+      "fornecedor": "Informática Bitmais"
+    },
+    "trechos": {
+      "quantidade": "15",
+      "unidade": "litros",
+      "item": "tinta acrílica branca",
+      "solicitante_area": "TI",
+      "valor_unitario": "R$ 35,00",
+      "fornecedor": "Informática Bitmais",
+      "prazo_relativo": "em 10 dias úteis"
+    },
+    "extras": {}
+  },
+  "C41": {
+    "tipo": "data_relativa",
+    "registro": {
+      "solicitante_area": "Financeiro",
+      "item": "parafuso sextavado",
+      "quantidade": 25,
+      "unidade": "cx",
+      "prazo_entrega": null,
+      "valor_unitario": 380,
+      "moeda": "BRL",
+      "fornecedor": "Químicos Horizonte"
+    },
+    "trechos": {
+      "quantidade": "25",
+      "unidade": "cx",
+      "item": "parafuso sextavado",
+      "solicitante_area": "Financeiro",
+      "valor_unitario": "R$ 380,00",
+      "fornecedor": "Químicos Horizonte",
+      "prazo_relativo": "daqui 15 dias"
+    },
+    "extras": {}
+  },
+  "C42": {
+    "tipo": "fornecedor_apelido",
+    "registro": {
+      "solicitante_area": "Produção",
+      "item": "parafuso sextavado",
+      "quantidade": 20,
+      "unidade": "cx",
+      "prazo_entrega": "2026-07-22",
+      "valor_unitario": 120,
+      "moeda": "BRL",
+      "fornecedor": "Vale Verde"
+    },
+    "trechos": {
+      "quantidade": "20",
+      "unidade": "caixas",
+      "item": "parafuso sextavado",
+      "solicitante_area": "Produção",
+      "valor_unitario": "R$ 120,00",
+      "fornecedor": "Vale Verde",
+      "prazo_entrega": "22-jul-2026"
+    },
+    "extras": {}
+  },
+  "C43": {
+    "tipo": "fornecedor_apelido",
+    "registro": {
+      "solicitante_area": "RH",
+      "item": "caneta esferográfica",
+      "quantidade": 4,
+      "unidade": "cx",
+      "prazo_entrega": "2026-12-17",
+      "valor_unitario": 49.9,
+      "moeda": "BRL",
+      "fornecedor": "Bitmais"
+    },
+    "trechos": {
+      "quantidade": "4",
+      "unidade": "caixas",
+      "item": "caneta esferográfica",
+      "solicitante_area": "RH",
+      "valor_unitario": "R$ 49,90",
+      "fornecedor": "Bitmais",
+      "prazo_entrega": "17/12/2026"
+    },
+    "extras": {}
+  },
+  "C44": {
+    "tipo": "fornecedor_apelido",
+    "registro": {
+      "solicitante_area": "Marketing",
+      "item": "caneta esferográfica",
+      "quantidade": 25,
+      "unidade": "cx",
+      "prazo_entrega": "2026-10-22",
+      "valor_unitario": 380,
+      "moeda": "BRL",
+      "fornecedor": "Ponto Certo"
+    },
+    "trechos": {
+      "quantidade": "25",
+      "unidade": "cx",
+      "item": "caneta esferográfica",
+      "solicitante_area": "Marketing",
+      "valor_unitario": "R$ 380,00",
+      "fornecedor": "Ponto Certo",
+      "prazo_entrega": "22 de outubro de 2026"
+    },
+    "extras": {}
+  },
+  "C45": {
+    "tipo": "ruido",
+    "registro": {
+      "solicitante_area": "Financeiro",
+      "item": "cabo elétrico 2,5mm",
+      "quantidade": 25,
+      "unidade": "m",
+      "prazo_entrega": "2026-12-09",
+      "valor_unitario": 2450.75,
+      "moeda": "BRL",
+      "fornecedor": "Papelaria Aurora Ltda"
+    },
+    "trechos": {
+      "quantidade": "25",
+      "unidade": "m",
+      "item": "cabo elétrico 2,5mm",
+      "solicitante_area": "Financeiro",
+      "valor_unitario": "R$ 2450,75",
+      "fornecedor": "Papelaria Aurora Ltda",
+      "prazo_entrega": "09-dez-2026"
+    },
+    "extras": {}
+  },
+  "C46": {
+    "tipo": "ruido",
+    "registro": {
+      "solicitante_area": "Compras",
+      "item": "tubo PVC 50mm",
+      "quantidade": 3,
+      "unidade": "m",
+      "prazo_entrega": "2026-05-08",
+      "valor_unitario": 380,
+      "moeda": "BRL",
+      "fornecedor": "Químicos Horizonte"
+    },
+    "trechos": {
+      "quantidade": "3",
+      "unidade": "metros",
+      "item": "tubo PVC 50mm",
+      "solicitante_area": "Compras",
+      "valor_unitario": "R$ 380,00",
+      "fornecedor": "Químicos Horizonte",
+      "prazo_entrega": "2026-05-08"
+    },
+    "extras": {}
+  },
+  "C47": {
+    "tipo": "ruido",
+    "registro": {
+      "solicitante_area": "Financeiro",
+      "item": "caneta esferográfica",
+      "quantidade": 8,
+      "unidade": "un",
+      "prazo_entrega": "2026-04-04",
+      "valor_unitario": 35,
+      "moeda": "BRL",
+      "fornecedor": "Embalagens Ponto Certo"
+    },
+    "trechos": {
+      "quantidade": "8",
+      "unidade": "un",
+      "item": "caneta esferográfica",
+      "solicitante_area": "Financeiro",
+      "valor_unitario": "R$ 35,00",
+      "fornecedor": "Embalagens Ponto Certo",
+      "prazo_entrega": "04-abr-2026"
+    },
+    "extras": {}
+  },
+  "C48": {
+    "tipo": "duas_quantidades",
+    "registro": {
+      "solicitante_area": "Produção",
+      "item": "teclado sem fio",
+      "quantidade": 4,
+      "unidade": "un",
+      "prazo_entrega": "2026-05-01",
+      "valor_unitario": 2450.75,
+      "moeda": "BRL",
+      "fornecedor": "Distribuidora Pinheiro"
+    },
+    "trechos": {
+      "quantidade": "4",
+      "unidade": "unidades",
+      "item": "teclado sem fio",
+      "solicitante_area": "Produção",
+      "valor_unitario": "R$ 2450,75",
+      "fornecedor": "Distribuidora Pinheiro",
+      "prazo_entrega": "1 de maio de 2026"
+    },
+    "extras": {
+      "distrator": 9
+    }
+  },
+  "C49": {
+    "tipo": "duas_quantidades",
+    "registro": {
+      "solicitante_area": "Marketing",
+      "item": "papel A4",
+      "quantidade": 15,
+      "unidade": "un",
+      "prazo_entrega": "2026-08-11",
+      "valor_unitario": 12.5,
+      "moeda": "BRL",
+      "fornecedor": "Papelaria Aurora Ltda"
+    },
+    "trechos": {
+      "quantidade": "15",
+      "unidade": "unidades",
+      "item": "papel A4",
+      "solicitante_area": "Marketing",
+      "valor_unitario": "R$ 12,50",
+      "fornecedor": "Papelaria Aurora Ltda",
+      "prazo_entrega": "11-ago-2026"
+    },
+    "extras": {
+      "distrator": 30
+    }
+  },
+  "C50": {
+    "tipo": "duas_quantidades",
+    "registro": {
+      "solicitante_area": "Financeiro",
+      "item": "tinta acrílica branca",
+      "quantidade": 3,
+      "unidade": "l",
+      "prazo_entrega": "2026-04-04",
+      "valor_unitario": 2450.75,
+      "moeda": "BRL",
+      "fornecedor": "Eletrotécnica Faísca"
+    },
+    "trechos": {
+      "quantidade": "3",
+      "unidade": "l",
+      "item": "tinta acrílica branca",
+      "solicitante_area": "Financeiro",
+      "valor_unitario": "R$ 2450,75",
+      "fornecedor": "Eletrotécnica Faísca",
+      "prazo_entrega": "04-abr-2026"
+    },
+    "extras": {
+      "distrator": 60
+    }
+  }
+}
