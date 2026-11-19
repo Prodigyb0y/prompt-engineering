@@ -1,0 +1,10 @@
+{
+  "modelo": "claude-haiku-5-5",
+  "moeda": "USD",
+  "unidade": "por 1.000.000 de tokens",
+  "ate_100k_tokens_de_prompt": {"entrada": 0.10, "saida": 0.50},
+  "acima_100k_tokens_de_prompt": {"entrada": 0.50, "saida": 2.50},
+  "consultado_em": "2026-11-19",
+  "fonte": "https://platform.claude.com/docs/en/about-claude/pricing",
+  "observacao": "Preço base de tabela, sem cache e sem batch. Conferido na página oficial da Anthropic na data indicada."
+}

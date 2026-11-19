@@ -1,0 +1,8 @@
+{
+  "id": "T3",
+  "tecnica": "chain_of_thought",
+  "versao": "v1",
+  "system": "",
+  "user_template": "Extraia os dados da solicitação de compra abaixo.\n\nCampos do JSON (use exatamente estes nomes, sem campos extras):\n- solicitante_area: string ou null\n- item: string\n- quantidade: número\n- unidade: um de \"un\", \"kg\", \"m\", \"l\", \"cx\"\n- prazo_entrega: data no formato AAAA-MM-DD ou null\n- valor_unitario: número ou null\n- moeda: \"BRL\", \"USD\", \"EUR\" ou null\n- fornecedor: string ou null\n\nPrimeiro raciocine passo a passo dentro de <raciocinio></raciocinio>. Depois escreva o objeto JSON final dentro de <json></json>, sem mais nada dentro dessa tag.\n\nSolicitação:\n{texto}",
+  "hash12": "b3a7a7a94ceb"
+}

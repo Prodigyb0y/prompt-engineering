@@ -1,0 +1,8 @@
+{
+  "id": "T1",
+  "tecnica": "zero_shot",
+  "versao": "v1",
+  "system": "",
+  "user_template": "Extraia os dados da solicitação de compra abaixo e responda com um único objeto JSON, sem texto antes ou depois.\n\nCampos do JSON (use exatamente estes nomes, sem campos extras):\n- solicitante_area: string ou null\n- item: string\n- quantidade: número\n- unidade: um de \"un\", \"kg\", \"m\", \"l\", \"cx\"\n- prazo_entrega: data no formato AAAA-MM-DD ou null\n- valor_unitario: número ou null\n- moeda: \"BRL\", \"USD\", \"EUR\" ou null\n- fornecedor: string ou null\n\nSolicitação:\n{texto}",
+  "hash12": "1ef67d6a52fc"
+}
