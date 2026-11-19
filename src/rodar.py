@@ -17,8 +17,10 @@ import prompts_lib
 import validador
 from cliente import ESFORCO, MODELO, ClienteAnthropic, ControleCusto, TetoExcedido
 
-RAIZ = Path(__file__).resolve().parent.parent
-BRUTOS = RAIZ / "resultados" / "brutos"
+import caminhos
+
+RAIZ = caminhos.RAIZ
+BRUTOS = caminhos.RESULTADOS / "brutos"
 # folga para o raciocínio oculto (conta como saída); o teto de gasto continua valendo
 MAX_TOKENS = {"T1": 2000, "T2": 2000, "T3": 3000, "T4": 2000}
 
@@ -63,8 +65,8 @@ def main():
     g.add_argument("--piloto", action="store_true")
     g.add_argument("--completo", action="store_true")
     modo = "piloto" if ap.parse_args().piloto else "completo"
-    casos = json.loads((RAIZ / "dados" / "casos_teste.json").read_text(encoding="utf-8"))
-    gab = json.loads((RAIZ / "dados" / "gabarito.json").read_text(encoding="utf-8"))
+    casos = json.loads((caminhos.DADOS / "casos_teste.json").read_text(encoding="utf-8"))
+    gab = json.loads((caminhos.DADOS / "gabarito.json").read_text(encoding="utf-8"))
     ctl = ControleCusto()
     cli = ClienteAnthropic(ctl)
     try:
@@ -72,7 +74,7 @@ def main():
     except TetoExcedido as e:
         print("PARADO pelo teto de gasto:", e)
         sys.exit(2)
-    print(f"{modo}: {novas} chamadas novas, {feitas} já existiam. Gasto acumulado: US$ {ctl.gasto:.6f} de US$ {ctl.teto:.2f}")
+    print(f"[dados {caminhos.VERSAO}] {modo}: {novas} chamadas novas, {feitas} já existiam. Gasto acumulado: US$ {ctl.gasto:.6f} de US$ {ctl.teto:.2f}")
 
 
 if __name__ == "__main__":

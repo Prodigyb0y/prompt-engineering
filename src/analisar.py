@@ -23,7 +23,9 @@ import sys
 from collections import defaultdict
 from pathlib import Path
 
-RAIZ = Path(__file__).resolve().parent.parent
+import caminhos
+
+RAIZ = caminhos.RAIZ
 NOMES = {"T1": "zero-shot", "T2": "few-shot", "T3": "chain-of-thought", "T4": "system prompt"}
 CAMPOS = ["solicitante_area", "item", "quantidade", "unidade", "prazo_entrega", "valor_unitario", "moeda", "fornecedor"]
 
@@ -135,7 +137,7 @@ def relatorio(resumo, gasto_total):
 
 
 def main():
-    pasta = Path(sys.argv[1]) if len(sys.argv) > 1 else RAIZ / "resultados" / "brutos"
+    pasta = Path(sys.argv[1]) if len(sys.argv) > 1 else caminhos.RESULTADOS / "brutos"
     regs = carregar(pasta)
     if not regs:
         sys.exit(f"Nenhum resultado em {pasta}")
@@ -144,10 +146,10 @@ def main():
     g = RAIZ / "logs" / "gasto.json"
     if g.exists():
         gasto = json.loads(g.read_text(encoding="utf-8"))["gasto_usd"]
-    (RAIZ / "resultados").mkdir(exist_ok=True)
-    (RAIZ / "resultados" / "resumo.json").write_text(json.dumps(resumo, ensure_ascii=False, indent=2) + "\n", encoding="utf-8", newline="\n")
-    (RAIZ / "resultados" / "RELATORIO.md").write_text(relatorio(resumo, gasto), encoding="utf-8", newline="\n")
-    print((RAIZ / "resultados" / "RELATORIO.md").read_text(encoding="utf-8"))
+    caminhos.RESULTADOS.mkdir(parents=True, exist_ok=True)
+    (caminhos.RESULTADOS / "resumo.json").write_text(json.dumps(resumo, ensure_ascii=False, indent=2) + "\n", encoding="utf-8", newline="\n")
+    (caminhos.RESULTADOS / "RELATORIO.md").write_text(relatorio(resumo, gasto), encoding="utf-8", newline="\n")
+    print((caminhos.RESULTADOS / "RELATORIO.md").read_text(encoding="utf-8"))
 
 
 if __name__ == "__main__":

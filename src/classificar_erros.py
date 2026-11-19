@@ -21,7 +21,9 @@ from pathlib import Path
 import validador as v
 from analisar import NOMES, bootstrap_ic, carregar
 
-RAIZ = Path(__file__).resolve().parent.parent
+import caminhos
+
+RAIZ = caminhos.RAIZ
 
 
 def so_ponto_final(previsto, esperado) -> bool:
@@ -47,9 +49,9 @@ def classificar(reg, gabarito):
 
 
 def main():
-    pasta = Path(sys.argv[1]) if len(sys.argv) > 1 else RAIZ / "resultados" / "brutos"
-    gab = json.loads((RAIZ / "dados" / "gabarito.json").read_text(encoding="utf-8"))
-    casos = {c["id"]: c for c in json.loads((RAIZ / "dados" / "casos_teste.json").read_text(encoding="utf-8"))}
+    pasta = Path(sys.argv[1]) if len(sys.argv) > 1 else caminhos.RESULTADOS / "brutos"
+    gab = json.loads((caminhos.DADOS / "gabarito.json").read_text(encoding="utf-8"))
+    casos = {c["id"]: c for c in json.loads((caminhos.DADOS / "casos_teste.json").read_text(encoding="utf-8"))}
     regs = carregar(pasta)
     cont = collections.defaultdict(collections.Counter)
     por_caso = collections.defaultdict(lambda: collections.defaultdict(list))   # tec -> caso -> [posthoc ok]
@@ -82,7 +84,7 @@ def main():
         medias = [sum(x) / len(x) for x in por_caso[t].values()]
         lo, hi = bootstrap_ic(medias)
         L.append(f"| {t} {NOMES.get(t, t)} | {100 * ofic:.1f}% | {100 * sum(medias) / len(medias):.1f}% | {100 * lo:.1f}%–{100 * hi:.1f}% |")
-    (RAIZ / "resultados" / "ERROS.md").write_text("\n".join(L) + "\n", encoding="utf-8", newline="\n")
+    (caminhos.RESULTADOS / "ERROS.md").write_text("\n".join(L) + "\n", encoding="utf-8", newline="\n")
     print("\n".join(L))
 
 

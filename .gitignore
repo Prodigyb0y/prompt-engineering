@@ -13,3 +13,4 @@ __pycache__/
 .venv/
 .pytest_cache/
 resultados/_local/
+resultados/v2/brutos/

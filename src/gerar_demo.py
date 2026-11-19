@@ -8,10 +8,11 @@ Uso: python src/gerar_demo.py
 import json
 from pathlib import Path
 
+import caminhos
 import classificar_erros as ce
-from analisar import carregar
+from analisar import carregar, separaveis
 
-RAIZ = Path(__file__).resolve().parent.parent
+RAIZ = caminhos.RAIZ
 
 TEMPLATE = """<!doctype html>
 <html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
@@ -30,7 +31,7 @@ label{margin-right:1rem}select{font-size:1rem;padding:.2rem}
 </style></head><body>
 <h1>Laboratório de prompt engineering</h1>
 <p><strong>Mesma tarefa, mesmos casos, quatro técnicas de prompt: o que acerta mais, e quanto custa cada acerto.</strong></p>
-<p>Tarefa: extrair campos de solicitações de compra fictícias (empresa fictícia Gutenberg Systems) e devolver JSON. Modelo: <code>claude-haiku-5-5</code>. Dados 100% fictícios.</p>
+<p>Tarefa: extrair campos de solicitações de compra fictícias (empresa fictícia Gutenberg Systems) e devolver JSON. Modelo: <code>claude-haiku-5-5</code>. Dados 100% fictícios (conjunto de casos __VERSAO__).</p>
 <div class="aviso"><strong>Leia antes de comparar:</strong> <span id="aviso"></span></div>
 <h2>Resultado por técnica (oficial)</h2>
 <div style="overflow-x:auto"><table id="tabela"></table></div>
@@ -75,10 +76,10 @@ sc.onchange=mostrar; sr.onchange=mostrar; mostrar();
 
 
 def montar_dados():
-    resumo = json.loads((RAIZ / "resultados" / "resumo.json").read_text(encoding="utf-8"))
-    gab = json.loads((RAIZ / "dados" / "gabarito.json").read_text(encoding="utf-8"))
-    casos = json.loads((RAIZ / "dados" / "casos_teste.json").read_text(encoding="utf-8"))
-    regs = carregar(RAIZ / "resultados" / "brutos")
+    resumo = json.loads((caminhos.RESULTADOS / "resumo.json").read_text(encoding="utf-8"))
+    gab = json.loads((caminhos.DADOS / "gabarito.json").read_text(encoding="utf-8"))
+    casos = json.loads((caminhos.DADOS / "casos_teste.json").read_text(encoding="utf-8"))
+    regs = carregar(caminhos.RESULTADOS / "brutos")
     saidas = {}
     for r in regs:
         classe, _ = ce.classificar(r, gab[r["caso"]])
@@ -96,12 +97,23 @@ def montar_dados():
     nomes = {t: r["tecnica"] for t, r in resumo.items()}
     erros_total = sum(1 for r in regs if not r["avaliacao"]["caso_correto"])
     so_ponto = sum(1 for r in regs if ce.classificar(r, gab[r["caso"]])[0] == "fornecedor_ponto_final")
-    quantas = (f"As {erros_total} respostas erradas são todas" if erros_total == so_ponto
-               else f"{so_ponto} das {erros_total} respostas erradas são")
-    aviso = (f"{quantas} o mesmo artefato do gerador de casos: o texto traz \"Ltda.\" e o modelo copiou o ponto, "
-             "mas o gabarito não tem ponto. Na recontagem pós-hoc (não oficial, feita depois de ver os resultados) as técnicas empatam, "
-             "então a tabela NÃO mostra qual técnica entende melhor a tarefa. A diferença que sobra é de custo e latência. "
-             "Os intervalos de 95% se sobrepõem.")
+    if so_ponto:
+        quantas = (f"As {erros_total} respostas erradas são todas" if erros_total == so_ponto
+                   else f"{so_ponto} das {erros_total} respostas erradas são")
+        aviso = (f"{quantas} o mesmo artefato do gerador de casos: o texto traz \"Ltda.\" e o modelo copiou o ponto, "
+                 "mas o gabarito não tem ponto. Na recontagem pós-hoc (não oficial, feita depois de ver os resultados) as técnicas empatam, "
+                 "então a tabela NÃO mostra qual técnica entende melhor a tarefa. A diferença que sobra é de custo e latência. "
+                 "Os intervalos de 95% se sobrepõem.")
+    else:
+        pares = separaveis(resumo)
+        nomes_t = {t: f"{t} {r['tecnica']}" for t, r in resumo.items()}
+        if pares:
+            aviso = ("Com intervalos de 95% que não se sobrepõem, pode-se declarar: "
+                     + "; ".join(f"{nomes_t[a]} acerta mais que {nomes_t[b]}" for a, b in pares)
+                     + ". Para os demais pares, os intervalos se sobrepõem e não há vencedor declarado.")
+        else:
+            aviso = "Os intervalos de 95% se sobrepõem em todos os pares: nenhuma técnica é declarada melhor."
+        aviso += f" {erros_total} das {len(regs)} respostas foram erradas pela regra oficial; os erros por campo e por tipo estão no relatório."
     notas = ("Como foi medido: acerto por caso = JSON válido, schema válido e 8 campos iguais ao gabarito (após normalização de acento, "
              "caixa e espaços), média de 3 repetições sobre 50 casos; IC 95% por bootstrap (10.000 reamostragens, seed 42); custo = tokens "
              "informados pela API × preço de tabela de 2026-11-19; latência com time.perf_counter. Sem temperatura 0: o modelo não aceita "
@@ -113,10 +125,10 @@ def montar_dados():
 def main():
     dados = montar_dados()
     blob = json.dumps(dados, ensure_ascii=False).replace("</", "<\\/")
-    destino = RAIZ / "docs"
-    destino.mkdir(exist_ok=True)
-    (destino / "index.html").write_text(TEMPLATE.replace("__DADOS__", blob), encoding="utf-8", newline="\n")
-    print(f"docs/index.html gerado: {len(dados['casos'])} casos, {len(dados['resumo'])} técnicas")
+    destino = caminhos.DOCS
+    destino.mkdir(parents=True, exist_ok=True)
+    (destino / "index.html").write_text(TEMPLATE.replace("__VERSAO__", caminhos.VERSAO).replace("__DADOS__", blob), encoding="utf-8", newline="\n")
+    print(f"{destino}/index.html gerado ({caminhos.VERSAO}): {len(dados['casos'])} casos, {len(dados['resumo'])} técnicas")
 
 
 if __name__ == "__main__":

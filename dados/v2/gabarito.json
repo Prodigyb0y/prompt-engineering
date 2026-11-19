@@ -1,0 +1,502 @@
+{
+  "D01": {
+    "solicitante_area": "Financeiro",
+    "item": "parafuso sextavado",
+    "quantidade": 5,
+    "unidade": "cx",
+    "prazo_entrega": "2026-04-05",
+    "valor_unitario": 8.9,
+    "moeda": "BRL",
+    "fornecedor": "Metalúrgica Vale Verde"
+  },
+  "D02": {
+    "solicitante_area": "TI",
+    "item": "teclado sem fio",
+    "quantidade": 50,
+    "unidade": "un",
+    "prazo_entrega": "2026-07-11",
+    "valor_unitario": 49.9,
+    "moeda": "BRL",
+    "fornecedor": "Distribuidora Pinheiro"
+  },
+  "D03": {
+    "solicitante_area": "Manutenção",
+    "item": "tinta acrílica branca",
+    "quantidade": 20,
+    "unidade": "l",
+    "prazo_entrega": "2026-05-27",
+    "valor_unitario": 120,
+    "moeda": "BRL",
+    "fornecedor": "Químicos Horizonte"
+  },
+  "D04": {
+    "solicitante_area": null,
+    "item": "luva de proteção",
+    "quantidade": 10,
+    "unidade": "cx",
+    "prazo_entrega": null,
+    "valor_unitario": null,
+    "moeda": null,
+    "fornecedor": "Metalúrgica Vale Verde"
+  },
+  "D05": {
+    "solicitante_area": null,
+    "item": "caneta esferográfica",
+    "quantidade": 100,
+    "unidade": "cx",
+    "prazo_entrega": "2026-01-08",
+    "valor_unitario": null,
+    "moeda": null,
+    "fornecedor": "Embalagens Ponto Certo"
+  },
+  "D06": {
+    "solicitante_area": null,
+    "item": "álcool isopropílico",
+    "quantidade": 25,
+    "unidade": "l",
+    "prazo_entrega": "2026-07-12",
+    "valor_unitario": null,
+    "moeda": null,
+    "fornecedor": null
+  },
+  "D07": {
+    "solicitante_area": "Marketing",
+    "item": "luva de proteção",
+    "quantidade": 20,
+    "unidade": "un",
+    "prazo_entrega": "2026-05-18",
+    "valor_unitario": 4.5,
+    "moeda": "BRL",
+    "fornecedor": "Metalúrgica Vale Verde"
+  },
+  "D08": {
+    "solicitante_area": "TI",
+    "item": "teclado sem fio",
+    "quantidade": 10,
+    "unidade": "un",
+    "prazo_entrega": "2026-03-18",
+    "valor_unitario": 2450.75,
+    "moeda": "BRL",
+    "fornecedor": "Papelaria Aurora Ltda"
+  },
+  "D09": {
+    "solicitante_area": "TI",
+    "item": "monitor 24 polegadas",
+    "quantidade": 40,
+    "unidade": "un",
+    "prazo_entrega": "2026-08-18",
+    "valor_unitario": 12.5,
+    "moeda": "BRL",
+    "fornecedor": "Tecidos Santa Clara"
+  },
+  "D10": {
+    "solicitante_area": "Logística",
+    "item": "detergente industrial",
+    "quantidade": 2,
+    "unidade": "l",
+    "prazo_entrega": "2026-02-23",
+    "valor_unitario": 1200,
+    "moeda": "BRL",
+    "fornecedor": "Químicos Horizonte"
+  },
+  "D11": {
+    "solicitante_area": "Marketing",
+    "item": "etiqueta adesiva",
+    "quantidade": 100,
+    "unidade": "cx",
+    "prazo_entrega": "2026-07-07",
+    "valor_unitario": 12999,
+    "moeda": "BRL",
+    "fornecedor": "Metalúrgica Vale Verde"
+  },
+  "D12": {
+    "solicitante_area": "Logística",
+    "item": "óleo lubrificante",
+    "quantidade": 5,
+    "unidade": "l",
+    "prazo_entrega": "2026-04-18",
+    "valor_unitario": 3499.9,
+    "moeda": "BRL",
+    "fornecedor": "Distribuidora Pinheiro"
+  },
+  "D13": {
+    "solicitante_area": "RH",
+    "item": "toner preto",
+    "quantidade": 15,
+    "unidade": "un",
+    "prazo_entrega": "2026-08-07",
+    "valor_unitario": 89.9,
+    "moeda": "USD",
+    "fornecedor": "Papelaria Aurora Ltda"
+  },
+  "D14": {
+    "solicitante_area": "Produção",
+    "item": "monitor 24 polegadas",
+    "quantidade": 2,
+    "unidade": "un",
+    "prazo_entrega": "2026-01-19",
+    "valor_unitario": 310,
+    "moeda": "USD",
+    "fornecedor": "Distribuidora Pinheiro"
+  },
+  "D15": {
+    "solicitante_area": "Logística",
+    "item": "fita adesiva",
+    "quantidade": 40,
+    "unidade": "cx",
+    "prazo_entrega": "2026-12-11",
+    "valor_unitario": 35,
+    "moeda": "BRL",
+    "fornecedor": "Tecidos Santa Clara"
+  },
+  "D16": {
+    "solicitante_area": "TI",
+    "item": "cabo elétrico 2,5mm",
+    "quantidade": 10,
+    "unidade": "m",
+    "prazo_entrega": "2026-02-08",
+    "valor_unitario": 120,
+    "moeda": "BRL",
+    "fornecedor": "Tecidos Santa Clara"
+  },
+  "D17": {
+    "solicitante_area": "Financeiro",
+    "item": "papel A4",
+    "quantidade": 8,
+    "unidade": "cx",
+    "prazo_entrega": "2026-10-07",
+    "valor_unitario": 120,
+    "moeda": "BRL",
+    "fornecedor": "Químicos Horizonte"
+  },
+  "D18": {
+    "solicitante_area": "TI",
+    "item": "cabo de rede cat6",
+    "quantidade": 50,
+    "unidade": "un",
+    "prazo_entrega": null,
+    "valor_unitario": 380,
+    "moeda": "BRL",
+    "fornecedor": "Papelaria Aurora Ltda"
+  },
+  "D19": {
+    "solicitante_area": "Produção",
+    "item": "solda em barra",
+    "quantidade": 5,
+    "unidade": "kg",
+    "prazo_entrega": null,
+    "valor_unitario": 8.9,
+    "moeda": "BRL",
+    "fornecedor": "Embalagens Ponto Certo"
+  },
+  "D20": {
+    "solicitante_area": "Financeiro",
+    "item": "etiqueta adesiva",
+    "quantidade": 4,
+    "unidade": "cx",
+    "prazo_entrega": null,
+    "valor_unitario": 380,
+    "moeda": "BRL",
+    "fornecedor": "Papelaria Aurora Ltda"
+  },
+  "D21": {
+    "solicitante_area": "Financeiro",
+    "item": "óleo lubrificante",
+    "quantidade": 3,
+    "unidade": "l",
+    "prazo_entrega": "2026-05-12",
+    "valor_unitario": 2450.75,
+    "moeda": "BRL",
+    "fornecedor": "Faísca"
+  },
+  "D22": {
+    "solicitante_area": "Manutenção",
+    "item": "monitor 24 polegadas",
+    "quantidade": 12,
+    "unidade": "un",
+    "prazo_entrega": "2026-10-07",
+    "valor_unitario": 49.9,
+    "moeda": "BRL",
+    "fornecedor": "Aurora"
+  },
+  "D23": {
+    "solicitante_area": "RH",
+    "item": "teclado sem fio",
+    "quantidade": 10,
+    "unidade": "un",
+    "prazo_entrega": "2026-07-23",
+    "valor_unitario": 49.9,
+    "moeda": "BRL",
+    "fornecedor": "Distribuidora Pinheiro"
+  },
+  "D24": {
+    "solicitante_area": "Marketing",
+    "item": "etiqueta adesiva",
+    "quantidade": 15,
+    "unidade": "cx",
+    "prazo_entrega": "2026-08-22",
+    "valor_unitario": 35,
+    "moeda": "BRL",
+    "fornecedor": "Informática Bitmais"
+  },
+  "D25": {
+    "solicitante_area": "Marketing",
+    "item": "toner preto",
+    "quantidade": 25,
+    "unidade": "un",
+    "prazo_entrega": "2026-02-15",
+    "valor_unitario": 380,
+    "moeda": "BRL",
+    "fornecedor": "Químicos Horizonte"
+  },
+  "D26": {
+    "solicitante_area": "Manutenção",
+    "item": "toner preto",
+    "quantidade": 15,
+    "unidade": "un",
+    "prazo_entrega": "2026-03-26",
+    "valor_unitario": 1200,
+    "moeda": "BRL",
+    "fornecedor": "Embalagens Ponto Certo"
+  },
+  "D27": {
+    "solicitante_area": "Financeiro",
+    "item": "teclado sem fio",
+    "quantidade": 10,
+    "unidade": "un",
+    "prazo_entrega": "2026-06-18",
+    "valor_unitario": 8.9,
+    "moeda": "BRL",
+    "fornecedor": "Distribuidora Pinheiro"
+  },
+  "D28": {
+    "solicitante_area": "Compras",
+    "item": "etiqueta adesiva",
+    "quantidade": 100,
+    "unidade": "cx",
+    "prazo_entrega": "2026-10-13",
+    "valor_unitario": 1200,
+    "moeda": "BRL",
+    "fornecedor": "Papelaria Aurora Ltda"
+  },
+  "D29": {
+    "solicitante_area": "Marketing",
+    "item": "óleo lubrificante",
+    "quantidade": 4,
+    "unidade": "l",
+    "prazo_entrega": "2026-10-18",
+    "valor_unitario": 4.5,
+    "moeda": "BRL",
+    "fornecedor": "Eletrotécnica Faísca"
+  },
+  "D30": {
+    "solicitante_area": "Financeiro",
+    "item": "monitor 24 polegadas",
+    "quantidade": 100,
+    "unidade": "un",
+    "prazo_entrega": "2026-07-09",
+    "valor_unitario": 8.9,
+    "moeda": "BRL",
+    "fornecedor": "Informática Bitmais"
+  },
+  "D31": {
+    "solicitante_area": "Marketing",
+    "item": "parafuso sextavado",
+    "quantidade": 50,
+    "unidade": "cx",
+    "prazo_entrega": "2026-05-25",
+    "valor_unitario": 120,
+    "moeda": "BRL",
+    "fornecedor": "Distribuidora Pinheiro"
+  },
+  "D32": {
+    "solicitante_area": "Financeiro",
+    "item": "luva de proteção",
+    "quantidade": 40,
+    "unidade": "cx",
+    "prazo_entrega": "2026-10-26",
+    "valor_unitario": 8.9,
+    "moeda": "BRL",
+    "fornecedor": "Papelaria Aurora Ltda"
+  },
+  "D33": {
+    "solicitante_area": "RH",
+    "item": "caneta esferográfica",
+    "quantidade": 10,
+    "unidade": "cx",
+    "prazo_entrega": "2026-12-17",
+    "valor_unitario": 35,
+    "moeda": "USD",
+    "fornecedor": "Informática Bitmais"
+  },
+  "D34": {
+    "solicitante_area": "Marketing",
+    "item": "monitor 24 polegadas",
+    "quantidade": 20,
+    "unidade": "un",
+    "prazo_entrega": "2026-06-26",
+    "valor_unitario": 12.5,
+    "moeda": "USD",
+    "fornecedor": "Embalagens Ponto Certo"
+  },
+  "D35": {
+    "solicitante_area": "Financeiro",
+    "item": "papel A4",
+    "quantidade": 20,
+    "unidade": "cx",
+    "prazo_entrega": "2026-07-23",
+    "valor_unitario": 120,
+    "moeda": "USD",
+    "fornecedor": "Tecidos Santa Clara"
+  },
+  "D36": {
+    "solicitante_area": "Manutenção",
+    "item": "fita adesiva",
+    "quantidade": 25,
+    "unidade": "cx",
+    "prazo_entrega": "2026-09-25",
+    "valor_unitario": 8.9,
+    "moeda": "EUR",
+    "fornecedor": "Químicos Horizonte"
+  },
+  "D37": {
+    "solicitante_area": "Compras",
+    "item": "tinta acrílica branca",
+    "quantidade": 5,
+    "unidade": "l",
+    "prazo_entrega": "2026-09-10",
+    "valor_unitario": 12.5,
+    "moeda": "BRL",
+    "fornecedor": "Informática Bitmais"
+  },
+  "D38": {
+    "solicitante_area": "Manutenção",
+    "item": "óleo lubrificante",
+    "quantidade": 8,
+    "unidade": "l",
+    "prazo_entrega": "2026-11-22",
+    "valor_unitario": 4.5,
+    "moeda": "BRL",
+    "fornecedor": "Distribuidora Pinheiro"
+  },
+  "D39": {
+    "solicitante_area": "Compras",
+    "item": "etiqueta adesiva",
+    "quantidade": 12,
+    "unidade": "cx",
+    "prazo_entrega": "2026-12-04",
+    "valor_unitario": 35,
+    "moeda": "BRL",
+    "fornecedor": "Químicos Horizonte"
+  },
+  "D40": {
+    "solicitante_area": "Financeiro",
+    "item": "luva de proteção",
+    "quantidade": 50,
+    "unidade": "un",
+    "prazo_entrega": "2026-08-03",
+    "valor_unitario": 35,
+    "moeda": "BRL",
+    "fornecedor": "Tecidos Santa Clara"
+  },
+  "D41": {
+    "solicitante_area": "Manutenção",
+    "item": "teclado sem fio",
+    "quantidade": 15,
+    "unidade": "un",
+    "prazo_entrega": "2026-12-10",
+    "valor_unitario": 1200,
+    "moeda": "EUR",
+    "fornecedor": "Tecidos Santa Clara"
+  },
+  "D42": {
+    "solicitante_area": "Compras",
+    "item": "papel A4",
+    "quantidade": 100,
+    "unidade": "un",
+    "prazo_entrega": "2026-03-16",
+    "valor_unitario": 89.9,
+    "moeda": "USD",
+    "fornecedor": "Informática Bitmais"
+  },
+  "D43": {
+    "solicitante_area": "RH",
+    "item": "tubo PVC 50mm",
+    "quantidade": 100,
+    "unidade": "m",
+    "prazo_entrega": "2026-09-02",
+    "valor_unitario": 120,
+    "moeda": "USD",
+    "fornecedor": "Metalúrgica Vale Verde"
+  },
+  "D44": {
+    "solicitante_area": "Compras",
+    "item": "tubo PVC 50mm",
+    "quantidade": 5,
+    "unidade": "m",
+    "prazo_entrega": "2026-05-18",
+    "valor_unitario": 2450.75,
+    "moeda": "USD",
+    "fornecedor": "Tecidos Santa Clara"
+  },
+  "D45": {
+    "solicitante_area": "Manutenção",
+    "item": "cabo de rede cat6",
+    "quantidade": 15,
+    "unidade": "m",
+    "prazo_entrega": "2026-02-21",
+    "valor_unitario": 12.5,
+    "moeda": "BRL",
+    "fornecedor": "Informática Bitmais"
+  },
+  "D46": {
+    "solicitante_area": "Financeiro",
+    "item": "tinta acrílica branca",
+    "quantidade": 100,
+    "unidade": "l",
+    "prazo_entrega": "2026-07-11",
+    "valor_unitario": 2450.75,
+    "moeda": "BRL",
+    "fornecedor": "Tecidos Santa Clara"
+  },
+  "D47": {
+    "solicitante_area": "Produção",
+    "item": "óleo lubrificante",
+    "quantidade": 5,
+    "unidade": "l",
+    "prazo_entrega": "2026-12-08",
+    "valor_unitario": 380,
+    "moeda": "BRL",
+    "fornecedor": "Químicos Horizonte"
+  },
+  "D48": {
+    "solicitante_area": "Marketing",
+    "item": "monitor 24 polegadas",
+    "quantidade": 3,
+    "unidade": "un",
+    "prazo_entrega": "2026-09-15",
+    "valor_unitario": 4.5,
+    "moeda": "BRL",
+    "fornecedor": "Distribuidora Pinheiro"
+  },
+  "D49": {
+    "solicitante_area": "Produção",
+    "item": "detergente industrial",
+    "quantidade": 40,
+    "unidade": "l",
+    "prazo_entrega": "2026-12-25",
+    "valor_unitario": 1200,
+    "moeda": "BRL",
+    "fornecedor": "Papelaria Aurora Ltda"
+  },
+  "D50": {
+    "solicitante_area": "Produção",
+    "item": "papel A4",
+    "quantidade": 100,
+    "unidade": "cx",
+    "prazo_entrega": "2026-01-10",
+    "valor_unitario": 120,
+    "moeda": "BRL",
+    "fornecedor": "Embalagens Ponto Certo"
+  }
+}
