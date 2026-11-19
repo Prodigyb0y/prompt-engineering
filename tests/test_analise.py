@@ -57,3 +57,36 @@ def test_truncadas_json_invalido_e_sem_acerto():
     s = a.resumir(r)["T3"]
     assert s["truncadas"] == 50 and s["json_valido"] == 0 and s["custo_por_acerto_usd"] is None
     assert "n/a" in a.relatorio(a.resumir(r), 0.5)
+
+
+def _r(resposta, campos_ok, tec="T1"):
+    import validador as v
+    g = {"solicitante_area": None, "item": "papel", "quantidade": 1, "unidade": "un", "prazo_entrega": None,
+         "valor_unitario": None, "moeda": None, "fornecedor": "Papelaria Aurora Ltda"}
+    return g, {"tecnica": tec, "resposta": resposta, "avaliacao": v.avaliar(resposta, g, tec)}
+
+
+def test_classifica_ponto_final_do_fornecedor():
+    import json
+    import classificar_erros as ce
+    g, r = _r(json.dumps({"solicitante_area": None, "item": "papel", "quantidade": 1, "unidade": "un", "prazo_entrega": None,
+                          "valor_unitario": None, "moeda": None, "fornecedor": "Papelaria Aurora Ltda."}), None)
+    assert ce.classificar(r, g) == ("fornecedor_ponto_final", True)
+    assert r["avaliacao"]["caso_correto"] is False        # o resultado oficial NÃO muda
+
+
+def test_outras_classes():
+    import json
+    import classificar_erros as ce
+    base = {"solicitante_area": None, "item": "papel", "quantidade": 1, "unidade": "un", "prazo_entrega": None,
+            "valor_unitario": None, "moeda": None, "fornecedor": "Papelaria Aurora Ltda"}
+    g, r = _r(json.dumps({**base, "fornecedor": "Outra Empresa"}), None)
+    assert ce.classificar(r, g) == ("campo_diferente", False)
+    g, r = _r(json.dumps({**base, "item": "caneta", "fornecedor": "Papelaria Aurora Ltda."}), None)
+    assert ce.classificar(r, g) == ("campo_diferente", False)       # ponto final + outro erro: não perdoa
+    g, r = _r("não é json", None)
+    assert ce.classificar(r, g) == ("json_invalido", False)
+    g, r = _r(json.dumps({**base, "unidade": "caixas"}), None)
+    assert ce.classificar(r, g) == ("schema_invalido", False)
+    g, r = _r(json.dumps(base), None)
+    assert ce.classificar(r, g) == ("correto", True)
