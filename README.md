@@ -16,7 +16,7 @@ Nesta tarefa, as quatro técnicas ficaram entre 90,0% e 98,0% de acerto por caso
 
 ## Demo
 
-Página estática em [`docs/index.html`](docs/index.html), sem servidor, sem instalação e sem chave: tabela por técnica e explorador dos 50 casos (texto, gabarito e saída de cada técnica, por repetição). Abre direto no navegador. A publicação em GitHub Pages depende de ativação nas configurações do repositório e **não foi verificada**.
+**https://prodigyb0y.github.io/prompt-engineering/** (GitHub Pages, gerada de [`docs/index.html`](docs/index.html)). Página estática, sem servidor, sem instalação e sem chave: tabela por técnica e explorador dos 50 casos (texto, gabarito e saída de cada técnica, por repetição). Também abre direto do arquivo no navegador. Carregamento confirmado pelo autor em 2026-11-19; o teste em janela anônima ainda não foi registrado.
 
 ## A tarefa e os dados (fictícios)
 

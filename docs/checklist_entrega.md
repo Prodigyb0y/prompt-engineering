@@ -12,6 +12,7 @@ Verificado no commit `355ba94` (este arquivo entra no commit seguinte). Só est�
 - [x] **pytest passando.** 46 testes passando neste commit (ambiente de desenvolvimento, Python 3.13). No computador do autor (Python 3.11) passaram 34 testes antes dos testes novos de análise, demo e README; os 46 não foram rodados lá.
 - [x] **Nenhuma chave no Git.** Busca por `sk-ant-` seguido de 20 ou mais caracteres em todo o histórico (11 commits): 0 ocorrências. `.env` não está versionado (só `.env.example`).
 - [x] **Página da demo funciona sem instalação.** `docs/index.html` abre direto e renderizou sem erro de JavaScript em Chrome sem interface; tabela e explorador de casos conferidos.
-- [ ] **Demo publicada em GitHub Pages.** Não verificado: a publicação precisa ser ativada nas configurações do repositório (Settings → Pages → branch `main`, pasta `/docs`). Também não foi testada em janela anônima.
+- [x] **Demo publicada em GitHub Pages.** https://prodigyb0y.github.io/prompt-engineering/ — o autor abriu a página e enviou captura de tela em 2026-11-19 (cabeçalho, aviso, tabela e explorador visíveis). Eu não abri a URL a partir daqui.
+- [ ] **Demo testada em janela anônima.** Ainda não registrado.
 - [ ] **Repositório público confirmado de forma independente.** O autor clonou sem erro, mas não conferi sem credenciais.
 - [ ] **Rodada refeita sem o artefato do "Ltda.".** Não feito (ver "Próximos passos" no README).
