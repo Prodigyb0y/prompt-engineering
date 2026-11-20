@@ -1,3 +1,4 @@
+import pytest
 import analisar as a
 
 
@@ -19,7 +20,7 @@ def dados():
 def test_acerto_custo_e_latencia_batem_com_conta_manual():
     s = a.resumir(dados())
     # T1: 25 casos sempre certos + 5 casos certos só na repetição 1 (1/3 cada)
-    assert s["T1"]["acerto_caso_media"] == (25 + 5 / 3) / 50
+    assert s["T1"]["acerto_caso_media"] == pytest.approx((25 + 5 / 3) / 50)
     assert s["T1"]["acerto_caso_rep_max"] == 30 / 50 and s["T1"]["acerto_caso_rep_min"] == 25 / 50
     assert s["T1"]["custo_total_usd"] == 150 * 0.002
     assert s["T1"]["custo_por_acerto_usd"] == (150 * 0.002) / (25 * 3 + 5)

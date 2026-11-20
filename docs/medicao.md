@@ -5,7 +5,7 @@ Apêndice técnico do [Prompt Lab](../README.md). Aqui ficam intervalo de confia
 ## 1. Resumo do que foi medido
 
 - Extração (E1 e E2): 50 casos, 3 repetições, rodadas v1 e v2 e a iteração do T4, **medidas e auditadas** (números abaixo, sem alteração).
-- P2 a P5 (E3, E4, E5 e P4): 20 casos por prompt, 3 repetições. Experimentos medidos: 2 de 5 no total (inclui E1 e E2).
+- P2 a P5 (E3, E4, E5 e P4): 20 casos por prompt, 3 repetições. Experimentos medidos: 5 de 5 no total (inclui E1 e E2).
 
 ## 2. Como cada métrica da extração foi medida
 
@@ -90,23 +90,23 @@ Dados: [`dados/biblioteca/REVISAO_E_LIMITACOES.md`](../dados/biblioteca/REVISAO_
 
 | Exp. | Variante | Acerto | IC 95% | Mín–máx entre repetições | Custo por resposta | Respostas | Completa |
 |---|---|---|---|---|---|---|---|
-| E3 | Zero-shot | não medido | — | — | — | 0 | — |
-| E3 | Few-shot | não medido | — | — | — | 0 | — |
-| E4 | Encadeado (P1 → P3) | não medido | — | — | — | 0 | — |
-| E4 | Prompt único (extrai e escreve) | não medido | — | — | — | 0 | — |
-| P4 | Saída estruturada | não medido | — | — | — | 0 | — |
-| E5 | Sem raciocínio | não medido | — | — | — | 0 | — |
-| E5 | Com raciocínio (chain-of-thought) | não medido | — | — | — | 0 | — |
+| E3 | Zero-shot | 91,7% | 78,3%–100,0% | 90,0%–95,0% | US$ 0,000073 | 60 | sim |
+| E3 | Few-shot | 98,3% | 95,0%–100,0% | 95,0%–100,0% | US$ 0,000137 | 60 | sim |
+| E4 | Encadeado (P1 → P3) | 78,3% | 65,0%–90,0% | 75,0%–80,0% | US$ 0,000256 | 60 | sim |
+| E4 | Prompt único (extrai e escreve) | 81,7% | 65,0%–96,7% | 75,0%–85,0% | US$ 0,000270 | 60 | sim |
+| P4 | Saída estruturada | 95,0% | 86,7%–100,0% | 90,0%–100,0% | US$ 0,000219 | 60 | sim |
+| E5 | Sem raciocínio | 95,0% | 85,0%–100,0% | 95,0%–95,0% | US$ 0,000123 | 60 | sim |
+| E5 | Com raciocínio (chain-of-thought) | 100,0% | 100,0%–100,0% | 100,0%–100,0% | US$ 0,000278 | 60 | sim |
 
 Comparações pareadas:
 
 | Exp. | Par (base contra alternativa) | Casos a favor da base | Casos a favor da alternativa | p (sinal exato) |
 |---|---|---|---|---|
-| E3 | não medido | — | — | — |
-| E4 | não medido | — | — | — |
-| E5 | não medido | — | — | — |
+| E3 | Zero-shot contra Few-shot | 1 | 2 | 1,000 |
+| E4 | Prompt único (extrai e escreve) contra Encadeado (P1 → P3) | 6 | 4 | 0,754 |
+| E5 | Sem raciocínio contra Com raciocínio (chain-of-thought) | 0 | 1 | 1,000 |
 
-Custo das rodadas novas: US$ 0,000000 em 0 chamadas (piloto US$ 0,000000, rodadas US$ 0,000000). Relatório completo: `resultados/biblioteca/RELATORIO.md` (gerado por `src/analisar_biblioteca.py`).
+Custo das rodadas novas: US$ 0,085039 em 500 chamadas (piloto US$ 0,003544, rodadas US$ 0,081495). Relatório completo: `resultados/biblioteca/RELATORIO.md` (gerado por `src/analisar_biblioteca.py`).
 
 ## 5. Auditoria e decisões registradas
 

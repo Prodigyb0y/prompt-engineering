@@ -61,7 +61,8 @@ def test_o_que_nao_foi_medido_nao_tem_numero():
     for p in r["prompts"]:
         if not p["medido"]:
             assert p["acerto"] is None and p["custo_chamada_usd"] is None and "não medidos" in p["pendencia"]
-    assert [g["medido"] for g in r["playground"] if g["id"] != "E1"] == [False] * 4
+    medido = {e["id"]: e["medido"] for e in r["experimentos"]}
+    assert all(g["medido"] == medido.get(g["id"], g["medido"]) for g in r["playground"])
 
 
 def test_custo_soma_o_livro_caixa_e_respeita_o_teto():

@@ -119,6 +119,10 @@ def montar_e2(it, v1, v2, tipos_resumo):
 
 
 # ------------------------------------------------------------------ E3, E4, E5
+def cs(n):
+    return f"{n} caso" + ("" if n == 1 else "s")
+
+
 def interpretar(exp, comp, base, alt):
     """-> (resultado, quando_usar) com base só nos números medidos. Nunca declara vitória sem o teste pareado."""
     n, dif, p = comp["casos_comparados"], comp["diferenca_acerto_pp"], comp["p_sinal"]
@@ -135,14 +139,14 @@ def interpretar(exp, comp, base, alt):
              "E4": "Com o mesmo acerto, o prompt único é mais simples; encadeie quando precisar guardar ou auditar a etapa intermediária (o JSON extraído).",
              "E5": "Sem ganho de acerto, o raciocínio só encarece: use-o quando a decisão exigir conta ou precedência entre regras e o modelo errar sem ele."}[exp]
     elif dif > 0:
-        r = (f"\"{rb}\" acertou {pct(pb_)} contra {pct(pa)} de \"{ra}\" ({br(dif)} pontos a mais): melhor em {comp['a_favor_alternativa']} casos e pior em {comp['a_favor_base']}. {custo_txt} {sig}")
+        r = (f"\"{rb}\" acertou {pct(pb_)} contra {pct(pa)} de \"{ra}\" ({br(dif)} pontos a mais): melhor em {cs(comp['a_favor_alternativa'])} e pior em {comp['a_favor_base']}. {custo_txt} {sig}")
         q = {"E3": "Use exemplos quando as definições não resolvem os empates: escolha exemplos que ensinem a convenção dos casos ambíguos.",
              "E4": "Divida em dois prompts quando cada etapa tiver regra própria e você quiser conferir a saída da primeira; some o custo das duas chamadas.",
              "E5": "Vale pagar pelo raciocínio quando a decisão exige conta ou precedência entre regras; compare o ganho com o custo antes de adotar."}[exp]
     else:
-        r = (f"\"{rb}\" acertou {pct(pb_)} contra {pct(pa)} de \"{ra}\" ({br(-dif)} pontos a menos): pior em {comp['a_favor_base']} casos e melhor em {comp['a_favor_alternativa']}. {custo_txt} {sig}")
+        r = (f"\"{rb}\" acertou {pct(pb_)} contra {pct(pa)} de \"{ra}\" ({br(-dif)} pontos a menos): pior em {cs(comp['a_favor_base'])} e melhor em {comp['a_favor_alternativa']}. {custo_txt} {sig}")
         q = {"E3": "Os exemplos não ajudaram nestes casos: confira se eles ensinam a convenção certa antes de pagar por eles.",
-             "E4": "O prompt único acertou mais neste conjunto: prefira-o, a menos que precise auditar a etapa intermediária.",
+             "E4": "O prompt único acertou um pouco mais, mas a diferença é pequena e não é conclusiva, e os dois custaram parecido. Encadeie se precisar guardar e conferir o JSON da etapa intermediária; senão, comece pelo prompt único.",
              "E5": "O raciocínio piorou o acerto neste conjunto: leia as respostas gravadas no Playground para ver onde errou."}[exp]
     return r.strip(), q
 

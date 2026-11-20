@@ -114,6 +114,9 @@ def test_nenhuma_chave_no_repositorio():
     raiz = Path(__file__).resolve().parent.parent
     padrao = re.compile(r"sk-ant-[A-Za-z0-9_\-]{20,}")
     for arq in raiz.rglob("*"):
+        # .env é o arquivo local da chave (ignorado pelo Git, nunca versionado); .venv e caches não são do projeto
+        if arq.name == ".env" or {".venv", ".pytest_cache", "__pycache__"} & set(arq.parts):
+            continue
         if arq.is_file() and ".git" not in arq.parts and arq.suffix in {".py", ".json", ".md", ".txt", ".html", ".example", ""}:
             assert not padrao.search(arq.read_text(encoding="utf-8", errors="ignore")), f"possível chave em {arq}"
 
