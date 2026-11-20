@@ -90,3 +90,18 @@ def test_outras_classes():
     assert ce.classificar(r, g) == ("schema_invalido", False)
     g, r = _r(json.dumps(base), None)
     assert ce.classificar(r, g) == ("correto", True)
+
+
+def test_classe_valor_nulo_sem_derivar():
+    import json
+    import classificar_erros as ce
+    import validador as v
+    g = {"solicitante_area": None, "item": "papel", "quantidade": 10, "unidade": "un", "prazo_entrega": None,
+         "valor_unitario": 35, "moeda": "USD", "fornecedor": None}
+    def reg(**mud):
+        resp = json.dumps({**g, **mud})
+        return {"tecnica": "T4", "tipo": "valor_total", "resposta": resp, "avaliacao": v.avaliar(resp, g, "T4")}
+    assert ce.classificar(reg(valor_unitario=None, moeda=None), g) == ("valor_nulo_sem_derivar", False)
+    assert ce.classificar(reg(valor_unitario=None), g) == ("valor_nulo_sem_derivar", False)
+    assert ce.classificar(reg(valor_unitario=350), g) == ("campo_diferente", False)          # devolveu o total: outra causa
+    assert ce.classificar(reg(), g) == ("correto", True)

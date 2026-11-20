@@ -9,6 +9,9 @@ Classes de erro (primeira que se aplica):
 - fornecedor_ponto_final: o único campo errado é o fornecedor e a diferença é só um ponto final
   ("Ltda." x "Ltda"). Origem: o gerador de casos usa ". " como separador de frases, então o
   texto traz "Ltda." e o modelo copia a abreviação com ponto. Artefato do caso, não do modelo.
+- valor_nulo_sem_derivar: tipo valor_total; o modelo devolveu valor_unitario null (e, às vezes, moeda null)
+  em vez de dividir o total pela quantidade. Depende de uma regra de rotulagem do autor que os prompts
+  não mencionam (o T4 manda usar null quando o dado não está no texto).
 - campo_diferente: algum campo com valor diferente do gabarito (qualquer outra causa).
 
 Uso: python src/classificar_erros.py [pasta_brutos]
@@ -45,6 +48,9 @@ def classificar(reg, gabarito):
     errados = [c for c, ok in a["campos"].items() if not ok]
     if errados == ["fornecedor"] and so_ponto_final(obj.get("fornecedor"), gabarito["fornecedor"]):
         return "fornecedor_ponto_final", True
+    if (reg.get("tipo") == "valor_total" and set(errados) <= {"valor_unitario", "moeda"}
+            and obj.get("valor_unitario") is None):
+        return "valor_nulo_sem_derivar", False
     return "campo_diferente", False
 
 
@@ -62,7 +68,7 @@ def main():
         por_caso[r["tecnica"]][r["caso"]].append(1.0 if ok_pos else 0.0)
         if classe != "correto":
             detalhe[r["caso"]][(r["tecnica"], classe)] += 1
-    classes = ["json_invalido", "schema_invalido", "fornecedor_ponto_final", "campo_diferente"]
+    classes = ["json_invalido", "schema_invalido", "fornecedor_ponto_final", "valor_nulo_sem_derivar", "campo_diferente"]
     tecs = sorted(cont)
     L = ["# Classificação dos erros", "",
          "Gerado por `python src/classificar_erros.py`. Resultado oficial: `RELATORIO.md`. Este arquivo explica os erros dele e traz uma recontagem pós-hoc.", "",
@@ -84,6 +90,17 @@ def main():
         medias = [sum(x) / len(x) for x in por_caso[t].values()]
         lo, hi = bootstrap_ic(medias)
         L.append(f"| {t} {NOMES.get(t, t)} | {100 * ofic:.1f}% | {100 * sum(medias) / len(medias):.1f}% | {100 * lo:.1f}%–{100 * hi:.1f}% |")
+    por_tipo_erros = collections.Counter(r["tipo"] for r in regs if not r["avaliacao"]["caso_correto"])
+    if por_tipo_erros:
+        tipo_top, n_top = por_tipo_erros.most_common(1)[0]
+        L += ["", f"## Recontagem PÓS-HOC sem o tipo `{tipo_top}` (não oficial)", "",
+              f"O tipo `{tipo_top}` concentra {n_top} das {sum(por_tipo_erros.values())} respostas erradas. A tabela mostra o acerto nos demais casos. "
+              "Criada depois de ver os resultados; serve para dizer onde está a diferença, não para trocar o resultado oficial.", "",
+              "| Técnica | Casos | Acerto sem o tipo | IC 95% |", "|---|---|---|---|"]
+        for t in tecs:
+            medias = [sum(x) / len(x) for cid, x in por_caso[t].items() if casos[cid]["tipo"] != tipo_top]
+            lo, hi = bootstrap_ic(medias)
+            L.append(f"| {t} {NOMES.get(t, t)} | {len(medias)} | {100 * sum(medias) / len(medias):.1f}% | {100 * lo:.1f}%–{100 * hi:.1f}% |")
     (caminhos.RESULTADOS / "ERROS.md").write_text("\n".join(L) + "\n", encoding="utf-8", newline="\n")
     print("\n".join(L))
 

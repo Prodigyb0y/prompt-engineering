@@ -30,6 +30,7 @@ label{margin-right:1rem}select{font-size:1rem;padding:.2rem}
 .tag{font-weight:600}.tag.ok{color:#2e7d32}.tag.erro{color:#c62828}
 </style></head><body>
 <h1>Laboratório de prompt engineering</h1>
+<p><a href="__OUTRA__">__OUTRA_TXT__</a></p>
 <p><strong>Mesma tarefa, mesmos casos, quatro técnicas de prompt: o que acerta mais, e quanto custa cada acerto.</strong></p>
 <p>Tarefa: extrair campos de solicitações de compra fictícias (empresa fictícia Gutenberg Systems) e devolver JSON. Modelo: <code>claude-haiku-5-5</code>. Dados 100% fictícios (conjunto de casos __VERSAO__).</p>
 <div class="aviso"><strong>Leia antes de comparar:</strong> <span id="aviso"></span></div>
@@ -113,7 +114,15 @@ def montar_dados():
                      + ". Para os demais pares, os intervalos se sobrepõem e não há vencedor declarado.")
         else:
             aviso = "Os intervalos de 95% se sobrepõem em todos os pares: nenhuma técnica é declarada melhor."
-        aviso += f" {erros_total} das {len(regs)} respostas foram erradas pela regra oficial; os erros por campo e por tipo estão no relatório."
+        aviso += f" {erros_total} das {len(regs)} respostas foram erradas pela regra oficial."
+        tipos_erro = {r["tipo"] for r in regs if not r["avaliacao"]["caso_correto"]}
+        if len(tipos_erro) == 1:
+            tipo_unico = next(iter(tipos_erro))
+            aviso += f" Todas estão no tipo \"{tipo_unico}\"; nos demais casos as técnicas empatam em 100%."
+            if tipo_unico == "valor_total":
+                aviso += (" Nesse tipo o texto traz só o valor total e o gabarito exige dividir pela quantidade, uma regra do autor que os "
+                          "prompts não mencionam: o T4 manda usar null quando o dado não está no texto, e foi o que ele fez. "
+                          "O resultado mostra como cada prompt trata um dado implícito, não só quem \"entende melhor\".")
     notas = ("Como foi medido: acerto por caso = JSON válido, schema válido e 8 campos iguais ao gabarito (após normalização de acento, "
              "caixa e espaços), média de 3 repetições sobre 50 casos; IC 95% por bootstrap (10.000 reamostragens, seed 42); custo = tokens "
              "informados pela API × preço de tabela de 2026-11-19; latência com time.perf_counter. Sem temperatura 0: o modelo não aceita "
@@ -127,7 +136,7 @@ def main():
     blob = json.dumps(dados, ensure_ascii=False).replace("</", "<\\/")
     destino = caminhos.DOCS
     destino.mkdir(parents=True, exist_ok=True)
-    (destino / "index.html").write_text(TEMPLATE.replace("__VERSAO__", caminhos.VERSAO).replace("__DADOS__", blob), encoding="utf-8", newline="\n")
+    (destino / "index.html").write_text(TEMPLATE.replace("__OUTRA__", "../index.html" if caminhos.VERSAO == "v2" else "v2/index.html").replace("__OUTRA_TXT__", "Ver a rodada com os dados v1 (50 casos mais simples)" if caminhos.VERSAO == "v2" else "Ver a rodada com os dados v2 (50 casos mais difíceis, sem o artefato do Ltda.)").replace("__VERSAO__", caminhos.VERSAO).replace("__DADOS__", blob), encoding="utf-8", newline="\n")
     print(f"{destino}/index.html gerado ({caminhos.VERSAO}): {len(dados['casos'])} casos, {len(dados['resumo'])} técnicas")
 
 
