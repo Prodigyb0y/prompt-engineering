@@ -9,7 +9,7 @@ import json
 from pathlib import Path
 
 import caminhos
-from conteudo_demo import GLOSSARIO, PRIORIDADES, QA
+from conteudo_demo import LIMITACOES, METRICAS, PRIORIDADES, QA
 import classificar_erros as ce
 from analisar import carregar, separaveis
 from validador import parse as vparse
@@ -62,199 +62,147 @@ COMPARA = [
 
 TEMPLATE = """<!doctype html>
 <html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Laboratório de prompt engineering</title>
+<title>Laboratório de prompt engineering · avaliação de técnicas de prompt</title>
 <style>
-:root{--tx:#1c2433;--mut:#5b6678;--bg:#f5f7fb;--card:#fff;--bd:#d9dfea;--ac:#4a3fd6;--acl:#eef0fb;--ok:#1f7a3d;--okl:#e3f4e8;--er:#b3261e;--erl:#fbe7e5;--av:#fff6df}
+:root{--tx:#18212f;--mut:#56627a;--bg:#fff;--soft:#f4f6f9;--bd:#d5dbe5;--ac:#0b4f8a;--ok:#1b6e3a;--okl:#e5f3ea;--er:#a3231a;--erl:#fbebe9;--av:#fff7e1}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{font:16px/1.6 system-ui,-apple-system,"Segoe UI",sans-serif;margin:0;color:var(--tx);background:var(--bg)}
-main{max-width:1000px;margin:0 auto;padding:0 1rem 3rem}
-header{background:linear-gradient(135deg,#2a2370,#4a3fd6);color:#fff;padding:1.6rem 1rem 1.4rem}
-header .in{max-width:1000px;margin:0 auto}
-header h1{margin:.1rem 0 .4rem;font-size:1.7rem;line-height:1.2}
-header p{margin:.3rem 0;max-width:46rem;opacity:.95}
-header a{color:#fff;text-decoration:underline}
-.chips{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.7rem}
-.chip{background:rgba(255,255,255,.18);border-radius:99px;padding:.1rem .7rem;font-size:.82rem}
-nav{position:sticky;top:0;z-index:5;background:#fff;border-bottom:1px solid var(--bd);box-shadow:0 1px 4px rgba(0,0,0,.05)}
-nav .in{max-width:1000px;margin:0 auto;display:flex;overflow-x:auto}
-nav button{flex:1 0 auto;border:0;background:none;padding:.8rem 1rem;font:inherit;font-weight:600;color:var(--mut);cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap}
-nav button[aria-selected=true]{color:var(--ac);border-bottom-color:var(--ac)}
-h2{font-size:1.3rem;margin:1.8rem 0 .2rem}
-h2+.sub{color:var(--mut);margin:0 0 1rem}
-h3{font-size:1rem;margin:1.1rem 0 .3rem}
-.card{background:var(--card);border:1px solid var(--bd);border-radius:10px;padding:1rem 1.1rem}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:.9rem}
-.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:.8rem;margin:1.2rem 0 .6rem}
-.tile{background:var(--card);border:1px solid var(--bd);border-radius:10px;padding:.8rem 1rem}
-.tile .k{font-size:.78rem;font-weight:700;color:var(--mut);text-transform:uppercase;letter-spacing:.04em}
-.tile .v{font-size:1.45rem;font-weight:700;line-height:1.25;margin:.15rem 0}
-.tile .d{font-size:.85rem;color:var(--mut)}
-.verd{background:var(--acl);border-left:4px solid var(--ac);border-radius:6px;padding:.6rem .9rem;margin:.4rem 0 .2rem}
-.aviso{background:var(--av);border:1px solid #e3c875;border-radius:10px;padding:.8rem 1rem}
-.tec h3{margin:.1rem 0;font-size:1.1rem}
-.tec .ap{color:var(--ac);font-weight:600;font-size:.9rem}
-.tec p{margin:.35rem 0}
-.tec .met{background:var(--acl);border-radius:8px;padding:.45rem .6rem;font-size:.88rem;margin-top:.6rem}
-.rot{font-weight:700;font-size:.78rem;color:var(--mut);text-transform:uppercase;letter-spacing:.04em;display:block;margin-top:.55rem}
-details{margin-top:.6rem}summary{cursor:pointer;color:var(--ac);font-weight:600;font-size:.9rem}
-pre{white-space:pre-wrap;word-break:break-word;background:#f1f3f8;padding:.6rem;border-radius:8px;font-size:.8rem;margin:.4rem 0;line-height:1.45}
-table{border-collapse:collapse;width:100%;font-size:.86rem;background:var(--card)}
-th,td{border:1px solid var(--bd);padding:.4rem .55rem;text-align:left;vertical-align:top}th{background:#eceff6}
+body{font:15.5px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;margin:0;color:var(--tx);background:var(--bg)}
+.w{max-width:960px;margin:0 auto;padding:0 1.1rem}
+header{border-bottom:1px solid var(--bd);padding:1.8rem 0 1.2rem;background:var(--soft)}
+header h1{margin:0 0 .3rem;font-size:1.65rem;line-height:1.25;letter-spacing:-.01em}
+header .sub{margin:0;color:var(--mut);max-width:44rem}
+.meta{margin:.9rem 0 0;color:var(--mut);font-size:.84rem}
+.seg{display:inline-block;border:1px solid var(--bd);padding:.2rem .8rem;font-size:.84rem;text-decoration:none;color:var(--ac);background:#fff}
+.seg:first-child{border-radius:6px 0 0 6px}.seg+.seg{border-radius:0 6px 6px 0;margin-left:-1px}
+.seg.on{background:var(--ac);border-color:var(--ac);color:#fff;font-weight:600}
+.rod{margin:.9rem 0 0;display:flex;flex-wrap:wrap;gap:.6rem;align-items:center;font-size:.86rem;color:var(--mut)}
+nav{position:sticky;top:0;z-index:5;background:#fff;border-bottom:1px solid var(--bd)}
+nav .w{display:flex;overflow-x:auto;gap:.2rem}
+nav a{flex:0 0 auto;padding:.7rem .8rem;font-size:.86rem;color:var(--mut);text-decoration:none;border-bottom:2px solid transparent;white-space:nowrap}
+nav a:hover{color:var(--ac)}nav a.on{color:var(--ac);border-bottom-color:var(--ac);font-weight:600}
+section{padding:1.6rem 0 .4rem;scroll-margin-top:3rem}
+h2{font-size:1.2rem;margin:0 0 .2rem;letter-spacing:-.005em}
+h2 .n{color:var(--mut);font-weight:400;margin-right:.35rem}
+h3{font-size:.95rem;margin:1.3rem 0 .3rem}
+p.lead{color:var(--mut);margin:.1rem 0 .9rem;max-width:46rem}
+.ficha{display:grid;grid-template-columns:130px 1fr;gap:.55rem 1.1rem;margin:0;padding:1rem 1.1rem;border:1px solid var(--bd);border-radius:6px;background:var(--soft)}
+.ficha dt{font-weight:700;color:var(--mut);font-size:.78rem;text-transform:uppercase;letter-spacing:.04em;padding-top:.2rem}
+.ficha dd{margin:0}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:.7rem;margin:1rem 0 0}
+.tile{border:1px solid var(--bd);border-radius:6px;padding:.7rem .9rem}
+.tile .k{font-size:.74rem;font-weight:700;color:var(--mut);text-transform:uppercase;letter-spacing:.04em}
+.tile .v{font-size:1.3rem;font-weight:700;line-height:1.3;margin:.1rem 0}
+.tile .d{font-size:.82rem;color:var(--mut)}
+table{border-collapse:collapse;width:100%;font-size:.86rem}
+th,td{border:1px solid var(--bd);padding:.4rem .55rem;text-align:left;vertical-align:top}th{background:var(--soft);font-weight:600}
 .num{text-align:right;font-variant-numeric:tabular-nums}
-.ctl{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:.8rem;margin-bottom:.8rem}
-.ctl label{font-weight:700;font-size:.85rem;display:block}
-select{width:100%;font-size:1rem;padding:.5rem;border:1px solid var(--bd);border-radius:8px;background:#fff;margin-top:.2rem;color:var(--tx)}
-.desc{background:var(--acl);border-left:4px solid var(--ac);border-radius:6px;padding:.6rem .8rem;margin:.4rem 0 1rem}
-.tag{font-weight:700;font-size:.85rem}.tag.ok{color:var(--ok)}.tag.erro{color:var(--er)}
-.legenda{color:var(--mut);font-size:.88rem}.nota{color:var(--mut);font-size:.88rem}
-.barra{display:grid;grid-template-columns:minmax(110px,170px) 1fr 5.5rem;gap:.6rem;align-items:center;margin:.35rem 0;font-size:.9rem}
-.trilho{position:relative;height:22px;background:#e8ebf3;border-radius:5px}
-.pre{position:absolute;left:0;top:0;bottom:0;background:var(--ac);border-radius:5px;opacity:.85}
+.tw{overflow-x:auto}
+.cap{font-size:.82rem;color:var(--mut);margin:.4rem 0 0}
+.nota{border-left:3px solid #e0b64a;background:var(--av);padding:.6rem .9rem;margin:.9rem 0;font-size:.9rem}
+details{margin:.5rem 0}summary{cursor:pointer;color:var(--ac);font-weight:600;font-size:.88rem}
+pre{white-space:pre-wrap;word-break:break-word;background:var(--soft);border:1px solid var(--bd);padding:.6rem;border-radius:4px;font:12.5px/1.45 ui-monospace,Menlo,Consolas,monospace;margin:.35rem 0}
+.rot{font-weight:700;font-size:.74rem;color:var(--mut);text-transform:uppercase;letter-spacing:.04em;display:block;margin-top:.6rem}
+.barra{display:grid;grid-template-columns:minmax(120px,190px) 1fr 5.6rem;gap:.6rem;align-items:center;margin:.3rem 0;font-size:.88rem}
+.trilho{position:relative;height:20px;background:#e9edf3}
+.pre{position:absolute;left:0;top:0;bottom:0;background:var(--ac);opacity:.88}
 .ic{position:absolute;top:50%;height:2px;background:#111;transform:translateY(-50%)}
 .ic::before,.ic::after{content:"";position:absolute;top:-5px;width:2px;height:12px;background:#111}.ic::before{left:0}.ic::after{right:0}
 .barra .v{text-align:right;font-variant-numeric:tabular-nums;font-weight:600}
 .mapa td.c{text-align:center;font-variant-numeric:tabular-nums;cursor:pointer;font-weight:600}
-.mapa .h100{background:var(--okl);color:var(--ok)}.mapa .h90{background:#f3f7d9}.mapa .h70{background:var(--av)}.mapa .h0{background:var(--erl);color:var(--er)}
+.mapa small{display:block;font-weight:400;font-size:.72rem;opacity:.8}
+.mapa .h100{background:var(--okl);color:var(--ok)}.mapa .h90{background:#f1f6d8}.mapa .h70{background:var(--av)}.mapa .h0{background:var(--erl);color:var(--er)}
+.ctl{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:.8rem;margin:.5rem 0 .8rem}
+.ctl label{font-weight:600;font-size:.8rem;display:block;color:var(--mut)}
+select{width:100%;font-size:.95rem;padding:.45rem;border:1px solid var(--bd);border-radius:4px;background:#fff;margin-top:.2rem;color:var(--tx)}
+.desc{border-left:3px solid var(--ac);background:var(--soft);padding:.5rem .8rem;margin:.3rem 0 .8rem;font-size:.9rem}
 .cmp td.ok{background:var(--okl)}.cmp td.erro{background:var(--erl);color:var(--er);font-weight:600}
-.cmp td,.cmp th{font-size:.82rem;font-family:ui-monospace,Menlo,Consolas,monospace}.cmp th{font-family:inherit}
-.passos{counter-reset:p;list-style:none;padding:0;margin:0}
-.passos li{counter-increment:p;position:relative;padding:.3rem 0 .3rem 2.3rem}
-.passos li::before{content:counter(p);position:absolute;left:0;top:.3rem;width:1.6rem;height:1.6rem;border-radius:50%;background:var(--ac);color:#fff;font-weight:700;font-size:.85rem;text-align:center;line-height:1.6rem}
-[hidden]{display:none!important}
-.legT{font-size:.88rem;margin-top:1.2rem;padding:.7rem 1rem}
-.legT b{color:var(--ac)}
-.ficha{display:grid;grid-template-columns:150px 1fr;gap:.5rem 1rem;margin:0}
-.ficha dt{font-weight:700;color:var(--mut);font-size:.8rem;text-transform:uppercase;letter-spacing:.04em;padding-top:.15rem}
-.ficha dd{margin:0}
-.qa{background:var(--card);border:1px solid var(--bd);border-radius:10px;padding:.2rem 1rem;margin:.6rem 0}
-.qa summary{padding:.6rem 0;color:var(--tx);font-size:1rem}
-.qa .r,.qa .m{margin:.2rem 0 .8rem}
-.badge{display:inline-block;font-size:.72rem;font-weight:700;border-radius:99px;padding:.05rem .55rem;margin-left:.4rem;background:#e8ebf3;color:var(--mut);vertical-align:middle}
-.badge.nf{background:var(--erl);color:var(--er)}.badge.ok{background:var(--okl);color:var(--ok)}
-.por{border-left:4px solid var(--er);background:var(--erl);border-radius:6px;padding:.5rem .8rem;margin:.5rem 0;font-size:.9rem}
+.cmp td,.cmp th{font-size:.8rem;font-family:ui-monospace,Menlo,Consolas,monospace}.cmp th{font-family:inherit}
+.por{border-left:3px solid var(--er);background:var(--erl);padding:.45rem .8rem;margin:.45rem 0;font-size:.88rem}
 .por b{display:block}
-dl.gl{margin:0}dl.gl dt{font-weight:700;margin-top:.7rem}dl.gl dd{margin:.1rem 0 0;color:#333}
-.mapa small{display:block;font-weight:400;font-size:.72rem;opacity:.85}
-@media(max-width:560px){.ficha{grid-template-columns:1fr}.ficha dd{margin-bottom:.5rem}header h1{font-size:1.4rem}.barra{grid-template-columns:90px 1fr 4.6rem}}
+ul.lim{margin:.3rem 0 0;padding-left:1.2rem}ul.lim li{margin:.3rem 0}
+footer{margin-top:2.2rem;border-top:1px solid var(--bd);background:var(--soft);padding:1rem 0 1.6rem;font-size:.84rem;color:var(--mut)}
+footer a,.lk{color:var(--ac)}
+@media(max-width:560px){.ficha{grid-template-columns:1fr;gap:.1rem}.ficha dd{margin-bottom:.55rem}header h1{font-size:1.4rem}.barra{grid-template-columns:100px 1fr 4.6rem}}
 </style></head><body>
-<header><div class="in">
+<header><div class="w">
 <h1>Laboratório de prompt engineering</h1>
-<p><strong>Mesma tarefa, mesmos casos, quatro técnicas de prompt: o que acerta mais, e quanto custa cada acerto.</strong></p>
-<div class="chips"><span class="chip">Modelo: claude-haiku-5-5</span><span class="chip">50 casos · 4 técnicas · 3 repetições</span><span class="chip">Dados 100% fictícios (conjunto __VERSAO__)</span></div>
-<p style="margin-top:.7rem"><a href="__OUTRA__">__OUTRA_TXT__</a></p>
+<p class="sub">Avaliação comparativa de quatro técnicas de prompt na extração estruturada de pedidos de compra em texto livre.</p>
+<p class="meta">Modelo claude-haiku-5-5 · 50 casos × 4 técnicas × 3 repetições · dados sintéticos de empresa fictícia (Gutenberg Systems)</p>
+<div class="rod"><span>__LINKS__</span><span>__DESCRODADA__</span></div>
 </div></header>
-<nav><div class="in" role="tablist">
-<button role="tab" data-aba="entender">1 · Entender</button>
-<button role="tab" data-aba="tecnicas">2 · As técnicas</button>
-<button role="tab" data-aba="resultados">3 · Resultados</button>
-<button role="tab" data-aba="explorar">4 · Explorar casos</button>
-<button role="tab" data-aba="limites">5 · Limites e perguntas</button>
-<button role="tab" data-aba="glossario">6 · Glossário</button>
+<nav><div class="w" id="nav">
+<a href="#resumo">Resumo</a><a href="#metodologia">Metodologia</a><a href="#resultados">Resultados</a><a href="#erros">Análise de erros</a><a href="#explorador">Explorador de casos</a><a href="#limitacoes">Limitações</a>
 </div></nav>
-<main>
-<section aria-label="Resumo">
-<div class="card legT" id="leg"></div>
-<h2>Ficha do estudo</h2>
-<dl class="ficha card" id="ficha"></dl>
-<h2>Em números</h2>
+<div class="w">
+
+<section id="resumo">
+<h2><span class="n">1.</span>Resumo executivo</h2>
+<p class="lead">Equipes de negócio recebem solicitações em texto livre que precisam virar dados estruturados. A forma de pedir ao modelo (o prompt) afeta o acerto, o custo e o tempo de resposta. Este estudo mede essas três coisas na mesma tarefa.</p>
+<dl class="ficha" id="ficha"></dl>
 <div class="tiles" id="tiles"></div>
 </section>
 
-<section id="p-entender" role="tabpanel" hidden>
-<h2>O que é um prompt?</h2>
-<p class="sub">Em uma frase: prompt é a instrução que você escreve para a IA.</p>
-<div class="card">
-<p style="margin-top:0">Pense na IA como um profissional muito rápido que não conhece o seu contexto. O que ele entrega depende de como você pede: o que fazer, em que formato, com quais regras e se há exemplos de um bom resultado. Esse texto de pedido é o <strong>prompt</strong>.</p>
-<p>A tarefa deste laboratório serve para qualquer área: alguém escreve um pedido de compra em texto livre (como num e-mail) e o sistema precisa transformar isso em dados organizados. Um advogado faria o mesmo com cláusulas de contratos, e um time de RH, com currículos.</p>
-<span class="rot">Entrada: texto livre</span>
-<pre>Oi, preciso de 25cx de etiqueta adesiva para Compras. R$ 2450,75 cada, com a Distribuidora Pinheiro, até 17-ago-2026.</pre>
-<span class="rot">Saída esperada: dados organizados</span>
-<pre>area: Compras · item: etiqueta adesiva · quantidade: 25 · unidade: cx
-valor unitário: 2450.75 · moeda: BRL · fornecedor: Distribuidora Pinheiro · prazo: 2026-08-17</pre>
-</div>
-<h2>Por que engenharia de prompt?</h2>
-<p class="sub">É escolher e testar a forma de pedir, em vez de confiar na primeira tentativa.</p>
-<div class="grid">
-<div class="card"><strong>Resposta no formato certo</strong><p>Sem instrução, a IA responde em texto solto. Com o formato definido, devolve dados que um sistema lê sem retrabalho humano.</p></div>
-<div class="card"><strong>Menos erro nos casos difíceis</strong><p>Regras claras dizem o que fazer quando falta dado, o valor vem em outro formato ou o texto é confuso.</p></div>
-<div class="card"><strong>Custo e velocidade sob controle</strong><p>Cada técnica gasta uma quantidade diferente de texto (tokens) e demora um tempo diferente. Dá para escolher a que compensa.</p></div>
-<div class="card"><strong>Resultado que se pode auditar</strong><p>Com prompt versionado e gabarito fixo, qualquer pessoa confere se a mudança melhorou de verdade.</p></div>
-</div>
-<p class="nota">Esses são os motivos para medir, não uma promessa: este teste usa um modelo e 50 casos e não prova o mesmo para outras tarefas.</p>
-<h2>Como usar esta página</h2>
-<ol class="passos card">
-<li>Veja o <strong>resumo</strong> no topo: acerto, custo e velocidade das quatro técnicas.</li>
-<li>Na aba <strong>As técnicas</strong>, leia o que cada uma faz e o prompt real usado.</li>
-<li>Na aba <strong>Resultados</strong>, veja os gráficos e o mapa de acerto por tipo de caso.</li>
-<li>Na aba <strong>Explorar casos</strong>, compare lado a lado o que cada técnica respondeu com a resposta certa.</li>
-</ol>
+<section id="metodologia">
+<h2><span class="n">2.</span>Metodologia</h2>
+<h3>Tarefa e dados</h3>
+<p>Dado um pedido de compra escrito como num e-mail, o modelo devolve um JSON com 8 campos: <code>solicitante_area</code>, <code>item</code>, <code>quantidade</code>, <code>unidade</code> (un, kg, m, l ou cx), <code>prazo_entrega</code> (AAAA-MM-DD ou null), <code>valor_unitario</code>, <code>moeda</code> (BRL, USD, EUR ou null) e <code>fornecedor</code>. Os 50 textos são sintéticos, gerados por script (seed 42), cada um com o gabarito escrito e congelado (hash registrado) antes da primeira execução. Cada caso pertence a um tipo (por exemplo, valor em formato brasileiro, prazo relativo, informação ausente).</p>
+<h3>Técnicas avaliadas</h3>
+<div class="tw"><table id="t-tec"></table></div>
+<p class="cap">Os quatro prompts são idênticos para todos os casos e estão versionados no repositório (versão e hash SHA-256 truncado em 12 caracteres). O texto completo de cada um está abaixo.</p>
+<div id="prompts"></div>
+<h3>Métricas e como foram medidas</h3>
+<div class="tw"><table id="t-met"></table></div>
 </section>
 
-<section id="p-tecnicas" role="tabpanel" hidden>
-<h2>As quatro técnicas comparadas</h2>
-<p class="sub">Todas recebem os mesmos 50 textos e devolvem o mesmo JSON. Só muda a forma de pedir.</p>
-<div class="grid" id="tecnicas"></div>
-<h2>Diferenças em uma tabela</h2>
-<div style="overflow-x:auto"><table id="compara"></table></div>
-<p class="nota">Tokens são pedaços de texto cobrados pela API; a média é por resposta, nos casos rodados.</p>
-</section>
-
-<section id="p-resultados" role="tabpanel" hidden>
-<h2>Leitura honesta do resultado</h2>
-<div class="aviso"><span id="aviso"></span></div>
-<h2>De onde vêm os erros</h2>
-<p class="sub">Cada resposta errada foi classificada pela causa. Contagem de respostas, não de casos.</p>
-<div style="overflow-x:auto"><table id="erros"></table></div>
-<p id="leit-erros" style="margin-top:.8rem"></p>
-<h2>Acerto por caso</h2>
-<p class="sub">Maior é melhor. A barra preta mostra o intervalo de confiança de 95%: se duas faixas se sobrepõem, não dá para dizer que uma técnica é melhor que a outra.</p>
+<section id="resultados">
+<h2><span class="n">3.</span>Resultados</h2>
+<p class="lead">Resultado oficial da rodada selecionada. Todas as técnicas receberam os mesmos casos.</p>
+<div class="nota" id="aviso"></div>
+<h3>Acerto por caso</h3>
+<p class="cap" style="margin-top:0">Maior é melhor. A barra preta é o intervalo de confiança de 95%. Quando os intervalos de duas técnicas se sobrepõem, nenhuma é declarada melhor.</p>
 <div id="g-acerto"></div>
-<h2>Custo por caso (US$)</h2>
-<p class="sub">Menor é melhor. Tokens informados pela API × preço de tabela.</p>
+<h3>Custo por caso (US$)</h3>
+<p class="cap" style="margin-top:0">Menor é melhor.</p>
 <div id="g-custo"></div>
-<h2>Latência média por chamada (s)</h2>
-<p class="sub">Menor é melhor. Tempo medido com time.perf_counter.</p>
+<h3>Latência média por chamada (s)</h3>
+<p class="cap" style="margin-top:0">Menor é melhor.</p>
 <div id="g-lat"></div>
-<h2>Onde cada técnica acerta ou erra</h2>
-<p class="sub">Acerto por tipo de caso, com a contagem de respostas certas. Cada tipo tem poucos casos: leia como pista, não como prova. Toque numa célula para abrir o tipo no explorador.</p>
-<div style="overflow-x:auto"><table class="mapa" id="mapa"></table></div>
-<p class="legenda">Verde: 100%. Amarelo-claro: 90% ou mais. Amarelo: 70% ou mais. Vermelho: abaixo de 70%. O número sempre aparece, a cor só ajuda.</p>
-<h2>Tabela completa</h2>
-<details open><summary>Mostrar ou esconder</summary>
-<div style="overflow-x:auto"><table id="tabela"></table></div>
-<p class="legenda"><strong>Acerto por caso</strong>: o caso só conta se os 8 campos estiverem certos. <strong>Custo por acerto</strong>: gasto total dividido pelos casos certos.</p></details>
-<h2>Como foi medido</h2>
-<p class="nota" id="notas"></p>
+<h3>Tabela completa</h3>
+<div class="tw"><table id="tabela"></table></div>
+<h3>Acerto por tipo de caso</h3>
+<div class="tw"><table class="mapa" id="mapa"></table></div>
+<p class="cap">Cada célula mostra o acerto e o número de respostas certas. Há poucos casos por tipo (número entre parênteses), então estes valores indicam onde olhar, não bastam como prova. Selecionar uma célula abre o tipo no explorador.</p>
 </section>
 
-<section id="p-explorar" role="tabpanel" hidden>
-<h2>Explorador de casos</h2>
-<p class="sub">Escolha um tipo, depois um exemplo. A tabela compara a resposta certa com a de cada técnica; células vermelhas são erros.</p>
+<section id="erros">
+<h2><span class="n">4.</span>Análise de erros</h2>
+<p class="lead">Cada resposta errada foi classificada pela causa. A contagem é de respostas, não de casos.</p>
+<div class="tw"><table id="erros-t"></table></div>
+<p id="leit-erros" style="margin-top:.8rem"></p>
+</section>
+
+<section id="explorador">
+<h2><span class="n">5.</span>Explorador de casos</h2>
+<p class="lead">Compara o gabarito com a resposta de cada técnica, campo a campo. Células em vermelho são divergências.</p>
 <div class="ctl">
-<div><label for="tipo">1. Tipo de caso</label><select id="tipo"></select></div>
-<div><label for="caso">2. Exemplo</label><select id="caso"></select></div>
-<div><label for="rep">3. Repetição</label><select id="rep"></select></div>
+<div><label for="tipo">Tipo de caso</label><select id="tipo"></select></div>
+<div><label for="caso">Caso</label><select id="caso"></select></div>
+<div><label for="rep">Repetição</label><select id="rep"></select></div>
 </div>
 <div class="desc"><strong>O que este tipo testa:</strong> <span id="desctipo"></span></div>
 <div id="detalhe"></div>
-<p class="nota">Cada caso foi rodado 3 vezes por técnica, porque o modelo pode variar de uma vez para outra.</p>
 </section>
 
-<section id="p-limites" role="tabpanel" hidden>
-<h2>Limites do estudo e perguntas difíceis</h2>
-<p class="sub">Perguntas que um entrevistador técnico faria, com a resposta honesta e o que mudaria. Toque numa pergunta para abrir.</p>
-<div id="qa"></div>
-<h2>O que eu mudaria, em ordem</h2>
-<ol class="passos card" id="prior"></ol>
+<section id="limitacoes">
+<h2><span class="n">6.</span>Limitações e próximos passos</h2>
+<ul class="lim" id="lim"></ul>
+<h3>Próximos passos</h3>
+<ol class="lim" id="prox"></ol>
+<p class="cap">Perguntas de aprofundamento e decisões de projeto, com o estado de cada uma: <a class="lk" href="https://github.com/Prodigyb0y/prompt-engineering/blob/main/docs/LIMITACOES_E_DECISOES.md">docs/LIMITACOES_E_DECISOES.md</a>.</p>
 </section>
-
-<section id="p-glossario" role="tabpanel" hidden>
-<h2>Glossário</h2>
-<p class="sub">Siglas e termos técnicos usados nesta página.</p>
-<div id="gloss"></div>
-</section>
-</main>
+</div>
+<footer><div class="w">Código, dados, prompts, testes e relatórios: <a href="https://github.com/Prodigyb0y/prompt-engineering">github.com/Prodigyb0y/prompt-engineering</a>. Dados 100% fictícios. Projeto de portfólio, recriação conceitual sem dados reais.</div></footer>
 <script id="dados" type="application/json">__DADOS__</script>
 <script>
 const D = JSON.parse(document.getElementById('dados').textContent);
@@ -264,56 +212,30 @@ const usd = x => x.toFixed(6).replace('.',',');
 const seg = x => x.toFixed(2).replace('.',',');
 const el = (t, txt, cls) => { const e=document.createElement(t); if(txt!==undefined) e.textContent=txt; if(cls) e.className=cls; return e; };
 const R = D.resumo;
-const nome = r => r.id+' '+D.tecnicas[r.id].apelido;
-$('aviso').textContent = D.aviso; $('notas').textContent = D.notas;
+const nome = r => r.id+' · '+r.tecnica;
+const nomeId = id => id+' · '+D.nomes[id];
+$('aviso').textContent = D.aviso;
 
-// abas
-const abas=['entender','tecnicas','resultados','explorar','limites','glossario'];
-function abrir(a){ if(!abas.includes(a)) a='entender';
-  abas.forEach(x=>{ $('p-'+x).hidden = x!==a; });
-  document.querySelectorAll('nav button').forEach(b=>b.setAttribute('aria-selected', b.dataset.aba===a));
-  try{ history.replaceState(null,'','#'+a); }catch(e){} }
-document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>{ abrir(b.dataset.aba); window.scrollTo({top:0}); });
-
-// legenda e ficha
-{ const l=$('leg'); l.appendChild(el('b','Siglas: ')); R.forEach((r,i)=>{ l.appendChild(document.createTextNode((i?' · ':'')+r.id+' = '+r.tecnica+' (“'+D.tecnicas[r.id].apelido.toLowerCase()+'”)')); });
-  l.appendChild(document.createTextNode('. '));
-  const a=el('a','Glossário completo'); a.href='#glossario'; a.onclick=e=>{ e.preventDefault(); abrir('glossario'); window.scrollTo({top:0}); }; l.appendChild(a); }
-$('ficha').append(...[['Pergunta',D.ficha.pergunta],['Método',D.ficha.metodo],['Achado',D.veredito],['Principal limite',D.ficha.limite]].flatMap(([k,v])=>[el('dt',k),el('dd',v)]));
-// resumo
+// ficha e números
+$('ficha').append(...[['Objetivo',D.ficha.pergunta],['Método',D.ficha.metodo],['Resultado',D.veredito],['Principal limite',D.ficha.limite]].flatMap(([k,v])=>[el('dt',k),el('dd',v)]));
 const tiles=$('tiles');
 function tile(k,v,d){ const t=el('div',undefined,'tile'); t.appendChild(el('div',k,'k')); t.appendChild(el('div',v,'v')); t.appendChild(el('div',d,'d')); tiles.appendChild(t); }
 const porAc=[...R].sort((a,b)=>a.acerto-b.acerto), porCu=[...R].sort((a,b)=>a.custo_caso-b.custo_caso), porLa=[...R].sort((a,b)=>a.lat-b.lat);
-tile('Acerto por caso', pct(porAc[0].acerto)+' a '+pct(porAc[porAc.length-1].acerto), 'menor: '+nome(porAc[0])+' · maior: '+nome(porAc[porAc.length-1]));
-tile('Custo por caso', 'US$ '+usd(porCu[0].custo_caso)+' a '+usd(porCu[porCu.length-1].custo_caso), 'mais barato: '+nome(porCu[0])+' · mais caro: '+nome(porCu[porCu.length-1]));
-tile('Latência média', seg(porLa[0].lat)+' s a '+seg(porLa[porLa.length-1].lat)+' s', 'mais rápido: '+nome(porLa[0])+' · mais lento: '+nome(porLa[porLa.length-1]));
+tile('Acerto por caso', pct(porAc[0].acerto)+' a '+pct(porAc[porAc.length-1].acerto), 'menor: '+nome(porAc[0])+'; maior: '+nome(porAc[porAc.length-1]));
+tile('Custo por caso', 'US$ '+usd(porCu[0].custo_caso)+' a '+usd(porCu[porCu.length-1].custo_caso), 'menor: '+nome(porCu[0])+'; maior: '+nome(porCu[porCu.length-1]));
+tile('Latência média', seg(porLa[0].lat)+' s a '+seg(porLa[porLa.length-1].lat)+' s', 'menor: '+nome(porLa[0])+'; maior: '+nome(porLa[porLa.length-1]));
 
-// técnicas
-const tec=$('tecnicas');
-R.forEach(r=>{
-  const i=D.tecnicas[r.id]; const c=el('div',undefined,'card tec');
-  c.appendChild(el('span',r.id+' · '+r.tecnica,'ap')); c.appendChild(el('h3',i.apelido)); c.appendChild(el('p',i.analogia));
-  [['Como funciona aqui',i.como],['Quando costuma ajudar',i.quando],['Limite',i.limite]].forEach(([k,v])=>{ c.appendChild(el('span',k,'rot')); c.appendChild(el('p',v)); });
-  c.appendChild(el('div','Neste teste: acerto '+pct(r.acerto)+' · custo por caso US$ '+usd(r.custo_caso)+' · latência média '+seg(r.lat)+' s','met'));
-  const d=el('details'); d.appendChild(el('summary','Ver o prompt real ('+r.versao+', hash '+r.hash+')'));
+// metodologia: técnicas
+{ const t=$('t-tec'); const h=el('tr'); ['ID','Técnica','O que muda no prompt','Exemplos','Raciocínio antes da resposta','Onde ficam as regras'].forEach(c=>h.appendChild(el('th',c))); t.appendChild(h);
+  R.forEach(r=>{ const tr=el('tr'); [r.id,r.tecnica,D.tecnicas[r.id].como,D.compara[0][1][r.id],D.compara[1][1][r.id],D.compara[2][1][r.id]].forEach(v=>tr.appendChild(el('td',v))); t.appendChild(tr); }); }
+R.forEach(r=>{ const d=el('details'); d.appendChild(el('summary','Prompt '+r.id+' · '+r.tecnica+' ('+r.versao+', hash '+r.hash+')'));
   const p=D.prompts[r.id];
   if(p.system){ d.appendChild(el('span','System prompt','rot')); d.appendChild(el('pre',p.system)); }
-  d.appendChild(el('span','Mensagem enviada (o texto do caso entra no lugar de {texto})','rot')); d.appendChild(el('pre',p.user));
-  c.appendChild(d); tec.appendChild(c); });
-const cp=$('compara'); { const h=el('tr'); h.appendChild(el('th','')); R.forEach(r=>h.appendChild(el('th',nome(r)))); cp.appendChild(h);
-  D.compara.forEach(([k,m])=>{ const tr=el('tr'); tr.appendChild(el('th',k)); R.forEach(r=>tr.appendChild(el('td',m[r.id]))); cp.appendChild(tr); });
-  [['Tokens de entrada (média)',r=>String(Math.round(r.tin))],['Tokens de saída (média)',r=>String(Math.round(r.tout))],['JSON válido',r=>pct(r.jv)]].forEach(([k,f])=>{
-    const tr=el('tr'); tr.appendChild(el('th',k)); R.forEach(r=>tr.appendChild(el('td',f(r),'num'))); cp.appendChild(tr); }); }
+  d.appendChild(el('span','Mensagem do usuário (o texto do caso substitui {texto})','rot')); d.appendChild(el('pre',p.user)); $('prompts').appendChild(d); });
+{ const t=$('t-met'); const h=el('tr'); ['Métrica','Definição','Como foi medida'].forEach(c=>h.appendChild(el('th',c))); t.appendChild(h);
+  D.metricas.forEach(m=>{ const tr=el('tr'); m.forEach((v,i)=>tr.appendChild(el(i===0?'th':'td',v))); t.appendChild(tr); }); }
 
-// erros por técnica e causa
-{ const t=$('erros'); const h=el('tr'); ['Técnica','Respostas erradas','Causa'].forEach(c=>h.appendChild(el('th',c))); t.appendChild(h);
-  R.forEach(r=>{ const e=D.erros.por_tecnica[r.id]; const tr=el('tr'); tr.appendChild(el('td',nome(r)));
-    tr.appendChild(el('td',e.total+' de '+e.respostas,'num'));
-    const causas=Object.entries(e.classes).map(([k,n])=>n+' × '+(D.erros.rotulos[k]||k)).join('; ');
-    tr.appendChild(el('td',causas||'—')); t.appendChild(tr); });
-  $('leit-erros').textContent=D.erros.leitura; }
-
-// gráficos de barras
+// barras
 function barras(id, val, fmt, max, ic){
   const box=$(id);
   R.forEach(r=>{ const l=el('div',undefined,'barra'); l.appendChild(el('div',nome(r)));
@@ -325,23 +247,30 @@ barras('g-custo',r=>r.custo_caso,r=>usd(r.custo_caso),Math.max(...R.map(r=>r.cus
 barras('g-lat',r=>r.lat,r=>seg(r.lat),Math.max(...R.map(r=>r.lat)),false);
 
 // tabela completa
-const tb=$('tabela');
-{ const h=el('tr'); ['Técnica','Prompt','Acerto por caso','IC 95%','Mín–máx entre repetições','Custo por caso (US$)','Custo por acerto (US$)','Latência média (s)'].forEach(c=>h.appendChild(el('th',c))); tb.appendChild(h);
+{ const tb=$('tabela'); const h=el('tr'); ['Técnica','Prompt','Acerto por caso','IC 95%','Mín–máx (3 repetições)','JSON válido','Tokens entrada (média)','Tokens saída (média)','Custo por caso (US$)','Custo por acerto (US$)','Latência média (s)'].forEach(c=>h.appendChild(el('th',c))); tb.appendChild(h);
   R.forEach(r=>{ const tr=el('tr');
-    [nome(r), r.versao+' '+r.hash, pct(r.acerto), pct(r.ic_lo)+'–'+pct(r.ic_hi), pct(r.rep_min)+'–'+pct(r.rep_max), usd(r.custo_caso), usd(r.custo_acerto), seg(r.lat)]
+    [nome(r), r.versao+' '+r.hash, pct(r.acerto), pct(r.ic_lo)+'–'+pct(r.ic_hi), pct(r.rep_min)+'–'+pct(r.rep_max), pct(r.jv), String(Math.round(r.tin)), String(Math.round(r.tout)), usd(r.custo_caso), usd(r.custo_acerto), seg(r.lat)]
      .forEach((v,i)=>tr.appendChild(el('td',v,i>=2?'num':''))); tb.appendChild(tr); }); }
 
-// explorador (variáveis antes do mapa, que usa trocarTipo)
+// explorador
 const st=$('tipo'), sc=$('caso'), sr=$('rep');
 const tipos=[]; D.casos.forEach((c,i)=>{ let t=tipos.find(x=>x.tipo===c.tipo); if(!t){ t={tipo:c.tipo,idx:[]}; tipos.push(t);} t.idx.push(i); });
 const nomeTipo = k => (D.tipos[k]||[k,''])[0];
 const cls = v => v>=1?'h100':v>=0.9?'h90':v>=0.7?'h70':'h0';
 
-// mapa tipos x técnicas
-const mp=$('mapa'); { const h=el('tr'); h.appendChild(el('th','Tipo de caso')); R.forEach(r=>h.appendChild(el('th',nome(r)))); mp.appendChild(h);
+// mapa
+{ const mp=$('mapa'); const h=el('tr'); h.appendChild(el('th','Tipo de caso')); R.forEach(r=>h.appendChild(el('th',nome(r)))); mp.appendChild(h);
   tipos.forEach((t,k)=>{ const tr=el('tr'); tr.appendChild(el('td',nomeTipo(t.tipo)+' ('+t.idx.length+')'));
-    R.forEach(r=>{ const v=D.por_tipo[r.id][t.tipo]; const n=t.idx.length*D.repeticoes, hit=Math.round(v*n); const td=el('td',undefined,'c '+cls(v)); td.appendChild(document.createTextNode(pct(v))); td.appendChild(el('small',hit+' de '+n)); td.onclick=()=>{ abrir('explorar'); st.value=k; trocarTipo(); window.scrollTo({top:0}); }; tr.appendChild(td); });
+    R.forEach(r=>{ const v=D.por_tipo[r.id][t.tipo]; const n=t.idx.length*D.repeticoes, hit=Math.round(v*n); const td=el('td',undefined,'c '+cls(v)); td.appendChild(document.createTextNode(pct(v))); td.appendChild(el('small',hit+' de '+n));
+      td.onclick=()=>{ st.value=k; trocarTipo(); $('explorador').scrollIntoView(); }; tr.appendChild(td); });
     mp.appendChild(tr); }); }
+
+// erros
+{ const t=$('erros-t'); const h=el('tr'); ['Técnica','Respostas erradas','Causa'].forEach(c=>h.appendChild(el('th',c))); t.appendChild(h);
+  R.forEach(r=>{ const e=D.erros.por_tecnica[r.id]; const tr=el('tr'); tr.appendChild(el('td',nome(r)));
+    tr.appendChild(el('td',e.total+' de '+e.respostas,'num'));
+    tr.appendChild(el('td',Object.entries(e.classes).map(([k,n])=>n+' × '+(D.erros.rotulos[k]||k)).join('; ')||'—')); t.appendChild(tr); });
+  $('leit-erros').textContent=D.erros.leitura; }
 
 tipos.forEach((t,k)=>{ const o=el('option',nomeTipo(t.tipo)+' ('+t.idx.length+' '+(t.idx.length>1?'casos':'caso')+')'); o.value=k; st.appendChild(o); });
 for(let i=1;i<=D.repeticoes;i++){ const o=el('option','Repetição '+i); o.value=i; sr.appendChild(o); }
@@ -349,44 +278,48 @@ const rotulo = c => { const g=c.gabarito; return String(g.quantidade).replace('.
 const fmt = v => v===undefined?'—':JSON.stringify(v);
 function trocarTipo(){
   const t=tipos[st.value]; sc.replaceChildren();
-  t.idx.forEach(i=>{ const c=D.casos[i]; const o=el('option',c.id+' · pedido de '+rotulo(c)); o.value=i; sc.appendChild(o); });
+  t.idx.forEach(i=>{ const c=D.casos[i]; const o=el('option',c.id+' · '+rotulo(c)); o.value=i; sc.appendChild(o); });
   $('desctipo').textContent=(D.tipos[t.tipo]||['',''])[1]; mostrar();
 }
 function mostrar(){
   const c=D.casos[sc.value], rep=+sr.value, box=$('detalhe'); box.replaceChildren();
-  box.appendChild(el('h3','Texto da solicitação (o que a pessoa escreveu)')); box.appendChild(el('pre',c.texto));
-  box.appendChild(el('h3','Resposta certa × resposta de cada técnica (repetição '+rep+')'));
+  box.appendChild(el('span','Texto da solicitação','rot')); box.appendChild(el('pre',c.texto));
+  box.appendChild(el('span','Gabarito × resposta de cada técnica (repetição '+rep+')','rot'));
   const ts=Object.keys(c.saidas).sort();
-  const wrap=el('div'); wrap.style.overflowX='auto'; const t=el('table',undefined,'cmp');
-  const h=el('tr'); h.appendChild(el('th','Campo')); h.appendChild(el('th','Gabarito')); ts.forEach(x=>h.appendChild(el('th',x+' '+D.tecnicas[x].apelido))); t.appendChild(h);
+  const wrap=el('div',undefined,'tw'); const t=el('table',undefined,'cmp');
+  const h=el('tr'); h.appendChild(el('th','Campo')); h.appendChild(el('th','Gabarito')); ts.forEach(x=>h.appendChild(el('th',nomeId(x)))); t.appendChild(h);
   D.campos.forEach(f=>{ const tr=el('tr'); tr.appendChild(el('th',f)); tr.appendChild(el('td',fmt(c.gabarito[f])));
     ts.forEach(x=>{ const s=c.saidas[x][rep-1]; if(!s){ tr.appendChild(el('td','—')); return; }
       const ok=s.campos[f]===true; const v=s.parsed? fmt(s.parsed[f]) : '(JSON inválido)';
-      tr.appendChild(el('td',(ok?'✓ ':'✗ ')+v,ok?'ok':'erro')); }); t.appendChild(tr); });
-  const rs=el('tr'); rs.appendChild(el('th','Caso inteiro')); rs.appendChild(el('td','8 campos certos'));
-  ts.forEach(x=>{ const s=c.saidas[x][rep-1]; rs.appendChild(el('td',s&&s.correto?'✓ correto':'✗ errado (oficial)',s&&s.correto?'ok':'erro')); }); t.appendChild(rs);
+      tr.appendChild(el('td',v,ok?'ok':'erro')); }); t.appendChild(tr); });
+  const rs=el('tr'); rs.appendChild(el('th','Resultado do caso')); rs.appendChild(el('td','—'));
+  ts.forEach(x=>{ const s=c.saidas[x][rep-1]; rs.appendChild(el('td',s&&s.correto?'certo':'errado',s&&s.correto?'ok':'erro')); }); t.appendChild(rs);
   wrap.appendChild(t); box.appendChild(wrap);
   const erradas=ts.filter(x=>{ const s=c.saidas[x][rep-1]; return s && !s.correto; });
-  box.appendChild(el('h3','Por que errou'));
-  if(!erradas.length) box.appendChild(el('p','Todas as técnicas acertaram este caso nesta repetição.','nota'));
-  erradas.forEach(x=>{ const s=c.saidas[x][rep-1]; const d=el('div',undefined,'por'); d.appendChild(el('b',x+' '+D.tecnicas[x].apelido)); d.appendChild(document.createTextNode(s.porque||'Campos diferentes do gabarito.')); box.appendChild(d); });
-  const dd=el('details'); dd.appendChild(el('summary','Ver a resposta bruta de cada técnica'));
-  ts.forEach(x=>{ const s=c.saidas[x][rep-1]; if(!s) return; dd.appendChild(el('span',x+' '+D.tecnicas[x].apelido+(s.classe&&s.classe!=='correto'?' · classe do erro: '+s.classe:''),'rot')); dd.appendChild(el('pre',s.resposta)); });
+  if(erradas.length){ box.appendChild(el('span','Causa das divergências','rot'));
+    erradas.forEach(x=>{ const s=c.saidas[x][rep-1]; const d=el('div',undefined,'por'); d.appendChild(el('b',nomeId(x))); d.appendChild(document.createTextNode(s.porque||'Campos diferentes do gabarito.')); box.appendChild(d); }); }
+  const dd=el('details'); dd.appendChild(el('summary','Respostas brutas'));
+  ts.forEach(x=>{ const s=c.saidas[x][rep-1]; if(!s) return; dd.appendChild(el('span',nomeId(x)+(s.classe&&s.classe!=='correto'?' · classe do erro: '+s.classe:''),'rot')); dd.appendChild(el('pre',s.resposta)); });
   box.appendChild(dd);
 }
-// limites e glossário
-D.qa.forEach(q=>{ const d=el('details',undefined,'qa'); const sm=el('summary',q[0]); const ok=/^Feito/.test(q[3]); sm.appendChild(el('span',q[3],'badge '+(q[3]==='Não feito'?'nf':ok?'ok':''))); d.appendChild(sm);
-  const r=el('p',undefined,'r'); r.appendChild(el('strong','Resposta honesta: ')); r.appendChild(document.createTextNode(q[1])); d.appendChild(r);
-  const m=el('p',undefined,'m'); m.appendChild(el('strong','O que mudar: ')); m.appendChild(document.createTextNode(q[2])); d.appendChild(m); $('qa').appendChild(d); });
-D.prioridades.forEach(p=>{ const li=el('li'); li.appendChild(el('strong',p[0]+'. ')); li.appendChild(document.createTextNode(p[1])); $('prior').appendChild(li); });
-D.glossario.forEach(([sec,itens])=>{ $('gloss').appendChild(el('h3',sec)); const dl=el('dl',undefined,'gl'); itens.forEach(([k,v])=>{ dl.appendChild(el('dt',k)); dl.appendChild(el('dd',v)); }); $('gloss').appendChild(dl); });
 st.onchange=trocarTipo; sc.onchange=mostrar; sr.onchange=mostrar; trocarTipo();
-window.onhashchange=()=>abrir(location.hash.slice(1));
-abrir(location.hash.slice(1)||'entender');
+
+// limitações
+D.limitacoes.forEach(x=>$('lim').appendChild(el('li',x)));
+D.prioridades.forEach(p=>{ const li=el('li'); li.appendChild(el('strong',p[0]+'. ')); li.appendChild(document.createTextNode(p[1])); $('prox').appendChild(li); });
+
+// navegação: marca a seção visível
+const links=[...document.querySelectorAll('#nav a')];
+const obs=new IntersectionObserver(es=>{ es.forEach(e=>{ if(e.isIntersecting){ links.forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+e.target.id)); } }); },{rootMargin:'-20% 0px -70% 0px'});
+document.querySelectorAll('section').forEach(s=>obs.observe(s));
 </script></body></html>
 """
 
 
+LINKS = {"v1": '<span class="seg on">Rodada v1</span><a class="seg" href="v2/index.html">Rodada v2</a>',
+         "v2": '<a class="seg" href="../index.html">Rodada v1</a><span class="seg on">Rodada v2</span>'}
+DESCRODADA = {"v1": "Primeira rodada: 50 casos de dificuldade moderada. Os erros se concentram num defeito do gerador de casos (ver Análise de erros).",
+              "v2": "Segunda rodada: 50 casos sem o defeito da v1 e com tipos mais difíceis. Desenhada depois de conhecer o resultado da v1."}
 ROTULOS_CLASSE = {
     "valor_nulo_sem_derivar": "valor total não dividido pela quantidade (devolveu null)",
     "fornecedor_ponto_final": "ponto final de \"Ltda.\" copiado do texto",
@@ -488,9 +421,9 @@ def montar_dados():
     pares_ok = separaveis(resumo)
     if pares_ok:
         veredito = ("Resultado oficial: " + "; ".join(f"{a} {nomes[a]} acerta mais que {b} {nomes[b]}" for a, b in pares_ok)
-                    + " (intervalos de 95% que não se sobrepõem). Para os demais pares não há vencedor declarado. Veja o porquê na aba Resultados.")
+                    + " (intervalos de 95% que não se sobrepõem). Para os demais pares não há vencedor declarado. Veja a seção Análise de erros.")
     else:
-        veredito = "Nenhuma técnica é declarada melhor: os intervalos de 95% se sobrepõem em todos os pares. Veja a leitura completa na aba Resultados."
+        veredito = "Nenhuma técnica é declarada melhor: os intervalos de 95% se sobrepõem em todos os pares. Veja a seção Resultados."
     te = {r["tipo"] for r in regs if not r["avaliacao"]["caso_correto"]}
     if pares_ok and len(te) == 1:
         veredito += (f" Atenção: todo o erro está num único tipo de caso (\"{next(iter(te))}\"), então a diferença mostra como cada prompt trata um dado "
@@ -511,7 +444,7 @@ def montar_dados():
                    "A contagem difere entre técnicas porque cada uma copia o ponto numa frequência diferente; hipótese, não testada: o T4 tem a regra \"copie o nome como aparece no texto\", o que pode levá-lo a copiar mais. "
                    "Por isso a rodada v2 foi criada, sem esse defeito.")
         limite = (f"Todas as {erros_total} respostas erradas vêm de um defeito do gerador de casos, não de falta de compreensão da tarefa. O resultado oficial foi mantido e a "
-                  "recontagem sem o defeito está marcada como pós-hoc. Ver a aba Limites e perguntas.")
+                  "recontagem sem o defeito está marcada como pós-hoc. Ver a seção Limitações.")
     elif classes_vistas == {"valor_nulo_sem_derivar"}:
         n_tipo = sum(1 for c in casos if c["tipo"] == "valor_total") * reps
         errou = {t: sum(1 for r in regs if r["tecnica"] == t and r["tipo"] == "valor_total" and not r["avaliacao"]["caso_correto"]) for t in resumo}
@@ -523,19 +456,19 @@ def montar_dados():
                         "Hipótese, não testada: os 3 exemplos do T2 sempre trazem o preço unitário pronto, e o T4 manda usar null quando o dado não está no texto; "
                         "ambos podem ter ensinado o modelo a não calcular.")
         limite = (f"Todas as {erros_total} respostas erradas estão no tipo valor_total, onde a conta que o gabarito exige (total ÷ quantidade) não está escrita em nenhum prompt. "
-                  "Esse ponto mede como cada prompt trata uma informação implícita, não quem entende melhor a tarefa. Ver a aba Limites e perguntas.")
+                  "Esse ponto mede como cada prompt trata uma informação implícita, não quem entende melhor a tarefa. Ver a seção Limitações.")
     else:
         leitura = "As respostas erradas têm mais de uma causa; veja a classificação acima e o explorador de casos."
-        limite = "Há erros de mais de um tipo; ver a aba Resultados."
+        limite = "Há erros de mais de um tipo; ver a seção Resultados."
     ficha = {"pergunta": "Qual técnica de prompt extrai melhor os dados de pedidos de compra escritos em texto livre, e quanto custa cada acerto?",
              "metodo": (f"{len(casos)} pedidos fictícios, com gabarito escrito e congelado antes de rodar. Cada uma das 4 técnicas respondeu a cada caso {reps} vezes "
                         f"({len(regs)} respostas nesta rodada). Um caso só conta como certo se os 8 campos baterem com o gabarito. Modelo: claude-haiku-5-5."),
              "limite": limite}
-    return {"ficha": ficha, "qa": [list(q) for q in QA], "prioridades": [list(x) for x in PRIORIDADES], "glossario": [[a, [list(i) for i in b]] for a, b in GLOSSARIO],
+    return {"ficha": ficha, "metricas": [list(m) for m in METRICAS], "limitacoes": LIMITACOES + [limite], "prioridades": [list(x) for x in PRIORIDADES],
             "erros": {"por_tecnica": por_tec, "rotulos": ROTULOS_CLASSE, "leitura": leitura},
             "veredito": veredito, "campos": CAMPOS, "compara": [[k, v] for k, v in COMPARA],
             "por_tipo": {t: r["acerto_tipo"] for t, r in resumo.items()},
-            "tipos": {k: list(v) for k, v in TIPOS.items()}, "tecnicas": {k: TECNICAS[k] for k in resumo},
+            "tipos": {k: list(v) for k, v in TIPOS.items()}, "tecnicas": {k: {"como": TECNICAS[k]["como"]} for k in resumo},
             "prompts": prompts, "resumo": tabela, "nomes": nomes, "casos": ordenados, "repeticoes": max(r["repeticoes"] for r in resumo.values()),
             "aviso": aviso, "notas": notas}
 
@@ -545,14 +478,15 @@ def main():
     blob = json.dumps(dados, ensure_ascii=False).replace("</", "<\\/")
     destino = caminhos.DOCS
     destino.mkdir(parents=True, exist_ok=True)
-    (destino / "index.html").write_text(TEMPLATE.replace("__OUTRA__", "../index.html" if caminhos.VERSAO == "v2" else "v2/index.html").replace("__OUTRA_TXT__", "Ver a rodada com os dados v1 (50 casos mais simples)" if caminhos.VERSAO == "v2" else "Ver a rodada com os dados v2 (50 casos mais difíceis, sem o artefato do Ltda.)").replace("__VERSAO__", caminhos.VERSAO).replace("__DADOS__", blob), encoding="utf-8", newline="\n")
+    (destino / "index.html").write_text(TEMPLATE.replace("__LINKS__", LINKS[caminhos.VERSAO]).replace("__DESCRODADA__", DESCRODADA[caminhos.VERSAO]).replace("__VERSAO__", caminhos.VERSAO).replace("__DADOS__", blob), encoding="utf-8", newline="\n")
     if caminhos.VERSAO == "v1":
-        linhas = ["# Preparação para entrevista: perguntas difíceis sobre o projeto", "",
-                  "Gerado por `src/gerar_demo.py` a partir de `src/conteudo_demo.py`. A mesma lista aparece na aba \"Limites e perguntas\" da demo.", ""]
+        linhas = ["# Limitações e decisões de projeto", "",
+                  "Perguntas de aprofundamento sobre o método, com a resposta, o que mudar e o estado de cada ponto. "
+                  "Gerado por `src/gerar_demo.py` a partir de `src/conteudo_demo.py`.", ""]
         for i, (q, r, m, e) in enumerate(QA, 1):
             linhas += [f"## {i}. {q}", "", f"**Estado:** {e}", "", f"**Resposta honesta:** {r}", "", f"**O que mudar:** {m}", ""]
         linhas += ["## O que eu mudaria, em ordem", ""] + [f"{i}. **{t}.** {w}" for i, (t, w) in enumerate(PRIORIDADES, 1)] + [""]
-        (RAIZ / "docs" / "PREPARACAO_ENTREVISTA.md").write_text("\n".join(linhas), encoding="utf-8", newline="\n")
+        (RAIZ / "docs" / "LIMITACOES_E_DECISOES.md").write_text("\n".join(linhas), encoding="utf-8", newline="\n")
     print(f"{destino}/index.html gerado ({caminhos.VERSAO}): {len(dados['casos'])} casos, {len(dados['resumo'])} técnicas")
 
 

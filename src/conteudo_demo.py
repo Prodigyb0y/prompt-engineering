@@ -9,7 +9,7 @@ QA = [
     ("Esses resultados provam que uma técnica é melhor que as outras?",
      "Não. Na rodada v1, todas as respostas erradas vieram de um defeito do gerador de casos (o ponto final de \"Ltda.\" copiado pelo modelo), "
      "não de falta de compreensão da tarefa (a contagem de erros difere entre técnicas, mas na recontagem pós-hoc, sem o ponto, elas empatam). Na rodada v2, todo o erro está num único tipo de caso (valor_total), cuja regra de rotulagem é minha e "
-     "não está escrita nos prompts. O que se pode afirmar é só o que a aba Resultados mostra: quais pares de técnicas têm intervalos de 95% "
+     "não está escrita nos prompts. O que se pode afirmar é só o que a seção Resultados mostra: quais pares de técnicas têm intervalos de 95% "
      "sem sobreposição, sempre com essa ressalva.",
      "Repetir a rodada com os prompts atualizados (próxima pergunta).", "Declarado"),
     ("O erro do valor_total é falha do modelo?",
@@ -66,7 +66,7 @@ QA = [
      "Publicar as respostas num único arquivo (dados fictícios, sem chave) para qualquer pessoa recalcular os números.", "Não feito"),
     ("Que decisão você tomaria com isto?",
      "Interpretação minha, não resultado medido: começar pela técnica mais barata, escrever explicitamente as regras de negócio que ela não conhece "
-     "(como a conta do valor total) e medir de novo antes de pagar por técnicas mais caras. A comparação de custo está na aba Resultados.",
+     "(como a conta do valor total) e medir de novo antes de pagar por técnicas mais caras. A comparação de custo está na seção Resultados.",
      "Validar essa decisão com a rodada de prompts v2.", "Hipótese"),
 ]
 
@@ -80,47 +80,26 @@ PRIORIDADES = [
     ("Saída estruturada como quinta técnica", "Compara com o que se faz em produção para garantir o formato."),
 ]
 
-# (seção, [(termo, definição)])
-GLOSSARIO = [
-    ("Siglas desta página", [
-        ("T1 · zero-shot (\"pedir direto\")", "O prompt traz só a instrução e a lista de campos. \"Shot\" quer dizer exemplo; zero-shot é sem nenhum exemplo."),
-        ("T2 · few-shot (\"mostrar exemplos\")", "O prompt traz alguns exemplos já resolvidos (aqui, 3) antes do caso real."),
-        ("T3 · chain-of-thought (\"pensar em voz alta\")", "O prompt pede que o modelo escreva o raciocínio antes da resposta final. Só o JSON final é lido."),
-        ("T4 · system prompt (\"papel e regras\")", "Papel, regras e formato ficam no system prompt, a parte da instrução que vale para toda a conversa."),
-        ("Dados v1 e v2", "Dois conjuntos de 50 casos. A v2 foi criada depois de ver o resultado da v1, para corrigir um defeito e testar tipos mais difíceis."),
-        ("Prompt v1 e hash", "Cada texto de prompt tem versão e um código de 12 caracteres (hash SHA-256). Se o texto mudar, o código muda."),
-    ]),
-    ("Conceitos", [
-        ("Prompt", "A instrução escrita que se dá ao modelo de IA."),
-        ("Modelo", "O sistema de IA que responde. Aqui, sempre o claude-haiku-5-5."),
-        ("JSON", "Formato de texto para dados organizados, com nome do campo e valor, que um programa consegue ler."),
-        ("Schema", "O molde do JSON: quais campos existem, de que tipo e quais valores são permitidos."),
-        ("Campo", "Cada informação a extrair. Aqui são 8: solicitante_area, item, quantidade, unidade, prazo_entrega, valor_unitario, moeda e fornecedor."),
-        ("null", "Valor que significa \"não há informação\". É a resposta certa quando o texto não traz o dado."),
-        ("Token", "Pedaço de texto que o modelo lê e escreve, geralmente uma palavra ou parte dela. A API cobra por token."),
-        ("Temperatura", "Parâmetro que controla o grau de aleatoriedade das respostas. Este modelo não aceita esse parâmetro, então as respostas podem variar."),
-        ("Esforço de raciocínio (effort)", "Parâmetro que indica quanto o modelo pode \"pensar\" antes de responder. Foi fixado em baixo em todas as chamadas."),
-    ]),
-    ("Dados e medição", [
-        ("Caso", "Um texto de pedido de compra fictício. São 50 por rodada."),
-        ("Tipo de caso", "A situação que o caso testa, por exemplo valor em formato brasileiro ou prazo relativo."),
-        ("Gabarito", "A resposta certa de cada caso, escrita antes de rodar e congelada. Congelar significa registrar o hash do arquivo; mudar depois obriga a registrar e rodar tudo de novo."),
-        ("Normalização", "Regra aplicada antes de comparar: remover acentos, ignorar maiúsculas e espaços extras. Números e datas precisam bater exatamente."),
-        ("Repetição", "Cada caso é enviado 3 vezes por técnica, porque a resposta do modelo pode variar."),
-        ("Acerto por campo", "Percentual de campos que bateram com o gabarito."),
-        ("Acerto por caso", "Um caso só conta como certo se os 8 campos baterem. É a medida principal desta página."),
-        ("JSON válido e schema válido", "JSON válido: o texto pode ser lido como JSON. Schema válido: além disso, tem exatamente os campos e valores permitidos."),
-        ("Intervalo de confiança de 95% (IC)", "Faixa em que o acerto verdadeiro provavelmente está. Se as faixas de duas técnicas se sobrepõem, não se declara qual é melhor."),
-        ("Bootstrap", "Método para obter o IC: sorteia 50 casos com reposição, 10.000 vezes, calcula o acerto de cada sorteio e usa a faixa que cobre 95% deles."),
-        ("Mín–máx entre repetições", "O menor e o maior acerto entre as 3 repetições, para mostrar a variação."),
-        ("Oficial e pós-hoc", "Oficial: regra definida antes de medir. Pós-hoc: recontagem feita depois de ver os resultados, sempre marcada como não oficial."),
-        ("Artefato", "Defeito que vem do método e não do que se queria medir. Exemplo: o ponto final de \"Ltda.\" nos textos da v1."),
-        ("Seed", "Número fixo que faz o sorteio ser repetível. Aqui, 42."),
-    ]),
-    ("Custo e velocidade", [
-        ("Custo por caso", "Tokens de entrada e saída informados pela API, multiplicados pelo preço de tabela, divididos pelo número de respostas."),
-        ("Custo por acerto", "Gasto total da técnica dividido pelo número de respostas certas."),
-        ("Latência", "Tempo de uma chamada, do envio até a resposta completa, medido com time.perf_counter."),
-        ("Teto de gasto", "Limite de US$ 1,00 no projeto inteiro. O código reserva o custo máximo antes de cada chamada e para antes de passar do limite."),
-    ]),
+# métrica, definição, como foi medida
+METRICAS = [
+    ("Acerto por caso", "Fração das respostas em que os 8 campos são iguais ao gabarito.",
+     "Comparação campo a campo após normalização (sem acento, minúsculas, espaços colapsados); números e datas exatos; null só é igual a null. Média das 3 repetições de cada caso."),
+    ("Intervalo de confiança de 95%", "Faixa em que o acerto verdadeiro provavelmente se encontra.",
+     "Bootstrap percentil: 10.000 reamostragens dos 50 casos com reposição (seed 42). O valor de cada caso é a média das 3 repetições."),
+    ("Mín–máx entre repetições", "Variação do acerto entre execuções.", "O acerto por caso é calculado sobre os 50 casos em cada repetição, separadamente; a tabela mostra o menor e o maior dos 3 valores."),
+    ("JSON válido", "A resposta pode ser lida como JSON e respeita o schema.", "json.loads e modelo pydantic estrito, com campos extras proibidos (extra=\"forbid\")."),
+    ("Custo por caso", "Gasto médio por resposta, em dólares.", "Tokens de entrada e de saída informados pela API multiplicados pelo preço de tabela do modelo (página oficial, consulta em 2026-11-19), dividido pelo número de respostas."),
+    ("Custo por acerto", "Gasto da técnica dividido pelas respostas certas.", "Custo total da técnica ÷ número de respostas com caso correto."),
+    ("Latência", "Tempo de cada chamada à API.", "time.perf_counter antes e depois da chamada; a tabela traz a média."),
+    ("Tokens", "Unidade de texto cobrada pela API.", "Contagem informada pela própria API em cada resposta; a tabela traz a média por resposta."),
+]
+
+# limitações permanentes (a limitação específica da rodada é acrescentada pelo gerador)
+LIMITACOES = [
+    "Amostra: 50 casos por rodada e poucos casos por tipo. Os intervalos de confiança são largos e as porcentagens por tipo servem como indício.",
+    "Um único modelo (claude-haiku-5-5), com esforço de raciocínio fixado em baixo. O modelo não aceita temperatura 0, então as respostas variam entre execuções; a variação é medida com 3 repetições.",
+    "Dados sintéticos, gerados por script a partir de modelos de frase. O gabarito foi escrito pelo próprio autor, sem segundo anotador. O resultado não se generaliza para e-mails reais.",
+    "A rodada v2 foi desenhada depois de conhecer o resultado da v1. A v1 permanece como resultado oficial da primeira rodada.",
+    "O T4 combina o lugar da instrução (system) com regras detalhadas, e o T3 não isola o chain-of-thought do raciocínio interno do modelo. Nenhum dos dois comparativos isola um único fator.",
+    "Não há comparação com um extrator por regras nem com saída estruturada imposta pela API. As respostas brutas não estão versionadas no Git.",
 ]

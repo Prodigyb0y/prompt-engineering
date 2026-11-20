@@ -26,4 +26,7 @@ def test_html_embute_json_valido_sem_fechar_script():
     html = (gd.RAIZ / "docs" / "index.html").read_text(encoding="utf-8")
     m = re.search(r'<script id="dados" type="application/json">(.*?)</script>', html, re.DOTALL)
     assert json.loads(m.group(1).replace("<\\/", "</"))["casos"]
-    assert "innerHTML" not in html and "http://" not in html and "https://" not in html  # sem recursos externos
+    assert "innerHTML" not in html
+    # sem recursos externos: nenhuma imagem, script, folha de estilo ou fonte vinda de fora (links <a> para o repositório são permitidos)
+    assert not re.search(r'(src|srcset)\s*=\s*["\']?(https?:)?//', html) and "<link" not in html and "@import" not in html and not re.search(r"url\(\s*[\"']?(https?:)?//", html)
+    assert "http://" not in html

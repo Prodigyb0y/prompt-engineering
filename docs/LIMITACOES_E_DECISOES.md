@@ -1,12 +1,12 @@
-# Preparação para entrevista: perguntas difíceis sobre o projeto
+# Limitações e decisões de projeto
 
-Gerado por `src/gerar_demo.py` a partir de `src/conteudo_demo.py`. A mesma lista aparece na aba "Limites e perguntas" da demo.
+Perguntas de aprofundamento sobre o método, com a resposta, o que mudar e o estado de cada ponto. Gerado por `src/gerar_demo.py` a partir de `src/conteudo_demo.py`.
 
 ## 1. Esses resultados provam que uma técnica é melhor que as outras?
 
 **Estado:** Declarado
 
-**Resposta honesta:** Não. Na rodada v1, todas as respostas erradas vieram de um defeito do gerador de casos (o ponto final de "Ltda." copiado pelo modelo), não de falta de compreensão da tarefa (a contagem de erros difere entre técnicas, mas na recontagem pós-hoc, sem o ponto, elas empatam). Na rodada v2, todo o erro está num único tipo de caso (valor_total), cuja regra de rotulagem é minha e não está escrita nos prompts. O que se pode afirmar é só o que a aba Resultados mostra: quais pares de técnicas têm intervalos de 95% sem sobreposição, sempre com essa ressalva.
+**Resposta honesta:** Não. Na rodada v1, todas as respostas erradas vieram de um defeito do gerador de casos (o ponto final de "Ltda." copiado pelo modelo), não de falta de compreensão da tarefa (a contagem de erros difere entre técnicas, mas na recontagem pós-hoc, sem o ponto, elas empatam). Na rodada v2, todo o erro está num único tipo de caso (valor_total), cuja regra de rotulagem é minha e não está escrita nos prompts. O que se pode afirmar é só o que a seção Resultados mostra: quais pares de técnicas têm intervalos de 95% sem sobreposição, sempre com essa ressalva.
 
 **O que mudar:** Repetir a rodada com os prompts atualizados (próxima pergunta).
 
@@ -110,7 +110,7 @@ Gerado por `src/gerar_demo.py` a partir de `src/conteudo_demo.py`. A mesma lista
 
 **Estado:** Hipótese
 
-**Resposta honesta:** Interpretação minha, não resultado medido: começar pela técnica mais barata, escrever explicitamente as regras de negócio que ela não conhece (como a conta do valor total) e medir de novo antes de pagar por técnicas mais caras. A comparação de custo está na aba Resultados.
+**Resposta honesta:** Interpretação minha, não resultado medido: começar pela técnica mais barata, escrever explicitamente as regras de negócio que ela não conhece (como a conta do valor total) e medir de novo antes de pagar por técnicas mais caras. A comparação de custo está na seção Resultados.
 
 **O que mudar:** Validar essa decisão com a rodada de prompts v2.
 
