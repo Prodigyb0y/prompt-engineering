@@ -38,7 +38,7 @@ def main():
     gab = json.loads((caminhos.DADOS / "gabarito.json").read_text(encoding="utf-8"))
     casos = json.loads((caminhos.DADOS / "casos_teste.json").read_text(encoding="utf-8"))
     resumo = json.loads((caminhos.RESULTADOS / "resumo.json").read_text(encoding="utf-8"))
-    fewshot = json.loads((RAIZ / "dados" / "exemplos_fewshot.json").read_text(encoding="utf-8"))
+    fewshot = json.loads((RAIZ / "dados" / "extracao" / "v1" / "exemplos_fewshot.json").read_text(encoding="utf-8"))
     precos = custo_mod.carregar_precos()
     tecs = sorted({r["tecnica"] for r in regs})
 

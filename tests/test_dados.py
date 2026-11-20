@@ -5,7 +5,7 @@ import sys
 from pathlib import Path
 
 RAIZ = Path(__file__).resolve().parent.parent
-DADOS = RAIZ / "dados"
+DADOS = RAIZ / "dados" / "extracao" / "v1"
 
 
 def test_validacao_do_gabarito_passa():

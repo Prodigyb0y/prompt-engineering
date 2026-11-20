@@ -1,0 +1,142 @@
+{
+  "R01": {
+    "motivo": "atraso_entrega",
+    "sentimento": "insatisfeito",
+    "acao_sugerida": "rastrear_pedido",
+    "numero_pedido": "PED-74728",
+    "valor_reclamado": null
+  },
+  "R02": {
+    "motivo": "atraso_entrega",
+    "sentimento": "neutro",
+    "acao_sugerida": "rastrear_pedido",
+    "numero_pedido": null,
+    "valor_reclamado": null
+  },
+  "R03": {
+    "motivo": "atraso_entrega",
+    "sentimento": "irritado",
+    "acao_sugerida": "rastrear_pedido",
+    "numero_pedido": "PED-33120",
+    "valor_reclamado": null
+  },
+  "R04": {
+    "motivo": "produto_com_defeito",
+    "sentimento": "insatisfeito",
+    "acao_sugerida": "trocar_produto",
+    "numero_pedido": "PED-32561",
+    "valor_reclamado": 1899.9
+  },
+  "R05": {
+    "motivo": "produto_com_defeito",
+    "sentimento": "neutro",
+    "acao_sugerida": "trocar_produto",
+    "numero_pedido": null,
+    "valor_reclamado": null
+  },
+  "R06": {
+    "motivo": "produto_com_defeito",
+    "sentimento": "insatisfeito",
+    "acao_sugerida": "reembolsar",
+    "numero_pedido": "PED-78191",
+    "valor_reclamado": 249.5
+  },
+  "R07": {
+    "motivo": "produto_errado",
+    "sentimento": "insatisfeito",
+    "acao_sugerida": "trocar_produto",
+    "numero_pedido": "PED-79506",
+    "valor_reclamado": null
+  },
+  "R08": {
+    "motivo": "produto_errado",
+    "sentimento": "neutro",
+    "acao_sugerida": "trocar_produto",
+    "numero_pedido": null,
+    "valor_reclamado": null
+  },
+  "R09": {
+    "motivo": "cobranca_indevida",
+    "sentimento": "insatisfeito",
+    "acao_sugerida": "corrigir_cobranca",
+    "numero_pedido": "PED-47769",
+    "valor_reclamado": 380.0
+  },
+  "R10": {
+    "motivo": "cobranca_indevida",
+    "sentimento": "irritado",
+    "acao_sugerida": "corrigir_cobranca",
+    "numero_pedido": null,
+    "valor_reclamado": 720.9
+  },
+  "R11": {
+    "motivo": "atendimento",
+    "sentimento": "insatisfeito",
+    "acao_sugerida": "ligar_para_cliente",
+    "numero_pedido": "PED-79567",
+    "valor_reclamado": null
+  },
+  "R12": {
+    "motivo": "atendimento",
+    "sentimento": "irritado",
+    "acao_sugerida": "ligar_para_cliente",
+    "numero_pedido": null,
+    "valor_reclamado": null
+  },
+  "R13": {
+    "motivo": "indefinido",
+    "sentimento": "neutro",
+    "acao_sugerida": "pedir_mais_informacao",
+    "numero_pedido": null,
+    "valor_reclamado": null
+  },
+  "R14": {
+    "motivo": "indefinido",
+    "sentimento": "insatisfeito",
+    "acao_sugerida": "pedir_mais_informacao",
+    "numero_pedido": "PED-62146",
+    "valor_reclamado": null
+  },
+  "R15": {
+    "motivo": "produto_com_defeito",
+    "sentimento": "irritado",
+    "acao_sugerida": "ligar_para_cliente",
+    "numero_pedido": "PED-75295",
+    "valor_reclamado": null
+  },
+  "R16": {
+    "motivo": "atraso_entrega",
+    "sentimento": "insatisfeito",
+    "acao_sugerida": "reembolsar",
+    "numero_pedido": "PED-79675",
+    "valor_reclamado": 540.0
+  },
+  "R17": {
+    "motivo": "cobranca_indevida",
+    "sentimento": "irritado",
+    "acao_sugerida": "ligar_para_cliente",
+    "numero_pedido": null,
+    "valor_reclamado": 89.9
+  },
+  "R18": {
+    "motivo": "produto_com_defeito",
+    "sentimento": "insatisfeito",
+    "acao_sugerida": "trocar_produto",
+    "numero_pedido": "PED-43411",
+    "valor_reclamado": null
+  },
+  "R19": {
+    "motivo": "atraso_entrega",
+    "sentimento": "neutro",
+    "acao_sugerida": "rastrear_pedido",
+    "numero_pedido": null,
+    "valor_reclamado": null
+  },
+  "R20": {
+    "motivo": "produto_errado",
+    "sentimento": "insatisfeito",
+    "acao_sugerida": "trocar_produto",
+    "numero_pedido": "PED-14056",
+    "valor_reclamado": null
+  }
+}

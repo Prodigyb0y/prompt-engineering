@@ -1,4 +1,4 @@
-"""Prompts versionados. Fonte única: este módulo gera os arquivos em prompts/.
+"""Prompts versionados. Fonte única: este módulo gera os arquivos em prompts/extracao/.
 
 Cada prompt tem versão e hash SHA-256 (12 caracteres) calculado sobre
 system + user_template. Mudou o texto -> o hash muda -> crie v2 (não edite a v1
@@ -9,8 +9,8 @@ import json
 from pathlib import Path
 
 RAIZ = Path(__file__).resolve().parent.parent
-PASTA = RAIZ / "prompts"
-FEWSHOT = RAIZ / "dados" / "exemplos_fewshot.json"
+PASTA = RAIZ / "prompts" / "extracao"
+FEWSHOT = RAIZ / "dados" / "extracao" / "v1" / "exemplos_fewshot.json"
 
 SCHEMA = """Campos do JSON (use exatamente estes nomes, sem campos extras):
 - solicitante_area: string ou null

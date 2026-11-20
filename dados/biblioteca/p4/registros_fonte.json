@@ -1,0 +1,102 @@
+{
+  "R01": {
+    "modelo": "Meu pedido {ped} deveria ter chegado há duas semanas e até agora nada. Já é a segunda vez que isso acontece e estou bem chateado.",
+    "ped": "PED-74728",
+    "valor": null
+  },
+  "R02": {
+    "modelo": "Comprei um kit de ferramentas há duas semanas e ele ainda não chegou. Gostaria de saber a previsão.",
+    "ped": "PED-73418",
+    "valor": null
+  },
+  "R03": {
+    "modelo": "VOCÊS SÃO UMA VERGONHA! Pedido {ped} atrasado de novo, terceira vez este ano!!!",
+    "ped": "PED-33120",
+    "valor": null
+  },
+  "R04": {
+    "modelo": "O monitor do pedido {ped} chegou com uma linha verde na tela. Estou decepcionado: paguei R$ {valor} e esperava um produto sem defeito.",
+    "ped": "PED-32561",
+    "valor": 1899.9
+  },
+  "R05": {
+    "modelo": "A cadeira que recebi tem um parafuso quebrado no apoio de braço. Como faço para trocar?",
+    "ped": "PED-63580",
+    "valor": null
+  },
+  "R06": {
+    "modelo": "O teclado do pedido {ped} parou de funcionar em três dias. Estou chateado, não quero outro: quero meus R$ {valor} de volta.",
+    "ped": "PED-78191",
+    "valor": 249.5
+  },
+  "R07": {
+    "modelo": "Pedi toner preto no pedido {ped} e veio toner colorido. Fiquei chateado, preciso do correto.",
+    "ped": "PED-79506",
+    "valor": null
+  },
+  "R08": {
+    "modelo": "Recebi papel A5 em vez de A4. Podem enviar o correto?",
+    "ped": "PED-27960",
+    "valor": null
+  },
+  "R09": {
+    "modelo": "Fui cobrado duas vezes pelo pedido {ped}: R$ {valor} a mais no cartão. Estou insatisfeito.",
+    "ped": "PED-47769",
+    "valor": 380.0
+  },
+  "R10": {
+    "modelo": "ABSURDO! Cobraram R$ {valor} no meu cartão por uma compra que eu cancelei. Quero isso resolvido!!",
+    "ped": "PED-51750",
+    "valor": 720.9
+  },
+  "R11": {
+    "modelo": "Fui transferido quatro vezes no telefone e ninguém resolveu meu problema com o pedido {ped}. Estou frustrado.",
+    "ped": "PED-79567",
+    "valor": null
+  },
+  "R12": {
+    "modelo": "O atendente me chamou de burro e desligou na minha cara.",
+    "ped": "PED-62380",
+    "valor": null
+  },
+  "R13": {
+    "modelo": "Oi, tive um problema com a minha compra. Podem me ajudar?",
+    "ped": "PED-71300",
+    "valor": null
+  },
+  "R14": {
+    "modelo": "Estou muito decepcionado com o pedido {ped}. Não era isso que eu esperava.",
+    "ped": "PED-62146",
+    "valor": null
+  },
+  "R15": {
+    "modelo": "O notebook do pedido {ped} veio com a tela rachada. Se não resolverem em 48 horas vou ao Procon.",
+    "ped": "PED-75295",
+    "valor": null
+  },
+  "R16": {
+    "modelo": "Pedido {ped} atrasado há 20 dias. Cansei, cancelem e devolvam meus R$ {valor}.",
+    "ped": "PED-79675",
+    "valor": 540.0
+  },
+  "R17": {
+    "modelo": "A fatura veio com R$ {valor} de uma taxa que ninguém me avisou. Vou acionar o Procon se não estornarem.",
+    "ped": "PED-39526",
+    "valor": 89.9
+  },
+  "R18": {
+    "modelo": "O projetor do pedido {ped} queimou com uma semana de uso. Paguei uma fortuna por ele e estou decepcionado.",
+    "ped": "PED-43411",
+    "valor": null
+  },
+  "R19": {
+    "modelo": "O pedido que termina em 4821 ainda não chegou. Alguém pode ver onde ele está?",
+    "ped": "PED-95058",
+    "valor": null
+  },
+  "R20": {
+    "modelo": "kkkk bom dia. recebi o item errado denovo, pedido {ped}, mandei a foto. ñ aguento mais isso",
+    "ped": "PED-14056",
+    "valor": null
+  }
+}

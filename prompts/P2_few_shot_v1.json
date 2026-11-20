@@ -1,0 +1,49 @@
+{
+  "id": "P2",
+  "nome": "Classificar solicitação de suporte interno",
+  "tecnica": "few_shot",
+  "versao": "v1",
+  "papel": "biblioteca",
+  "descricao_tecnica": "Few-shot com casos ambíguos",
+  "system": "",
+  "user_template": "Você classifica solicitações de suporte interno da Gutenberg Systems (empresa fictícia).\n\nCategorias (escolha uma):\n- acesso: login, senha, permissão, conta bloqueada, novo usuário\n- equipamento: computador, monitor, impressora, headset, celular corporativo, defeito físico\n- software: programa, sistema interno ou licença com erro, instalação ou atualização\n- rede: internet, wi-fi, VPN, link, servidor ou site fora do ar\n- instalacoes: ar-condicionado, iluminação, mobiliário, limpeza, porta, estacionamento\n- folha_beneficios: holerite, ponto, férias, vale-refeição, plano de saúde\n\nUrgência (escolha uma):\n- critica: para uma área inteira ou envolve segurança de pessoas ou de dados\n- alta: impede uma pessoa de trabalhar e não há alternativa\n- media: atrapalha, mas existe um jeito de contornar\n- baixa: pedido sem prazo ou melhoria\n\nResponda somente com um objeto JSON, sem texto antes ou depois: {\"categoria\": \"...\", \"urgencia\": \"...\"}\n\nOs exemplos abaixo mostram como decidir quando a solicitação cabe em mais de uma categoria ou urgência.\n\nExemplo 1\nSolicitação:\nNão consigo abrir o sistema de estoque. A página nem carrega e a VPN fica caindo. Sem isso não tenho como trabalhar de casa.\nJSON:\n{\"categoria\": \"rede\", \"urgencia\": \"alta\"}\n\nExemplo 2\nSolicitação:\nA VPN está funcionando, mas o sistema de contratos diz que não tenho permissão para ver a pasta do meu time. Preciso até amanhã.\nJSON:\n{\"categoria\": \"acesso\", \"urgencia\": \"media\"}\n\nExemplo 3\nSolicitação:\nO monitor do meu posto pisca e às vezes apaga, e o sistema de pedidos fecha junto. Dá para trabalhar se eu reiniciar de tempos em tempos.\nJSON:\n{\"categoria\": \"equipamento\", \"urgencia\": \"media\"}\n\nExemplo 4\nSolicitação:\nMandei por engano a senha da minha conta para um número que não conheço. Acho melhor alguém olhar isso agora.\nJSON:\n{\"categoria\": \"acesso\", \"urgencia\": \"critica\"}\n\nExemplo 5\nSolicitação:\nn precisa ser agora, mas a cadeira da minha baia range muito kkk quando puderem olhar\nJSON:\n{\"categoria\": \"instalacoes\", \"urgencia\": \"baixa\"}\n\nExemplo 6\nSolicitação:\nO vale-refeição ainda não foi creditado este mês. Hoje consigo almoçar por conta própria, mas queria entender.\nJSON:\n{\"categoria\": \"folha_beneficios\", \"urgencia\": \"media\"}\n\nAgora a solicitação real\nSolicitação:\n{texto}\nJSON:",
+  "hash12": "184b8f8be3e3",
+  "anatomia": [
+    {
+      "parte": "papel",
+      "rotulo": "Papel",
+      "trecho": "Você classifica solicitações de suporte interno",
+      "funcao": "Papel curto: classificador, não atendente."
+    },
+    {
+      "parte": "contexto",
+      "rotulo": "Contexto",
+      "trecho": "da Gutenberg Systems (empresa fictícia).",
+      "funcao": "Contexto mínimo; as definições abaixo carregam o resto."
+    },
+    {
+      "parte": "tarefa",
+      "rotulo": "Tarefa",
+      "trecho": "Os exemplos abaixo mostram como decidir quando a solicitação cabe em mais de uma categoria ou urgência.",
+      "funcao": "Diz ao modelo para que servem os exemplos."
+    },
+    {
+      "parte": "formato_saida",
+      "rotulo": "Formato de saída",
+      "trecho": "Responda somente com um objeto JSON, sem texto antes ou depois: {\"categoria\": \"...\", \"urgencia\": \"...\"}",
+      "funcao": "JSON de duas chaves, sem texto extra."
+    },
+    {
+      "parte": "regras",
+      "rotulo": "Regras",
+      "trecho": "Categorias (escolha uma):\n- acesso: login, senha, permissão, conta bloqueada, novo usuário\n- equipamento: computador, monitor, impressora, headset, celular corporativo, defeito físico\n- software: programa, sistema interno ou licença com erro, instalação ou atualização\n- rede: internet, wi-fi, VPN, link, servidor ou site fora do ar\n- instalacoes: ar-condicionado, iluminação, mobiliário, limpeza, porta, estacionamento\n- folha_beneficios: holerite, ponto, férias, vale-refeição, plano de saúde\n\nUrgência (escolha uma):\n- critica: para uma área inteira ou envolve segurança de pessoas ou de dados\n- alta: impede uma pessoa de trabalhar e não há alternativa\n- media: atrapalha, mas existe um jeito de contornar\n- baixa: pedido sem prazo ou melhoria",
+      "funcao": "Definições de cada categoria e de cada nível de urgência. Não resolvem os empates; por isso há exemplos."
+    },
+    {
+      "parte": "exemplos",
+      "rotulo": "Exemplos",
+      "trecho": "Exemplo 1\nSolicitação:\nNão consigo abrir o sistema de estoque. A página nem carrega e a VPN fica caindo. Sem isso não tenho como trabalhar de casa.\nJSON:\n{\"categoria\": \"rede\", \"urgencia\": \"alta\"}\n\nExemplo 2\nSolicitação:\nA VPN está funcionando, mas o sistema de contratos diz que não tenho permissão para ver a pasta do meu time. Preciso até amanhã.\nJSON:\n{\"categoria\": \"acesso\", \"urgencia\": \"media\"}\n\nExemplo 3\nSolicitação:\nO monitor do meu posto pisca e às vezes apaga, e o sistema de pedidos fecha junto. Dá para trabalhar se eu reiniciar de tempos em tempos.\nJSON:\n{\"categoria\": \"equipamento\", \"urgencia\": \"media\"}\n\nExemplo 4\nSolicitação:\nMandei por engano a senha da minha conta para um número que não conheço. Acho melhor alguém olhar isso agora.\nJSON:\n{\"categoria\": \"acesso\", \"urgencia\": \"critica\"}\n\nExemplo 5\nSolicitação:\nn precisa ser agora, mas a cadeira da minha baia range muito kkk quando puderem olhar\nJSON:\n{\"categoria\": \"instalacoes\", \"urgencia\": \"baixa\"}\n\nExemplo 6\nSolicitação:\nO vale-refeição ainda não foi creditado este mês. Hoje consigo almoçar por conta própria, mas queria entender.\nJSON:\n{\"categoria\": \"folha_beneficios\", \"urgencia\": \"media\"}",
+      "funcao": "Seis exemplos com os empates mais comuns: VPN contra permissão, defeito físico contra software, segurança de dados, pedido sem pressa com ruído."
+    }
+  ]
+}

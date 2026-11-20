@@ -1,0 +1,300 @@
+{
+  "E01": {
+    "tipo": "completa",
+    "trechos": {
+      "quantidade": "15",
+      "unidade": "caixas",
+      "item": "papel A4",
+      "solicitante_area": "Financeiro",
+      "valor_unitario": "€ 120,00",
+      "fornecedor": "Químicos Horizonte",
+      "prazo_entrega": "05-out-2026"
+    },
+    "faltam": [],
+    "valor_total_texto": null
+  },
+  "E02": {
+    "tipo": "falta_dois",
+    "trechos": {
+      "quantidade": "20",
+      "unidade": "metros",
+      "item": "cabo elétrico 2,5mm",
+      "solicitante_area": "Logística",
+      "prazo_entrega": "12 de março de 2026"
+    },
+    "faltam": [
+      "valor_unitario",
+      "fornecedor"
+    ],
+    "valor_total_texto": null
+  },
+  "E03": {
+    "tipo": "falta_dois",
+    "trechos": {
+      "quantidade": "20",
+      "unidade": "litros",
+      "item": "detergente industrial",
+      "valor_unitario": "R$ 380,00",
+      "prazo_entrega": "2026-09-22"
+    },
+    "faltam": [
+      "solicitante_area",
+      "fornecedor"
+    ],
+    "valor_total_texto": null
+  },
+  "E04": {
+    "tipo": "falta_um",
+    "trechos": {
+      "quantidade": "100",
+      "unidade": "un",
+      "item": "luva de proteção",
+      "solicitante_area": "Produção",
+      "fornecedor": "Químicos Horizonte",
+      "prazo_entrega": "18/03/2026"
+    },
+    "faltam": [
+      "valor_unitario"
+    ],
+    "valor_total_texto": null
+  },
+  "E05": {
+    "tipo": "falta_um",
+    "trechos": {
+      "quantidade": "2",
+      "unidade": "l",
+      "item": "tinta acrílica branca",
+      "solicitante_area": "Manutenção",
+      "valor_unitario": "€ 12,50",
+      "prazo_entrega": "27/12/2026"
+    },
+    "faltam": [
+      "fornecedor"
+    ],
+    "valor_total_texto": null
+  },
+  "E06": {
+    "tipo": "falta_um",
+    "trechos": {
+      "quantidade": "40",
+      "unidade": "un",
+      "item": "cadeira ergonômica",
+      "solicitante_area": "Produção",
+      "fornecedor": "Embalagens Ponto Certo",
+      "prazo_entrega": "07/12/2026"
+    },
+    "faltam": [
+      "valor_unitario"
+    ],
+    "valor_total_texto": null
+  },
+  "E07": {
+    "tipo": "falta_um",
+    "trechos": {
+      "quantidade": "25",
+      "unidade": "m",
+      "item": "tubo PVC 50mm",
+      "solicitante_area": "TI",
+      "valor_unitario": "€ 120,00",
+      "prazo_entrega": "2 de março de 2026"
+    },
+    "faltam": [
+      "fornecedor"
+    ],
+    "valor_total_texto": null
+  },
+  "E08": {
+    "tipo": "falta_tres",
+    "trechos": {
+      "quantidade": "15",
+      "unidade": "un",
+      "item": "teclado sem fio",
+      "solicitante_area": "Compras"
+    },
+    "faltam": [
+      "prazo_entrega",
+      "valor_unitario",
+      "fornecedor"
+    ],
+    "valor_total_texto": null
+  },
+  "E09": {
+    "tipo": "prazo_relativo",
+    "trechos": {
+      "quantidade": "12",
+      "unidade": "unidades",
+      "item": "fita adesiva",
+      "solicitante_area": "Manutenção",
+      "valor_unitario": "US$ 4,50",
+      "prazo_relativo": "na semana que vem"
+    },
+    "faltam": [
+      "prazo_entrega",
+      "fornecedor"
+    ],
+    "valor_total_texto": null
+  },
+  "E10": {
+    "tipo": "falta_tres",
+    "trechos": {
+      "quantidade": "50",
+      "unidade": "unidades",
+      "item": "toner preto",
+      "fornecedor": "Metalúrgica Vale Verde"
+    },
+    "faltam": [
+      "solicitante_area",
+      "prazo_entrega",
+      "valor_unitario"
+    ],
+    "valor_total_texto": null
+  },
+  "E11": {
+    "tipo": "falta_um",
+    "trechos": {
+      "quantidade": "4",
+      "unidade": "litros",
+      "item": "óleo lubrificante",
+      "valor_unitario": "€ 120,00",
+      "fornecedor": "Eletrotécnica Faísca",
+      "prazo_entrega": "2026-01-14"
+    },
+    "faltam": [
+      "solicitante_area"
+    ],
+    "valor_total_texto": null
+  },
+  "E12": {
+    "tipo": "prazo_relativo",
+    "trechos": {
+      "quantidade": "40",
+      "unidade": "cx",
+      "item": "caneta esferográfica",
+      "solicitante_area": "Compras",
+      "valor_unitario": "€ 12,50",
+      "fornecedor": "Embalagens Ponto Certo",
+      "prazo_relativo": "na semana que vem"
+    },
+    "faltam": [
+      "prazo_entrega"
+    ],
+    "valor_total_texto": null
+  },
+  "E13": {
+    "tipo": "falta_dois",
+    "trechos": {
+      "quantidade": "15",
+      "unidade": "caixas",
+      "item": "etiqueta adesiva",
+      "valor_unitario": "€ 35,00",
+      "fornecedor": "Tecidos Santa Clara"
+    },
+    "faltam": [
+      "solicitante_area",
+      "prazo_entrega"
+    ],
+    "valor_total_texto": null
+  },
+  "E14": {
+    "tipo": "falta_um",
+    "trechos": {
+      "quantidade": "5",
+      "unidade": "unidades",
+      "item": "monitor 24 polegadas",
+      "valor_unitario": "R$ 4,50",
+      "fornecedor": "Químicos Horizonte",
+      "prazo_entrega": "02/01/2026"
+    },
+    "faltam": [
+      "solicitante_area"
+    ],
+    "valor_total_texto": null
+  },
+  "E15": {
+    "tipo": "falta_um",
+    "trechos": {
+      "quantidade": "8",
+      "unidade": "caixas",
+      "item": "parafuso sextavado",
+      "solicitante_area": "Compras",
+      "valor_unitario": "R$ 35,00",
+      "fornecedor": "Distribuidora Pinheiro"
+    },
+    "faltam": [
+      "prazo_entrega"
+    ],
+    "valor_total_texto": null
+  },
+  "E16": {
+    "tipo": "falta_quatro",
+    "trechos": {
+      "quantidade": "15",
+      "unidade": "metros",
+      "item": "cabo de rede cat6"
+    },
+    "faltam": [
+      "solicitante_area",
+      "prazo_entrega",
+      "valor_unitario",
+      "fornecedor"
+    ],
+    "valor_total_texto": null
+  },
+  "E17": {
+    "tipo": "so_valor_total",
+    "trechos": {
+      "quantidade": "3",
+      "unidade": "litros",
+      "item": "álcool isopropílico",
+      "solicitante_area": "Manutenção",
+      "fornecedor": "Químicos Horizonte",
+      "prazo_entrega": "4 de fevereiro de 2026"
+    },
+    "faltam": [],
+    "valor_total_texto": "R$ 360,00"
+  },
+  "E18": {
+    "tipo": "completa",
+    "trechos": {
+      "quantidade": "2",
+      "unidade": "kg",
+      "item": "solda em barra",
+      "solicitante_area": "Manutenção",
+      "valor_unitario": "R$ 380,00",
+      "fornecedor": "Metalúrgica Vale Verde",
+      "prazo_entrega": "17-jul-2026"
+    },
+    "faltam": [],
+    "valor_total_texto": null
+  },
+  "E19": {
+    "tipo": "falta_um",
+    "trechos": {
+      "quantidade": "40",
+      "unidade": "metros",
+      "item": "cabo elétrico 2,5mm",
+      "solicitante_area": "Logística",
+      "valor_unitario": "US$ 120,00",
+      "fornecedor": "Tecidos Santa Clara"
+    },
+    "faltam": [
+      "prazo_entrega"
+    ],
+    "valor_total_texto": null
+  },
+  "E20": {
+    "tipo": "falta_dois",
+    "trechos": {
+      "quantidade": "20",
+      "unidade": "caixas",
+      "item": "fita adesiva",
+      "solicitante_area": "Logística",
+      "fornecedor": "Químicos Horizonte"
+    },
+    "faltam": [
+      "prazo_entrega",
+      "valor_unitario"
+    ],
+    "valor_total_texto": null
+  }
+}

@@ -1,0 +1,102 @@
+[
+  {
+    "id": "S01",
+    "tipo": "claro",
+    "texto": "Preciso de acesso ao sistema de estoque para o novo estagiário de Marketing, que começa na segunda. Dá para liberar até o fim da semana?"
+  },
+  {
+    "id": "S02",
+    "tipo": "claro",
+    "texto": "Minha conta do sistema de faturamento foi bloqueada depois de errar a senha e não consigo trabalhar. Não tenho outro acesso."
+  },
+  {
+    "id": "S03",
+    "tipo": "claro",
+    "texto": "Quando der, podem trocar o mouse da minha mesa? O scroll está meio duro, mas funciona."
+  },
+  {
+    "id": "S04",
+    "tipo": "claro",
+    "texto": "O notebook não liga mais desde hoje cedo e não tenho máquina reserva. Sou da área de Financeiro e preciso entregar um relatório hoje."
+  },
+  {
+    "id": "S05",
+    "tipo": "claro",
+    "texto": "O sistema de contratos trava toda vez que exporto um relatório grande. Consigo exportar em partes, mas perco tempo."
+  },
+  {
+    "id": "S06",
+    "tipo": "claro",
+    "texto": "Seria possível atualizar o editor de planilhas para a versão nova quando houver uma janela? Sem pressa."
+  },
+  {
+    "id": "S07",
+    "tipo": "claro",
+    "texto": "A internet do 6º andar caiu inteira. Toda a equipe de Marketing está parada."
+  },
+  {
+    "id": "S08",
+    "tipo": "claro",
+    "texto": "O wi-fi da sala de reunião Horizonte está lento, mas no cabo funciona normal."
+  },
+  {
+    "id": "S09",
+    "tipo": "claro",
+    "texto": "A lâmpada da minha baia queimou. Troquem quando puderem."
+  },
+  {
+    "id": "S10",
+    "tipo": "claro",
+    "texto": "Cheiro forte de gás na copa do 6º andar. As pessoas já saíram do local."
+  },
+  {
+    "id": "S11",
+    "tipo": "claro",
+    "texto": "O holerite de agosto veio com um desconto de vale-refeição que não entendi. Podem me explicar até sexta?"
+  },
+  {
+    "id": "S12",
+    "tipo": "claro",
+    "texto": "Gostaria de saber como incluir meu dependente no plano de saúde na próxima janela de adesão."
+  },
+  {
+    "id": "S13",
+    "tipo": "borda",
+    "texto": "Não consigo entrar no painel de vendas. A tela de login nem carrega e a VPN fica desconectando. Hoje não tenho como trabalhar de outro jeito."
+  },
+  {
+    "id": "S14",
+    "tipo": "borda",
+    "texto": "A VPN conecta normal, mas o sistema de faturamento diz que não tenho permissão para a pasta de Marketing. Preciso disso hoje para fechar o mês."
+  },
+  {
+    "id": "S15",
+    "tipo": "borda",
+    "texto": "O notebook reinicia sozinho e os programas fecham no meio do trabalho. Parece que ele esquenta demais. Às vezes uso a máquina de um colega."
+  },
+  {
+    "id": "S16",
+    "tipo": "borda",
+    "texto": "Depois da atualização do portal de compras, os pedidos estão sendo gravados em branco e a equipe de Produção inteira continua lançando. Estamos perdendo dados."
+  },
+  {
+    "id": "S17",
+    "tipo": "borda",
+    "texto": "Cliquei num link de e-mail estranho e digitei minha senha do sistema de faturamento. Acho que era phishing."
+  },
+  {
+    "id": "S18",
+    "tipo": "borda",
+    "texto": "O ar-condicionado da sala de servidores de RH parou. A temperatura está subindo e os equipamentos estão desligando."
+  },
+  {
+    "id": "S19",
+    "tipo": "borda",
+    "texto": "oi td bem? n é urgente mas o teclado tá com a tecla E falhando de vez em qnd, da pra ir digitando msm kkk"
+  },
+  {
+    "id": "S20",
+    "tipo": "borda",
+    "texto": "Meu pagamento do mês não caiu na conta e tenho o aluguel vencendo hoje."
+  }
+]

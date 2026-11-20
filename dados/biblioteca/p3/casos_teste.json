@@ -1,0 +1,102 @@
+[
+  {
+    "id": "E01",
+    "tipo": "completa",
+    "texto": "Oi, preciso de 15 caixas de papel A4 (solicitante: Financeiro). Valor unitário € 120,00. Pode ser com a Químicos Horizonte. Prazo: 05-out-2026."
+  },
+  {
+    "id": "E02",
+    "tipo": "falta_dois",
+    "texto": "Preciso comprar 20 metros de cabo elétrico 2,5mm (solicitante: Logística). Prazo: 12 de março de 2026."
+  },
+  {
+    "id": "E03",
+    "tipo": "falta_dois",
+    "texto": "Bom dia! Solicito 20 litros de detergente industrial. preço de tabela: R$ 380,00 por unidade. precisa chegar em 2026-09-22."
+  },
+  {
+    "id": "E04",
+    "tipo": "falta_um",
+    "texto": "Preciso comprar 100 un de luva de proteção para a área de Produção. cotação feita com Químicos Horizonte. precisa chegar em 18/03/2026."
+  },
+  {
+    "id": "E05",
+    "tipo": "falta_um",
+    "texto": "Oi, preciso de 2 l de tinta acrílica branca (solicitante: Manutenção). Cada unidade custa € 12,50. Entrega até 27/12/2026."
+  },
+  {
+    "id": "E06",
+    "tipo": "falta_um",
+    "texto": "Bom dia! Solicito 40 un de cadeira ergonômica para a área de Produção. Pode ser com a Embalagens Ponto Certo. Entrega até 07/12/2026."
+  },
+  {
+    "id": "E07",
+    "tipo": "falta_um",
+    "texto": "Preciso comprar 25 m de tubo PVC 50mm para a área de TI. Valor unitário € 120,00. precisa chegar em 2 de março de 2026."
+  },
+  {
+    "id": "E08",
+    "tipo": "falta_tres",
+    "texto": "Oi, preciso de 15 un de teclado sem fio para a área de Compras."
+  },
+  {
+    "id": "E09",
+    "tipo": "prazo_relativo",
+    "texto": "Preciso comprar 12 unidades de fita adesiva (solicitante: Manutenção). preço de tabela: US$ 4,50 por unidade. Entrega na semana que vem."
+  },
+  {
+    "id": "E10",
+    "tipo": "falta_tres",
+    "texto": "Bom dia! Solicito 50 unidades de toner preto. cotação feita com Metalúrgica Vale Verde."
+  },
+  {
+    "id": "E11",
+    "tipo": "falta_um",
+    "texto": "Preciso comprar 4 litros de óleo lubrificante. preço de tabela: € 120,00 por unidade. Fornecedor: Eletrotécnica Faísca. Entrega até 2026-01-14."
+  },
+  {
+    "id": "E12",
+    "tipo": "prazo_relativo",
+    "texto": "Oi, preciso de 40 cx de caneta esferográfica para a área de Compras. preço de tabela: € 12,50 por unidade. Pode ser com a Embalagens Ponto Certo. Entrega na semana que vem."
+  },
+  {
+    "id": "E13",
+    "tipo": "falta_dois",
+    "texto": "Pedido de compra: 15 caixas de etiqueta adesiva. Valor unitário € 35,00. cotação feita com Tecidos Santa Clara."
+  },
+  {
+    "id": "E14",
+    "tipo": "falta_um",
+    "texto": "Bom dia! Solicito 5 unidades de monitor 24 polegadas. preço de tabela: R$ 4,50 por unidade. Fornecedor: Químicos Horizonte. Prazo: 02/01/2026."
+  },
+  {
+    "id": "E15",
+    "tipo": "falta_um",
+    "texto": "Preciso comprar 8 caixas de parafuso sextavado para a área de Compras. preço de tabela: R$ 35,00 por unidade. Pode ser com a Distribuidora Pinheiro."
+  },
+  {
+    "id": "E16",
+    "tipo": "falta_quatro",
+    "texto": "Preciso comprar 15 metros de cabo de rede cat6."
+  },
+  {
+    "id": "E17",
+    "tipo": "so_valor_total",
+    "texto": "Bom dia! Solicito 3 litros de álcool isopropílico para a área de Manutenção. valor total R$ 360,00. Fornecedor: Químicos Horizonte. Entrega até 4 de fevereiro de 2026."
+  },
+  {
+    "id": "E18",
+    "tipo": "completa",
+    "texto": "Preciso comprar 2 kg de solda em barra (solicitante: Manutenção). Valor unitário R$ 380,00. cotação feita com Metalúrgica Vale Verde. Entrega até 17-jul-2026."
+  },
+  {
+    "id": "E19",
+    "tipo": "falta_um",
+    "texto": "Preciso comprar 40 metros de cabo elétrico 2,5mm (solicitante: Logística). Valor unitário US$ 120,00. Fornecedor: Tecidos Santa Clara."
+  },
+  {
+    "id": "E20",
+    "tipo": "falta_dois",
+    "texto": "Pedido de compra: 20 caixas de fita adesiva (solicitante: Logística). cotação feita com Químicos Horizonte."
+  }
+]

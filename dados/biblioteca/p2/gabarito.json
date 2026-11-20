@@ -1,0 +1,82 @@
+{
+  "S01": {
+    "categoria": "acesso",
+    "urgencia": "media"
+  },
+  "S02": {
+    "categoria": "acesso",
+    "urgencia": "alta"
+  },
+  "S03": {
+    "categoria": "equipamento",
+    "urgencia": "baixa"
+  },
+  "S04": {
+    "categoria": "equipamento",
+    "urgencia": "alta"
+  },
+  "S05": {
+    "categoria": "software",
+    "urgencia": "media"
+  },
+  "S06": {
+    "categoria": "software",
+    "urgencia": "baixa"
+  },
+  "S07": {
+    "categoria": "rede",
+    "urgencia": "critica"
+  },
+  "S08": {
+    "categoria": "rede",
+    "urgencia": "media"
+  },
+  "S09": {
+    "categoria": "instalacoes",
+    "urgencia": "baixa"
+  },
+  "S10": {
+    "categoria": "instalacoes",
+    "urgencia": "critica"
+  },
+  "S11": {
+    "categoria": "folha_beneficios",
+    "urgencia": "media"
+  },
+  "S12": {
+    "categoria": "folha_beneficios",
+    "urgencia": "baixa"
+  },
+  "S13": {
+    "categoria": "rede",
+    "urgencia": "alta"
+  },
+  "S14": {
+    "categoria": "acesso",
+    "urgencia": "alta"
+  },
+  "S15": {
+    "categoria": "equipamento",
+    "urgencia": "media"
+  },
+  "S16": {
+    "categoria": "software",
+    "urgencia": "critica"
+  },
+  "S17": {
+    "categoria": "acesso",
+    "urgencia": "critica"
+  },
+  "S18": {
+    "categoria": "instalacoes",
+    "urgencia": "critica"
+  },
+  "S19": {
+    "categoria": "equipamento",
+    "urgencia": "baixa"
+  },
+  "S20": {
+    "categoria": "folha_beneficios",
+    "urgencia": "alta"
+  }
+}

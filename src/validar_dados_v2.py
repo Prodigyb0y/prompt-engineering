@@ -11,7 +11,7 @@ from pathlib import Path
 
 from validar_dados import ABREV, CAMPOS, MESES, SIMB, UNIDADES
 
-DADOS = Path(__file__).resolve().parent.parent / "dados" / "v2"
+DADOS = Path(__file__).resolve().parent.parent / "dados" / "extracao" / "v2"
 EXTENSO = {"três": 3, "cinco": 5, "oito": 8, "dez": 10, "doze": 12, "quinze": 15, "vinte": 20,
            "vinte e cinco": 25, "trinta": 30, "quarenta": 40, "cinquenta": 50}
 PALAVRA = {"reais": "BRL", "dólares": "USD", "euros": "EUR"}
@@ -50,8 +50,8 @@ def main():
     casos = json.loads((DADOS / "casos_teste.json").read_text(encoding="utf-8"))
     gab = json.loads((DADOS / "gabarito.json").read_text(encoding="utf-8"))
     fonte = json.loads((DADOS / "registros_fonte.json").read_text(encoding="utf-8"))
-    fewshot = json.loads((DADOS.parent / "exemplos_fewshot.json").read_text(encoding="utf-8"))
-    v1 = json.loads((DADOS.parent / "casos_teste.json").read_text(encoding="utf-8"))
+    fewshot = json.loads((DADOS.parent / "v1" / "exemplos_fewshot.json").read_text(encoding="utf-8"))
+    v1 = json.loads((DADOS.parent / "v1" / "casos_teste.json").read_text(encoding="utf-8"))
     erros = []
 
     def err(cid, msg):

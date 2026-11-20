@@ -1,0 +1,302 @@
+{
+  "S01": {
+    "modelo": "Preciso de acesso ao {sistema} para o novo estagiário de {area}, que começa na segunda. Dá para liberar até o fim da semana?",
+    "slots": {
+      "sistema": "sistema de estoque",
+      "area": "Marketing",
+      "andar": 3,
+      "sala": "Aurora",
+      "mes": "novembro",
+      "programa": "software de projetos"
+    },
+    "gabarito": {
+      "categoria": "acesso",
+      "urgencia": "media"
+    }
+  },
+  "S02": {
+    "modelo": "Minha conta do {sistema} foi bloqueada depois de errar a senha e não consigo trabalhar. Não tenho outro acesso.",
+    "slots": {
+      "sistema": "sistema de faturamento",
+      "area": "TI",
+      "andar": 8,
+      "sala": "Pinheiro",
+      "mes": "junho",
+      "programa": "leitor de PDF"
+    },
+    "gabarito": {
+      "categoria": "acesso",
+      "urgencia": "alta"
+    }
+  },
+  "S03": {
+    "modelo": "Quando der, podem trocar o mouse da minha mesa? O scroll está meio duro, mas funciona.",
+    "slots": {
+      "sistema": "sistema de contratos",
+      "area": "Financeiro",
+      "andar": 3,
+      "sala": "Horizonte",
+      "mes": "maio",
+      "programa": "editor de planilhas"
+    },
+    "gabarito": {
+      "categoria": "equipamento",
+      "urgencia": "baixa"
+    }
+  },
+  "S04": {
+    "modelo": "O notebook não liga mais desde hoje cedo e não tenho máquina reserva. Sou da área de {area} e preciso entregar um relatório hoje.",
+    "slots": {
+      "sistema": "sistema de contratos",
+      "area": "Financeiro",
+      "andar": 8,
+      "sala": "Pinheiro",
+      "mes": "março",
+      "programa": "software de projetos"
+    },
+    "gabarito": {
+      "categoria": "equipamento",
+      "urgencia": "alta"
+    }
+  },
+  "S05": {
+    "modelo": "O {sistema} trava toda vez que exporto um relatório grande. Consigo exportar em partes, mas perco tempo.",
+    "slots": {
+      "sistema": "sistema de contratos",
+      "area": "Logística",
+      "andar": 8,
+      "sala": "Faísca",
+      "mes": "julho",
+      "programa": "leitor de PDF"
+    },
+    "gabarito": {
+      "categoria": "software",
+      "urgencia": "media"
+    }
+  },
+  "S06": {
+    "modelo": "Seria possível atualizar o {programa} para a versão nova quando houver uma janela? Sem pressa.",
+    "slots": {
+      "sistema": "sistema de faturamento",
+      "area": "Produção",
+      "andar": 7,
+      "sala": "Aurora",
+      "mes": "abril",
+      "programa": "editor de planilhas"
+    },
+    "gabarito": {
+      "categoria": "software",
+      "urgencia": "baixa"
+    }
+  },
+  "S07": {
+    "modelo": "A internet do {andar}º andar caiu inteira. Toda a equipe de {area} está parada.",
+    "slots": {
+      "sistema": "sistema de contratos",
+      "area": "Marketing",
+      "andar": 6,
+      "sala": "Aurora",
+      "mes": "maio",
+      "programa": "programa de videoconferência"
+    },
+    "gabarito": {
+      "categoria": "rede",
+      "urgencia": "critica"
+    }
+  },
+  "S08": {
+    "modelo": "O wi-fi da sala de reunião {sala} está lento, mas no cabo funciona normal.",
+    "slots": {
+      "sistema": "sistema de faturamento",
+      "area": "Manutenção",
+      "andar": 4,
+      "sala": "Horizonte",
+      "mes": "outubro",
+      "programa": "editor de planilhas"
+    },
+    "gabarito": {
+      "categoria": "rede",
+      "urgencia": "media"
+    }
+  },
+  "S09": {
+    "modelo": "A lâmpada da minha baia queimou. Troquem quando puderem.",
+    "slots": {
+      "sistema": "sistema de estoque",
+      "area": "RH",
+      "andar": 3,
+      "sala": "Faísca",
+      "mes": "abril",
+      "programa": "leitor de PDF"
+    },
+    "gabarito": {
+      "categoria": "instalacoes",
+      "urgencia": "baixa"
+    }
+  },
+  "S10": {
+    "modelo": "Cheiro forte de gás na copa do {andar}º andar. As pessoas já saíram do local.",
+    "slots": {
+      "sistema": "sistema de estoque",
+      "area": "Manutenção",
+      "andar": 6,
+      "sala": "Aurora",
+      "mes": "setembro",
+      "programa": "editor de planilhas"
+    },
+    "gabarito": {
+      "categoria": "instalacoes",
+      "urgencia": "critica"
+    }
+  },
+  "S11": {
+    "modelo": "O holerite de {mes} veio com um desconto de vale-refeição que não entendi. Podem me explicar até sexta?",
+    "slots": {
+      "sistema": "painel de vendas",
+      "area": "Manutenção",
+      "andar": 4,
+      "sala": "Horizonte",
+      "mes": "agosto",
+      "programa": "editor de planilhas"
+    },
+    "gabarito": {
+      "categoria": "folha_beneficios",
+      "urgencia": "media"
+    }
+  },
+  "S12": {
+    "modelo": "Gostaria de saber como incluir meu dependente no plano de saúde na próxima janela de adesão.",
+    "slots": {
+      "sistema": "portal de compras",
+      "area": "Compras",
+      "andar": 2,
+      "sala": "Horizonte",
+      "mes": "novembro",
+      "programa": "software de projetos"
+    },
+    "gabarito": {
+      "categoria": "folha_beneficios",
+      "urgencia": "baixa"
+    }
+  },
+  "S13": {
+    "modelo": "Não consigo entrar no {sistema}. A tela de login nem carrega e a VPN fica desconectando. Hoje não tenho como trabalhar de outro jeito.",
+    "slots": {
+      "sistema": "painel de vendas",
+      "area": "Financeiro",
+      "andar": 8,
+      "sala": "Faísca",
+      "mes": "agosto",
+      "programa": "leitor de PDF"
+    },
+    "gabarito": {
+      "categoria": "rede",
+      "urgencia": "alta"
+    }
+  },
+  "S14": {
+    "modelo": "A VPN conecta normal, mas o {sistema} diz que não tenho permissão para a pasta de {area}. Preciso disso hoje para fechar o mês.",
+    "slots": {
+      "sistema": "sistema de faturamento",
+      "area": "Marketing",
+      "andar": 4,
+      "sala": "Faísca",
+      "mes": "maio",
+      "programa": "leitor de PDF"
+    },
+    "gabarito": {
+      "categoria": "acesso",
+      "urgencia": "alta"
+    }
+  },
+  "S15": {
+    "modelo": "O notebook reinicia sozinho e os programas fecham no meio do trabalho. Parece que ele esquenta demais. Às vezes uso a máquina de um colega.",
+    "slots": {
+      "sistema": "painel de vendas",
+      "area": "Compras",
+      "andar": 9,
+      "sala": "Horizonte",
+      "mes": "novembro",
+      "programa": "leitor de PDF"
+    },
+    "gabarito": {
+      "categoria": "equipamento",
+      "urgencia": "media"
+    }
+  },
+  "S16": {
+    "modelo": "Depois da atualização do {sistema}, os pedidos estão sendo gravados em branco e a equipe de {area} inteira continua lançando. Estamos perdendo dados.",
+    "slots": {
+      "sistema": "portal de compras",
+      "area": "Produção",
+      "andar": 5,
+      "sala": "Aurora",
+      "mes": "fevereiro",
+      "programa": "software de projetos"
+    },
+    "gabarito": {
+      "categoria": "software",
+      "urgencia": "critica"
+    }
+  },
+  "S17": {
+    "modelo": "Cliquei num link de e-mail estranho e digitei minha senha do {sistema}. Acho que era phishing.",
+    "slots": {
+      "sistema": "sistema de faturamento",
+      "area": "RH",
+      "andar": 4,
+      "sala": "Horizonte",
+      "mes": "agosto",
+      "programa": "leitor de PDF"
+    },
+    "gabarito": {
+      "categoria": "acesso",
+      "urgencia": "critica"
+    }
+  },
+  "S18": {
+    "modelo": "O ar-condicionado da sala de servidores de {area} parou. A temperatura está subindo e os equipamentos estão desligando.",
+    "slots": {
+      "sistema": "sistema de contratos",
+      "area": "RH",
+      "andar": 6,
+      "sala": "Horizonte",
+      "mes": "abril",
+      "programa": "programa de videoconferência"
+    },
+    "gabarito": {
+      "categoria": "instalacoes",
+      "urgencia": "critica"
+    }
+  },
+  "S19": {
+    "modelo": "oi td bem? n é urgente mas o teclado tá com a tecla E falhando de vez em qnd, da pra ir digitando msm kkk",
+    "slots": {
+      "sistema": "painel de vendas",
+      "area": "Compras",
+      "andar": 5,
+      "sala": "Faísca",
+      "mes": "março",
+      "programa": "software de projetos"
+    },
+    "gabarito": {
+      "categoria": "equipamento",
+      "urgencia": "baixa"
+    }
+  },
+  "S20": {
+    "modelo": "Meu pagamento do mês não caiu na conta e tenho o aluguel vencendo hoje.",
+    "slots": {
+      "sistema": "portal de compras",
+      "area": "TI",
+      "andar": 8,
+      "sala": "Horizonte",
+      "mes": "abril",
+      "programa": "software de projetos"
+    },
+    "gabarito": {
+      "categoria": "folha_beneficios",
+      "urgencia": "alta"
+    }
+  }
+}

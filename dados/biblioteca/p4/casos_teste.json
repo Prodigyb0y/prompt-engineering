@@ -1,0 +1,102 @@
+[
+  {
+    "id": "R01",
+    "tipo": "claro",
+    "texto": "Meu pedido PED-74728 deveria ter chegado há duas semanas e até agora nada. Já é a segunda vez que isso acontece e estou bem chateado."
+  },
+  {
+    "id": "R02",
+    "tipo": "claro",
+    "texto": "Comprei um kit de ferramentas há duas semanas e ele ainda não chegou. Gostaria de saber a previsão."
+  },
+  {
+    "id": "R03",
+    "tipo": "claro",
+    "texto": "VOCÊS SÃO UMA VERGONHA! Pedido PED-33120 atrasado de novo, terceira vez este ano!!!"
+  },
+  {
+    "id": "R04",
+    "tipo": "claro",
+    "texto": "O monitor do pedido PED-32561 chegou com uma linha verde na tela. Estou decepcionado: paguei R$ 1.899,90 e esperava um produto sem defeito."
+  },
+  {
+    "id": "R05",
+    "tipo": "claro",
+    "texto": "A cadeira que recebi tem um parafuso quebrado no apoio de braço. Como faço para trocar?"
+  },
+  {
+    "id": "R06",
+    "tipo": "claro",
+    "texto": "O teclado do pedido PED-78191 parou de funcionar em três dias. Estou chateado, não quero outro: quero meus R$ 249,50 de volta."
+  },
+  {
+    "id": "R07",
+    "tipo": "claro",
+    "texto": "Pedi toner preto no pedido PED-79506 e veio toner colorido. Fiquei chateado, preciso do correto."
+  },
+  {
+    "id": "R08",
+    "tipo": "claro",
+    "texto": "Recebi papel A5 em vez de A4. Podem enviar o correto?"
+  },
+  {
+    "id": "R09",
+    "tipo": "claro",
+    "texto": "Fui cobrado duas vezes pelo pedido PED-47769: R$ 380,00 a mais no cartão. Estou insatisfeito."
+  },
+  {
+    "id": "R10",
+    "tipo": "claro",
+    "texto": "ABSURDO! Cobraram R$ 720,90 no meu cartão por uma compra que eu cancelei. Quero isso resolvido!!"
+  },
+  {
+    "id": "R11",
+    "tipo": "claro",
+    "texto": "Fui transferido quatro vezes no telefone e ninguém resolveu meu problema com o pedido PED-79567. Estou frustrado."
+  },
+  {
+    "id": "R12",
+    "tipo": "claro",
+    "texto": "O atendente me chamou de burro e desligou na minha cara."
+  },
+  {
+    "id": "R13",
+    "tipo": "borda",
+    "texto": "Oi, tive um problema com a minha compra. Podem me ajudar?"
+  },
+  {
+    "id": "R14",
+    "tipo": "borda",
+    "texto": "Estou muito decepcionado com o pedido PED-62146. Não era isso que eu esperava."
+  },
+  {
+    "id": "R15",
+    "tipo": "borda",
+    "texto": "O notebook do pedido PED-75295 veio com a tela rachada. Se não resolverem em 48 horas vou ao Procon."
+  },
+  {
+    "id": "R16",
+    "tipo": "borda",
+    "texto": "Pedido PED-79675 atrasado há 20 dias. Cansei, cancelem e devolvam meus R$ 540,00."
+  },
+  {
+    "id": "R17",
+    "tipo": "borda",
+    "texto": "A fatura veio com R$ 89,90 de uma taxa que ninguém me avisou. Vou acionar o Procon se não estornarem."
+  },
+  {
+    "id": "R18",
+    "tipo": "borda",
+    "texto": "O projetor do pedido PED-43411 queimou com uma semana de uso. Paguei uma fortuna por ele e estou decepcionado."
+  },
+  {
+    "id": "R19",
+    "tipo": "borda",
+    "texto": "O pedido que termina em 4821 ainda não chegou. Alguém pode ver onde ele está?"
+  },
+  {
+    "id": "R20",
+    "tipo": "borda",
+    "texto": "kkkk bom dia. recebi o item errado denovo, pedido PED-14056, mandei a foto. ñ aguento mais isso"
+  }
+]

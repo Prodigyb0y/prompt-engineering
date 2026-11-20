@@ -1,0 +1,12 @@
+{
+  "id": "P5",
+  "nome": "Decidir a próxima etapa da solicitação",
+  "tecnica": "direto",
+  "versao": "v1",
+  "papel": "controle",
+  "descricao_tecnica": "Sem raciocínio (controle do Experimento 5)",
+  "system": "Você decide a próxima etapa de uma solicitação de compra da Gutenberg Systems (empresa fictícia), conforme a política abaixo. A solicitação chega como JSON, com os mesmos campos do P1.\n\nPolítica:\n1. Campos obrigatórios: item, quantidade, unidade, prazo_entrega, valor_unitario, moeda e fornecedor. solicitante_area é opcional. Se algum campo obrigatório for null, a decisão é \"pedir_informacao\", mesmo que exista outro motivo para escalar.\n2. Valor total = quantidade x valor_unitario, convertido para reais: US$ 1 = R$ 5,00 e € 1 = R$ 6,00.\n3. Escalar para a gerência (\"escalar\") se qualquer uma destas condições for verdadeira:\n   a. o valor total em reais for MAIOR que R$ 5.000,00 (exatamente R$ 5.000,00 não escala);\n   b. o fornecedor não estiver na lista de homologados: Papelaria Aurora Ltda, Metalúrgica Vale Verde, Distribuidora Pinheiro, Informática Bitmais, Eletrotécnica Faísca;\n   c. o item for controlado: álcool isopropílico, óleo lubrificante, solda em barra.\n4. Nos demais casos, \"aprovar\".\n\nResponda somente com um objeto JSON, sem texto antes ou depois: {\"decisao\": \"aprovar\" | \"pedir_informacao\" | \"escalar\", \"motivo\": \"uma frase curta\"}",
+  "user_template": "Solicitação (JSON):\n{texto}",
+  "hash12": "dafcd6a47511",
+  "anatomia": []
+}

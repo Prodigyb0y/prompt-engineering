@@ -1,0 +1,62 @@
+{
+  "A01": {
+    "decisao": "escalar"
+  },
+  "A02": {
+    "decisao": "pedir_informacao"
+  },
+  "A03": {
+    "decisao": "aprovar"
+  },
+  "A04": {
+    "decisao": "pedir_informacao"
+  },
+  "A05": {
+    "decisao": "pedir_informacao"
+  },
+  "A06": {
+    "decisao": "aprovar"
+  },
+  "A07": {
+    "decisao": "escalar"
+  },
+  "A08": {
+    "decisao": "aprovar"
+  },
+  "A09": {
+    "decisao": "aprovar"
+  },
+  "A10": {
+    "decisao": "aprovar"
+  },
+  "A11": {
+    "decisao": "pedir_informacao"
+  },
+  "A12": {
+    "decisao": "aprovar"
+  },
+  "A13": {
+    "decisao": "pedir_informacao"
+  },
+  "A14": {
+    "decisao": "escalar"
+  },
+  "A15": {
+    "decisao": "escalar"
+  },
+  "A16": {
+    "decisao": "aprovar"
+  },
+  "A17": {
+    "decisao": "pedir_informacao"
+  },
+  "A18": {
+    "decisao": "escalar"
+  },
+  "A19": {
+    "decisao": "escalar"
+  },
+  "A20": {
+    "decisao": "escalar"
+  }
+}

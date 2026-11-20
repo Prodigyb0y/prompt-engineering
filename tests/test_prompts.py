@@ -34,6 +34,6 @@ def test_montar_troca_so_o_marcador():
 
 
 def test_prompts_nao_contem_casos_de_teste():
-    casos = json.loads((p.RAIZ / "dados" / "casos_teste.json").read_text(encoding="utf-8"))
+    casos = json.loads((p.RAIZ / "dados" / "extracao" / "v1" / "casos_teste.json").read_text(encoding="utf-8"))
     tudo = " ".join(d["system"] + d["user_template"] for d in p.definicoes())
     assert not any(c["texto"] in tudo for c in casos)

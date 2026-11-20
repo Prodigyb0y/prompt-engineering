@@ -9,7 +9,7 @@ import re
 import sys
 from pathlib import Path
 
-DADOS = Path(__file__).resolve().parent.parent / "dados"
+DADOS = Path(__file__).resolve().parent.parent / "dados" / "extracao" / "v1"
 MESES = {m: i + 1 for i, m in enumerate(["janeiro", "fevereiro", "março", "abril", "maio", "junho", "julho",
                                         "agosto", "setembro", "outubro", "novembro", "dezembro"])}
 ABREV = {m: i + 1 for i, m in enumerate(["jan", "fev", "mar", "abr", "mai", "jun", "jul", "ago", "set", "out", "nov", "dez"])}

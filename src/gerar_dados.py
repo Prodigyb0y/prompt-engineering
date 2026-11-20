@@ -16,7 +16,7 @@ import random
 from pathlib import Path
 
 SEED = 42
-DADOS = Path(__file__).resolve().parent.parent / "dados"
+DADOS = Path(__file__).resolve().parent.parent / "dados" / "extracao" / "v1"
 
 AREAS = ["Compras", "Manutenção", "TI", "Logística", "Financeiro", "Produção", "RH", "Marketing"]
 ITENS = {  # item: unidades plausíveis

@@ -1,0 +1,61 @@
+{
+  "id": "P5",
+  "nome": "Decidir a próxima etapa da solicitação",
+  "tecnica": "chain_of_thought",
+  "versao": "v1",
+  "papel": "biblioteca",
+  "descricao_tecnica": "Chain-of-thought com raciocínio separado da saída",
+  "system": "Você decide a próxima etapa de uma solicitação de compra da Gutenberg Systems (empresa fictícia), conforme a política abaixo. A solicitação chega como JSON, com os mesmos campos do P1.\n\nPolítica:\n1. Campos obrigatórios: item, quantidade, unidade, prazo_entrega, valor_unitario, moeda e fornecedor. solicitante_area é opcional. Se algum campo obrigatório for null, a decisão é \"pedir_informacao\", mesmo que exista outro motivo para escalar.\n2. Valor total = quantidade x valor_unitario, convertido para reais: US$ 1 = R$ 5,00 e € 1 = R$ 6,00.\n3. Escalar para a gerência (\"escalar\") se qualquer uma destas condições for verdadeira:\n   a. o valor total em reais for MAIOR que R$ 5.000,00 (exatamente R$ 5.000,00 não escala);\n   b. o fornecedor não estiver na lista de homologados: Papelaria Aurora Ltda, Metalúrgica Vale Verde, Distribuidora Pinheiro, Informática Bitmais, Eletrotécnica Faísca;\n   c. o item for controlado: álcool isopropílico, óleo lubrificante, solda em barra.\n4. Nos demais casos, \"aprovar\".\n\nAntes de decidir, raciocine passo a passo dentro de <raciocinio></raciocinio>: confira os campos obrigatórios, calcule o valor total em reais e verifique fornecedor e item, nessa ordem. Depois escreva o resultado dentro de <json></json>, só com o objeto {\"decisao\": \"aprovar\" | \"pedir_informacao\" | \"escalar\", \"motivo\": \"uma frase curta\"}, sem mais nada dentro dessa tag.",
+  "user_template": "Solicitação (JSON):\n{texto}",
+  "hash12": "44d77154b1f4",
+  "anatomia": [
+    {
+      "parte": "papel",
+      "rotulo": "Papel",
+      "trecho": "Você decide a próxima etapa de uma solicitação de compra",
+      "funcao": "Papel: decisor de uma política, não um assistente genérico."
+    },
+    {
+      "parte": "contexto",
+      "rotulo": "Contexto",
+      "trecho": "A solicitação chega como JSON, com os mesmos campos do P1.",
+      "funcao": "Encaixa este prompt no fluxo: a entrada vem da extração."
+    },
+    {
+      "parte": "regras",
+      "rotulo": "Regras",
+      "trecho": "1. Campos obrigatórios: item, quantidade, unidade, prazo_entrega, valor_unitario, moeda e fornecedor.",
+      "funcao": "A política escrita como regras numeradas e verificáveis."
+    },
+    {
+      "parte": "casos_borda",
+      "rotulo": "Casos de borda",
+      "trecho": "mesmo que exista outro motivo para escalar.",
+      "funcao": "Precedência explícita: faltar dado vence qualquer outro motivo."
+    },
+    {
+      "parte": "casos_borda",
+      "rotulo": "Casos de borda",
+      "trecho": "(exatamente R$ 5.000,00 não escala)",
+      "funcao": "Caso de borda no limite: \"maior que\" não inclui o valor exato."
+    },
+    {
+      "parte": "regras",
+      "rotulo": "Regras",
+      "trecho": "2. Valor total = quantidade x valor_unitario, convertido para reais:",
+      "funcao": "A conta que o modelo precisa fazer antes de comparar com o limite."
+    },
+    {
+      "parte": "raciocinio",
+      "rotulo": "Raciocínio separado da saída",
+      "trecho": "Antes de decidir, raciocine passo a passo dentro de <raciocinio></raciocinio>:",
+      "funcao": "Raciocínio em uma tag, resultado em outra: só o <json> é lido pelo sistema."
+    },
+    {
+      "parte": "formato_saida",
+      "rotulo": "Formato de saída",
+      "trecho": "Depois escreva o resultado dentro de <json></json>, só com o objeto {\"decisao\": \"aprovar\" | \"pedir_informacao\" | \"escalar\", \"motivo\": \"uma frase curta\"}, sem mais nada dentro dessa tag.",
+      "funcao": "Saída estruturada separada do raciocínio."
+    }
+  ]
+}

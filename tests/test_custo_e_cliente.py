@@ -121,8 +121,8 @@ def test_nenhuma_chave_no_repositorio():
 def test_rodar_grava_bruto_e_retoma(tmp_path):
     import json as j
     import rodar
-    casos = j.loads((rodar.RAIZ / "dados" / "casos_teste.json").read_text(encoding="utf-8"))
-    gab = j.loads((rodar.RAIZ / "dados" / "gabarito.json").read_text(encoding="utf-8"))
+    casos = j.loads((rodar.RAIZ / "dados" / "extracao" / "v1" / "casos_teste.json").read_text(encoding="utf-8"))
+    gab = j.loads((rodar.RAIZ / "dados" / "extracao" / "v1" / "gabarito.json").read_text(encoding="utf-8"))
     chamadas = []
 
     def eco(system, user, m):

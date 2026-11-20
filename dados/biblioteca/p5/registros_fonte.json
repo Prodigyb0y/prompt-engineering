@@ -1,0 +1,282 @@
+{
+  "A01": {
+    "subtipo": "escalar_valor_alto_usd",
+    "registro": {
+      "solicitante_area": "Logística",
+      "item": "fita adesiva",
+      "quantidade": 2,
+      "unidade": "cx",
+      "prazo_entrega": "2026-03-27",
+      "valor_unitario": 3000.0,
+      "moeda": "USD",
+      "fornecedor": "Metalúrgica Vale Verde"
+    },
+    "rotulo_pretendido": "escalar"
+  },
+  "A02": {
+    "subtipo": "pedir_prazo_e_valor_alto",
+    "registro": {
+      "solicitante_area": "Financeiro",
+      "item": "luva de proteção",
+      "quantidade": 20,
+      "unidade": "cx",
+      "prazo_entrega": null,
+      "valor_unitario": 900.0,
+      "moeda": "BRL",
+      "fornecedor": "Informática Bitmais"
+    },
+    "rotulo_pretendido": "pedir"
+  },
+  "A03": {
+    "subtipo": "aprovar_sem_area",
+    "registro": {
+      "solicitante_area": null,
+      "item": "etiqueta adesiva",
+      "quantidade": 12,
+      "unidade": "cx",
+      "prazo_entrega": "2026-12-04",
+      "valor_unitario": 49.9,
+      "moeda": "BRL",
+      "fornecedor": "Eletrotécnica Faísca"
+    },
+    "rotulo_pretendido": "aprovar"
+  },
+  "A04": {
+    "subtipo": "pedir_valor_e_item_controlado",
+    "registro": {
+      "solicitante_area": "Financeiro",
+      "item": "solda em barra",
+      "quantidade": 7,
+      "unidade": "kg",
+      "prazo_entrega": "2026-06-24",
+      "valor_unitario": null,
+      "moeda": null,
+      "fornecedor": "Metalúrgica Vale Verde"
+    },
+    "rotulo_pretendido": "pedir"
+  },
+  "A05": {
+    "subtipo": "pedir_valor",
+    "registro": {
+      "solicitante_area": "Produção",
+      "item": "parafuso sextavado",
+      "quantidade": 15,
+      "unidade": "kg",
+      "prazo_entrega": "2026-09-07",
+      "valor_unitario": null,
+      "moeda": null,
+      "fornecedor": "Metalúrgica Vale Verde"
+    },
+    "rotulo_pretendido": "pedir"
+  },
+  "A06": {
+    "subtipo": "aprovar_eur",
+    "registro": {
+      "solicitante_area": "Financeiro",
+      "item": "toner preto",
+      "quantidade": 30,
+      "unidade": "un",
+      "prazo_entrega": "2026-01-27",
+      "valor_unitario": 8.0,
+      "moeda": "EUR",
+      "fornecedor": "Metalúrgica Vale Verde"
+    },
+    "rotulo_pretendido": "aprovar"
+  },
+  "A07": {
+    "subtipo": "escalar_usd_converte",
+    "registro": {
+      "solicitante_area": "Logística",
+      "item": "cabo de rede cat6",
+      "quantidade": 300,
+      "unidade": "m",
+      "prazo_entrega": "2026-04-28",
+      "valor_unitario": 3.5,
+      "moeda": "USD",
+      "fornecedor": "Metalúrgica Vale Verde"
+    },
+    "rotulo_pretendido": "escalar"
+  },
+  "A08": {
+    "subtipo": "aprovar_simples",
+    "registro": {
+      "solicitante_area": "Manutenção",
+      "item": "papel A4",
+      "quantidade": 4,
+      "unidade": "cx",
+      "prazo_entrega": "2026-03-04",
+      "valor_unitario": 120.0,
+      "moeda": "BRL",
+      "fornecedor": "Papelaria Aurora Ltda"
+    },
+    "rotulo_pretendido": "aprovar"
+  },
+  "A09": {
+    "subtipo": "aprovar_no_limite",
+    "registro": {
+      "solicitante_area": "Compras",
+      "item": "papel A4",
+      "quantidade": 10,
+      "unidade": "un",
+      "prazo_entrega": "2026-08-20",
+      "valor_unitario": 500.0,
+      "moeda": "BRL",
+      "fornecedor": "Informática Bitmais"
+    },
+    "rotulo_pretendido": "aprovar"
+  },
+  "A10": {
+    "subtipo": "aprovar_usd",
+    "registro": {
+      "solicitante_area": "RH",
+      "item": "caneta esferográfica",
+      "quantidade": 20,
+      "unidade": "cx",
+      "prazo_entrega": "2026-01-20",
+      "valor_unitario": 12.5,
+      "moeda": "USD",
+      "fornecedor": "Informática Bitmais"
+    },
+    "rotulo_pretendido": "aprovar"
+  },
+  "A11": {
+    "subtipo": "pedir_prazo_e_fornecedor_nao_homologado",
+    "registro": {
+      "solicitante_area": "Financeiro",
+      "item": "fita adesiva",
+      "quantidade": 5,
+      "unidade": "un",
+      "prazo_entrega": null,
+      "valor_unitario": 30.0,
+      "moeda": "BRL",
+      "fornecedor": "Embalagens Ponto Certo"
+    },
+    "rotulo_pretendido": "pedir"
+  },
+  "A12": {
+    "subtipo": "aprovar_usd_no_limite",
+    "registro": {
+      "solicitante_area": "RH",
+      "item": "luva de proteção",
+      "quantidade": 250,
+      "unidade": "un",
+      "prazo_entrega": "2026-01-21",
+      "valor_unitario": 4.0,
+      "moeda": "USD",
+      "fornecedor": "Informática Bitmais"
+    },
+    "rotulo_pretendido": "aprovar"
+  },
+  "A13": {
+    "subtipo": "pedir_prazo",
+    "registro": {
+      "solicitante_area": "Logística",
+      "item": "fita adesiva",
+      "quantidade": 8,
+      "unidade": "cx",
+      "prazo_entrega": null,
+      "valor_unitario": 25.0,
+      "moeda": "BRL",
+      "fornecedor": "Informática Bitmais"
+    },
+    "rotulo_pretendido": "pedir"
+  },
+  "A14": {
+    "subtipo": "escalar_fornecedor",
+    "registro": {
+      "solicitante_area": "Financeiro",
+      "item": "tubo PVC 50mm",
+      "quantidade": 5,
+      "unidade": "m",
+      "prazo_entrega": "2026-09-14",
+      "valor_unitario": 20.0,
+      "moeda": "BRL",
+      "fornecedor": "Químicos Horizonte"
+    },
+    "rotulo_pretendido": "escalar"
+  },
+  "A15": {
+    "subtipo": "escalar_acima_do_limite",
+    "registro": {
+      "solicitante_area": "Marketing",
+      "item": "toner preto",
+      "quantidade": 10,
+      "unidade": "un",
+      "prazo_entrega": "2026-07-23",
+      "valor_unitario": 500.01,
+      "moeda": "BRL",
+      "fornecedor": "Informática Bitmais"
+    },
+    "rotulo_pretendido": "escalar"
+  },
+  "A16": {
+    "subtipo": "aprovar_simples",
+    "registro": {
+      "solicitante_area": "Produção",
+      "item": "etiqueta adesiva",
+      "quantidade": 10,
+      "unidade": "cx",
+      "prazo_entrega": "2026-02-19",
+      "valor_unitario": 35.0,
+      "moeda": "BRL",
+      "fornecedor": "Distribuidora Pinheiro"
+    },
+    "rotulo_pretendido": "aprovar"
+  },
+  "A17": {
+    "subtipo": "pedir_fornecedor",
+    "registro": {
+      "solicitante_area": "Produção",
+      "item": "cabo elétrico 2,5mm",
+      "quantidade": 10,
+      "unidade": "m",
+      "prazo_entrega": "2026-07-22",
+      "valor_unitario": 60.0,
+      "moeda": "BRL",
+      "fornecedor": null
+    },
+    "rotulo_pretendido": "pedir"
+  },
+  "A18": {
+    "subtipo": "escalar_item_controlado",
+    "registro": {
+      "solicitante_area": "Produção",
+      "item": "solda em barra",
+      "quantidade": 6,
+      "unidade": "kg",
+      "prazo_entrega": "2026-03-01",
+      "valor_unitario": 40.0,
+      "moeda": "BRL",
+      "fornecedor": "Papelaria Aurora Ltda"
+    },
+    "rotulo_pretendido": "escalar"
+  },
+  "A19": {
+    "subtipo": "escalar_fornecedor_e_item",
+    "registro": {
+      "solicitante_area": "Financeiro",
+      "item": "álcool isopropílico",
+      "quantidade": 3,
+      "unidade": "l",
+      "prazo_entrega": "2026-12-09",
+      "valor_unitario": 15.0,
+      "moeda": "BRL",
+      "fornecedor": "Tecidos Santa Clara"
+    },
+    "rotulo_pretendido": "escalar"
+  },
+  "A20": {
+    "subtipo": "escalar_eur_converte",
+    "registro": {
+      "solicitante_area": "Marketing",
+      "item": "detergente industrial",
+      "quantidade": 900,
+      "unidade": "l",
+      "prazo_entrega": "2026-09-08",
+      "valor_unitario": 1.0,
+      "moeda": "EUR",
+      "fornecedor": "Eletrotécnica Faísca"
+    },
+    "rotulo_pretendido": "escalar"
+  }
+}

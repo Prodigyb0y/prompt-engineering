@@ -1,0 +1,12 @@
+{
+  "id": "P2",
+  "nome": "Classificar solicitação de suporte interno",
+  "tecnica": "zero_shot",
+  "versao": "v1",
+  "papel": "controle",
+  "descricao_tecnica": "Zero-shot (controle do Experimento 3)",
+  "system": "",
+  "user_template": "Você classifica solicitações de suporte interno da Gutenberg Systems (empresa fictícia).\n\nCategorias (escolha uma):\n- acesso: login, senha, permissão, conta bloqueada, novo usuário\n- equipamento: computador, monitor, impressora, headset, celular corporativo, defeito físico\n- software: programa, sistema interno ou licença com erro, instalação ou atualização\n- rede: internet, wi-fi, VPN, link, servidor ou site fora do ar\n- instalacoes: ar-condicionado, iluminação, mobiliário, limpeza, porta, estacionamento\n- folha_beneficios: holerite, ponto, férias, vale-refeição, plano de saúde\n\nUrgência (escolha uma):\n- critica: para uma área inteira ou envolve segurança de pessoas ou de dados\n- alta: impede uma pessoa de trabalhar e não há alternativa\n- media: atrapalha, mas existe um jeito de contornar\n- baixa: pedido sem prazo ou melhoria\n\nResponda somente com um objeto JSON, sem texto antes ou depois: {\"categoria\": \"...\", \"urgencia\": \"...\"}\n\nSolicitação:\n{texto}\nJSON:",
+  "hash12": "00eedaa2d256",
+  "anatomia": []
+}
