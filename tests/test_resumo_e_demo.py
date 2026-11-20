@@ -96,14 +96,14 @@ def test_interpretacao_empate_ganho_e_perda():
     r, q = co.interpretar("E3", _comp(0.0, 0, 0, 1.0), base, alt)
     assert "Sem diferença" in r and "90,0%" in r and "zero-shot custa menos" in q
     r, q = co.interpretar("E3", _comp(10.0, 0, 2, 0.5), _v(0.8, 0.0001), _v(0.9, 0.0002))
-    assert "10,0 pontos a mais" in r and "indício, não uma prova" in r and "p = 0,500" in r and "2,0 vezes" in r
+    assert "10,0 pontos a mais" in r and "indício, não uma prova" in r and "p = " not in r and "2,0 vezes" in r
     r, q = co.interpretar("E5", _comp(-5.0, 3, 0, 0.25), _v(0.95, 0.0001), _v(0.9, 0.0005, ), )
     assert "pontos a menos" in r and "piorou" in q
 
 
 def test_diferenca_so_passa_no_teste_quando_p_menor_que_0_05():
     r, _ = co.interpretar("E4", _comp(30.0, 0, 8, 0.0078), _v(0.6, 0.0001), _v(0.9, 0.0002))
-    assert "passa no teste pareado" in r and "indício" not in r
+    assert "grande o bastante para não ser acaso" in r and "indício" not in r and "p = " not in r
 
 
 def test_resumo_de_rodada_fake_completa_gera_frases_e_cartoes(tmp_path):
@@ -170,3 +170,22 @@ def test_json_embutido_valido_e_igual_ao_resumo():
 def test_modelo_da_pagina_nao_tem_numero_de_resultado_digitado():
     modelo = gdm.MODELO.read_text(encoding="utf-8")
     assert not re.search(r"\d+[,.]\d+\s*%|\bUS\$ ?0[,.]\d|\b\d{2,3}\s*%\s*(?:de|para)", modelo)
+
+
+def test_destaques_e_conclusao_vem_dos_dados_e_sem_jargao():
+    r = _resumo()
+    assert len(r["destaques"]) == 2 + sum(1 for e in r["experimentos"] if e["id"] in ("E3", "E4", "E5") and e["status"] == "medido")
+    assert r["destaques"][1]["grande"] == "{antes}/{de} → {depois}/{de}".format(**next(e for e in r["experimentos"] if e["id"] == "E2")["placar"])
+    c = r["conclusao"]
+    assert c and len(c["pode"]) >= 4 and len(c["nao_pode"]) == 5 and c["na_pratica"]
+    texto = " ".join([c["resumo"]] + [x["titulo"] + " " + x["texto"] for x in c["pode"]] + c["nao_pode"] + c["na_pratica"] + [e["resultado"] or "" for e in r["experimentos"]])
+    for termo in ("p = ", "p-valor", "teste pareado", "bootstrap", "intervalo de confiança"):
+        assert termo not in texto, termo
+    assert all(p["acerto_def"].startswith("Acerto:") for p in r["prompts"]) and len(r["glossario"]) == 4
+
+
+def test_pagina_traz_conclusao_destaques_e_cartao_sem_hash():
+    html = (RAIZ / "docs" / "index.html").read_text(encoding="utf-8")
+    for marca in ('id="conclusao"', 'id="destaques"', 'href="#conclusao"', "O que dá para concluir", "O que não dá para concluir"):
+        assert marca in html, marca
+    assert 'h("span", { class: "chip", text: "hash "' not in html

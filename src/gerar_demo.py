@@ -18,7 +18,7 @@ LIMITE_BYTES = 1_000_000
 
 def dados_da_pagina(resumo):
     """O que vai embutido na página: tudo do resumo, menos o que só serve ao apêndice (variantes detalhadas)."""
-    d = {k: v for k, v in resumo.items() if k in ("projeto", "custo", "prompts", "experimentos", "playground", "como_medi", "partes_legenda")}
+    d = {k: v for k, v in resumo.items() if k in ("projeto", "custo", "prompts", "experimentos", "playground", "como_medi", "partes_legenda", "destaques", "conclusao", "glossario")}
     d["experimentos"] = [{k: v for k, v in e.items() if k not in ("variantes", "comparacao", "tecnicas")} for e in d["experimentos"]]
     return d
 

@@ -83,6 +83,7 @@ def readme(r):
           f"1. **A regra de negócio vale mais que a técnica.** {exps['E1']['resultado']} Escrever a regra no prompt resolveu o que a técnica mais cara resolvia (Experimento 2).",
           "2. **Prompt é um artefato que se versiona e se testa.** Cada prompt tem versão e hash, o gabarito é congelado antes de rodar e a regra de acerto é código: dá para mudar o prompt e saber se piorou.",
           f"3. **Custo medido, não suposto.** Cada resposta tem o custo calculado a partir dos tokens informados pela API, e o cliente para antes de passar do teto. Isso permite decidir se uma técnica mais cara compensa, com número.", "",
+          ""] + ([f"**Conclusão.** {r['conclusao']['resumo']} A versão completa, com o que dá e o que não dá para concluir, está na seção \"Conclusão\" da [demo]({P['demo']}).", ""] if r.get("conclusao") else []) + [
           "## Limitações", ""]
     L += [f"- {x}" for x in P["limitacoes"]]
     L += ["- Não verifiquei se algum nome de fornecedor fictício coincide com empresa real (só conferi uma lista curta de nomes conhecidos).", "",

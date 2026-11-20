@@ -65,6 +65,18 @@ section.alt{background:var(--bg2);border-block:1px solid var(--borda)}
 h2{font-size:clamp(1.5rem,3vw,2.1rem);letter-spacing:-.02em;margin:6px 0 8px}
 .sec-topo p{color:var(--suave);max-width:70ch;margin:0}
 h3{font-size:1.1rem;margin:0 0 8px}
+/* destaques, glossário, conclusão */
+.destaques{padding:34px 0 10px}
+.dest-grade{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px}
+.dest{display:flex;flex-direction:column;gap:6px;text-decoration:none;color:var(--texto);background:var(--panel);border:1px solid var(--borda);border-radius:var(--raio);padding:16px 18px;box-shadow:var(--sombra);transition:transform .18s ease,border-color .18s ease}
+.dest:hover{transform:translateY(-3px);border-color:var(--acento)}
+.dest .g{font-size:clamp(1.25rem,2.4vw,1.65rem);font-weight:750;letter-spacing:-.02em;line-height:1.15;color:var(--acento)}
+.dest .r{color:var(--suave);font-size:.88rem}
+.gloss{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;margin:0 0 22px}
+.gloss div{background:var(--panel);border:1px solid var(--borda);border-radius:12px;padding:10px 14px;font-size:.88rem;color:var(--suave)}
+.gloss dt{font-weight:650;color:var(--texto);margin:0 0 2px}.gloss dd{margin:0}
+.cartao .def{color:var(--suave);font-size:.84rem;margin:0}
+.concl li{margin-bottom:12px}.concl li b{display:block;color:var(--texto)}
 /* biblioteca */
 .grade{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:16px}
 .cartao{all:unset;box-sizing:border-box;display:flex;flex-direction:column;gap:12px;background:var(--panel);border:1px solid var(--borda);border-radius:var(--raio);padding:20px;cursor:pointer;box-shadow:var(--sombra);transition:transform .18s ease,border-color .18s ease}
@@ -195,6 +207,7 @@ footer{padding:36px 0 60px;color:var(--suave);font-size:.9rem;border-top:1px sol
     <div class="links">
       <a class="item" href="#biblioteca">Biblioteca</a>
       <a class="item" href="#experimentos">Experimentos</a>
+      <a class="item" href="#conclusao">Conclusão</a>
       <a class="item" href="#como-medi">Como medi</a>
       <a class="item" href="#sobre">Sobre</a>
     </div>
@@ -218,10 +231,19 @@ footer{padding:36px 0 60px;color:var(--suave);font-size:.9rem;border-top:1px sol
 </header>
 
 <main>
+<section id="destaques-sec" class="destaques">
+  <div class="wrap">
+    <div class="sec-topo"><div class="k">Resultados em uma olhada</div><h2>O que os experimentos mostraram</h2>
+      <p>Clique em um resultado para ir ao experimento. Com 20 a 50 casos fictícios, as diferenças pequenas são indício, não prova.</p></div>
+    <div class="dest-grade" id="destaques"></div>
+  </div>
+</section>
+
 <section id="biblioteca">
   <div class="wrap">
     <div class="sec-topo"><div class="k">Biblioteca</div><h2>Cinco prompts de negócio, cada um com uma técnica</h2>
       <p>Abra um cartão para ler o prompt completo, ver cada parte colorida (papel, contexto, tarefa, formato, regras, casos de borda), copiar e conferir o exemplo.</p></div>
+    <dl class="gloss" id="glossario" aria-label="Termos de técnica"></dl>
     <div class="grade" id="grade"></div>
   </div>
 </section>
@@ -238,10 +260,22 @@ footer{padding:36px 0 60px;color:var(--suave);font-size:.9rem;border-top:1px sol
   </div>
 </section>
 
-<section id="como-medi">
+<section id="conclusao">
+  <div class="wrap">
+    <div class="sec-topo"><div class="k">Conclusão</div><h2>O que dá para concluir, e o que não dá</h2>
+      <p id="conclusao-resumo"></p></div>
+    <div class="cols">
+      <div class="bloco"><h4>O que dá para concluir</h4><ul class="lista concl" id="concl-pode"></ul></div>
+      <div class="bloco"><h4>O que não dá para concluir</h4><ul class="lista" id="concl-nao"></ul>
+        <h4 style="margin-top:22px">O que eu faria na prática</h4><ul class="lista" id="concl-pratica"></ul></div>
+    </div>
+  </div>
+</section>
+
+<section id="como-medi" class="alt">
   <div class="wrap">
     <div class="sec-topo"><div class="k">Como medi</div><h2>Em linguagem simples</h2>
-      <p>A estatística (intervalo de confiança, teste pareado e auditoria) fica no apêndice <a id="link-medicao" href="#" rel="noopener">Detalhes da medição</a>.</p></div>
+      <p>Os detalhes estatísticos e a auditoria ficam no apêndice <a id="link-medicao" href="#" rel="noopener">Detalhes da medição</a>.</p></div>
     <div class="cols">
       <div class="bloco"><h4>As regras do jogo</h4><ul class="lista" id="regras-medi"></ul></div>
       <div class="bloco"><h4>Quanto custou</h4><div id="custo"></div></div>
@@ -249,7 +283,7 @@ footer{padding:36px 0 60px;color:var(--suave);font-size:.9rem;border-top:1px sol
   </div>
 </section>
 
-<section id="sobre" class="alt">
+<section id="sobre">
   <div class="wrap">
     <div class="sec-topo"><div class="k">Sobre</div><h2>Quem fez e o que isso não prova</h2></div>
     <div class="cols">
@@ -310,6 +344,10 @@ $("#numeros").append(
   h("div", { class: "numero" }, h("div", { class: "v", text: fmtUsd(D.custo.total_usd) }), h("div", { class: "r", text: "gasto total em chamadas à API, de um teto de " + fmtUsd(D.custo.teto_total_usd, 2) }))
 );
 
+/* destaques e glossário */
+D.destaques.forEach((x) => $("#destaques").append(h("a", { class: "dest", href: "#" + x.ancora }, h("div", { class: "g", text: x.grande }), h("div", { class: "r", text: x.rotulo }))));
+D.glossario.forEach((g) => $("#glossario").append(h("div", {}, h("dt", { text: g.termo }), h("dd", { text: g.def }))));
+
 /* biblioteca */
 function selos(p) {
   const s = [h("span", { class: "selo", text: p.tecnica })];
@@ -325,8 +363,8 @@ function selos(p) {
 const grade = $("#grade");
 D.prompts.forEach((p) => {
   grade.append(h("button", { class: "cartao", type: "button", "aria-label": "Abrir " + p.id + ": " + p.nome, onclick: () => abrirPainel(p) },
-    h("div", { class: "topo" }, h("span", { class: "id", text: p.id }), h("span", { class: "chip", text: "hash " + p.hash12 })),
-    h("h3", { text: p.nome }), h("p", { text: p.problema }), h("div", { class: "selos" }, selos(p)),
+    h("div", { class: "topo" }, h("span", { class: "id", text: p.id })),
+    h("h3", { text: p.nome }), h("p", { text: p.problema }), h("div", { class: "selos" }, selos(p)), h("p", { class: "def", text: p.acerto_def }),
     h("span", { class: "abrir", text: "Abrir prompt →" })));
 });
 
@@ -496,6 +534,14 @@ function renderPlayground() {
 }
 if (gSel >= 0) renderPlayground();
 
+/* conclusão */
+if (D.conclusao) {
+  $("#conclusao-resumo").textContent = D.conclusao.resumo;
+  D.conclusao.pode.forEach((x) => $("#concl-pode").append(h("li", {}, h("b", { text: x.titulo }), x.texto)));
+  D.conclusao.nao_pode.forEach((x) => $("#concl-nao").append(h("li", { text: x })));
+  D.conclusao.na_pratica.forEach((x) => $("#concl-pratica").append(h("li", { text: x })));
+} else { $("#conclusao").hidden = true; }
+
 /* como medi, custo, sobre */
 const M = D.como_medi;
 $("#regras-medi").append(
@@ -521,7 +567,7 @@ $("#rodape").textContent = P.nome + " · dados fictícios · modelo " + P.modelo
 /* animação das barras e menu ativo */
 const io = "IntersectionObserver" in window ? new IntersectionObserver((es) => es.forEach((en) => { if (en.isIntersecting) { en.target.classList.add("visivel"); io.unobserve(en.target); } }), { threshold: .2 }) : null;
 document.querySelectorAll(".grupo").forEach((g) => (io ? io.observe(g) : g.classList.add("visivel")));
-const secs = ["biblioteca", "experimentos", "como-medi", "sobre"].map((id) => document.getElementById(id));
+const secs = ["biblioteca", "experimentos", "conclusao", "como-medi", "sobre"].map((id) => document.getElementById(id));
 if ("IntersectionObserver" in window) {
   const io2 = new IntersectionObserver((es) => es.forEach((en) => { if (en.isIntersecting) document.querySelectorAll("nav.topo a.item").forEach((a) => a.classList.toggle("ativo", a.getAttribute("href") === "#" + en.target.id)); }), { rootMargin: "-40% 0px -55% 0px" });
   secs.forEach((s) => io2.observe(s));

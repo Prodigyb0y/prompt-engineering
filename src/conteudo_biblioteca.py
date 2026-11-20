@@ -80,6 +80,21 @@ EXPERIMENTOS = {
     },
 }
 
+GLOSSARIO = [
+    ("Zero-shot", "só instruções, sem nenhum exemplo de resposta."),
+    ("Few-shot", "instruções mais alguns exemplos resolvidos, para mostrar a convenção esperada."),
+    ("Chain-of-thought", "o modelo escreve o raciocínio passo a passo antes de dar a resposta final."),
+    ("System prompt", "instruções fixas (papel, regras e formato), separadas da mensagem do usuário."),
+]
+
+ACERTO_DEF = {
+    "P1": "Acerto: os 8 campos iguais ao gabarito.",
+    "P2": "Acerto: categoria e urgência iguais ao gabarito.",
+    "P3": "Acerto: o e-mail cita todos os campos que faltam e nenhum que não falta.",
+    "P4": "Acerto: JSON válido, valores permitidos, resumo curto e nenhum número inventado.",
+    "P5": "Acerto: a decisão (aprovar, pedir informação ou escalar) igual ao gabarito.",
+}
+
 COMANDOS = {
     "piloto": "python src/rodar_biblioteca.py --piloto",
     "completo": "python src/rodar_biblioteca.py --completo",

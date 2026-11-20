@@ -1,4 +1,87 @@
 {
+ "destaques": [
+  {
+   "ancora": "exp-e1",
+   "grande": "46 de 50",
+   "rotulo": "pedidos em que as 4 técnicas acertaram igual (E1)"
+  },
+  {
+   "ancora": "exp-e2",
+   "grande": "0/12 → 12/12",
+   "rotulo": "respostas certas no tipo \"valor total\" depois de 2 linhas novas no prompt (E2)"
+  },
+  {
+   "ancora": "exp-e3",
+   "grande": "98,3% vs 91,7%",
+   "rotulo": "Few-shot contra Zero-shot, a 1,9× o custo (E3)"
+  },
+  {
+   "ancora": "exp-e4",
+   "grande": "78,3% vs 81,7%",
+   "rotulo": "Encadeado (P1 → P3) contra Prompt único (extrai e escreve), a 0,9× o custo (E4)"
+  },
+  {
+   "ancora": "exp-e5",
+   "grande": "100,0% vs 95,0%",
+   "rotulo": "Com raciocínio (chain-of-thought) contra Sem raciocínio, a 2,3× o custo (E5)"
+  }
+ ],
+ "conclusao": {
+  "resumo": "Dá para concluir o método (prompt estruturado, gabarito escrito antes, custo medido) e a direção dos resultados. Não dá para concluir que uma técnica é melhor que outra em geral.",
+  "pode": [
+   {
+    "titulo": "Uma regra de negócio escrita no prompt corrige um erro que se repete.",
+    "texto": "Duas linhas novas levaram o tipo \"valor total\" de 0/12 para 12/12 respostas certas, sem nenhum caso pior (E2). Vale para os casos em que a regra foi escrita; falta testar em pedidos novos."
+   },
+   {
+    "titulo": "Em extração simples, escrever a regra pesou mais do que escolher a técnica.",
+    "texto": "Em 46 de 50 pedidos as quatro técnicas acertaram igual (E1). O raciocínio passo a passo custou 2,8 vezes o zero-shot por resposta."
+   },
+   {
+    "titulo": "Exemplos e raciocínio apontam para mais acerto, e custam mais.",
+    "texto": "Few-shot acertou 98,3% contra 91,7% (E3, 1,9× o custo) e o raciocínio 100,0% contra 95,0% (E5, 2,3× o custo). A direção é favorável nos dois, mas a diferença apareceu em 3 casos no E3 e em 1 caso no E5."
+   },
+   {
+    "titulo": "Encadear dois prompts não foi melhor do que pedir tudo de uma vez.",
+    "texto": "O fluxo encadeado acertou 78,3% contra 81,7% do prompt único, com custo parecido (E4). Em nenhum dos dois fluxos o e-mail deixou de citar um campo que faltava; todos os erros foram citar campo a mais (18 no encadeado e 13 no prompt único, em 60 respostas cada)."
+   },
+   {
+    "titulo": "Testar prompts com número custa pouco.",
+    "texto": "O projeto inteiro gastou US$ 0,3340 de um teto de US$ 1,00. O custo médio por resposta ficou entre US$ 0,000137 e US$ 0,000278, conforme o prompt."
+   }
+  ],
+  "nao_pode": [
+   "Que esses números valem para dados reais: os dados são fictícios e mais regulares do que e-mails e chamados reais.",
+   "Que valem para outros modelos: só testei o claude-haiku-5-5, com esforço de raciocínio baixo.",
+   "Que as diferenças de E3, E4, E5 sejam sólidas: com 20 casos, poucos casos mudam o resultado, e nenhuma delas foi grande o bastante para descartar o acaso (detalhes no apêndice).",
+   "Que a regra do T4 v2 vale para pedidos novos: ela foi escrita olhando os mesmos 50 pedidos em que foi medida.",
+   "Que o gabarito é neutro: fui a única pessoa a escrevê-lo."
+  ],
+  "na_pratica": [
+   "Comece pelo prompt mais simples e escreva nele as regras de negócio que importam.",
+   "Se o erro está nos casos de borda, teste exemplos (few-shot) e compare o custo.",
+   "Use raciocínio passo a passo quando a decisão exige conta ou precedência entre regras, e confira se o custo extra compensa.",
+   "Escreva o gabarito antes de rodar: sem ele não dá para saber se mudar o prompt melhorou ou piorou."
+  ]
+ },
+ "glossario": [
+  {
+   "termo": "Zero-shot",
+   "def": "só instruções, sem nenhum exemplo de resposta."
+  },
+  {
+   "termo": "Few-shot",
+   "def": "instruções mais alguns exemplos resolvidos, para mostrar a convenção esperada."
+  },
+  {
+   "termo": "Chain-of-thought",
+   "def": "o modelo escreve o raciocínio passo a passo antes de dar a resposta final."
+  },
+  {
+   "termo": "System prompt",
+   "def": "instruções fixas (papel, regras e formato), separadas da mensagem do usuário."
+  }
+ ],
  "projeto": {
   "nome": "Prompt Lab · Gutenberg Systems",
   "frase_impacto": "Prompts de negócio que você pode ler, copiar e conferir: o texto completo, por que foi escrito assim, o que mudou quando experimentei e quanto custou.",
@@ -265,7 +348,8 @@
      "correto": false
     },
     "nota": "As respostas brutas do T4 v2 não foram preservadas; só os totais da iteração (Experimento 2)."
-   }
+   },
+   "acerto_def": "Acerto: os 8 campos iguais ao gabarito."
   },
   {
    "id": "P2",
@@ -436,7 +520,8 @@
      "correto": true
     },
     "nota": null
-   }
+   },
+   "acerto_def": "Acerto: categoria e urgência iguais ao gabarito."
   },
   {
    "id": "P3",
@@ -644,7 +729,8 @@
      "correto": true
     },
     "nota": null
-   }
+   },
+   "acerto_def": "Acerto: o e-mail cita todos os campos que faltam e nenhum que não falta."
   },
   {
    "id": "P4",
@@ -845,7 +931,8 @@
      "correto": true
     },
     "nota": null
-   }
+   },
+   "acerto_def": "Acerto: JSON válido, valores permitidos, resumo curto e nenhum número inventado."
   },
   {
    "id": "P5",
@@ -1049,7 +1136,8 @@
      "correto": true
     },
     "nota": null
-   }
+   },
+   "acerto_def": "Acerto: a decisão (aprovar, pedir informação ou escalar) igual ao gabarito."
   }
  ],
  "experimentos": [
@@ -1197,7 +1285,7 @@
    "pergunta": "Se um prompt erra sempre no mesmo tipo de caso, dá para corrigir com uma regra escrita, sem estragar o resto?",
    "como_medido": "O mesmo prompt (T4) em duas versões, nos mesmos 50 pedidos, 3 repetições cada. A regressão é conferida caso a caso.",
    "ressalva": "A regra nova foi escrita depois de ver os erros nesses mesmos 50 casos. É resultado de desenvolvimento: mostra o ciclo medir, diagnosticar, corrigir e medir de novo, mas não prova que a regra vale para casos novos (isso ainda não foi testado).",
-   "o_que_testei": "O T4 v1 contra o T4 v2 (duas linhas a mais no system prompt), nos mesmos 50 pedidos, 3 repetições cada.",
+   "o_que_testei": "O T4 (o prompt com system prompt) em duas versões, v1 contra v2 (duas linhas a mais), nos mesmos 50 pedidos, 3 repetições cada.",
    "medido": true,
    "status": "medido",
    "resultado": "Duas linhas acrescentadas ao prompt levaram o acerto de 92,0% para 100,0%, sem regressão e com custo por resposta menor.",
@@ -1279,7 +1367,7 @@
    "ressalva": "Os exemplos cobrem as mesmas famílias de ambiguidade de 6 dos 8 casos de borda: mede se o modelo aprende uma convenção a partir de exemplos, não se generaliza para famílias novas.",
    "medido": true,
    "status": "medido",
-   "resultado": "\"Few-shot\" acertou 98,3% contra 91,7% de \"Zero-shot\" (6,7 pontos a mais): melhor em 2 casos e pior em 1. A variante \"Few-shot\" custou 1,9 vezes o custo por resposta (US$ 0,000137 contra US$ 0,000073). Com 20 casos isso é um indício, não uma prova (teste pareado: p = 1,000).",
+   "resultado": "\"Few-shot\" acertou 98,3% contra 91,7% de \"Zero-shot\" (6,7 pontos a mais): melhor em 2 casos e pior em 1. A variante \"Few-shot\" custou 1,9 vezes o custo por resposta (US$ 0,000137 contra US$ 0,000073). Com 20 casos isso é um indício, não uma prova.",
    "numero": "91,7% contra 98,3% (Zero-shot contra Few-shot), 20 casos × 3 repetições",
    "grupos": [
     {
@@ -1458,7 +1546,7 @@
    "ressalva": "O acerto mede os campos citados, não a qualidade do e-mail. No fluxo, um erro de extração do P1 passa para o e-mail.",
    "medido": true,
    "status": "medido",
-   "resultado": "\"Encadeado (P1 → P3)\" acertou 78,3% contra 81,7% de \"Prompt único (extrai e escreve)\" (3,3 pontos a menos): pior em 6 casos e melhor em 4. A variante \"Encadeado (P1 → P3)\" custou 0,9 vez o custo por resposta (US$ 0,000256 contra US$ 0,000270). Com 20 casos isso é um indício, não uma prova (teste pareado: p = 0,754).",
+   "resultado": "\"Encadeado (P1 → P3)\" acertou 78,3% contra 81,7% de \"Prompt único (extrai e escreve)\" (3,3 pontos a menos): pior em 6 casos e melhor em 4. A variante \"Encadeado (P1 → P3)\" custou 0,9 vez o custo por resposta (US$ 0,000256 contra US$ 0,000270). Com 20 casos isso é um indício, não uma prova.",
    "numero": "81,7% contra 78,3% (Prompt único (extrai e escreve) contra Encadeado (P1 → P3)), 20 casos × 3 repetições",
    "grupos": [
     {
@@ -1671,7 +1759,7 @@
    "ressalva": "A política tem 4 regras e o gabarito segue a política: mede obediência a uma regra escrita, não julgamento. Todas as variantes podem raciocinar internamente (esforço fixado em baixo), o que reduz a diferença.",
    "medido": true,
    "status": "medido",
-   "resultado": "\"Com raciocínio (chain-of-thought)\" acertou 100,0% contra 95,0% de \"Sem raciocínio\" (5,0 pontos a mais): melhor em 1 caso e pior em 0. A variante \"Com raciocínio (chain-of-thought)\" custou 2,3 vezes o custo por resposta (US$ 0,000278 contra US$ 0,000123). Com 20 casos isso é um indício, não uma prova (teste pareado: p = 1,000).",
+   "resultado": "\"Com raciocínio (chain-of-thought)\" acertou 100,0% contra 95,0% de \"Sem raciocínio\" (5,0 pontos a mais): melhor em 1 caso e pior em 0. A variante \"Com raciocínio (chain-of-thought)\" custou 2,3 vezes o custo por resposta (US$ 0,000278 contra US$ 0,000123). Com 20 casos isso é um indício, não uma prova.",
    "numero": "95,0% contra 100,0% (Sem raciocínio contra Com raciocínio (chain-of-thought)), 20 casos × 3 repetições",
    "grupos": [
     {

@@ -102,13 +102,13 @@ Quando usar: Em extração simples, comece pelo prompt mais barato e escreva as 
 **E2 · Antes e depois de um prompt** — Duas linhas acrescentadas ao prompt levaram o acerto de 92,0% para 100,0%, sem regressão e com custo por resposta menor.
 Quando usar: Quando um tipo de erro se repete, leia os erros, escreva a regra que falta no prompt e rode de novo no mesmo conjunto para conferir que nada piorou. Depois valide em casos que a regra nunca viu (ainda não feito).
 
-**E3 · Few-shot ajuda na classificação?** — "Few-shot" acertou 98,3% contra 91,7% de "Zero-shot" (6,7 pontos a mais): melhor em 2 casos e pior em 1. A variante "Few-shot" custou 1,9 vezes o custo por resposta (US$ 0,000137 contra US$ 0,000073). Com 20 casos isso é um indício, não uma prova (teste pareado: p = 1,000).
+**E3 · Few-shot ajuda na classificação?** — "Few-shot" acertou 98,3% contra 91,7% de "Zero-shot" (6,7 pontos a mais): melhor em 2 casos e pior em 1. A variante "Few-shot" custou 1,9 vezes o custo por resposta (US$ 0,000137 contra US$ 0,000073). Com 20 casos isso é um indício, não uma prova.
 Quando usar: Use exemplos quando as definições não resolvem os empates: escolha exemplos que ensinem a convenção dos casos ambíguos.
 
-**E4 · Encadear ou pedir tudo de uma vez?** — "Encadeado (P1 → P3)" acertou 78,3% contra 81,7% de "Prompt único (extrai e escreve)" (3,3 pontos a menos): pior em 6 casos e melhor em 4. A variante "Encadeado (P1 → P3)" custou 0,9 vez o custo por resposta (US$ 0,000256 contra US$ 0,000270). Com 20 casos isso é um indício, não uma prova (teste pareado: p = 0,754).
+**E4 · Encadear ou pedir tudo de uma vez?** — "Encadeado (P1 → P3)" acertou 78,3% contra 81,7% de "Prompt único (extrai e escreve)" (3,3 pontos a menos): pior em 6 casos e melhor em 4. A variante "Encadeado (P1 → P3)" custou 0,9 vez o custo por resposta (US$ 0,000256 contra US$ 0,000270). Com 20 casos isso é um indício, não uma prova.
 Quando usar: O prompt único acertou um pouco mais, mas a diferença é pequena e não é conclusiva, e os dois custaram parecido. Encadeie se precisar guardar e conferir o JSON da etapa intermediária; senão, comece pelo prompt único.
 
-**E5 · Vale pagar pelo raciocínio?** — "Com raciocínio (chain-of-thought)" acertou 100,0% contra 95,0% de "Sem raciocínio" (5,0 pontos a mais): melhor em 1 caso e pior em 0. A variante "Com raciocínio (chain-of-thought)" custou 2,3 vezes o custo por resposta (US$ 0,000278 contra US$ 0,000123). Com 20 casos isso é um indício, não uma prova (teste pareado: p = 1,000).
+**E5 · Vale pagar pelo raciocínio?** — "Com raciocínio (chain-of-thought)" acertou 100,0% contra 95,0% de "Sem raciocínio" (5,0 pontos a mais): melhor em 1 caso e pior em 0. A variante "Com raciocínio (chain-of-thought)" custou 2,3 vezes o custo por resposta (US$ 0,000278 contra US$ 0,000123). Com 20 casos isso é um indício, não uma prova.
 Quando usar: Vale pagar pelo raciocínio quando a decisão exige conta ou precedência entre regras; compare o ganho com o custo antes de adotar.
 
 ## Por que isso importa para um time de negócio
@@ -116,6 +116,9 @@ Quando usar: Vale pagar pelo raciocínio quando a decisão exige conta ou preced
 1. **A regra de negócio vale mais que a técnica.** Em 46 de 50 casos todas as técnicas acertaram; a diferença apareceu só quando a regra de negócio (calcular o valor unitário a partir do total) não estava escrita no prompt. Escrever a regra no prompt resolveu o que a técnica mais cara resolvia (Experimento 2).
 2. **Prompt é um artefato que se versiona e se testa.** Cada prompt tem versão e hash, o gabarito é congelado antes de rodar e a regra de acerto é código: dá para mudar o prompt e saber se piorou.
 3. **Custo medido, não suposto.** Cada resposta tem o custo calculado a partir dos tokens informados pela API, e o cliente para antes de passar do teto. Isso permite decidir se uma técnica mais cara compensa, com número.
+
+
+**Conclusão.** Dá para concluir o método (prompt estruturado, gabarito escrito antes, custo medido) e a direção dos resultados. Não dá para concluir que uma técnica é melhor que outra em geral. A versão completa, com o que dá e o que não dá para concluir, está na seção "Conclusão" da [demo](https://prodigyb0y.github.io/prompt-engineering/).
 
 ## Limitações
 
