@@ -1,0 +1,489 @@
+{
+  "variantes": {
+    "E3/zero_shot": {
+      "medido": true,
+      "casos": 20,
+      "respostas": 60,
+      "repeticoes": 3,
+      "completo": true,
+      "prompts": [
+        "P2 zero_shot v1 00eedaa2d256"
+      ],
+      "acerto_caso_media": 0.9166666666666666,
+      "acerto_caso_rep_min": 0.9,
+      "acerto_caso_rep_max": 0.95,
+      "ic95_baixo": 0.7833333333333334,
+      "ic95_alto": 1.0,
+      "acerto_por_caso": {
+        "S01": 0.3333333333333333,
+        "S02": 1.0,
+        "S03": 1.0,
+        "S04": 1.0,
+        "S05": 1.0,
+        "S06": 1.0,
+        "S07": 1.0,
+        "S08": 1.0,
+        "S09": 1.0,
+        "S10": 1.0,
+        "S11": 0.0,
+        "S12": 1.0,
+        "S13": 1.0,
+        "S14": 1.0,
+        "S15": 1.0,
+        "S16": 1.0,
+        "S17": 1.0,
+        "S18": 1.0,
+        "S19": 1.0,
+        "S20": 1.0
+      },
+      "acerto_tipo": {
+        "borda": 1.0,
+        "claro": 0.8611111111111112
+      },
+      "acerto_campo": {
+        "categoria": 1.0,
+        "urgencia": 0.9166666666666666
+      },
+      "json_valido": 1.0,
+      "truncadas": 0,
+      "chamadas_por_resposta": 1.0,
+      "tokens_entrada_media": 460.0,
+      "tokens_saida_media": 53.88333333333333,
+      "custo_total_usd": 0.004376500000000002,
+      "custo_por_resposta_usd": 7.29416666666667e-05,
+      "custo_por_acerto_usd": 7.95727272727273e-05,
+      "latencia_media_s": 0.9717405700015661,
+      "latencia_mediana_s": 0.8143949000077555
+    },
+    "E3/few_shot": {
+      "medido": true,
+      "casos": 20,
+      "respostas": 60,
+      "repeticoes": 3,
+      "completo": true,
+      "prompts": [
+        "P2 few_shot v1 184b8f8be3e3"
+      ],
+      "acerto_caso_media": 0.9833333333333334,
+      "acerto_caso_rep_min": 0.95,
+      "acerto_caso_rep_max": 1.0,
+      "ic95_baixo": 0.95,
+      "ic95_alto": 1.0,
+      "acerto_por_caso": {
+        "S01": 1.0,
+        "S02": 1.0,
+        "S03": 1.0,
+        "S04": 1.0,
+        "S05": 1.0,
+        "S06": 1.0,
+        "S07": 1.0,
+        "S08": 1.0,
+        "S09": 1.0,
+        "S10": 1.0,
+        "S11": 1.0,
+        "S12": 1.0,
+        "S13": 1.0,
+        "S14": 1.0,
+        "S15": 1.0,
+        "S16": 1.0,
+        "S17": 1.0,
+        "S18": 1.0,
+        "S19": 1.0,
+        "S20": 0.6666666666666666
+      },
+      "acerto_tipo": {
+        "borda": 0.9583333333333334,
+        "claro": 1.0
+      },
+      "acerto_campo": {
+        "categoria": 1.0,
+        "urgencia": 0.9833333333333333
+      },
+      "json_valido": 1.0,
+      "truncadas": 0,
+      "chamadas_por_resposta": 1.0,
+      "tokens_entrada_media": 1070.0,
+      "tokens_saida_media": 60.983333333333334,
+      "custo_total_usd": 0.008249499999999998,
+      "custo_por_resposta_usd": 0.00013749166666666664,
+      "custo_por_acerto_usd": 0.00013982203389830507,
+      "latencia_media_s": 0.9492437649998464,
+      "latencia_mediana_s": 0.8130368999918574
+    },
+    "E4/encadeado": {
+      "medido": true,
+      "casos": 20,
+      "respostas": 60,
+      "repeticoes": 3,
+      "completo": true,
+      "prompts": [
+        "P1 system_prompt v2 2c3ccc1873da",
+        "P3 encadeado v1 333d7e7cff49"
+      ],
+      "acerto_caso_media": 0.7833333333333333,
+      "acerto_caso_rep_min": 0.75,
+      "acerto_caso_rep_max": 0.8,
+      "ic95_baixo": 0.6499999999999999,
+      "ic95_alto": 0.9000000000000001,
+      "acerto_por_caso": {
+        "E01": 1.0,
+        "E02": 1.0,
+        "E03": 1.0,
+        "E04": 0.6666666666666666,
+        "E05": 0.6666666666666666,
+        "E06": 0.3333333333333333,
+        "E07": 0.6666666666666666,
+        "E08": 1.0,
+        "E09": 1.0,
+        "E10": 0.3333333333333333,
+        "E11": 1.0,
+        "E12": 1.0,
+        "E13": 0.0,
+        "E14": 1.0,
+        "E15": 0.6666666666666666,
+        "E16": 1.0,
+        "E17": 1.0,
+        "E18": 1.0,
+        "E19": 1.0,
+        "E20": 0.3333333333333333
+      },
+      "acerto_tipo": {
+        "completa": 1.0,
+        "falta_dois": 0.5833333333333334,
+        "falta_quatro": 1.0,
+        "falta_tres": 0.6666666666666666,
+        "falta_um": 0.75,
+        "prazo_relativo": 1.0,
+        "so_valor_total": 1.0
+      },
+      "acerto_campo": {
+        "solicitante_area": 0.9666666666666667,
+        "prazo_entrega": 0.9666666666666667,
+        "valor_unitario": 0.9166666666666666,
+        "fornecedor": 0.85
+      },
+      "json_valido": null,
+      "truncadas": 0,
+      "chamadas_por_resposta": 2.0,
+      "tokens_entrada_media": 1364.15,
+      "tokens_saida_media": 240.08333333333334,
+      "custo_total_usd": 0.0153874,
+      "custo_por_resposta_usd": 0.00025645666666666665,
+      "custo_por_acerto_usd": 0.00032739148936170216,
+      "latencia_media_s": 2.182196878333828,
+      "latencia_mediana_s": 2.2265977499992005,
+      "extras": {
+        "formato_ok": 1.0,
+        "faltou_citar_total": 0,
+        "citou_a_mais_total": 18,
+        "palavras_corpo_media": 39.56666666666667
+      }
+    },
+    "E4/unico": {
+      "medido": true,
+      "casos": 20,
+      "respostas": 60,
+      "repeticoes": 3,
+      "completo": true,
+      "prompts": [
+        "P3 unico v1 ad9c220e3373"
+      ],
+      "acerto_caso_media": 0.8166666666666668,
+      "acerto_caso_rep_min": 0.75,
+      "acerto_caso_rep_max": 0.85,
+      "ic95_baixo": 0.6499999999999999,
+      "ic95_alto": 0.9666666666666666,
+      "acerto_por_caso": {
+        "E01": 1.0,
+        "E02": 1.0,
+        "E03": 1.0,
+        "E04": 1.0,
+        "E05": 1.0,
+        "E06": 1.0,
+        "E07": 0.6666666666666666,
+        "E08": 0.0,
+        "E09": 0.6666666666666666,
+        "E10": 1.0,
+        "E11": 1.0,
+        "E12": 0.0,
+        "E13": 1.0,
+        "E14": 1.0,
+        "E15": 0.0,
+        "E16": 1.0,
+        "E17": 1.0,
+        "E18": 1.0,
+        "E19": 1.0,
+        "E20": 1.0
+      },
+      "acerto_tipo": {
+        "completa": 1.0,
+        "falta_dois": 1.0,
+        "falta_quatro": 1.0,
+        "falta_tres": 0.5,
+        "falta_um": 0.8333333333333334,
+        "prazo_relativo": 0.3333333333333333,
+        "so_valor_total": 1.0
+      },
+      "acerto_campo": {
+        "solicitante_area": 0.85,
+        "prazo_entrega": 0.9833333333333333,
+        "valor_unitario": 0.9666666666666667,
+        "fornecedor": 0.9833333333333333
+      },
+      "json_valido": null,
+      "truncadas": 0,
+      "chamadas_por_resposta": 1.0,
+      "tokens_entrada_media": 730.5,
+      "tokens_saida_media": 394.78333333333336,
+      "custo_total_usd": 0.016226500000000005,
+      "custo_por_resposta_usd": 0.00027044166666666676,
+      "custo_por_acerto_usd": 0.0003311530612244899,
+      "latencia_media_s": 2.2845170783317976,
+      "latencia_mediana_s": 2.2481737499983865,
+      "extras": {
+        "formato_ok": 1.0,
+        "faltou_citar_total": 0,
+        "citou_a_mais_total": 13,
+        "palavras_corpo_media": 44.03333333333333
+      }
+    },
+    "P4/saida_estruturada": {
+      "medido": true,
+      "casos": 20,
+      "respostas": 60,
+      "repeticoes": 3,
+      "completo": true,
+      "prompts": [
+        "P4 saida_estruturada v1 b78a20b0e43b"
+      ],
+      "acerto_caso_media": 0.95,
+      "acerto_caso_rep_min": 0.9,
+      "acerto_caso_rep_max": 1.0,
+      "ic95_baixo": 0.8666666666666666,
+      "ic95_alto": 1.0,
+      "acerto_por_caso": {
+        "R01": 1.0,
+        "R02": 0.3333333333333333,
+        "R03": 1.0,
+        "R04": 1.0,
+        "R05": 1.0,
+        "R06": 1.0,
+        "R07": 1.0,
+        "R08": 1.0,
+        "R09": 1.0,
+        "R10": 0.6666666666666666,
+        "R11": 1.0,
+        "R12": 1.0,
+        "R13": 1.0,
+        "R14": 1.0,
+        "R15": 1.0,
+        "R16": 1.0,
+        "R17": 1.0,
+        "R18": 1.0,
+        "R19": 1.0,
+        "R20": 1.0
+      },
+      "acerto_tipo": {
+        "borda": 1.0,
+        "claro": 0.9166666666666666
+      },
+      "acerto_campo": {
+        "resumo": 1.0,
+        "motivo": 1.0,
+        "sentimento": 0.95,
+        "acao_sugerida": 1.0,
+        "numero_pedido": 1.0,
+        "valor_reclamado": 1.0
+      },
+      "json_valido": 1.0,
+      "truncadas": 0,
+      "chamadas_por_resposta": 1.0,
+      "tokens_entrada_media": 797.3,
+      "tokens_saida_media": 279.3,
+      "custo_total_usd": 0.0131628,
+      "custo_por_resposta_usd": 0.00021938,
+      "custo_por_acerto_usd": 0.0002309263157894737,
+      "latencia_media_s": 1.6671787950004122,
+      "latencia_mediana_s": 1.736988399999973,
+      "extras": {
+        "invencoes_total": 0,
+        "respostas_com_invencao": 0
+      }
+    },
+    "E5/direto": {
+      "medido": true,
+      "casos": 20,
+      "respostas": 60,
+      "repeticoes": 3,
+      "completo": true,
+      "prompts": [
+        "P5 direto v1 dafcd6a47511"
+      ],
+      "acerto_caso_media": 0.95,
+      "acerto_caso_rep_min": 0.95,
+      "acerto_caso_rep_max": 0.95,
+      "ic95_baixo": 0.85,
+      "ic95_alto": 1.0,
+      "acerto_por_caso": {
+        "A01": 1.0,
+        "A02": 1.0,
+        "A03": 1.0,
+        "A04": 1.0,
+        "A05": 1.0,
+        "A06": 1.0,
+        "A07": 1.0,
+        "A08": 1.0,
+        "A09": 1.0,
+        "A10": 1.0,
+        "A11": 1.0,
+        "A12": 1.0,
+        "A13": 1.0,
+        "A14": 1.0,
+        "A15": 1.0,
+        "A16": 1.0,
+        "A17": 1.0,
+        "A18": 1.0,
+        "A19": 0.0,
+        "A20": 1.0
+      },
+      "acerto_tipo": {
+        "borda": 0.9,
+        "claro": 1.0
+      },
+      "acerto_campo": {
+        "decisao": 0.95
+      },
+      "json_valido": 0.9833333333333333,
+      "truncadas": 0,
+      "chamadas_por_resposta": 1.0,
+      "tokens_entrada_media": 649.5,
+      "tokens_saida_media": 116.3,
+      "custo_total_usd": 0.007386000000000003,
+      "custo_por_resposta_usd": 0.00012310000000000004,
+      "custo_por_acerto_usd": 0.0001295789473684211,
+      "latencia_media_s": 1.0574701483339595,
+      "latencia_mediana_s": 1.0210224499969627
+    },
+    "E5/cot": {
+      "medido": true,
+      "casos": 20,
+      "respostas": 60,
+      "repeticoes": 3,
+      "completo": true,
+      "prompts": [
+        "P5 chain_of_thought v1 44d77154b1f4"
+      ],
+      "acerto_caso_media": 1.0,
+      "acerto_caso_rep_min": 1.0,
+      "acerto_caso_rep_max": 1.0,
+      "ic95_baixo": 1.0,
+      "ic95_alto": 1.0,
+      "acerto_por_caso": {
+        "A01": 1.0,
+        "A02": 1.0,
+        "A03": 1.0,
+        "A04": 1.0,
+        "A05": 1.0,
+        "A06": 1.0,
+        "A07": 1.0,
+        "A08": 1.0,
+        "A09": 1.0,
+        "A10": 1.0,
+        "A11": 1.0,
+        "A12": 1.0,
+        "A13": 1.0,
+        "A14": 1.0,
+        "A15": 1.0,
+        "A16": 1.0,
+        "A17": 1.0,
+        "A18": 1.0,
+        "A19": 1.0,
+        "A20": 1.0
+      },
+      "acerto_tipo": {
+        "borda": 1.0,
+        "claro": 1.0
+      },
+      "acerto_campo": {
+        "decisao": 1.0
+      },
+      "json_valido": 1.0,
+      "truncadas": 0,
+      "chamadas_por_resposta": 1.0,
+      "tokens_entrada_media": 742.5,
+      "tokens_saida_media": 408.3833333333333,
+      "custo_total_usd": 0.0167065,
+      "custo_por_resposta_usd": 0.0002784416666666666,
+      "custo_por_acerto_usd": 0.0002784416666666666,
+      "latencia_media_s": 2.012519160000132,
+      "latencia_mediana_s": 1.9878982000009273
+    }
+  },
+  "comparacoes": {
+    "E3": {
+      "base": "zero_shot",
+      "alternativa": "few_shot",
+      "casos_comparados": 20,
+      "a_favor_base": 1,
+      "a_favor_alternativa": 2,
+      "p_sinal": 1.0,
+      "casos_melhores_na_alternativa": [
+        "S01",
+        "S11"
+      ],
+      "casos_melhores_na_base": [
+        "S20"
+      ],
+      "diferenca_acerto_pp": 6.666666666666677,
+      "razao_custo": 1.8849537301496617,
+      "razao_latencia": 0.9768489597983098
+    },
+    "E4": {
+      "base": "unico",
+      "alternativa": "encadeado",
+      "casos_comparados": 20,
+      "a_favor_base": 6,
+      "a_favor_alternativa": 4,
+      "p_sinal": 0.75390625,
+      "casos_melhores_na_alternativa": [
+        "E08",
+        "E09",
+        "E12",
+        "E15"
+      ],
+      "casos_melhores_na_base": [
+        "E04",
+        "E05",
+        "E06",
+        "E10",
+        "E13",
+        "E20"
+      ],
+      "diferenca_acerto_pp": -3.3333333333333437,
+      "razao_custo": 0.9482882938403225,
+      "razao_latencia": 0.9552114532351468
+    },
+    "E5": {
+      "base": "direto",
+      "alternativa": "cot",
+      "casos_comparados": 20,
+      "a_favor_base": 0,
+      "a_favor_alternativa": 1,
+      "p_sinal": 1.0,
+      "casos_melhores_na_alternativa": [
+        "A19"
+      ],
+      "casos_melhores_na_base": [],
+      "diferenca_acerto_pp": 5.000000000000004,
+      "razao_custo": 2.2619144327105323,
+      "razao_latencia": 1.9031451272367819
+    }
+  },
+  "custo_novo_usd": {
+    "piloto": 0.0035442,
+    "rodadas": 0.08149520000000002,
+    "total": 0.08503940000000001
+  },
+  "chamadas_novas": 500,
+  "piloto_chamadas": 20
+}

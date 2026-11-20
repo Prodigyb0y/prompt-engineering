@@ -1,0 +1,32 @@
+{
+  "P2": {
+    "chamadas": 5,
+    "acertos": 5,
+    "custo_total_usd": 0.0005945,
+    "custo_medio_usd": 0.00011889999999999999,
+    "latencia_media_s": 1.8518328400008612
+  },
+  "P3": {
+    "chamadas": 5,
+    "acertos": 5,
+    "custo_total_usd": 0.0005764,
+    "custo_medio_usd": 0.00011528000000000001,
+    "latencia_media_s": 1.0812497800041456
+  },
+  "P4": {
+    "chamadas": 5,
+    "acertos": 5,
+    "custo_total_usd": 0.0009814000000000001,
+    "custo_medio_usd": 0.00019628,
+    "latencia_media_s": 1.4499894000007771
+  },
+  "P5": {
+    "chamadas": 5,
+    "acertos": 5,
+    "custo_total_usd": 0.0013919000000000002,
+    "custo_medio_usd": 0.00027838000000000006,
+    "latencia_media_s": 2.02328717999917
+  },
+  "projecao_rodada_completa_usd": 0.08198400000000002,
+  "gasto_piloto_usd": 0.0035442000000000004
+}

@@ -8,23 +8,21 @@
 
 Projeto de portfólio com exemplos de prompts bem estruturados e experimentações com LLMs. É uma **recriação conceitual com dados 100% fictícios**: Gutenberg Systems é uma empresa fictícia. Todos os dados são gerados por script, com seed fixa; não há dados, pessoas, sistemas ou documentos de nenhuma empresa real.
 
-> **Estado desta versão:** prompts, dados, gabaritos congelados, regras de acerto, testes e a demo estão prontos. As rodadas pagas de E3, E4, E5 (e a medição do P2 ao P5) ainda **não foram executadas**, porque dependem da chave da API do autor. Onde não há medição, o texto diz "não medido"; nenhum número foi estimado. Para medir: `python src/rodar_biblioteca.py --piloto`, depois `python src/rodar_biblioteca.py --completo` e `python src/analisar_biblioteca.py && python src/consolidar.py && python src/gerar_demo.py && python src/gerar_docs.py`.
-
 ## O que este projeto mostra
 
 - **Prompts bem estruturados:** cinco prompts de negócio, cada um com papel, contexto, tarefa, formato de saída, regras e casos de borda, e uma técnica em destaque.
 - **Experimentos com LLM:** cinco comparações curtas (técnica, antes e depois, few-shot, encadear, raciocínio), cada uma com o que foi testado, o resultado e quando usar.
-- **Decisões com custo medido:** acerto contra um gabarito escrito antes de rodar, custo por chamada e teto de gasto no código (gasto até aqui: US$ 0,2490 de US$ 1,00).
+- **Decisões com custo medido:** acerto contra um gabarito escrito antes de rodar, custo por chamada e teto de gasto no código (gasto até aqui: US$ 0,3340 de US$ 1,00).
 
 ## Biblioteca de prompts
 
 | # | Prompt (problema de negócio) | Técnica em destaque | Acerto | Custo por chamada | Arquivo |
 |---|---|---|---|---|---|
 | P1 | **Extrair pedido de compra em 8 campos**. O time de compras recebe pedidos em texto livre ("preciso de 10 caixas de papel A4, entrega até dia 15...") e redigita tudo à mão em um sistema. | System prompt e saída estruturada | 100,0% (desenvolvimento) | US$ 0,000145 | [`prompts/P1_system_prompt_v2.json`](prompts/P1_system_prompt_v2.json) |
-| P2 | **Classificar solicitação de suporte interno**. Pedidos de suporte interno chegam sem padrão. Alguém precisa decidir para qual fila vão e com que prioridade. | Few-shot com casos ambíguos | não medido | não medido | [`prompts/P2_few_shot_v1.json`](prompts/P2_few_shot_v1.json) |
-| P3 | **E-mail pedindo só os campos que faltaram**. Quando o pedido chega incompleto, alguém escreve um e-mail pedindo o que falta, e às vezes pede o que já foi informado. | Prompt encadeado e controle de tom | não medido | não medido | [`prompts/P3_encadeado_v1.json`](prompts/P3_encadeado_v1.json) |
-| P4 | **Resumir reclamação de cliente em JSON**. Reclamações longas precisam virar um resumo estruturado para o atendimento decidir o próximo passo, sem que o resumo invente número de pedido ou valor. | Saída estruturada com regras de não inventar | não medido | não medido | [`prompts/P4_saida_estruturada_v1.json`](prompts/P4_saida_estruturada_v1.json) |
-| P5 | **Decidir a próxima etapa da solicitação**. Depois da extração, alguém aplica a política de compras (campos obrigatórios, limite de valor, fornecedor homologado) para decidir a próxima etapa. | Chain-of-thought com raciocínio separado da saída | não medido | não medido | [`prompts/P5_chain_of_thought_v1.json`](prompts/P5_chain_of_thought_v1.json) |
+| P2 | **Classificar solicitação de suporte interno**. Pedidos de suporte interno chegam sem padrão. Alguém precisa decidir para qual fila vão e com que prioridade. | Few-shot com casos ambíguos | 98,3% | US$ 0,000137 | [`prompts/P2_few_shot_v1.json`](prompts/P2_few_shot_v1.json) |
+| P3 | **E-mail pedindo só os campos que faltaram**. Quando o pedido chega incompleto, alguém escreve um e-mail pedindo o que falta, e às vezes pede o que já foi informado. | Prompt encadeado e controle de tom | 78,3% | US$ 0,000256 | [`prompts/P3_encadeado_v1.json`](prompts/P3_encadeado_v1.json) |
+| P4 | **Resumir reclamação de cliente em JSON**. Reclamações longas precisam virar um resumo estruturado para o atendimento decidir o próximo passo, sem que o resumo invente número de pedido ou valor. | Saída estruturada com regras de não inventar | 95,0% | US$ 0,000219 | [`prompts/P4_saida_estruturada_v1.json`](prompts/P4_saida_estruturada_v1.json) |
+| P5 | **Decidir a próxima etapa da solicitação**. Depois da extração, alguém aplica a política de compras (campos obrigatórios, limite de valor, fornecedor homologado) para decidir a próxima etapa. | Chain-of-thought com raciocínio separado da saída | 100,0% | US$ 0,000278 | [`prompts/P5_chain_of_thought_v1.json`](prompts/P5_chain_of_thought_v1.json) |
 
 O acerto de cada prompt é medido contra um gabarito escrito e congelado (hash) antes de rodar; o do P1 foi medido nos mesmos 50 casos em que a regra foi escrita. A regra de acerto de cada prompt está em [`src/avaliadores.py`](src/avaliadores.py). Cada cartão da demo mostra o prompt completo, as partes coloridas, um exemplo de entrada e saída e o que aprendi.
 
@@ -104,14 +102,14 @@ Quando usar: Em extração simples, comece pelo prompt mais barato e escreva as 
 **E2 · Antes e depois de um prompt** — Duas linhas acrescentadas ao prompt levaram o acerto de 92,0% para 100,0%, sem regressão e com custo por resposta menor.
 Quando usar: Quando um tipo de erro se repete, leia os erros, escreva a regra que falta no prompt e rode de novo no mesmo conjunto para conferir que nada piorou. Depois valide em casos que a regra nunca viu (ainda não feito).
 
-**E3 · Few-shot ajuda na classificação?** — *não medido.* Rodada ainda não executada: precisa da chave da API do autor. Nenhum resultado foi estimado.
-Como será medido: Categoria e urgência iguais ao gabarito (as duas, no mesmo caso). Média de 3 repetições sobre 20 casos fictícios.
+**E3 · Few-shot ajuda na classificação?** — "Few-shot" acertou 98,3% contra 91,7% de "Zero-shot" (6,7 pontos a mais): melhor em 2 casos e pior em 1. A variante "Few-shot" custou 1,9 vezes o custo por resposta (US$ 0,000137 contra US$ 0,000073). Com 20 casos isso é um indício, não uma prova (teste pareado: p = 1,000).
+Quando usar: Use exemplos quando as definições não resolvem os empates: escolha exemplos que ensinem a convenção dos casos ambíguos.
 
-**E4 · Encadear ou pedir tudo de uma vez?** — *não medido.* Rodada ainda não executada: precisa da chave da API do autor. Nenhum resultado foi estimado.
-Como será medido: O e-mail cita todos os campos que faltam e nenhum que não falta (conferido por regra em código, pelo nome exato do campo). Tom e qualidade do texto não entram no acerto. O custo do fluxo soma as duas chamadas.
+**E4 · Encadear ou pedir tudo de uma vez?** — "Encadeado (P1 → P3)" acertou 78,3% contra 81,7% de "Prompt único (extrai e escreve)" (3,3 pontos a menos): pior em 6 casos e melhor em 4. A variante "Encadeado (P1 → P3)" custou 0,9 vez o custo por resposta (US$ 0,000256 contra US$ 0,000270). Com 20 casos isso é um indício, não uma prova (teste pareado: p = 0,754).
+Quando usar: O prompt único acertou mais neste conjunto: prefira-o, a menos que precise auditar a etapa intermediária.
 
-**E5 · Vale pagar pelo raciocínio?** — *não medido.* Rodada ainda não executada: precisa da chave da API do autor. Nenhum resultado foi estimado.
-Como será medido: A decisão é igual ao gabarito, que é calculado pela própria política escrita no prompt. Com raciocínio, só o bloco <json> é lido.
+**E5 · Vale pagar pelo raciocínio?** — "Com raciocínio (chain-of-thought)" acertou 100,0% contra 95,0% de "Sem raciocínio" (5,0 pontos a mais): melhor em 1 casos e pior em 0. A variante "Com raciocínio (chain-of-thought)" custou 2,3 vezes o custo por resposta (US$ 0,000278 contra US$ 0,000123). Com 20 casos isso é um indício, não uma prova (teste pareado: p = 1,000).
+Quando usar: Vale pagar pelo raciocínio quando a decisão exige conta ou precedência entre regras; compare o ganho com o custo antes de adotar.
 
 ## Por que isso importa para um time de negócio
 
