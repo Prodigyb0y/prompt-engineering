@@ -121,6 +121,20 @@ select{width:100%;font-size:.95rem;padding:.45rem;border:1px solid var(--bd);bor
 .cmp td,.cmp th{font-size:.8rem;font-family:ui-monospace,Menlo,Consolas,monospace}.cmp th{font-family:inherit}
 .por{border-left:3px solid var(--er);background:var(--erl);padding:.45rem .8rem;margin:.45rem 0;font-size:.88rem}
 .por b{display:block}
+ .eb{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:.8rem}
+.ebc{border:1px solid var(--bd);border-radius:8px;padding:.7rem 1rem;background:#fff}
+.ebc h4{margin:0 0 .25rem;font-size:.8rem;text-transform:uppercase;letter-spacing:.05em;color:var(--ac)}
+.ebc p{margin:0;font-size:.9rem}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:.8rem;margin:1rem 0 0}
+.cartao{border:1px solid var(--bd);border-radius:8px;padding:.8rem 1rem;background:#fff;border-top:3px solid var(--ac)}
+.cartao .id{font-size:.74rem;font-weight:700;color:var(--mut);text-transform:uppercase;letter-spacing:.05em}
+.cartao .nm{font-weight:700;margin-bottom:.3rem}
+.cartao .big{font-size:1.9rem;font-weight:700;line-height:1.1;color:var(--ac)}
+.cartao .sm{font-size:.78rem;color:var(--mut);margin-bottom:.5rem}
+.cartao dl{margin:0;display:grid;grid-template-columns:1fr auto;gap:.15rem .6rem;font-size:.84rem}
+.cartao dt{color:var(--mut)}.cartao dd{margin:0;text-align:right;font-variant-numeric:tabular-nums;font-weight:600}
+tbody tr:hover td{background:#fafbfd}
+section+section{border-top:1px solid var(--bd);margin-top:1.4rem}
 ul.lim{margin:.3rem 0 0;padding-left:1.2rem}ul.lim li{margin:.3rem 0}
 footer{margin-top:2.2rem;border-top:1px solid var(--bd);background:var(--soft);padding:1rem 0 1.6rem;font-size:.84rem;color:var(--mut)}
 footer a,.lk{color:var(--ac)}
@@ -184,9 +198,12 @@ footer a,.lk{color:var(--ac)}
 
 <section id="erros">
 <h2><span class="n">4.</span>Análise de erros</h2>
-<p class="lead">Cada resposta errada foi classificada pela causa. A contagem é de respostas, não de casos.</p>
+<p class="lead">Cada resposta errada foi classificada por tipo de erro. A contagem é de respostas (casos × repetições), não de casos.</p>
 <div class="tw"><table id="erros-t"></table></div>
-<p id="leit-erros" style="margin-top:.8rem"></p>
+<h3>Exemplo real</h3>
+<div id="erro-ex"></div>
+<h3>Diagnóstico</h3>
+<div class="eb" id="erro-blocos"></div>
 </section>
 
 <section id="iteracao" hidden>
@@ -240,10 +257,11 @@ $('aviso').textContent = D.aviso;
 $('ficha').append(...[['Objetivo',D.ficha.pergunta],['Método',D.ficha.metodo],['Resultado',D.veredito],['Principal limite',D.ficha.limite]].flatMap(([k,v])=>[el('dt',k),el('dd',v)]));
 const tiles=$('tiles');
 function tile(k,v,d){ const t=el('div',undefined,'tile'); t.appendChild(el('div',k,'k')); t.appendChild(el('div',v,'v')); t.appendChild(el('div',d,'d')); tiles.appendChild(t); }
-const porAc=[...R].sort((a,b)=>a.acerto-b.acerto), porCu=[...R].sort((a,b)=>a.custo_caso-b.custo_caso), porLa=[...R].sort((a,b)=>a.lat-b.lat);
-tile('Acerto por caso', pct(porAc[0].acerto)+' a '+pct(porAc[porAc.length-1].acerto), 'menor: '+nome(porAc[0])+'; maior: '+nome(porAc[porAc.length-1]));
-tile('Custo por caso', 'US$ '+usd(porCu[0].custo_caso)+' a '+usd(porCu[porCu.length-1].custo_caso), 'menor: '+nome(porCu[0])+'; maior: '+nome(porCu[porCu.length-1]));
-tile('Latência média', seg(porLa[0].lat)+' s a '+seg(porLa[porLa.length-1].lat)+' s', 'menor: '+nome(porLa[0])+'; maior: '+nome(porLa[porLa.length-1]));
+tiles.className='cards';
+R.forEach(r=>{ const c=el('div',undefined,'cartao'); c.appendChild(el('div',r.id,'id')); c.appendChild(el('div',r.tecnica,'nm'));
+  c.appendChild(el('div',pct(r.acerto),'big')); c.appendChild(el('div','acerto por caso · IC 95%: '+pct(r.ic_lo)+' a '+pct(r.ic_hi),'sm'));
+  const dl=el('dl'); [['Custo por caso','US$ '+usd(r.custo_caso)],['Latência média',seg(r.lat)+' s'],['JSON válido',pct(r.jv)]].forEach(([k,v])=>{ dl.appendChild(el('dt',k)); dl.appendChild(el('dd',v)); });
+  c.appendChild(dl); tiles.appendChild(c); });
 
 // metodologia: técnicas
 { const t=$('t-tec'); const h=el('tr'); ['ID','Técnica','O que muda no prompt','Exemplos','Raciocínio antes da resposta','Onde ficam as regras'].forEach(c=>h.appendChild(el('th',c))); t.appendChild(h);
@@ -313,11 +331,18 @@ const cls = v => v>=1?'h100':v>=0.9?'h90':v>=0.7?'h70':'h0';
     mp.appendChild(tr); }); }
 
 // erros
-{ const t=$('erros-t'); const h=el('tr'); ['Técnica','Respostas erradas','Causa'].forEach(c=>h.appendChild(el('th',c))); t.appendChild(h);
+{ const t=$('erros-t'); const h=el('tr'); ['Técnica','Respostas erradas','Taxa de erro','Tipo de erro'].forEach(c=>h.appendChild(el('th',c))); t.appendChild(h);
   R.forEach(r=>{ const e=D.erros.por_tecnica[r.id]; const tr=el('tr'); tr.appendChild(el('td',nome(r)));
     tr.appendChild(el('td',e.total+' de '+e.respostas,'num'));
-    tr.appendChild(el('td',Object.entries(e.classes).map(([k,n])=>n+' × '+(D.erros.rotulos[k]||k)).join('; ')||'—')); t.appendChild(tr); });
-  $('leit-erros').textContent=D.erros.leitura; }
+    tr.appendChild(el('td',pct(e.total/e.respostas),'num'));
+    tr.appendChild(el('td',Object.entries(e.classes).map(([k,n])=>D.erros.rotulos[k]||k).join('; ')||'Nenhum')); t.appendChild(tr); });
+  const x=D.erros.exemplo, ex=$('erro-ex');
+  if(x){ ex.appendChild(el('p','Caso '+x.caso+' · '+nomeId(x.tecnica)+' · repetição '+x.repeticao,'cap'));
+    ex.appendChild(el('span','Texto da solicitação','rot')); ex.appendChild(el('pre',x.texto));
+    const w=el('div',undefined,'tw'); const tb=el('table',undefined,'cmp'); const hh=el('tr'); ['Campo','Gabarito (esperado)','Resposta do modelo'].forEach(c=>hh.appendChild(el('th',c))); tb.appendChild(hh);
+    const tr=el('tr'); tr.appendChild(el('th',x.campo)); tr.appendChild(el('td',JSON.stringify(x.esperado),'ok')); tr.appendChild(el('td',JSON.stringify(x.obtido),'erro')); tb.appendChild(tr); w.appendChild(tb); ex.appendChild(w);
+  } else { ex.hidden=true; ex.previousElementSibling.hidden=true; }
+  D.erros.blocos.forEach(([k,v])=>{ const b=el('div',undefined,'ebc'); b.appendChild(el('h4',k)); b.appendChild(el('p',v)); $('erro-blocos').appendChild(b); }); }
 
 tipos.forEach((t,k)=>{ const o=el('option',nomeTipo(t.tipo)+' ('+t.idx.length+' '+(t.idx.length>1?'casos':'caso')+')'); o.value=k; st.appendChild(o); });
 for(let i=1;i<=D.repeticoes;i++){ const o=el('option','Repetição '+i); o.value=i; sr.appendChild(o); }
@@ -355,6 +380,9 @@ st.onchange=trocarTipo; sc.onchange=mostrar; sr.onchange=mostrar; trocarTipo();
 D.limitacoes.forEach(x=>$('lim').appendChild(el('li',x)));
 D.prioridades.forEach(p=>{ const li=el('li'); li.appendChild(el('strong',p[0]+'. ')); li.appendChild(document.createTextNode(p[1])); $('prox').appendChild(li); });
 
+// numera só as seções visíveis, em sequência
+[...document.querySelectorAll('section')].filter(x=>!x.hidden).forEach((x,i)=>{ const n=x.querySelector('h2 .n'); if(n) n.textContent=(i+1)+'.'; });
+
 // navegação: marca a seção visível
 const links=[...document.querySelectorAll('#nav a')];
 const obs=new IntersectionObserver(es=>{ es.forEach(e=>{ if(e.isIntersecting){ links.forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+e.target.id)); } }); },{rootMargin:'-20% 0px -70% 0px'});
@@ -368,8 +396,8 @@ LINKS = {"v1": '<span class="seg on">Rodada v1</span><a class="seg" href="v2/ind
 DESCRODADA = {"v1": "Primeira rodada: 50 casos de dificuldade moderada. Os erros se concentram num defeito do gerador de casos (ver Análise de erros).",
               "v2": "Segunda rodada: 50 casos sem o defeito da v1 e com tipos mais difíceis. Desenhada depois de conhecer o resultado da v1."}
 ROTULOS_CLASSE = {
-    "valor_nulo_sem_derivar": "valor total não dividido pela quantidade (devolveu null)",
-    "fornecedor_ponto_final": "ponto final de \"Ltda.\" copiado do texto",
+    "valor_nulo_sem_derivar": "Valor total não dividido pela quantidade (devolveu null)",
+    "fornecedor_ponto_final": "Ponto final de “Ltda.” copiado do texto",
     "campo_diferente": "outro campo diferente do gabarito",
     "json_invalido": "JSON inválido",
     "schema_invalido": "schema inválido",
@@ -520,6 +548,42 @@ def montar_dados():
     else:
         leitura = "As respostas erradas têm mais de uma causa; veja a classificação acima e o explorador de casos."
         limite = "Há erros de mais de um tipo; ver a seção Resultados."
+    def _exemplo(classe, campo):
+        for r in sorted(regs, key=lambda r: (r["caso"], r["tecnica"], r["repeticao"])):
+            if not r["avaliacao"]["caso_correto"] and ce.classificar(r, gab[r["caso"]])[0] == classe:
+                obj, _ = vparse(r["resposta"], r["tecnica"])
+                return {"caso": r["caso"], "tecnica": r["tecnica"], "repeticao": r["repeticao"], "campo": campo,
+                        "esperado": gab[r["caso"]][campo], "obtido": (obj or {}).get(campo), "texto": next(c["texto"] for c in casos if c["id"] == r["caso"])}
+        return None
+    posthoc = {t: sum(1 for r in regs if r["tecnica"] == t and ce.classificar(r, gab[r["caso"]])[1]) / sum(1 for r in regs if r["tecnica"] == t) for t in resumo}
+    exemplo = None
+    if classes_vistas == {"fornecedor_ponto_final"}:
+        exemplo = _exemplo("fornecedor_ponto_final", "fornecedor")
+        n_casos = len({r["caso"] for r in regs if not r["avaliacao"]["caso_correto"]})
+        iguais = len({round(v, 4) for v in posthoc.values()}) == 1
+        pos = (f"Na recontagem pós-hoc, ignorando esse ponto, as quatro técnicas acertam {100 * next(iter(posthoc.values())):.1f}%".replace(".", ",")
+               if iguais else "Na recontagem pós-hoc, ignorando esse ponto: " + "; ".join(f"{t} {100 * v:.1f}%".replace(".", ",") for t, v in sorted(posthoc.items())))
+        blocos = [
+            ["O que aconteceu", f"Em {n_casos} dos {len(casos)} casos o fornecedor aparece como “… Ltda.” no texto. O gabarito é “… Ltda” (sem ponto) e os modelos devolveram “… Ltda.” (com ponto). "
+                                f"Isso reprovou {erros_total} respostas, todas só por esse ponto; nenhum outro campo errou."],
+            ["Por que aconteceu", "O gerador de casos separa as frases com ponto. Quando a frase termina logo depois da abreviação “Ltda”, o ponto da frase fica colado nela. "
+                                  "O modelo copiou o que estava escrito, e “Ltda.” também é uma forma correta de escrever a abreviação."],
+            ["É falha do modelo?", f"Não. O modelo entendeu a tarefa; o defeito está no caso e no gabarito, que eu criei. {pos}. "
+                                   "Por que o T4 errou mais que as outras? Hipótese não testada: a regra “copie o nome como aparece no texto” pode levá-lo a copiar o ponto com mais frequência."],
+            ["O que foi feito", "O resultado oficial foi mantido, porque a regra de acerto foi definida antes de medir. A recontagem sem o ponto está marcada como pós-hoc. "
+                                "A rodada v2 foi criada com casos sem esse defeito."]]
+    elif classes_vistas == {"valor_nulo_sem_derivar"}:
+        exemplo = _exemplo("valor_nulo_sem_derivar", "valor_unitario")
+        blocos = [
+            ["O que aconteceu", f"Todas as {erros_total} respostas erradas estão no tipo valor_total ({n_tipo // reps} casos × {reps} repetições = {n_tipo} respostas por técnica). "
+                                f"O texto traz só o valor total e o gabarito pede o valor unitário (total ÷ quantidade). Em todas, o modelo devolveu valor_unitario = null. Erradas nesse tipo: {partes}."],
+            ["Por que aconteceu", "O gabarito exige uma conta que nenhum prompt da v1 pede. Calcular ou deixar vazio é uma regra de negócio, e eu a defini só no gabarito, sem escrevê-la nos prompts."],
+            ["É falha do modelo?", "Não de leitura: o modelo leu o total corretamente e o tratou como dado ausente. O T3, que escreve o raciocínio antes de responder, calculou "
+                                   f"em {n_tipo - errou.get('T3', 0)} de {n_tipo}. Hipótese não testada: os 3 exemplos do T2 sempre trazem o preço unitário pronto, e o T4 manda usar null quando o dado não está no texto; ambos podem ter ensinado o modelo a não calcular."],
+            ["O que foi feito", "O resultado oficial foi mantido. Esse tipo mede como cada prompt trata um dado implícito, não qual técnica entende melhor a tarefa. "
+                                + ("A regra que faltava foi escrita no T4 v2 e medida na seção Iteração de prompt." if (caminhos.RESULTADOS / "iteracao.json").exists() else "Corrigir o prompt e medir de novo está nos próximos passos.")]]
+    else:
+        blocos = [["O que aconteceu", leitura]]
     ficha = {"pergunta": "Qual técnica de prompt extrai melhor os dados de pedidos de compra escritos em texto livre, e quanto custa cada acerto?",
              "metodo": (f"{len(casos)} pedidos fictícios, com gabarito escrito e congelado antes de rodar. Cada uma das 4 técnicas respondeu a cada caso {reps} vezes "
                         f"({len(regs)} respostas nesta rodada). Um caso só conta como certo se os 8 campos baterem com o gabarito. Modelo: claude-haiku-5-5."),
@@ -535,7 +599,7 @@ def montar_dados():
     iteracao = json.loads(it_arq.read_text(encoding="utf-8")) if it_arq.exists() else None
     return {"iteracao": iteracao, "anatomia": montar_anatomia(), "anatomia_nota": ANATOMIA_NOTA,
             "pares": [[a, b, fa, fb, p] for a, b, fa, fb, p in comparacoes(resumo)], "ficha": ficha, "metricas": [list(m) for m in METRICAS], "limitacoes": LIMITACOES + dinamicas + [limite], "prioridades": [list(x) for x in PRIORIDADES],
-            "erros": {"por_tecnica": por_tec, "rotulos": ROTULOS_CLASSE, "leitura": leitura},
+            "erros": {"por_tecnica": por_tec, "rotulos": ROTULOS_CLASSE, "leitura": leitura, "blocos": blocos, "exemplo": exemplo},
             "veredito": veredito, "campos": CAMPOS, "compara": [[k, v] for k, v in COMPARA],
             "por_tipo": {t: r["acerto_tipo"] for t, r in resumo.items()},
             "tipos": {k: list(v) for k, v in TIPOS.items()}, "tecnicas": {k: {"como": TECNICAS[k]["como"]} for k in resumo},
