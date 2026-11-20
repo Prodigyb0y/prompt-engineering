@@ -86,9 +86,19 @@ As 29 respostas erradas têm a mesma causa: o texto de cinco casos traz "Papelar
 - **Consequência:** a vantagem do T3 vem de 4 casos de um único tipo e de uma regra de rotulagem minha que os prompts não mencionam. É um resultado sobre **como cada prompt trata um dado implícito**, não uma medida geral de qualidade.
 - **Custo e tempo (v2):** custo por caso T1 US$ 0,000125, T2 US$ 0,000163, T3 US$ 0,000351, T4 US$ 0,000160; o T3 custou 2,8 vezes o T1 e levou 2,3 vezes mais tempo. Na v1 a razão de custo foi 3,0 vezes, sem ganho de acerto.
 
+## Iteração de prompt: T4 v1 → v2 (`resultados/v2/ITERACAO.md`)
+
+O T4 v1 errou os 12 de 12 respostas do tipo `valor_total`. O T4 v2 (`prompts/T4_system_prompt_v2.json`, hash `2c3ccc1873da`) muda o prompt em duas linhas: acrescenta "se só houver o valor total, divida pela quantidade" e ajusta a regra de moeda. Foi rodado só o T4 v2, nos mesmos 50 casos v2, com 3 repetições (150 chamadas).
+
+- **Acerto por caso:** T4 v1 92,0% → T4 v2 100,0%. No tipo `valor_total`, de 0 de 12 para 12 de 12 respostas certas; nos outros 14 tipos nada mudou (todas certas nas duas versões) e nenhum caso piorou.
+- **Custo por resposta:** US$ 0,000160 → US$ 0,000145; tokens de saída médios 177 → 133 (a causa dessa queda não foi investigada). Para referência, o T3 custou US$ 0,000351 por caso na v2.
+- **Estatística:** 4 casos melhoraram, 0 pioraram, p = 0,125 no teste do sinal exato pareado; com tão poucos casos discordantes o teste não chega a p < 0,05 mesmo com todos na mesma direção.
+- **Limite:** a regra nova foi escrita depois de ver os erros nesses mesmos 50 casos. É um resultado de desenvolvimento: mostra o ciclo medir → diagnosticar → corrigir → medir de novo, sem regressão, mas não prova que a regra vale para casos novos. O T3 não foi ajustado e o T4 v2 foi, então a comparação entre os dois não é simétrica.
+- **Verificação:** a reavaliação das 150 respostas brutas com o validador deu 0 divergências em relação à avaliação gravada; o custo recalculado bate com o livro-caixa (US$ 0,248969 − US$ 0,227230).
+
 ## Custo gasto
 
-US$ 0.227230 de um teto de US$ 1,00: v1 (piloto de 10 chamadas mais 600) US$ 0.107289 e v2 (600 chamadas) US$ 0.119941, conforme o livro-caixa do cliente. O cliente reserva o custo máximo antes de cada chamada e para com erro registrado se a próxima passaria do teto (testado em `tests/test_custo_e_cliente.py`).
+US$ 0.248969 de um teto de US$ 1,00: v1 (piloto de 10 chamadas mais 600) US$ 0.107289, v2 (600 chamadas) US$ 0.119941 e iteração do T4 (150 chamadas) US$ 0.021739, conforme o livro-caixa do cliente. O cliente reserva o custo máximo antes de cada chamada e para com erro registrado se a próxima passaria do teto (testado em `tests/test_custo_e_cliente.py`).
 
 ## Por que isso importa para um time de negócio
 
@@ -113,6 +123,7 @@ A auditoria também levantou o que segue, já refletido nos relatórios, na demo
 - **Um modelo só** (`claude-haiku-5-5`); não comparei provedores.
 - **O gabarito foi criado pelo autor do projeto, não por outra pessoa**; não há concordância entre anotadores. Na v2 as regras novas (como calcular o valor unitário a partir do total) são decisões do autor e decidem o resultado do único tipo em que houve diferença.
 - **A v2 foi desenhada depois de ver a v1**, para corrigir o artefato e dificultar a tarefa; não é uma segunda medição independente.
+- **A regra do T4 v2 foi escrita depois de ver os erros nos mesmos 50 casos** em que foi medida; os 100,0% são resultado de desenvolvimento, não prova de generalização.
 - **Sem temperatura 0:** o modelo não aceita `temperature`. A variação foi medida por 3 repetições, que não provam determinismo.
 - **Raciocínio do modelo:** o raciocínio adaptativo vem ligado por padrão; fixei `effort = "low"`. Todas as técnicas podem raciocinar internamente, o que dilui a diferença da chain-of-thought.
 - Resultados não generalizáveis para outras tarefas, idiomas ou modelos.
@@ -152,7 +163,7 @@ Os resultados brutos (`resultados/brutos/`, `resultados/v2/brutos/`) não vão p
 
 ## Próximos passos
 
-- **Iteração de prompt (preparada, ainda não executada):** o T4 v2 (`prompts/T4_system_prompt_v2.json`) acrescenta a regra "se só houver o valor total, divida pela quantidade" e ajusta a regra de moeda. `rodar.py --iteracao` roda só o T4 v2 nos 50 casos v2 (150 chamadas) e `comparar_iteracao.py` mede o efeito por tipo de caso e procura regressões. Como a regra nasceu do erro visto nesses mesmos casos, o resultado vale como desenvolvimento, não como prova de generalização. Depois: a mesma iteração no T2, com um exemplo em que o total vira unitário.
+- **Validar o T4 v2 em casos novos**, escritos e congelados antes de rodar, porque a regra foi escrita olhando os 50 casos v2. Depois, a mesma iteração no T2 com um exemplo em que o total vira valor unitário, para comparar regra escrita contra exemplo.
 - Mais casos por tipo (hoje 4 de `valor_total`) para a comparação ter força estatística.
 - Segunda pessoa para rotular o gabarito e medir concordância.
 - Comparar com outro modelo, se houver orçamento.

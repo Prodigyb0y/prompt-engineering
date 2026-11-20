@@ -87,7 +87,7 @@ QA = [
 
 # ordem sugerida de mudanças: (título, por quê)
 PRIORIDADES = [
-    ("Rodar o T4 v2 (regra do valor total) e comparar com a v1", "Já está preparado (`rodar.py --iteracao`). Mede o efeito de uma mudança de prompt e procura regressão nos outros tipos de caso."),
+    ("Validar o T4 v2 em casos novos, escritos e congelados antes de rodar", "A regra nova foi escrita depois de ver os erros nos 50 casos v2; só casos que ela nunca viu mostram se generaliza."),
     ("Fazer a mesma iteração no T2, acrescentando um exemplo em que o total vira valor unitário", "Compara duas formas de corrigir o mesmo erro: regra escrita contra exemplo."),
     ("Ablação do system prompt: T1 com as regras do T4 na mensagem do usuário", "Separa o efeito do lugar da instrução do efeito do conteúdo das regras."),
     ("Exemplos do few-shot sem itens nem fornecedores dos casos de teste", "Remove a sobreposição que pode favorecer o T2."),

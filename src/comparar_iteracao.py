@@ -13,7 +13,8 @@ import sys
 
 import caminhos
 import prompts_lib
-from analisar import carregar
+from analisar import carregar, teste_sinal_exato
+import validador
 
 
 def _media(xs):
@@ -38,14 +39,20 @@ def comparar(base, nova, casos):
                        "certas_v2": int(sum(sum(n[i]) for i in cs)), "respostas_v2": sum(len(n[i]) for i in cs)}
     melhorou = [i for i in ids if _media(n[i]) > _media(b[i])]
     piorou = [i for i in ids if _media(n[i]) < _media(b[i])]
+    _, _, p_sinal = teste_sinal_exato([_media(n[i]) for i in ids], [_media(b[i]) for i in ids])
     return {"casos": len(ids), "por_tipo": por_tipo,
             "acerto_v1": _media([_media(b[i]) for i in ids]), "acerto_v2": _media([_media(n[i]) for i in ids]),
             "custo_v1": _media([r["custo_usd"] for r in base]), "custo_v2": _media([r["custo_usd"] for r in nova]),
             "tokens_saida_v1": _media([r["tokens_saida"] for r in base]), "tokens_saida_v2": _media([r["tokens_saida"] for r in nova]),
-            "melhorou": melhorou, "piorou": piorou}
+            "melhorou": melhorou, "piorou": piorou, "p_sinal": p_sinal}
 
 
-def relatorio(c, diff):
+def reavaliar(regs, gabarito, tecnica="T4"):
+    """Reaplica o validador às respostas brutas; devolve quantas avaliações gravadas divergem da recalculada."""
+    return sum(1 for r in regs if validador.avaliar(r["resposta"], gabarito[r["caso"]], tecnica)["caso_correto"] != r["avaliacao"]["caso_correto"])
+
+
+def relatorio(c, diff, divergencias=None):
     pct = lambda x: f"{100 * x:.1f}%"
     L = ["# Iteração de prompt: T4 v1 → T4 v2 (dados v2)", "",
          "Gerado por `python src/comparar_iteracao.py`. O T4 v2 foi escrito **depois** de ver o resultado da v1 nos casos de `valor_total`; "
@@ -60,7 +67,11 @@ def relatorio(c, diff):
         L.append(f"| {t} | {x['casos']} | {x['certas_v1']} de {x['respostas']} | {x['certas_v2']} de {x['respostas_v2']} |")
     L += ["", "## Regressões", "",
           ("Casos em que o v2 acertou menos que o v1: " + ", ".join(c["piorou"]) + ".") if c["piorou"] else "Nenhum caso piorou com o v2.",
-          ("Casos em que o v2 acertou mais que o v1: " + ", ".join(c["melhorou"]) + ".") if c["melhorou"] else "Nenhum caso melhorou com o v2.", ""]
+          ("Casos em que o v2 acertou mais que o v1: " + ", ".join(c["melhorou"]) + ".") if c["melhorou"] else "Nenhum caso melhorou com o v2.", "",
+          f"Teste do sinal exato pareado por caso (bilateral): {len(c['melhorou'])} casos melhoraram, {len(c['piorou'])} pioraram, p = {c['p_sinal']:.3f}. "
+          "Com poucos casos discordantes o teste não chega a p < 0,05 mesmo quando todos vão na mesma direção; o efeito aqui está concentrado num único tipo de caso.", ""]
+    if divergencias is not None:
+        L += ["## Verificação", "", f"Reavaliação das respostas brutas com o validador: {divergencias} divergências em relação à avaliação gravada.", ""]
     return "\n".join(L)
 
 
@@ -79,7 +90,8 @@ def main():
     if not nova:
         sys.exit("Sem respostas do T4 v2: rode antes PE_VERSAO=v2 python src/rodar.py --iteracao")
     c = comparar(base, nova, casos)
-    texto = relatorio(c, diff_prompts())
+    gab = json.loads((caminhos.DADOS / "gabarito.json").read_text(encoding="utf-8"))
+    texto = relatorio(c, diff_prompts(), reavaliar(nova, gab))
     (caminhos.RESULTADOS / "ITERACAO.md").write_text(texto + "\n", encoding="utf-8", newline="\n")
     (caminhos.RESULTADOS / "iteracao.json").write_text(json.dumps({**c, "diff": diff_prompts()}, ensure_ascii=False, indent=2) + "\n", encoding="utf-8", newline="\n")
     print(texto)

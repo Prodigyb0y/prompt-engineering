@@ -29,3 +29,19 @@ def test_tabela_v2_do_readme_e_a_do_relatorio_v2():
     p = RAIZ / "resultados" / "v2" / "RELATORIO.md"
     rel = _primeira_tabela(p.read_text(encoding="utf-8"))
     assert rel and all(l in (RAIZ / "README.md").read_text(encoding="utf-8") for l in rel)
+
+
+def test_readme_traz_numeros_da_iteracao():
+    import json
+    from pathlib import Path
+    raiz = Path(__file__).resolve().parent.parent
+    it = json.loads((raiz / "resultados/v2/iteracao.json").read_text(encoding="utf-8"))
+    readme = (raiz / "README.md").read_text(encoding="utf-8")
+    pc = lambda x: f"{100 * x:.1f}".replace(".", ",") + "%"
+    assert pc(it["acerto_v1"]) in readme and pc(it["acerto_v2"]) in readme
+    assert f"p = {it['p_sinal']:.3f}".replace(".", ",") in readme
+    vt = it["por_tipo"]["valor_total"]
+    assert f"{vt['certas_v1']} de {vt['respostas']}" in readme
+    assert f"{vt['certas_v2']} de {vt['respostas_v2']}" in readme
+    assert f"{it['custo_v2']:.6f}".replace(".", ",") in readme
+    assert "regra do T4 v2 foi escrita depois de ver os erros" in readme

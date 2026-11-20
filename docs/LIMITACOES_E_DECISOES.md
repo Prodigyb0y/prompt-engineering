@@ -140,7 +140,7 @@ Perguntas de aprofundamento sobre o método, com a resposta, o que mudar e o est
 
 ## O que eu mudaria, em ordem
 
-1. **Rodar o T4 v2 (regra do valor total) e comparar com a v1.** Já está preparado (`rodar.py --iteracao`). Mede o efeito de uma mudança de prompt e procura regressão nos outros tipos de caso.
+1. **Validar o T4 v2 em casos novos, escritos e congelados antes de rodar.** A regra nova foi escrita depois de ver os erros nos 50 casos v2; só casos que ela nunca viu mostram se generaliza.
 2. **Fazer a mesma iteração no T2, acrescentando um exemplo em que o total vira valor unitário.** Compara duas formas de corrigir o mesmo erro: regra escrita contra exemplo.
 3. **Ablação do system prompt: T1 com as regras do T4 na mensagem do usuário.** Separa o efeito do lugar da instrução do efeito do conteúdo das regras.
 4. **Exemplos do few-shot sem itens nem fornecedores dos casos de teste.** Remove a sobreposição que pode favorecer o T2.

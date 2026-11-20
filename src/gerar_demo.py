@@ -133,7 +133,7 @@ footer a,.lk{color:var(--ac)}
 <div class="rod"><span>__LINKS__</span><span>__DESCRODADA__</span></div>
 </div></header>
 <nav><div class="w" id="nav">
-<a href="#resumo">Resumo</a><a href="#metodologia">Metodologia</a><a href="#resultados">Resultados</a><a href="#erros">Análise de erros</a><a href="#explorador">Explorador de casos</a><a href="#limitacoes">Limitações</a>
+<a href="#resumo">Resumo</a><a href="#metodologia">Metodologia</a><a href="#resultados">Resultados</a><a href="#erros">Análise de erros</a><a href="#iteracao">Iteração de prompt</a><a href="#explorador">Explorador de casos</a><a href="#limitacoes">Limitações</a>
 </div></nav>
 <div class="w">
 
@@ -189,8 +189,21 @@ footer a,.lk{color:var(--ac)}
 <p id="leit-erros" style="margin-top:.8rem"></p>
 </section>
 
+<section id="iteracao" hidden>
+<h2><span class="n">5.</span>Iteração de prompt: T4 v1 → v2</h2>
+<p class="lead">O T4 v1 errou todos os casos do tipo valor_total. O T4 v2 muda o prompt em dois pontos e é medido nos mesmos 50 casos, com 3 repetições.</p>
+<h3>O que mudou no prompt</h3>
+<pre id="it-diff"></pre>
+<h3>Resultado</h3>
+<div class="tiles" id="it-tiles"></div>
+<div class="nota" id="it-nota"></div>
+<h3>Por tipo de caso</h3>
+<div class="tw"><table id="it-tab"></table></div>
+<p class="cap" id="it-cmp"></p>
+</section>
+
 <section id="explorador">
-<h2><span class="n">5.</span>Explorador de casos</h2>
+<h2><span class="n">6.</span>Explorador de casos</h2>
 <p class="lead">Compara o gabarito com a resposta de cada técnica, campo a campo. Células em vermelho são divergências.</p>
 <div class="ctl">
 <div><label for="tipo">Tipo de caso</label><select id="tipo"></select></div>
@@ -202,7 +215,7 @@ footer a,.lk{color:var(--ac)}
 </section>
 
 <section id="limitacoes">
-<h2><span class="n">6.</span>Limitações e próximos passos</h2>
+<h2><span class="n">7.</span>Limitações e próximos passos</h2>
 <ul class="lim" id="lim"></ul>
 <h3>Próximos passos</h3>
 <ol class="lim" id="prox"></ol>
@@ -255,6 +268,25 @@ function barras(id, val, fmt, max, ic){
 barras('g-acerto',r=>r.acerto,r=>pct(r.acerto),1,true);
 barras('g-custo',r=>r.custo_caso,r=>usd(r.custo_caso),Math.max(...R.map(r=>r.custo_caso)),false);
 barras('g-lat',r=>r.lat,r=>seg(r.lat),Math.max(...R.map(r=>r.lat)),false);
+
+// iteração de prompt (só existe na rodada v2)
+if(!D.iteracao){ document.querySelectorAll('a[href="#iteracao"]').forEach(a=>a.remove()); }
+if(D.iteracao){
+  const I=D.iteracao; $('iteracao').hidden=false;
+  $('it-diff').textContent=I.diff.join('\\n');
+  const vt=I.por_tipo.valor_total; const outros=Object.entries(I.por_tipo).filter(([k])=>k!=='valor_total');
+  const so=(f,g)=>outros.reduce((a,[,x])=>a+x[f],0), sr=outros.reduce((a,[,x])=>a+x.respostas,0);
+  const tl=(k,v,d)=>{ const t=el('div',undefined,'tile'); t.appendChild(el('div',k,'k')); t.appendChild(el('div',v,'v')); t.appendChild(el('div',d,'d')); $('it-tiles').appendChild(t); };
+  tl('Acerto por caso',pct(I.acerto_v1)+' → '+pct(I.acerto_v2),'T4 v1 → T4 v2, média de 3 repetições');
+  tl('Tipo valor_total',vt.certas_v1+' de '+vt.respostas+' → '+vt.certas_v2+' de '+vt.respostas_v2,'respostas certas, v1 → v2');
+  tl('Demais tipos',so('certas_v1')+' de '+sr+' → '+so('certas_v2')+' de '+sr,I.piorou.length?('regressões: '+I.piorou.join(', ')):'sem regressão em nenhum caso');
+  tl('Custo por resposta (US$)',usd(I.custo_v1)+' → '+usd(I.custo_v2),'tokens de saída médios: '+Math.round(I.tokens_saida_v1)+' → '+Math.round(I.tokens_saida_v2));
+  $('it-nota').textContent='Atenção: a regra nova foi escrita depois de ver os erros nesses mesmos casos. O resultado mostra que a mudança corrige o problema e não quebra os outros tipos, mas não prova que vale para casos novos. Teste do sinal exato pareado: '+I.melhorou.length+' casos melhoraram, '+I.piorou.length+' pioraram, p = '+I.p_sinal.toFixed(3).replace('.',',')+'; com tão poucos casos discordantes o teste não chega a p < 0,05 mesmo com todos na mesma direção.';
+  const t=$('it-tab'); const h=el('tr'); ['Tipo de caso','Casos','Respostas certas v1','Respostas certas v2'].forEach(c=>h.appendChild(el('th',c))); t.appendChild(h);
+  Object.entries(I.por_tipo).forEach(([k,x])=>{ const tr=el('tr'); [(D.tipos[k]||[k])[0],String(x.casos),x.certas_v1+' de '+x.respostas,x.certas_v2+' de '+x.respostas_v2].forEach((v,i)=>tr.appendChild(el('td',v,i>0?'num':''))); t.appendChild(tr); });
+  const t3=R.find(r=>r.id==='T3');
+  if(t3) $('it-cmp').textContent='Para referência, na mesma rodada o T3 (chain-of-thought) teve acerto de '+pct(t3.acerto)+' a US$ '+usd(t3.custo_caso)+' por resposta; o T4 v2 teve '+pct(I.acerto_v2)+' a US$ '+usd(I.custo_v2)+', cerca de '+(I.custo_v2/t3.custo_caso*100).toFixed(0)+'% do custo do T3. O T3 não foi ajustado depois de ver os resultados e o T4 v2 foi, então a comparação não é simétrica.';
+}
 
 // comparações pareadas
 { const t=$('pares'); const h=el('tr'); ['Par','Casos a favor do primeiro','Casos a favor do segundo','Empates','p'].forEach(c=>h.appendChild(el('th',c))); t.appendChild(h);
@@ -499,7 +531,9 @@ def montar_dados():
                  "Toda a diferença entre técnicas depende desses poucos casos.",
                  f"Pouca variedade: {len(itens)} itens e {len(forn)} fornecedores distintos nos {len(casos)} casos, e os exemplos do T2 compartilham itens e fornecedores com parte dos casos de teste "
                  "(contagens em resultados/AUDITORIA.md)."]
-    return {"anatomia": montar_anatomia(), "anatomia_nota": ANATOMIA_NOTA,
+    it_arq = caminhos.RESULTADOS / "iteracao.json"
+    iteracao = json.loads(it_arq.read_text(encoding="utf-8")) if it_arq.exists() else None
+    return {"iteracao": iteracao, "anatomia": montar_anatomia(), "anatomia_nota": ANATOMIA_NOTA,
             "pares": [[a, b, fa, fb, p] for a, b, fa, fb, p in comparacoes(resumo)], "ficha": ficha, "metricas": [list(m) for m in METRICAS], "limitacoes": LIMITACOES + dinamicas + [limite], "prioridades": [list(x) for x in PRIORIDADES],
             "erros": {"por_tecnica": por_tec, "rotulos": ROTULOS_CLASSE, "leitura": leitura},
             "veredito": veredito, "campos": CAMPOS, "compara": [[k, v] for k, v in COMPARA],

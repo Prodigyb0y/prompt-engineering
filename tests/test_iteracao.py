@@ -32,3 +32,4 @@ def test_comparar_conta_por_tipo_e_acha_regressao():
     assert c["melhorou"] == ["D02"] and c["piorou"] == ["D01"]
     txt = ci.relatorio(c, ["-a", "+b"])
     assert "Casos em que o v2 acertou menos que o v1: D01." in txt and "desenvolvimento" in txt
+    assert c["p_sinal"] == 1.0 and "1 casos melhoraram, 1 pioraram" in txt

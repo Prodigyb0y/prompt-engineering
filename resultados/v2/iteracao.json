@@ -1,0 +1,131 @@
+{
+  "casos": 50,
+  "por_tipo": {
+    "campos_faltando": {
+      "casos": 3,
+      "respostas": 9,
+      "certas_v1": 9,
+      "certas_v2": 9,
+      "respostas_v2": 9
+    },
+    "completa": {
+      "casos": 3,
+      "respostas": 9,
+      "certas_v1": 9,
+      "certas_v2": 9,
+      "respostas_v2": 9
+    },
+    "correcao": {
+      "casos": 5,
+      "respostas": 15,
+      "certas_v1": 15,
+      "certas_v2": 15,
+      "respostas_v2": 15
+    },
+    "data_formato": {
+      "casos": 3,
+      "respostas": 9,
+      "certas_v1": 9,
+      "certas_v2": 9,
+      "respostas_v2": 9
+    },
+    "data_relativa": {
+      "casos": 3,
+      "respostas": 9,
+      "certas_v1": 9,
+      "certas_v2": 9,
+      "respostas_v2": 9
+    },
+    "duas_quantidades": {
+      "casos": 2,
+      "respostas": 6,
+      "certas_v1": 6,
+      "certas_v2": 6,
+      "respostas_v2": 6
+    },
+    "email_longo": {
+      "casos": 6,
+      "respostas": 18,
+      "certas_v1": 18,
+      "certas_v2": 18,
+      "respostas_v2": 18
+    },
+    "fornecedor_apelido": {
+      "casos": 2,
+      "respostas": 6,
+      "certas_v1": 6,
+      "certas_v2": 6,
+      "respostas_v2": 6
+    },
+    "moeda_extenso": {
+      "casos": 4,
+      "respostas": 12,
+      "certas_v1": 12,
+      "certas_v2": 12,
+      "respostas_v2": 12
+    },
+    "moeda_simbolo": {
+      "casos": 2,
+      "respostas": 6,
+      "certas_v1": 6,
+      "certas_v2": 6,
+      "respostas_v2": 6
+    },
+    "numero_extenso": {
+      "casos": 4,
+      "respostas": 12,
+      "certas_v1": 12,
+      "certas_v2": 12,
+      "respostas_v2": 12
+    },
+    "ruido": {
+      "casos": 3,
+      "respostas": 9,
+      "certas_v1": 9,
+      "certas_v2": 9,
+      "respostas_v2": 9
+    },
+    "unidades_variadas": {
+      "casos": 3,
+      "respostas": 9,
+      "certas_v1": 9,
+      "certas_v2": 9,
+      "respostas_v2": 9
+    },
+    "valor_br": {
+      "casos": 3,
+      "respostas": 9,
+      "certas_v1": 9,
+      "certas_v2": 9,
+      "respostas_v2": 9
+    },
+    "valor_total": {
+      "casos": 4,
+      "respostas": 12,
+      "certas_v1": 0,
+      "certas_v2": 12,
+      "respostas_v2": 12
+    }
+  },
+  "acerto_v1": 0.92,
+  "acerto_v2": 1.0,
+  "custo_v1": 0.00016011200000000001,
+  "custo_v2": 0.00014492866666666667,
+  "tokens_saida_v1": 177.32,
+  "tokens_saida_v2": 133.15333333333334,
+  "melhorou": [
+    "D33",
+    "D34",
+    "D35",
+    "D36"
+  ],
+  "piorou": [],
+  "p_sinal": 0.125,
+  "diff": [
+    "--- T4 v1",
+    "+++ T4 v2",
+    "-- moeda vem do símbolo: R$ = \"BRL\", US$ = \"USD\", € = \"EUR\". Sem valor no texto, valor_unitario e moeda são null.",
+    "+- moeda vem do símbolo: R$ = \"BRL\", US$ = \"USD\", € = \"EUR\". Sem nenhum valor no texto (nem unitário, nem total), valor_unitario e moeda são null.",
+    "+- Se o texto trouxer só o valor total, e não o valor unitário, divida o total pela quantidade para obter valor_unitario. A moeda é a do total."
+  ]
+}
