@@ -105,3 +105,24 @@ def test_classe_valor_nulo_sem_derivar():
     assert ce.classificar(reg(valor_unitario=None), g) == ("valor_nulo_sem_derivar", False)
     assert ce.classificar(reg(valor_unitario=350), g) == ("campo_diferente", False)          # devolveu o total: outra causa
     assert ce.classificar(reg(), g) == ("correto", True)
+
+
+def test_sinal_exato_quatro_a_zero_nao_e_significativo():
+    fa, fb, p = a.teste_sinal_exato([1, 1, 1, 1, 1], [0, 0, 0, 0, 1])
+    assert (fa, fb) == (4, 0) and abs(p - 0.125) < 1e-12
+
+
+def test_sinal_exato_sem_discordancia_da_p_um():
+    assert a.teste_sinal_exato([1, 0, 1], [1, 0, 1]) == (0, 0, 1.0)
+
+
+def test_ic_de_largura_zero_nao_declara_vencedor_sem_teste_pareado():
+    """T4 acerta 100% (IC 100%-100%); T1 erra 4 casos. Os IC não se sobrepõem, mas só 4 casos discordam (p = 0,125)."""
+    r = []
+    for i in range(50):
+        r.append(reg("T1", f"C{i:02d}", 1, ok=i >= 4))
+        r.append(reg("T4", f"C{i:02d}", 1, ok=True))
+    s = a.resumir(r)
+    assert s["T4"]["ic95_baixo"] == 1.0 and s["T1"]["ic95_alto"] < 1.0   # IC sem sobreposição
+    assert a.separaveis(s) == []                                         # mas o teste pareado não sustenta
+    assert "| T1 × T4 | 0 | 4 | 46 | 0.125 |" in a.relatorio(s, None)

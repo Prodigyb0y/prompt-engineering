@@ -11,7 +11,7 @@ from pathlib import Path
 import caminhos
 from conteudo_demo import LIMITACOES, METRICAS, PRIORIDADES, QA
 import classificar_erros as ce
-from analisar import carregar, separaveis
+from analisar import carregar, comparacoes, separaveis
 from validador import parse as vparse
 
 RAIZ = caminhos.RAIZ
@@ -160,8 +160,11 @@ footer a,.lk{color:var(--ac)}
 <p class="lead">Resultado oficial da rodada selecionada. Todas as técnicas receberam os mesmos casos.</p>
 <div class="nota" id="aviso"></div>
 <h3>Acerto por caso</h3>
-<p class="cap" style="margin-top:0">Maior é melhor. A barra preta é o intervalo de confiança de 95%. Quando os intervalos de duas técnicas se sobrepõem, nenhuma é declarada melhor.</p>
+<p class="cap" style="margin-top:0">Maior é melhor. A barra preta é o intervalo de confiança de 95%. Uma técnica só é declarada melhor que outra se os intervalos não se sobrepõem e o teste do sinal exato pareado dá p &lt; 0,05 (tabela abaixo).</p>
 <div id="g-acerto"></div>
+<h3>Comparações pareadas entre técnicas</h3>
+<div class="tw"><table id="pares"></table></div>
+<p class="cap">Teste do sinal exato, bilateral, por caso (cada caso conta uma vez, com o acerto médio das repetições; empates saem do teste). Com poucos casos discordantes, mesmo 4 a 0 não chega a p &lt; 0,05.</p>
 <h3>Custo por caso (US$)</h3>
 <p class="cap" style="margin-top:0">Menor é melhor.</p>
 <div id="g-custo"></div>
@@ -245,6 +248,11 @@ function barras(id, val, fmt, max, ic){
 barras('g-acerto',r=>r.acerto,r=>pct(r.acerto),1,true);
 barras('g-custo',r=>r.custo_caso,r=>usd(r.custo_caso),Math.max(...R.map(r=>r.custo_caso)),false);
 barras('g-lat',r=>r.lat,r=>seg(r.lat),Math.max(...R.map(r=>r.lat)),false);
+
+// comparações pareadas
+{ const t=$('pares'); const h=el('tr'); ['Par','Casos a favor do primeiro','Casos a favor do segundo','Empates','p'].forEach(c=>h.appendChild(el('th',c))); t.appendChild(h);
+  const nc=D.casos.length;
+  D.pares.forEach(([a,b,fa,fb,p])=>{ const tr=el('tr'); [nomeId(a)+' × '+nomeId(b),String(fa),String(fb),String(nc-fa-fb),p.toFixed(3).replace('.',',')].forEach((v,i)=>tr.appendChild(el('td',v,i>0?'num':''))); t.appendChild(tr); }); }
 
 // tabela completa
 { const tb=$('tabela'); const h=el('tr'); ['Técnica','Prompt','Acerto por caso','IC 95%','Mín–máx (3 repetições)','JSON válido','Tokens entrada (média)','Tokens saída (média)','Custo por caso (US$)','Custo por acerto (US$)','Latência média (s)'].forEach(c=>h.appendChild(el('th',c))); tb.appendChild(h);
@@ -390,16 +398,17 @@ def montar_dados():
         aviso = (f"{quantas} o mesmo artefato do gerador de casos: o texto traz \"Ltda.\" e o modelo copiou o ponto, "
                  "mas o gabarito não tem ponto. Na recontagem pós-hoc (não oficial, feita depois de ver os resultados) as técnicas empatam, "
                  "então a tabela NÃO mostra qual técnica entende melhor a tarefa. A diferença que sobra é de custo e latência. "
-                 "Os intervalos de 95% se sobrepõem.")
+                 "Nenhum par atende ao critério de diferença.")
     else:
         pares = separaveis(resumo)
         nomes_t = {t: f"{t} {r['tecnica']}" for t, r in resumo.items()}
         if pares:
-            aviso = ("Com intervalos de 95% que não se sobrepõem, pode-se declarar: "
+            aviso = ("Com intervalos de 95% sem sobreposição e teste do sinal exato com p < 0,05, pode-se declarar: "
                      + "; ".join(f"{nomes_t[a]} acerta mais que {nomes_t[b]}" for a, b in pares)
-                     + ". Para os demais pares, os intervalos se sobrepõem e não há vencedor declarado.")
+                     + ". Para os demais pares não há vencedor declarado.")
         else:
-            aviso = "Os intervalos de 95% se sobrepõem em todos os pares: nenhuma técnica é declarada melhor."
+            aviso = ("Nenhuma técnica é declarada melhor: nenhum par atende ao critério (intervalos de 95% sem sobreposição e teste do sinal exato "
+                     "pareado com p < 0,05). Quando uma técnica acerta 100% dos casos, o intervalo bootstrap tem largura zero e não basta sozinho.")
         aviso += f" {erros_total} das {len(regs)} respostas foram erradas pela regra oficial."
         tipos_erro = {r["tipo"] for r in regs if not r["avaliacao"]["caso_correto"]}
         if len(tipos_erro) == 1:
@@ -421,9 +430,10 @@ def montar_dados():
     pares_ok = separaveis(resumo)
     if pares_ok:
         veredito = ("Resultado oficial: " + "; ".join(f"{a} {nomes[a]} acerta mais que {b} {nomes[b]}" for a, b in pares_ok)
-                    + " (intervalos de 95% que não se sobrepõem). Para os demais pares não há vencedor declarado. Veja a seção Análise de erros.")
+                    + " (intervalos sem sobreposição e p < 0,05). Para os demais pares não há vencedor declarado. Veja a seção Análise de erros.")
     else:
-        veredito = "Nenhuma técnica é declarada melhor: os intervalos de 95% se sobrepõem em todos os pares. Veja a seção Resultados."
+        veredito = ("Nenhuma técnica é declarada melhor: nenhum par atende ao critério (intervalos de 95% sem sobreposição e teste do sinal exato pareado "
+                    "com p < 0,05). Veja a tabela de comparações na seção Resultados.")
     te = {r["tipo"] for r in regs if not r["avaliacao"]["caso_correto"]}
     if pares_ok and len(te) == 1:
         veredito += (f" Atenção: todo o erro está num único tipo de caso (\"{next(iter(te))}\"), então a diferença mostra como cada prompt trata um dado "
@@ -464,7 +474,14 @@ def montar_dados():
              "metodo": (f"{len(casos)} pedidos fictícios, com gabarito escrito e congelado antes de rodar. Cada uma das 4 técnicas respondeu a cada caso {reps} vezes "
                         f"({len(regs)} respostas nesta rodada). Um caso só conta como certo se os 8 campos baterem com o gabarito. Modelo: claude-haiku-5-5."),
              "limite": limite}
-    return {"ficha": ficha, "metricas": [list(m) for m in METRICAS], "limitacoes": LIMITACOES + [limite], "prioridades": [list(x) for x in PRIORIDADES],
+    n_dif = len({r["caso"] for r in regs if not r["avaliacao"]["caso_correto"]})
+    itens = {g["item"] for g in gab.values()}
+    forn = {g["fornecedor"] for g in gab.values() if g["fornecedor"]}
+    dinamicas = [f"Poder de discriminação baixo: só {n_dif} dos {len(casos)} casos têm alguma resposta errada em alguma técnica; os demais são acertados por todas. "
+                 "Toda a diferença entre técnicas depende desses poucos casos.",
+                 f"Pouca variedade: {len(itens)} itens e {len(forn)} fornecedores distintos nos {len(casos)} casos, e os exemplos do T2 compartilham itens e fornecedores com parte dos casos de teste "
+                 "(contagens em resultados/AUDITORIA.md)."]
+    return {"pares": [[a, b, fa, fb, p] for a, b, fa, fb, p in comparacoes(resumo)], "ficha": ficha, "metricas": [list(m) for m in METRICAS], "limitacoes": LIMITACOES + dinamicas + [limite], "prioridades": [list(x) for x in PRIORIDADES],
             "erros": {"por_tecnica": por_tec, "rotulos": ROTULOS_CLASSE, "leitura": leitura},
             "veredito": veredito, "campos": CAMPOS, "compara": [[k, v] for k, v in COMPARA],
             "por_tipo": {t: r["acerto_tipo"] for t, r in resumo.items()},

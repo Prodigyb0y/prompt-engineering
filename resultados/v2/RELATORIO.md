@@ -11,8 +11,22 @@ Gerado por `python src/analisar.py`. Cada número vem dos arquivos brutos; o mé
 
 ## Quem pode ser declarado melhor
 
-- T3 (chain-of-thought) > T2 (few-shot): intervalos de 95% não se sobrepõem.
-- T3 (chain-of-thought) > T4 (system prompt): intervalos de 95% não se sobrepõem.
+Critério: os intervalos de 95% não se sobrepõem **e** o teste do sinal exato pareado por caso dá p < 0,05. O segundo requisito existe porque o bootstrap devolve um intervalo de largura zero (100%–100%) quando uma técnica acerta todos os casos.
+
+- Nenhuma técnica pode ser declarada melhor: nenhum par atende aos dois requisitos.
+
+### Comparações pareadas (teste do sinal exato, bilateral)
+
+| Par | Casos a favor do primeiro | Casos a favor do segundo | Empates | p |
+|---|---|---|---|---|
+| T1 × T2 | 4 | 0 | 46 | 0.125 |
+| T1 × T3 | 0 | 2 | 48 | 0.500 |
+| T1 × T4 | 4 | 0 | 46 | 0.125 |
+| T2 × T3 | 0 | 4 | 46 | 0.125 |
+| T2 × T4 | 1 | 0 | 49 | 1.000 |
+| T3 × T4 | 4 | 0 | 46 | 0.125 |
+
+Cada caso conta uma vez, com o acerto médio das repetições; casos em que as duas técnicas têm o mesmo acerto são empates e saem do teste.
 
 ## Acerto por campo
 

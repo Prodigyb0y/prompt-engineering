@@ -11,7 +11,7 @@ Pedi à mesma IA para ler pedidos de compra escritos em texto livre ("preciso de
 O que descobri:
 
 1. **Em pedidos simples, qualquer jeito funciona.** Em 46 dos 50 casos da segunda rodada as quatro técnicas acertaram 100%.
-2. **A diferença apareceu em um único tipo de caso:** quando o texto traz só o *valor total* e a pergunta é o *valor de cada unidade*. Raciocinar passo a passo (T3) calculou certo em todas as vezes; a instrução simples (T1) calculou na maior parte; o jeito com exemplos (T2) e o com regras (T4) deixaram o campo vazio.
+2. **A diferença apareceu em um único tipo de caso:** quando o texto traz só o *valor total* e a pergunta é o *valor de cada unidade*. Raciocinar passo a passo (T3) calculou certo em todas as vezes; a instrução simples (T1) calculou na maior parte; o jeito com exemplos (T2) e o com regras (T4) deixaram o campo vazio. Mas são só 4 casos: o teste estatístico pareado não sustenta que alguma técnica seja melhor (p = 0,125), então isso é um indício, não uma conclusão.
 3. **Isso não é só "quem entende melhor".** O T4 tinha a regra "se a informação não está no texto, deixe em branco", e obedeceu. Foi uma decisão de negócio (calcular ou deixar vazio?) que eu tomei no gabarito e que nenhum prompt dizia. Lição prática: **a regra de negócio precisa estar escrita no prompt**, e o "melhor" depende do que a empresa quer.
 4. **Raciocinar passo a passo custou mais:** na segunda rodada, cerca de 2,8 vezes o custo por caso e 2,3 vezes o tempo da instrução simples.
 5. **Parte do meu próprio teste estava errada** (na primeira rodada, um ponto final depois de "Ltda"). Descobri, expliquei, e refiz os dados em vez de esconder.
@@ -56,6 +56,7 @@ Os prompts estão em `prompts/` (JSON com versão e SHA-256 de 12 caracteres), s
 - **Custo:** tokens de entrada e saída informados pela API × preço de tabela de `config/precos.json` (US$ 0,10 e US$ 0,50 por 1M de tokens, consultado em 2026-11-19 em https://platform.claude.com/docs/en/about-claude/pricing). Custo por acerto = custo total da técnica / respostas corretas. Tokens de raciocínio contam como saída.
 - **Latência:** `time.perf_counter` em volta da chamada bem-sucedida; média e mediana.
 - **Intervalo de confiança de 95%:** bootstrap percentil, 10.000 reamostragens dos 50 casos, seed 42. Intervalos que se sobrepõem não geram declaração de vencedor.
+- **Comparação entre técnicas:** só se declara diferença quando os intervalos de 95% não se sobrepõem **e** o teste do sinal exato pareado por caso (bilateral, empates excluídos) dá p < 0,05. O segundo requisito foi acrescentado na auditoria de 2026-11-20 (ver "Correções registradas"): o bootstrap devolve intervalo de largura zero quando a técnica acerta todos os casos.
 - **Modelo:** `claude-haiku-5-5` (Anthropic, SDK oficial). Cada rodada: 4 técnicas × 50 casos × 3 repetições = 600 respostas; todas com `stop_reason = end_turn` e nenhuma precisou de retry.
 
 ## Resultados da rodada v1 (oficial, `resultados/RELATORIO.md`)
@@ -78,7 +79,7 @@ As 29 respostas erradas têm a mesma causa: o texto de cinco casos traz "Papelar
 | T3 chain-of-thought | v1 `b3a7a7a94ceb` | 100.0% | 100.0%–100.0% | 100.0%–100.0% | 100.0% | 0.000351 | 0.000351 | 3.29 / 3.21 |
 | T4 system prompt | v1 `bb14abcde430` | 92.0% | 84.0%–98.0% | 92.0%–92.0% | 100.0% | 0.000160 | 0.000174 | 1.51 / 1.24 |
 
-- **T3 (chain-of-thought) ficou acima de T2 e T4**, com intervalos de 95% que não se sobrepõem. Contra T1 os intervalos se sobrepõem, então não há declaração.
+- **Nenhuma técnica é declarada melhor.** O T3 (chain-of-thought) acertou 100%, mas só 4 casos o separam de T2 e T4 (4 a favor, 0 contra, p = 0,125 nos dois pares), e contra T1 são 2 casos a favor. Nenhum par chega a p < 0,05 (tabela completa em `resultados/v2/RELATORIO.md`).
 - **Todas as 25 respostas erradas estão no tipo `valor_total`** (4 casos × 3 repetições = 12 respostas por técnica). Nos outros 46 casos as quatro técnicas acertam 100% (recontagem pós-hoc em `resultados/v2/ERROS.md`).
 - **O que aconteceu nesse tipo:** o texto traz só o total ("valor total US$ 350,00" para 10 caixas) e o gabarito exige dividir (35). T3 calculou em 12 de 12; T1 em 10 de 12; T2 devolveu `null` em 11 de 12; T4 devolveu `null` em 12 de 12. Em todos os erros o valor foi `null`; nenhuma resposta devolveu o total como se fosse o unitário.
 - **Causa provável:** o prompt T4 diz "se uma informação não estiver no texto, use null" e "não invente valores", e ele seguiu a própria regra. Os 3 exemplos do T2 trazem sempre o preço unitário explícito, e ele provavelmente repetiu esse padrão (hipótese, não testei). Com outro gabarito ("deixe null quando só há o total"), o ranking nesse tipo se inverteria.
@@ -93,8 +94,18 @@ US$ 0.227230 de um teto de US$ 1,00: v1 (piloto de 10 chamadas mais 600) US$ 0.1
 
 - Para extrair dados de texto livre, um modelo pequeno acertou ao menos 90,0% dos casos com qualquer técnica, nas duas rodadas, e 100% dos 46 casos da v2 que não envolvem cálculo.
 - **A regra de negócio vale mais que a técnica.** O que separou as técnicas foi uma pergunta que a empresa precisa responder e escrever no prompt (quando só há o total, calcular ou deixar vazio?).
-- Pagar por raciocínio passo a passo custou cerca de 3 vezes mais por caso (2,8 na v2 e 3,0 na v1); só trouxe ganho de acerto onde havia cálculo implícito.
+- Pagar por raciocínio passo a passo custou cerca de 3 vezes mais por caso (2,8 na v2 e 3,0 na v1); só mostrou vantagem numérica, sem significância estatística, onde havia cálculo implícito.
 - Antes de escolher a técnica mais cara, vale medir com casos do seu próprio problema. Vale para esta tarefa e este modelo; não é regra geral.
+
+## Auditoria e correções registradas
+
+`python src/auditar.py` recalcula acerto e custo direto das respostas brutas, reaplica o validador a todas as respostas e mede a diversidade dos dados (saídas em `resultados/AUDITORIA.md` e `resultados/v2/AUDITORIA.md`). Resultado das duas rodadas: 0 divergências entre a avaliação gravada e a recalculada, e acerto e custo recalculados iguais aos do resumo.
+
+A auditoria também levantou o que segue, já refletido nos relatórios, na demo e nas limitações:
+
+- **Correção do critério de vencedor (2026-11-20).** A primeira versão do relatório e deste README dizia que, na v2, o T3 ficava acima de T2 e T4 porque os intervalos de 95% não se sobrepunham. Era um artefato: o intervalo bootstrap do T3 é 100%–100% (largura zero) porque ele acertou todos os casos. Com o teste do sinal exato pareado, p = 0,125 nos dois pares. O critério passou a exigir os dois requisitos e a declaração foi retirada. A mudança torna o critério mais conservador, e a v1 não teve nenhuma declaração alterada.
+- **Poder de discriminação baixo.** Em cada rodada, só 5 (v1) e 4 (v2) dos 50 casos têm alguma resposta errada; os outros são acertados por todas as técnicas em todas as repetições.
+- **Pouca variedade e sobreposição com o few-shot.** Há 17 itens distintos em cada rodada (11 fornecedores na v1 e 10 na v2), e parte dos casos de teste usa o mesmo item ou fornecedor de algum exemplo do T2 (contagens em `AUDITORIA.md`).
 
 ## Limitações
 

@@ -12,11 +12,16 @@ Como cada número é medido:
 - IC 95%: bootstrap percentil, 10.000 reamostragens dos 50 casos com reposição (seed 42),
   sobre o acerto médio por caso. Se os intervalos de duas técnicas se sobrepõem, a diferença
   NÃO é declarada vitória.
+- Comparação entre técnicas: uma diferença só é declarada quando os IC não se sobrepõem E o teste do sinal
+  exato pareado por caso (bilateral, empates excluídos) dá p < 0,05. O bootstrap percentil dá IC de largura
+  zero quando a técnica acerta 100% dos casos, então a sobreposição de IC sozinha não basta
+  (correção registrada após a auditoria de 2026-11-20).
 - Respostas cortadas (stop_reason diferente de end_turn) são contadas e informadas.
 
 Uso: python src/analisar.py [pasta_brutos]
 """
 import json
+import math
 import random
 import statistics
 import sys
@@ -72,6 +77,7 @@ def resumir(regs):
             "acerto_caso_media": sum(media_caso) / len(media_caso),
             "acerto_caso_rep_min": min(rep_acc), "acerto_caso_rep_max": max(rep_acc),
             "ic95_baixo": ic[0], "ic95_alto": ic[1],
+            "acerto_por_caso": {c: sum(v) / len(v) for c, v in sorted(por_caso.items())},
             "acerto_campo": {c: sum(r["avaliacao"]["campos"][c] for r in rs) / len(rs) for c in CAMPOS},
             "acerto_tipo": {t: sum(v) / len(v) for t, v in sorted(por_tipo.items())},
             "json_valido": sum(r["avaliacao"]["json_valido"] for r in rs) / len(rs),
@@ -86,13 +92,51 @@ def resumir(regs):
     return saida
 
 
+def teste_sinal_exato(a_vals, b_vals):
+    """Teste do sinal exato, bilateral, pareado por caso. Ignora empates.
+
+    -> (casos a favor de A, casos a favor de B, p). Sob a hipótese de nenhuma diferença, cada caso discordante
+    favorece A ou B com probabilidade 1/2."""
+    fa = sum(1 for x, y in zip(a_vals, b_vals) if x > y)
+    fb = sum(1 for x, y in zip(a_vals, b_vals) if x < y)
+    n = fa + fb
+    if n == 0:
+        return fa, fb, 1.0
+    k = min(fa, fb)
+    return fa, fb, min(1.0, 2 * sum(math.comb(n, i) for i in range(k + 1)) / 2 ** n)
+
+
+def comparacoes(resumo):
+    """Todos os pares de técnicas: (A, B, casos a favor de A, casos a favor de B, p do teste do sinal exato)."""
+    ids = sorted(resumo)
+    saida = []
+    for i, a in enumerate(ids):
+        for b in ids[i + 1:]:
+            ca, cb = resumo[a]["acerto_por_caso"], resumo[b]["acerto_por_caso"]
+            casos = sorted(ca)
+            fa, fb, p = teste_sinal_exato([ca[c] for c in casos], [cb[c] for c in casos])
+            saida.append((a, b, fa, fb, p))
+    return saida
+
+
+ALFA = 0.05
+
+
 def separaveis(resumo):
-    """Pares de técnicas cujos IC 95% NÃO se sobrepõem (única diferença que pode ser declarada)."""
+    """Pares de técnicas que podem ser declarados diferentes, (melhor, pior).
+
+    Critério, definido antes de medir e reforçado depois da auditoria de 2026-11-20: os IC 95% não se sobrepõem
+    E o teste do sinal exato pareado por caso dá p < 0,05. O segundo requisito existe porque o bootstrap percentil
+    degenera quando uma técnica acerta 100% dos casos (intervalo 100%-100%, largura zero), o que fazia a
+    sobreposição de intervalos, sozinha, declarar diferenças que o teste pareado não sustenta."""
+    p_par = {(a, b): p for a, b, _, _, p in comparacoes(resumo)}
     pares = []
     ids = sorted(resumo)
     for i, a in enumerate(ids):
         for b in ids[i + 1:]:
             A, B = resumo[a], resumo[b]
+            if p_par[(a, b)] >= ALFA:
+                continue
             if A["ic95_baixo"] > B["ic95_alto"]:
                 pares.append((a, b))
             elif B["ic95_baixo"] > A["ic95_alto"]:
@@ -114,12 +158,20 @@ def relatorio(resumo, gasto_total):
         L.append(f"| {tid} {r['tecnica']} | {r['prompt_versao']} `{r['prompt_hash12']}` | {pct(r['acerto_caso_media'])} | "
                  f"{pct(r['ic95_baixo'])}–{pct(r['ic95_alto'])} | {pct(r['acerto_caso_rep_min'])}–{pct(r['acerto_caso_rep_max'])} | "
                  f"{pct(r['json_valido'])} | {r['custo_por_caso_usd']:.6f} | {cpa} | {r['latencia_media_s']:.2f} / {r['latencia_mediana_s']:.2f} |")
-    L += ["", "## Quem pode ser declarado melhor", ""]
+    L += ["", "## Quem pode ser declarado melhor", "",
+          "Critério: os intervalos de 95% não se sobrepõem **e** o teste do sinal exato pareado por caso dá p < 0,05. "
+          "O segundo requisito existe porque o bootstrap devolve um intervalo de largura zero (100%–100%) quando uma técnica acerta todos os casos.", ""]
     par = separaveis(resumo)
     if par:
-        L += [f"- {a} ({NOMES.get(a, a)}) > {b} ({NOMES.get(b, b)}): intervalos de 95% não se sobrepõem." for a, b in par]
+        L += [f"- {a} ({NOMES.get(a, a)}) > {b} ({NOMES.get(b, b)}): intervalos sem sobreposição e p < 0,05." for a, b in par]
     else:
-        L += ["- Nenhuma técnica pode ser declarada melhor: os intervalos de 95% se sobrepõem em todos os pares."]
+        L += ["- Nenhuma técnica pode ser declarada melhor: nenhum par atende aos dois requisitos."]
+    L += ["", "### Comparações pareadas (teste do sinal exato, bilateral)", "",
+          "| Par | Casos a favor do primeiro | Casos a favor do segundo | Empates | p |", "|---|---|---|---|---|"]
+    n_casos = len(next(iter(resumo.values()))["acerto_por_caso"])
+    for a, b, fa, fb, p in comparacoes(resumo):
+        L.append(f"| {a} × {b} | {fa} | {fb} | {n_casos - fa - fb} | {p:.3f} |")
+    L += ["", "Cada caso conta uma vez, com o acerto médio das repetições; casos em que as duas técnicas têm o mesmo acerto são empates e saem do teste."]
     L += ["", "## Acerto por campo", "", "| Campo | " + " | ".join(resumo) + " |", "|---|" + "---|" * len(resumo)]
     for c in CAMPOS:
         L.append(f"| {c} | " + " | ".join(pct(r["acerto_campo"][c]) for r in resumo.values()) + " |")

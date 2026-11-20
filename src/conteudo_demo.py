@@ -9,9 +9,15 @@ QA = [
     ("Esses resultados provam que uma técnica é melhor que as outras?",
      "Não. Na rodada v1, todas as respostas erradas vieram de um defeito do gerador de casos (o ponto final de \"Ltda.\" copiado pelo modelo), "
      "não de falta de compreensão da tarefa (a contagem de erros difere entre técnicas, mas na recontagem pós-hoc, sem o ponto, elas empatam). Na rodada v2, todo o erro está num único tipo de caso (valor_total), cuja regra de rotulagem é minha e "
-     "não está escrita nos prompts. O que se pode afirmar é só o que a seção Resultados mostra: quais pares de técnicas têm intervalos de 95% "
-     "sem sobreposição, sempre com essa ressalva.",
-     "Repetir a rodada com os prompts atualizados (próxima pergunta).", "Declarado"),
+     "não está escrita nos prompts. Em nenhuma das duas rodadas algum par de técnicas atende ao critério de diferença "
+     "(intervalos de 95% sem sobreposição e teste do sinal exato pareado com p < 0,05); a seção Resultados traz a tabela de comparações.",
+     "Repetir a rodada com os prompts atualizados (próxima pergunta) e com mais casos que separem as técnicas.", "Declarado"),
+    ("Você declarou, em algum momento, uma diferença que não se sustenta?",
+     "Sim, e foi corrigido. A primeira versão do relatório da v2 dizia que o T3 ficava acima de T2 e T4 porque os intervalos de 95% não se sobrepunham. "
+     "O motivo era um artefato: o bootstrap devolve intervalo de 100% a 100% (largura zero) quando a técnica acerta todos os casos. A auditoria de 2026-11-20 "
+     "aplicou o teste do sinal exato pareado por caso: T3 melhor em 4 casos, pior em nenhum, p = 0,125 contra T2 e contra T4. O critério passou a exigir os dois "
+     "requisitos e a declaração foi retirada. A correção está registrada no README.",
+     "Manter os dois requisitos e aumentar o número de casos que separam as técnicas.", "Feito"),
     ("O erro do valor_total é falha do modelo?",
      "Não necessariamente. O texto traz só o valor total; o gabarito, escrito por mim, exige dividir pela quantidade. Devolver null é uma leitura "
      "defensável de \"se a informação não está no texto, use null\", regra que o T4 contém. Fatos verificados: os 3 exemplos do T2 sempre trazem o "
@@ -25,8 +31,17 @@ QA = [
      "Declarado"),
     ("Como o intervalo de confiança foi calculado? As repetições são independentes?",
      "Bootstrap percentil: 10.000 reamostragens dos 50 casos, com reposição (seed 42). O valor de cada caso é a média das 3 repetições, então as "
-     "repetições não são tratadas como casos independentes. Com só 50 casos, os intervalos são largos.",
-     "Mais casos reduziriam a largura dos intervalos.", "Feito, com limite"),
+     "repetições não são tratadas como casos independentes. Com só 50 casos, os intervalos são largos, e para uma técnica que acerta 100% o bootstrap "
+     "devolve largura zero, que não significa certeza. Por isso a comparação entre técnicas também exige o teste do sinal exato pareado.",
+     "Mais casos reduziriam a largura dos intervalos; para acerto de 100%, usar um intervalo exato (Clopper-Pearson) como complemento.", "Feito, com limite"),
+    ("Os exemplos do few-shot e os casos de teste são independentes?",
+     "Não totalmente. Nenhum texto de teste é igual aos dos exemplos, mas parte dos casos tem o mesmo item ou o mesmo fornecedor de algum exemplo "
+     "(a contagem está em AUDITORIA.md da rodada). Isso pode favorecer o T2.",
+     "Gerar exemplos com itens e fornecedores que não aparecem nos casos de teste.", "Não feito"),
+    ("Quantos casos de fato separam as técnicas?",
+     "Poucos. Em cada rodada, quase todos os 50 casos são acertados por todas as técnicas nas 3 repetições; só 4 a 5 casos separam as técnicas, e todos "
+     "pertencem a um único tipo (um defeito do gerador na v1, o valor_total na v2). O teste tem baixo poder de discriminação. A contagem está em AUDITORIA.md.",
+     "Criar casos mais difíceis e mais variados, com vários tipos que separem as técnicas, congelados antes de rodar.", "Declarado"),
     ("Por que não usou temperatura 0? Dá para reproduzir?",
      "O modelo claude-haiku-5-5 não aceita o parâmetro de temperatura (a API devolveu erro no piloto). A resposta pode variar de uma chamada para outra; "
      "medi essa variação com 3 repetições por caso e mostro o mínimo e o máximo. Os números não são reproduzíveis ao dígito. Fixei o esforço de raciocínio "
@@ -86,6 +101,9 @@ METRICAS = [
      "Comparação campo a campo após normalização (sem acento, minúsculas, espaços colapsados); números e datas exatos; null só é igual a null. Média das 3 repetições de cada caso."),
     ("Intervalo de confiança de 95%", "Faixa em que o acerto verdadeiro provavelmente se encontra.",
      "Bootstrap percentil: 10.000 reamostragens dos 50 casos com reposição (seed 42). O valor de cada caso é a média das 3 repetições."),
+    ("Comparação entre técnicas", "Critério para declarar que uma técnica é melhor que outra.",
+     "Intervalos de 95% sem sobreposição e teste do sinal exato pareado por caso (bilateral, empates excluídos) com p < 0,05. O bootstrap sozinho não basta: "
+     "ele devolve intervalo de 100% a 100% quando a técnica acerta todos os casos."),
     ("Mín–máx entre repetições", "Variação do acerto entre execuções.", "O acerto por caso é calculado sobre os 50 casos em cada repetição, separadamente; a tabela mostra o menor e o maior dos 3 valores."),
     ("JSON válido", "A resposta pode ser lida como JSON e respeita o schema.", "json.loads e modelo pydantic estrito, com campos extras proibidos (extra=\"forbid\")."),
     ("Custo por caso", "Gasto médio por resposta, em dólares.", "Tokens de entrada e de saída informados pela API multiplicados pelo preço de tabela do modelo (página oficial, consulta em 2026-11-19), dividido pelo número de respostas."),
