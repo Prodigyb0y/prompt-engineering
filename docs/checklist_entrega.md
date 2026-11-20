@@ -10,10 +10,10 @@ Verificado na árvore de trabalho a partir do commit-base `1717963`; as alteraç
 - [x] **Regras de acerto escritas antes de rodar**, em código (`src/avaliadores.py`), com testes que não chamam a API.
 - [x] **Frase de impacto** no topo do README e da demo.
 - [x] **Teto de gasto testado.** O cliente reserva o custo máximo antes de cada chamada e bloqueia com erro registrado; teto próprio de US$ 0,60 para as rodadas novas e US$ 1,00 no total, testado sem chamar a API (`tests/test_biblioteca_avaliacao_e_execucao.py`).
-- [x] **`pytest` passando.** 123 testes, neste ambiente (Python 3.x do sandbox), sem chamar a API.
+- [x] **`pytest` passando.** 123 testes, sem chamar a API: passam neste ambiente e, após dois ajustes (comparação de decimais e varredura de chave que lia o `.env` local), passam também no Windows do autor segundo a execução dele, que acusou só esses dois.
 - [x] **Nenhuma chave no histórico.** Busca por `sk-ant-` seguido de 20 ou mais caracteres em todo o histórico Git e na árvore: 0 ocorrências. `.env` não é versionado.
 - [x] **Acerto e custo medidos para o P1 e para os experimentos E1 e E2** (rodadas v1 e v2 e iteração do T4, números inalterados, auditados em `resultados/extracao/*/AUDITORIA.md`).
-- [ ] **Acerto e custo medidos para P2 a P5 e experimentos E3, E4 e E5.** **Não feito:** as rodadas pagas (piloto de 5 chamadas por prompt e rodada completa, teto de US$ 0,60) dependem da chave da API do autor, que não existe neste ambiente. Pipeline pronto e testado; comandos no README. Até lá, a demo e o README mostram "não medido". Gasto total até aqui: US$ 0,248969 de US$ 1,00.
-- [ ] **Demo aberta pelo endereço público nesta versão.** Depende do push e da publicação do GitHub Pages.
+- [x] **Acerto e custo medidos para P2 a P5 e experimentos E3, E4 e E5.** Piloto de 5 chamadas por prompt (US$ 0,003544) e rodada completa (20 casos, 3 repetições, 420 respostas, US$ 0,081495), executados pelo autor no computador dele; gasto novo US$ 0,085039 de US$ 0,60 e total US$ 0,334008 de US$ 1,00. Respostas brutas em `resultados/biblioteca/brutos/`; relatório em `resultados/biblioteca/RELATORIO.md`. Diferenças pequenas com 20 casos: indício, não prova (declarado em cada experimento).
+- [ ] **Demo aberta pelo endereço público nesta versão.** Não conferi: o ambiente em que trabalho bloqueia o domínio do GitHub Pages. O autor precisa abrir e confirmar.
 - [ ] **Segunda pessoa conferindo os gabaritos.** Não feito; limitação declarada.
 - [ ] **Validação do T4 v2 em casos novos.** Não feita; a regra foi escrita olhando os mesmos 50 casos.
