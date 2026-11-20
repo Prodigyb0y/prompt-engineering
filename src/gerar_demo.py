@@ -1,6 +1,6 @@
-"""P11: gera docs/index.html (página estática, sem servidor e sem chave) a partir dos resultados.
+"""Gera docs/index.html (página estática, sem servidor e sem chave) a partir dos resultados da rodada v2.
 
-Lê resultados/brutos/*.json, resultados/resumo.json, dados/*.json. Nada é digitado à mão:
+Lê resultados/v2/brutos/*.json, resultados/v2/resumo.json, resultados/v2/iteracao.json e dados/v2/*.json. Nada é digitado à mão:
 todo número da página vem de resumo.json. Os dados dos casos vão embutidos no HTML.
 
 Uso: python src/gerar_demo.py
@@ -8,14 +8,16 @@ Uso: python src/gerar_demo.py
 import json
 from pathlib import Path
 
-import caminhos
 import prompts_lib
-from conteudo_demo import ANATOMIA, ANATOMIA_NOTA, LIMITACOES, METRICAS, PRIORIDADES, QA
+from conteudo_demo import ANATOMIA, ANATOMIA_NOTA, LIMITACOES, METRICAS, PRIORIDADES
 import classificar_erros as ce
 from analisar import carregar, comparacoes, separaveis
 from validador import parse as vparse
 
-RAIZ = caminhos.RAIZ
+RAIZ = Path(__file__).resolve().parent.parent
+DADOS = RAIZ / "dados" / "v2"
+RESULTADOS = RAIZ / "resultados" / "v2"
+DOCS = RAIZ / "docs"
 CAMPOS = ["solicitante_area", "item", "quantidade", "unidade", "prazo_entrega", "valor_unitario", "moeda", "fornecedor"]
 
 TIPOS = {
@@ -144,7 +146,7 @@ footer a,.lk{color:var(--ac)}
 <h1>Laboratório de prompt engineering</h1>
 <p class="sub">Avaliação comparativa de quatro técnicas de prompt na extração estruturada de pedidos de compra em texto livre.</p>
 <p class="meta">Modelo claude-haiku-5-5 · 50 casos × 4 técnicas × 3 repetições · dados sintéticos de empresa fictícia (Gutenberg Systems)</p>
-<div class="rod"><span>__LINKS__</span><span>__DESCRODADA__</span></div>
+<div class="rod"><span>Resultados da rodada v2: 50 casos desenhados depois de conhecer a rodada v1, que está descrita no README do repositório.</span></div>
 </div></header>
 <nav><div class="w" id="nav">
 <a href="#resumo">Resumo</a><a href="#metodologia">Metodologia</a><a href="#resultados">Resultados</a><a href="#erros">Análise de erros</a><a href="#iteracao">Iteração de prompt</a><a href="#explorador">Explorador de casos</a><a href="#limitacoes">Limitações</a>
@@ -236,7 +238,6 @@ footer a,.lk{color:var(--ac)}
 <ul class="lim" id="lim"></ul>
 <h3>Próximos passos</h3>
 <ol class="lim" id="prox"></ol>
-<p class="cap">Perguntas de aprofundamento e decisões de projeto, com o estado de cada uma: <a class="lk" href="https://github.com/Prodigyb0y/prompt-engineering/blob/main/docs/LIMITACOES_E_DECISOES.md">docs/LIMITACOES_E_DECISOES.md</a>.</p>
 </section>
 </div>
 <footer><div class="w">Código, dados, prompts, testes e relatórios: <a href="https://github.com/Prodigyb0y/prompt-engineering">github.com/Prodigyb0y/prompt-engineering</a>. Dados 100% fictícios. Projeto de portfólio, recriação conceitual sem dados reais.</div></footer>
@@ -391,10 +392,6 @@ document.querySelectorAll('section').forEach(s=>obs.observe(s));
 """
 
 
-LINKS = {"v1": '<span class="seg on">Rodada v1</span><a class="seg" href="v2/index.html">Rodada v2</a>',
-         "v2": '<a class="seg" href="../index.html">Rodada v1</a><span class="seg on">Rodada v2</span>'}
-DESCRODADA = {"v1": "Primeira rodada: 50 casos de dificuldade moderada. Os erros se concentram num defeito do gerador de casos (ver Análise de erros).",
-              "v2": "Segunda rodada: 50 casos sem o defeito da v1 e com tipos mais difíceis. Desenhada depois de conhecer o resultado da v1."}
 ROTULOS_CLASSE = {
     "valor_nulo_sem_derivar": "Valor total não dividido pela quantidade (devolveu null)",
     "fornecedor_ponto_final": "Ponto final de “Ltda.” copiado do texto",
@@ -443,10 +440,10 @@ def montar_anatomia():
 
 
 def montar_dados():
-    resumo = json.loads((caminhos.RESULTADOS / "resumo.json").read_text(encoding="utf-8"))
-    gab = json.loads((caminhos.DADOS / "gabarito.json").read_text(encoding="utf-8"))
-    casos = json.loads((caminhos.DADOS / "casos_teste.json").read_text(encoding="utf-8"))
-    regs = carregar(caminhos.RESULTADOS / "brutos")
+    resumo = json.loads((RESULTADOS / "resumo.json").read_text(encoding="utf-8"))
+    gab = json.loads((DADOS / "gabarito.json").read_text(encoding="utf-8"))
+    casos = json.loads((DADOS / "casos_teste.json").read_text(encoding="utf-8"))
+    regs = carregar(RESULTADOS / "brutos")
     saidas = {}
     for r in regs:
         classe, _ = ce.classificar(r, gab[r["caso"]])
@@ -581,7 +578,7 @@ def montar_dados():
             ["É falha do modelo?", "Não de leitura: o modelo leu o total corretamente e o tratou como dado ausente. O T3, que escreve o raciocínio antes de responder, calculou "
                                    f"em {n_tipo - errou.get('T3', 0)} de {n_tipo}. Hipótese não testada: os 3 exemplos do T2 sempre trazem o preço unitário pronto, e o T4 manda usar null quando o dado não está no texto; ambos podem ter ensinado o modelo a não calcular."],
             ["O que foi feito", "O resultado oficial foi mantido. Esse tipo mede como cada prompt trata um dado implícito, não qual técnica entende melhor a tarefa. "
-                                + ("A regra que faltava foi escrita no T4 v2 e medida na seção Iteração de prompt." if (caminhos.RESULTADOS / "iteracao.json").exists() else "Corrigir o prompt e medir de novo está nos próximos passos.")]]
+                                + ("A regra que faltava foi escrita no T4 v2 e medida na seção Iteração de prompt." if (RESULTADOS / "iteracao.json").exists() else "Corrigir o prompt e medir de novo está nos próximos passos.")]]
     else:
         blocos = [["O que aconteceu", leitura]]
     ficha = {"pergunta": "Qual técnica de prompt extrai melhor os dados de pedidos de compra escritos em texto livre, e quanto custa cada acerto?",
@@ -595,7 +592,7 @@ def montar_dados():
                  "Toda a diferença entre técnicas depende desses poucos casos.",
                  f"Pouca variedade: {len(itens)} itens e {len(forn)} fornecedores distintos nos {len(casos)} casos, e os exemplos do T2 compartilham itens e fornecedores com parte dos casos de teste "
                  "(contagens em resultados/AUDITORIA.md)."]
-    it_arq = caminhos.RESULTADOS / "iteracao.json"
+    it_arq = RESULTADOS / "iteracao.json"
     iteracao = json.loads(it_arq.read_text(encoding="utf-8")) if it_arq.exists() else None
     return {"iteracao": iteracao, "anatomia": montar_anatomia(), "anatomia_nota": ANATOMIA_NOTA,
             "pares": [[a, b, fa, fb, p] for a, b, fa, fb, p in comparacoes(resumo)], "ficha": ficha, "metricas": [list(m) for m in METRICAS], "limitacoes": LIMITACOES + dinamicas + [limite], "prioridades": [list(x) for x in PRIORIDADES],
@@ -610,18 +607,9 @@ def montar_dados():
 def main():
     dados = montar_dados()
     blob = json.dumps(dados, ensure_ascii=False).replace("</", "<\\/")
-    destino = caminhos.DOCS
-    destino.mkdir(parents=True, exist_ok=True)
-    (destino / "index.html").write_text(TEMPLATE.replace("__LINKS__", LINKS[caminhos.VERSAO]).replace("__DESCRODADA__", DESCRODADA[caminhos.VERSAO]).replace("__VERSAO__", caminhos.VERSAO).replace("__DADOS__", blob), encoding="utf-8", newline="\n")
-    if caminhos.VERSAO == "v1":
-        linhas = ["# Limitações e decisões de projeto", "",
-                  "Perguntas de aprofundamento sobre o método, com a resposta, o que mudar e o estado de cada ponto. "
-                  "Gerado por `src/gerar_demo.py` a partir de `src/conteudo_demo.py`.", ""]
-        for i, (q, r, m, e) in enumerate(QA, 1):
-            linhas += [f"## {i}. {q}", "", f"**Estado:** {e}", "", f"**Resposta honesta:** {r}", "", f"**O que mudar:** {m}", ""]
-        linhas += ["## O que eu mudaria, em ordem", ""] + [f"{i}. **{t}.** {w}" for i, (t, w) in enumerate(PRIORIDADES, 1)] + [""]
-        (RAIZ / "docs" / "LIMITACOES_E_DECISOES.md").write_text("\n".join(linhas), encoding="utf-8", newline="\n")
-    print(f"{destino}/index.html gerado ({caminhos.VERSAO}): {len(dados['casos'])} casos, {len(dados['resumo'])} técnicas")
+    DOCS.mkdir(parents=True, exist_ok=True)
+    (DOCS / "index.html").write_text(TEMPLATE.replace("__DADOS__", blob), encoding="utf-8", newline="\n")
+    print(f"{DOCS / 'index.html'} gerado: {len(dados['casos'])} casos, {len(dados['resumo'])} técnicas")
 
 
 if __name__ == "__main__":
