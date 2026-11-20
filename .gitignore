@@ -14,3 +14,4 @@ __pycache__/
 .pytest_cache/
 resultados/_local/
 resultados/v2/brutos/
+resultados/v2/iteracao/brutos/

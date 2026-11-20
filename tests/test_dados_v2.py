@@ -47,7 +47,7 @@ def test_prompts_continuam_os_da_v1():
     """A v2 muda só os casos: os hashes dos prompts não podem mudar."""
     esperados = {"T1": "1ef67d6a52fc", "T2": "be0e8998a563", "T3": "b3a7a7a94ceb", "T4": "bb14abcde430"}
     import prompts_lib as p
-    assert {d["id"]: p.hash_prompt(d["system"], d["user_template"]) for d in p.definicoes()} == esperados
+    assert {d["id"]: p.hash_prompt(d["system"], d["user_template"]) for d in p.definicoes() if d["versao"] == "v1"} == esperados
 
 
 def test_caminhos_por_versao(monkeypatch):

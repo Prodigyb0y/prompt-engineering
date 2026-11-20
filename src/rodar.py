@@ -2,6 +2,7 @@
 
   python src/rodar.py --piloto     # 5 casos (sorteio seed 42), T1 e T4, 1 repetição
   python src/rodar.py --completo   # 4 técnicas x 50 casos x 3 repetições
+  PE_VERSAO=v2 python src/rodar.py --iteracao   # só o T4 com o prompt v2, 50 casos x 3 repetições (150 chamadas)
 
 Cada resposta vai para resultados/brutos/<T>_<caso>_r<rep>.json (pasta fora do Git).
 Roda de forma retomável: arquivo que já existe é pulado. Para no primeiro erro que
@@ -29,6 +30,8 @@ def selecionar(modo, casos):
     if modo == "piloto":
         ids = sorted(random.Random(42).sample([c["id"] for c in casos], 5))
         return [c for c in casos if c["id"] in ids], ["T1", "T4"], 1
+    if modo == "iteracao":
+        return casos, ["T4"], 3
     return casos, ["T1", "T2", "T3", "T4"], 3
 
 
@@ -64,13 +67,20 @@ def main():
     g = ap.add_mutually_exclusive_group(required=True)
     g.add_argument("--piloto", action="store_true")
     g.add_argument("--completo", action="store_true")
-    modo = "piloto" if ap.parse_args().piloto else "completo"
+    g.add_argument("--iteracao", action="store_true")
+    args = ap.parse_args()
+    modo = "piloto" if args.piloto else "iteracao" if args.iteracao else "completo"
+    if modo == "iteracao" and caminhos.VERSAO != "v2":
+        sys.exit("A iteração do prompt é avaliada nos dados v2: rode com PE_VERSAO=v2.")
     casos = json.loads((caminhos.DADOS / "casos_teste.json").read_text(encoding="utf-8"))
     gab = json.loads((caminhos.DADOS / "gabarito.json").read_text(encoding="utf-8"))
     ctl = ControleCusto()
     cli = ClienteAnthropic(ctl)
     try:
-        feitas, novas = executar(modo, cli, casos, gab, BRUTOS / modo if modo == "piloto" else BRUTOS)
+        if modo == "iteracao":
+            feitas, novas = executar(modo, cli, casos, gab, caminhos.RESULTADOS / "iteracao" / "brutos", versao="v2")
+        else:
+            feitas, novas = executar(modo, cli, casos, gab, BRUTOS / modo if modo == "piloto" else BRUTOS)
     except TetoExcedido as e:
         print("PARADO pelo teto de gasto:", e)
         sys.exit(2)

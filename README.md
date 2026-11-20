@@ -130,6 +130,10 @@ cp .env.example .env                                # preencha ANTHROPIC_API_KEY
 PE_VERSAO=v2 .venv/bin/python src/rodar.py --completo   # v2 (PowerShell: $env:PE_VERSAO="v2")
 .venv/bin/python src/analisar.py                    # resultados/RELATORIO.md e resumo.json (com PE_VERSAO=v2: resultados/v2/)
 .venv/bin/python src/classificar_erros.py           # ERROS.md
+.venv/bin/python src/auditar.py                     # AUDITORIA.md: recalcula tudo das respostas brutas
+# iteração de prompt (T4 v1 -> v2, 150 chamadas, dados v2):
+PE_VERSAO=v2 .venv/bin/python src/rodar.py --iteracao
+PE_VERSAO=v2 .venv/bin/python src/comparar_iteracao.py   # resultados/v2/ITERACAO.md
 .venv/bin/python src/gerar_demo.py                  # docs/index.html (com PE_VERSAO=v2: docs/v2/)
 ```
 
@@ -148,7 +152,7 @@ Os resultados brutos (`resultados/brutos/`, `resultados/v2/brutos/`) não vão p
 
 ## Próximos passos
 
-- Prompts v2 de T1–T4 com a regra de negócio escrita ("se só houver o valor total, calcule o unitário" e a regra oposta), mantendo as v1 nos relatórios, para medir quanto da diferença é regra e quanto é técnica.
+- **Iteração de prompt (preparada, ainda não executada):** o T4 v2 (`prompts/T4_system_prompt_v2.json`) acrescenta a regra "se só houver o valor total, divida pela quantidade" e ajusta a regra de moeda. `rodar.py --iteracao` roda só o T4 v2 nos 50 casos v2 (150 chamadas) e `comparar_iteracao.py` mede o efeito por tipo de caso e procura regressões. Como a regra nasceu do erro visto nesses mesmos casos, o resultado vale como desenvolvimento, não como prova de generalização. Depois: a mesma iteração no T2, com um exemplo em que o total vira unitário.
 - Mais casos por tipo (hoje 4 de `valor_total`) para a comparação ter força estatística.
 - Segunda pessoa para rotular o gabarito e medir concordância.
 - Comparar com outro modelo, se houver orçamento.

@@ -49,6 +49,15 @@ Regras:
 
 T4_USER = "Solicitação:\n{texto}"
 
+# T4 v2: criada depois de ver o resultado da v1 nos casos de valor_total (D33-D36). Duas mudanças em relação à v1:
+# 1) a regra de moeda passa a dizer "nenhum valor (nem unitário, nem total)" para não contradizer a regra nova;
+# 2) nova regra: com só o valor total, dividir pela quantidade.
+_REGRA_MOEDA_V1 = '- moeda vem do símbolo: R$ = "BRL", US$ = "USD", € = "EUR". Sem valor no texto, valor_unitario e moeda são null.'
+_REGRA_MOEDA_V2 = ('- moeda vem do símbolo: R$ = "BRL", US$ = "USD", € = "EUR". Sem nenhum valor no texto (nem unitário, nem total), valor_unitario e moeda são null.\n'
+                   '- Se o texto trouxer só o valor total, e não o valor unitário, divida o total pela quantidade para obter valor_unitario. A moeda é a do total.')
+assert _REGRA_MOEDA_V1 in T4_SYSTEM
+T4_SYSTEM_V2 = T4_SYSTEM.replace(_REGRA_MOEDA_V1, _REGRA_MOEDA_V2)
+
 
 def _fewshot_bloco():
     ex = json.loads(FEWSHOT.read_text(encoding="utf-8"))
@@ -66,6 +75,7 @@ def definicoes():
         {"id": "T2", "tecnica": "few_shot", "versao": "v1", "system": "", "user_template": t2_user},
         {"id": "T3", "tecnica": "chain_of_thought", "versao": "v1", "system": "", "user_template": T3_USER},
         {"id": "T4", "tecnica": "system_prompt", "versao": "v1", "system": T4_SYSTEM, "user_template": T4_USER},
+        {"id": "T4", "tecnica": "system_prompt", "versao": "v2", "system": T4_SYSTEM_V2, "user_template": T4_USER},
     ]
 
 

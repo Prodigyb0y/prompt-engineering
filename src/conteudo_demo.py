@@ -87,13 +87,28 @@ QA = [
 
 # ordem sugerida de mudanças: (título, por quê)
 PRIORIDADES = [
-    ("Prompts v2 com a regra do valor total escrita", "É barato, ataca o único erro restante e mostra o ciclo medir, corrigir, medir."),
-    ("Ablação do system prompt (T1 com as regras de T4 na mensagem do usuário)", "Separa o efeito do lugar da instrução do efeito do conteúdo das regras."),
-    ("Linha de base por regras (regex)", "Mostra se o modelo de linguagem era necessário nesta tarefa."),
-    ("Publicar as respostas brutas em um arquivo", "Permite que qualquer pessoa recalcule os números."),
-    ("Mais casos e textos menos padronizados", "Reduz o intervalo de confiança e aproxima do uso real."),
-    ("Saída estruturada como quinta técnica", "Compara com o que se faz em produção para garantir o formato."),
+    ("Rodar o T4 v2 (regra do valor total) e comparar com a v1", "Já está preparado (`rodar.py --iteracao`). Mede o efeito de uma mudança de prompt e procura regressão nos outros tipos de caso."),
+    ("Fazer a mesma iteração no T2, acrescentando um exemplo em que o total vira valor unitário", "Compara duas formas de corrigir o mesmo erro: regra escrita contra exemplo."),
+    ("Ablação do system prompt: T1 com as regras do T4 na mensagem do usuário", "Separa o efeito do lugar da instrução do efeito do conteúdo das regras."),
+    ("Exemplos do few-shot sem itens nem fornecedores dos casos de teste", "Remove a sobreposição que pode favorecer o T2."),
+    ("Mais casos e textos menos padronizados", "Aumenta o número de casos que separam as técnicas."),
 ]
+
+# anatomia do prompt T4: (nome da parte, função); a ordem segue o texto do prompt (papel, campos, 8 regras)
+ANATOMIA = [
+    ("Papel e tarefa", "Define quem responde e limita o escopo a uma única tarefa."),
+    ("Contrato de saída (campos)", "Fixa nomes, tipos e valores permitidos. É o que permite validar a resposta por programa."),
+    ("Regra · formato da resposta", "Exige só o JSON, sem texto antes ou depois, para que a saída seja lida direto por um sistema."),
+    ("Regra · dado ausente", "Diz o que fazer quando falta informação (null) e proíbe inventar. Tipo de caso: informação faltando."),
+    ("Regra · quantidade", "Desambigua quando há dois números no texto. Tipo de caso: duas quantidades."),
+    ("Regra · valor numérico", "Normaliza o formato brasileiro (\"R$ 1.200,00\" vira 1200). Tipo de caso: valor em formato brasileiro."),
+    ("Regra · moeda", "Converte o símbolo no código da moeda. Tipo de caso: moeda por símbolo."),
+    ("Regra · prazo", "Só aceita data completa e manda prazo relativo para null. Tipos: datas em formatos variados e prazo relativo."),
+    ("Regra · fornecedor", "Pede cópia literal do nome, inclusive apelido. Tipo de caso: fornecedor por apelido."),
+    ("Regra · ruído", "Manda ignorar saudação, assinatura e erro de digitação. Tipo de caso: ruído."),
+]
+ANATOMIA_NOTA = ("Cada regra corresponde a um tipo de caso do teste. Nenhuma regra cobre o caso em que o texto traz só o valor total; esse tipo entrou nos dados v2 "
+                 "e concentrou todos os erros da rodada v2.")
 
 # métrica, definição, como foi medida
 METRICAS = [

@@ -9,7 +9,8 @@ import json
 from pathlib import Path
 
 import caminhos
-from conteudo_demo import LIMITACOES, METRICAS, PRIORIDADES, QA
+import prompts_lib
+from conteudo_demo import ANATOMIA, ANATOMIA_NOTA, LIMITACOES, METRICAS, PRIORIDADES, QA
 import classificar_erros as ce
 from analisar import carregar, comparacoes, separaveis
 from validador import parse as vparse
@@ -151,6 +152,9 @@ footer a,.lk{color:var(--ac)}
 <div class="tw"><table id="t-tec"></table></div>
 <p class="cap">Os quatro prompts são idênticos para todos os casos e estão versionados no repositório (versão e hash SHA-256 truncado em 12 caracteres). O texto completo de cada um está abaixo.</p>
 <div id="prompts"></div>
+<h3>Anatomia de um prompt estruturado (T4, system prompt)</h3>
+<div class="tw"><table id="anat"></table></div>
+<p class="cap" id="anat-nota"></p>
 <h3>Métricas e como foram medidas</h3>
 <div class="tw"><table id="t-met"></table></div>
 </section>
@@ -235,6 +239,9 @@ R.forEach(r=>{ const d=el('details'); d.appendChild(el('summary','Prompt '+r.id+
   const p=D.prompts[r.id];
   if(p.system){ d.appendChild(el('span','System prompt','rot')); d.appendChild(el('pre',p.system)); }
   d.appendChild(el('span','Mensagem do usuário (o texto do caso substitui {texto})','rot')); d.appendChild(el('pre',p.user)); $('prompts').appendChild(d); });
+{ const t=$('anat'); const h=el('tr'); ['Parte','Trecho do prompt','Função'].forEach(c=>h.appendChild(el('th',c))); t.appendChild(h);
+  D.anatomia.forEach(([nm,trecho,fn])=>{ const tr=el('tr'); tr.appendChild(el('th',nm)); const td=el('td'); td.appendChild(el('pre',trecho)); tr.appendChild(td); tr.appendChild(el('td',fn)); t.appendChild(tr); });
+  $('anat-nota').textContent=D.anatomia_nota; }
 { const t=$('t-met'); const h=el('tr'); ['Métrica','Definição','Como foi medida'].forEach(c=>h.appendChild(el('th',c))); t.appendChild(h);
   D.metricas.forEach(m=>{ const tr=el('tr'); m.forEach((v,i)=>tr.appendChild(el(i===0?'th':'td',v))); t.appendChild(tr); }); }
 
@@ -364,6 +371,17 @@ def explicar(classe, obj, errados, g, tecnica):
     return "Campos diferentes do gabarito: " + "; ".join(f"{c}: esperado {_fmt(g[c])}, veio {_fmt(obj.get(c)) if obj else 'sem JSON'}" for c in errados) + "."
 
 
+def montar_anatomia():
+    """Divide o system prompt do T4 v1 em partes e junta o texto real de cada parte à sua função (conteudo_demo.ANATOMIA)."""
+    sistema = prompts_lib.carregar("T4", "v1")["system"]
+    blocos = sistema.split("\n\n")
+    regras = [l[2:] for l in blocos[2].splitlines()[1:]] if len(blocos) == 3 else []
+    if len(regras) != len(ANATOMIA) - 2:
+        raise SystemExit("O prompt T4 mudou de estrutura: atualize conteudo_demo.ANATOMIA.")
+    trechos = [blocos[0], blocos[1]] + regras
+    return [[nome, trecho, funcao] for (nome, funcao), trecho in zip(ANATOMIA, trechos)]
+
+
 def montar_dados():
     resumo = json.loads((caminhos.RESULTADOS / "resumo.json").read_text(encoding="utf-8"))
     gab = json.loads((caminhos.DADOS / "gabarito.json").read_text(encoding="utf-8"))
@@ -481,7 +499,8 @@ def montar_dados():
                  "Toda a diferença entre técnicas depende desses poucos casos.",
                  f"Pouca variedade: {len(itens)} itens e {len(forn)} fornecedores distintos nos {len(casos)} casos, e os exemplos do T2 compartilham itens e fornecedores com parte dos casos de teste "
                  "(contagens em resultados/AUDITORIA.md)."]
-    return {"pares": [[a, b, fa, fb, p] for a, b, fa, fb, p in comparacoes(resumo)], "ficha": ficha, "metricas": [list(m) for m in METRICAS], "limitacoes": LIMITACOES + dinamicas + [limite], "prioridades": [list(x) for x in PRIORIDADES],
+    return {"anatomia": montar_anatomia(), "anatomia_nota": ANATOMIA_NOTA,
+            "pares": [[a, b, fa, fb, p] for a, b, fa, fb, p in comparacoes(resumo)], "ficha": ficha, "metricas": [list(m) for m in METRICAS], "limitacoes": LIMITACOES + dinamicas + [limite], "prioridades": [list(x) for x in PRIORIDADES],
             "erros": {"por_tecnica": por_tec, "rotulos": ROTULOS_CLASSE, "leitura": leitura},
             "veredito": veredito, "campos": CAMPOS, "compara": [[k, v] for k, v in COMPARA],
             "por_tipo": {t: r["acerto_tipo"] for t, r in resumo.items()},
