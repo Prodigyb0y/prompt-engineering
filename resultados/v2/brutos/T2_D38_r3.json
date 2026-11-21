@@ -1,0 +1,32 @@
+{
+  "tecnica": "T2",
+  "prompt_versao": "v1",
+  "prompt_hash12": "be0e8998a563",
+  "caso": "D38",
+  "tipo": "numero_extenso",
+  "repeticao": 3,
+  "resposta": "{\"solicitante_area\": \"Manutenção\", \"item\": \"óleo lubrificante\", \"quantidade\": 8, \"unidade\": \"l\", \"prazo_entrega\": \"2026-11-22\", \"valor_unitario\": 4.5, \"moeda\": \"BRL\", \"fornecedor\": \"Distribuidora Pinheiro\"}",
+  "tokens_entrada": 858,
+  "tokens_saida": 110,
+  "custo_usd": 0.0001408,
+  "latencia_s": 1.5499995999998646,
+  "tentativas": 1,
+  "stop_reason": "end_turn",
+  "esforco": "low",
+  "modelo": "claude-haiku-5-5",
+  "avaliacao": {
+    "json_valido": true,
+    "schema_valido": true,
+    "campos": {
+      "solicitante_area": true,
+      "item": true,
+      "quantidade": true,
+      "unidade": true,
+      "prazo_entrega": true,
+      "valor_unitario": true,
+      "moeda": true,
+      "fornecedor": true
+    },
+    "caso_correto": true
+  }
+}

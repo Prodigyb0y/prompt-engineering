@@ -1,0 +1,32 @@
+{
+  "tecnica": "T1",
+  "prompt_versao": "v1",
+  "prompt_hash12": "1ef67d6a52fc",
+  "caso": "D20",
+  "tipo": "data_relativa",
+  "repeticao": 3,
+  "resposta": "{\"solicitante_area\": \"Financeiro\", \"item\": \"etiqueta adesiva\", \"quantidade\": 4, \"unidade\": \"cx\", \"prazo_entrega\": null, \"valor_unitario\": 380.00, \"moeda\": \"BRL\", \"fornecedor\": \"Papelaria Aurora Ltda\"}",
+  "tokens_entrada": 309,
+  "tokens_saida": 235,
+  "custo_usd": 0.0001484,
+  "latencia_s": 1.2956496000006155,
+  "tentativas": 1,
+  "stop_reason": "end_turn",
+  "esforco": "low",
+  "modelo": "claude-haiku-5-5",
+  "avaliacao": {
+    "json_valido": true,
+    "schema_valido": true,
+    "campos": {
+      "solicitante_area": true,
+      "item": true,
+      "quantidade": true,
+      "unidade": true,
+      "prazo_entrega": true,
+      "valor_unitario": true,
+      "moeda": true,
+      "fornecedor": true
+    },
+    "caso_correto": true
+  }
+}

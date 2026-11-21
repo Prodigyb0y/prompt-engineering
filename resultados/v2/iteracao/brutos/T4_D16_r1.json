@@ -1,0 +1,32 @@
+{
+  "tecnica": "T4",
+  "prompt_versao": "v2",
+  "prompt_hash12": "2c3ccc1873da",
+  "caso": "D16",
+  "tipo": "data_formato",
+  "repeticao": 1,
+  "resposta": "{\"solicitante_area\": \"TI\", \"item\": \"cabo elétrico 2,5mm\", \"quantidade\": 10, \"unidade\": \"m\", \"prazo_entrega\": \"2026-02-08\", \"valor_unitario\": 120, \"moeda\": \"BRL\", \"fornecedor\": \"Tecidos Santa Clara\"}",
+  "tokens_entrada": 778,
+  "tokens_saida": 109,
+  "custo_usd": 0.00013230000000000002,
+  "latencia_s": 1.0251797000091756,
+  "tentativas": 1,
+  "stop_reason": "end_turn",
+  "esforco": "low",
+  "modelo": "claude-haiku-5-5",
+  "avaliacao": {
+    "json_valido": true,
+    "schema_valido": true,
+    "campos": {
+      "solicitante_area": true,
+      "item": true,
+      "quantidade": true,
+      "unidade": true,
+      "prazo_entrega": true,
+      "valor_unitario": true,
+      "moeda": true,
+      "fornecedor": true
+    },
+    "caso_correto": true
+  }
+}

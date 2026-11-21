@@ -1,0 +1,32 @@
+{
+  "tecnica": "T2",
+  "prompt_versao": "v1",
+  "prompt_hash12": "be0e8998a563",
+  "caso": "D41",
+  "tipo": "moeda_extenso",
+  "repeticao": 3,
+  "resposta": "{\"solicitante_area\": \"Manutenção\", \"item\": \"teclado sem fio\", \"quantidade\": 15, \"unidade\": \"un\", \"prazo_entrega\": \"2026-12-10\", \"valor_unitario\": 1200, \"moeda\": \"EUR\", \"fornecedor\": \"Tecidos Santa Clara\"}",
+  "tokens_entrada": 851,
+  "tokens_saida": 254,
+  "custo_usd": 0.00021210000000000003,
+  "latencia_s": 1.7772647999991023,
+  "tentativas": 1,
+  "stop_reason": "end_turn",
+  "esforco": "low",
+  "modelo": "claude-haiku-5-5",
+  "avaliacao": {
+    "json_valido": true,
+    "schema_valido": true,
+    "campos": {
+      "solicitante_area": true,
+      "item": true,
+      "quantidade": true,
+      "unidade": true,
+      "prazo_entrega": true,
+      "valor_unitario": true,
+      "moeda": true,
+      "fornecedor": true
+    },
+    "caso_correto": true
+  }
+}

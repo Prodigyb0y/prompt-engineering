@@ -1,0 +1,106 @@
+{
+  "casos": 20,
+  "por_tipo": {
+    "campos_faltando": {
+      "casos": 2,
+      "respostas": 6,
+      "certas_v1": 6,
+      "certas_v2": 6,
+      "respostas_v2": 6
+    },
+    "completa": {
+      "casos": 1,
+      "respostas": 3,
+      "certas_v1": 3,
+      "certas_v2": 3,
+      "respostas_v2": 3
+    },
+    "correcao": {
+      "casos": 3,
+      "respostas": 9,
+      "certas_v1": 9,
+      "certas_v2": 9,
+      "respostas_v2": 9
+    },
+    "data_relativa": {
+      "casos": 1,
+      "respostas": 3,
+      "certas_v1": 3,
+      "certas_v2": 3,
+      "respostas_v2": 3
+    },
+    "email_longo": {
+      "casos": 2,
+      "respostas": 6,
+      "certas_v1": 6,
+      "certas_v2": 6,
+      "respostas_v2": 6
+    },
+    "moeda_extenso": {
+      "casos": 2,
+      "respostas": 6,
+      "certas_v1": 6,
+      "certas_v2": 6,
+      "respostas_v2": 6
+    },
+    "numero_extenso": {
+      "casos": 2,
+      "respostas": 6,
+      "certas_v1": 6,
+      "certas_v2": 6,
+      "respostas_v2": 6
+    },
+    "valor_br": {
+      "casos": 1,
+      "respostas": 3,
+      "certas_v1": 3,
+      "certas_v2": 3,
+      "respostas_v2": 3
+    },
+    "valor_total": {
+      "casos": 6,
+      "respostas": 18,
+      "certas_v1": 0,
+      "certas_v2": 18,
+      "respostas_v2": 18
+    }
+  },
+  "acerto_v1": 0.7,
+  "acerto_v2": 1.0,
+  "custo_v1": 0.00019394,
+  "custo_v2": 0.00015180666666666668,
+  "tokens_saida_v1": 245.8,
+  "tokens_saida_v2": 147.73333333333332,
+  "melhorou": [
+    "H01",
+    "H02",
+    "H03",
+    "H04",
+    "H05",
+    "H06"
+  ],
+  "piorou": [],
+  "p_sinal": 0.03125,
+  "veredito": {
+    "valor_total_certas_v1": 0,
+    "valor_total_certas_v2": 18,
+    "valor_total_respostas": 18,
+    "generaliza": true,
+    "resto_certas_v1": 42,
+    "resto_certas_v2": 42,
+    "resto_respostas": 42,
+    "regressao": false
+  },
+  "erros_v2": [],
+  "diff": [
+    "--- T4 v1",
+    "+++ T4 v2",
+    "-- moeda vem do símbolo: R$ = \"BRL\", US$ = \"USD\", € = \"EUR\". Sem valor no texto, valor_unitario e moeda são null.",
+    "+- moeda vem do símbolo: R$ = \"BRL\", US$ = \"USD\", € = \"EUR\". Sem nenhum valor no texto (nem unitário, nem total), valor_unitario e moeda são null.",
+    "+- Se o texto trouxer só o valor total, e não o valor unitário, divida o total pela quantidade para obter valor_unitario. A moeda é a do total."
+  ],
+  "divergencias": 0,
+  "respostas_v1": 60,
+  "respostas_v2": 60,
+  "completo": true
+}

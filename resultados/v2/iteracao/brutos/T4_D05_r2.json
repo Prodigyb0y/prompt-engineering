@@ -1,0 +1,32 @@
+{
+  "tecnica": "T4",
+  "prompt_versao": "v2",
+  "prompt_hash12": "2c3ccc1873da",
+  "caso": "D05",
+  "tipo": "campos_faltando",
+  "repeticao": 2,
+  "resposta": "{\"solicitante_area\": null, \"item\": \"caneta esferográfica\", \"quantidade\": 100, \"unidade\": \"cx\", \"prazo_entrega\": \"2026-01-08\", \"valor_unitario\": null, \"moeda\": null, \"fornecedor\": \"Embalagens Ponto Certo\"}",
+  "tokens_entrada": 744,
+  "tokens_saida": 100,
+  "custo_usd": 0.00012440000000000002,
+  "latencia_s": 0.965894400011166,
+  "tentativas": 1,
+  "stop_reason": "end_turn",
+  "esforco": "low",
+  "modelo": "claude-haiku-5-5",
+  "avaliacao": {
+    "json_valido": true,
+    "schema_valido": true,
+    "campos": {
+      "solicitante_area": true,
+      "item": true,
+      "quantidade": true,
+      "unidade": true,
+      "prazo_entrega": true,
+      "valor_unitario": true,
+      "moeda": true,
+      "fornecedor": true
+    },
+    "caso_correto": true
+  }
+}

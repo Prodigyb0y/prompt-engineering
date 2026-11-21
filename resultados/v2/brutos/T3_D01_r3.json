@@ -1,0 +1,32 @@
+{
+  "tecnica": "T3",
+  "prompt_versao": "v1",
+  "prompt_hash12": "b3a7a7a94ceb",
+  "caso": "D01",
+  "tipo": "completa",
+  "repeticao": 3,
+  "resposta": "<raciocinio>\n1. **solicitante_area**: o texto diz \"para a área de Financeiro\", então o valor é \"Financeiro\".\n2. **item**: \"parafuso sextavado\".\n3. **quantidade**: \"5 caixas\" indica o número 5.\n4. **unidade**: \"caixas\" corresponde a \"cx\", que está na lista permitida.\n5. **prazo_entrega**: \"5 de abril de 2026\" convertido para o formato AAAA-MM-DD resulta em \"2026-04-05\".\n6. **valor_unitario**: \"R$ 8,90\" equivale ao número 8.9 (separador decimal com ponto no JSON).\n7. **moeda**: o símbolo \"R$\" indica real brasileiro, então \"BRL\".\n8. **fornecedor**: \"Metalúrgica Vale Verde\".\n\nNenhum campo está ausente, então não há valores null.\n</raciocinio>\n\n<json>\n{\n  \"solicitante_area\": \"Financeiro\",\n  \"item\": \"parafuso sextavado\",\n  \"quantidade\": 5,\n  \"unidade\": \"cx\",\n  \"prazo_entrega\": \"2026-04-05\",\n  \"valor_unitario\": 8.9,\n  \"moeda\": \"BRL\",\n  \"fornecedor\": \"Metalúrgica Vale Verde\"\n}\n</json>",
+  "tokens_entrada": 347,
+  "tokens_saida": 624,
+  "custo_usd": 0.00034669999999999997,
+  "latencia_s": 2.84415529999751,
+  "tentativas": 1,
+  "stop_reason": "end_turn",
+  "esforco": "low",
+  "modelo": "claude-haiku-5-5",
+  "avaliacao": {
+    "json_valido": true,
+    "schema_valido": true,
+    "campos": {
+      "solicitante_area": true,
+      "item": true,
+      "quantidade": true,
+      "unidade": true,
+      "prazo_entrega": true,
+      "valor_unitario": true,
+      "moeda": true,
+      "fornecedor": true
+    },
+    "caso_correto": true
+  }
+}

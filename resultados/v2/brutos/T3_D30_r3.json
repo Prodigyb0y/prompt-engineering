@@ -1,0 +1,32 @@
+{
+  "tecnica": "T3",
+  "prompt_versao": "v1",
+  "prompt_hash12": "b3a7a7a94ceb",
+  "caso": "D30",
+  "tipo": "correcao",
+  "repeticao": 3,
+  "resposta": "<raciocinio>\n1. Área solicitante: \"para a área de Financeiro\" → \"Financeiro\".\n2. Item: \"monitor 24 polegadas\".\n3. Quantidade: a solicitação inicial diz 50, mas a correção final diz \"são 100 un, não 50\". Vale o valor corrigido: 100.\n4. Unidade: \"un\" (unidades), que está na lista permitida.\n5. Prazo: \"09/07/2026\" está no formato brasileiro DD/MM/AAAA. Convertido para AAAA-MM-DD: 2026-07-09.\n6. Valor unitário: \"R$ 8,90 por unidade\" → 8.9 (ponto decimal, formato numérico).\n7. Moeda: o símbolo R$ indica \"BRL\".\n8. Fornecedor: \"Informática Bitmais\".\n</raciocinio>\n\n<json>\n{\n  \"solicitante_area\": \"Financeiro\",\n  \"item\": \"monitor 24 polegadas\",\n  \"quantidade\": 100,\n  \"unidade\": \"un\",\n  \"prazo_entrega\": \"2026-07-09\",\n  \"valor_unitario\": 8.9,\n  \"moeda\": \"BRL\",\n  \"fornecedor\": \"Informática Bitmais\"\n}\n</json>",
+  "tokens_entrada": 362,
+  "tokens_saida": 737,
+  "custo_usd": 0.00040469999999999997,
+  "latencia_s": 3.4793816000019433,
+  "tentativas": 1,
+  "stop_reason": "end_turn",
+  "esforco": "low",
+  "modelo": "claude-haiku-5-5",
+  "avaliacao": {
+    "json_valido": true,
+    "schema_valido": true,
+    "campos": {
+      "solicitante_area": true,
+      "item": true,
+      "quantidade": true,
+      "unidade": true,
+      "prazo_entrega": true,
+      "valor_unitario": true,
+      "moeda": true,
+      "fornecedor": true
+    },
+    "caso_correto": true
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "tecnica": "T4",
+  "prompt_versao": "v1",
+  "prompt_hash12": "bb14abcde430",
+  "caso": "H01",
+  "tipo": "valor_total",
+  "repeticao": 1,
+  "resposta": "{\"solicitante_area\": \"Logística\", \"item\": \"detergente industrial\", \"quantidade\": 8, \"unidade\": \"l\", \"prazo_entrega\": \"2026-05-19\", \"valor_unitario\": null, \"moeda\": null, \"fornecedor\": \"Papelaria Aurora Ltda\"}",
+  "tokens_entrada": 694,
+  "tokens_saida": 421,
+  "custo_usd": 0.0002799,
+  "latencia_s": 23.70465709999553,
+  "tentativas": 1,
+  "stop_reason": "end_turn",
+  "esforco": "low",
+  "modelo": "claude-haiku-5-5",
+  "avaliacao": {
+    "json_valido": true,
+    "schema_valido": true,
+    "campos": {
+      "solicitante_area": true,
+      "item": true,
+      "quantidade": true,
+      "unidade": true,
+      "prazo_entrega": true,
+      "valor_unitario": false,
+      "moeda": false,
+      "fornecedor": true
+    },
+    "caso_correto": false
+  }
+}

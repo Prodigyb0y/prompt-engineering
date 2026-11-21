@@ -1,0 +1,32 @@
+{
+  "tecnica": "T1",
+  "prompt_versao": "v1",
+  "prompt_hash12": "1ef67d6a52fc",
+  "caso": "D45",
+  "tipo": "email_longo",
+  "repeticao": 1,
+  "resposta": "{\"solicitante_area\": \"Manutenção\", \"item\": \"Cabo de rede cat6\", \"quantidade\": 15, \"unidade\": \"m\", \"prazo_entrega\": \"2026-02-21\", \"valor_unitario\": 12.5, \"moeda\": \"BRL\", \"fornecedor\": \"Informática Bitmais\"}",
+  "tokens_entrada": 407,
+  "tokens_saida": 108,
+  "custo_usd": 9.47e-05,
+  "latencia_s": 0.7611718999978621,
+  "tentativas": 1,
+  "stop_reason": "end_turn",
+  "esforco": "low",
+  "modelo": "claude-haiku-5-5",
+  "avaliacao": {
+    "json_valido": true,
+    "schema_valido": true,
+    "campos": {
+      "solicitante_area": true,
+      "item": true,
+      "quantidade": true,
+      "unidade": true,
+      "prazo_entrega": true,
+      "valor_unitario": true,
+      "moeda": true,
+      "fornecedor": true
+    },
+    "caso_correto": true
+  }
+}

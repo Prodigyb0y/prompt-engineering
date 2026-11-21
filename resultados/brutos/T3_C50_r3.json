@@ -1,0 +1,32 @@
+{
+  "tecnica": "T3",
+  "prompt_versao": "v1",
+  "prompt_hash12": "b3a7a7a94ceb",
+  "caso": "C50",
+  "tipo": "duas_quantidades",
+  "repeticao": 3,
+  "resposta": "<raciocinio>\n1. **solicitante_area**: o texto diz \"(solicitante: Financeiro)\", então o valor é \"Financeiro\".\n2. **item**: o produto solicitado é \"tinta acrílica branca\".\n3. **quantidade**: \"Preciso comprar 3 l\", logo o número é 3. O \"60 em estoque\" não é a quantidade pedida, então é ignorado.\n4. **unidade**: a abreviação \"l\" corresponde a litros, que está na lista permitida como \"l\".\n5. **prazo_entrega**: \"04-abr-2026\" deve virar AAAA-MM-DD, resultando em 2026-04-04.\n6. **valor_unitario**: \"R$ 2450,75\" por unidade. Com vírgula decimal, o número é 2450.75.\n7. **moeda**: o símbolo \"R$\" indica real, então é \"BRL\".\n8. **fornecedor**: \"Pode ser com a Eletrotécnica Faísca\" indica o fornecedor sugerido, então o valor é \"Eletrotécnica Faísca\".\n9. Não há campos extras. Os nomes seguem exatamente a especificação.\n</raciocinio>\n\n<json>\n{\n  \"solicitante_area\": \"Financeiro\",\n  \"item\": \"tinta acrílica branca\",\n  \"quantidade\": 3,\n  \"unidade\": \"l\",\n  \"prazo_entrega\": \"2026-04-04\",\n  \"valor_unitario\": 2450.75,\n  \"moeda\": \"BRL\",\n  \"fornecedor\": \"Eletrotécnica Faísca\"\n}\n</json>",
+  "tokens_entrada": 365,
+  "tokens_saida": 722,
+  "custo_usd": 0.0003975,
+  "latencia_s": 3.578987100001541,
+  "tentativas": 1,
+  "stop_reason": "end_turn",
+  "esforco": "low",
+  "modelo": "claude-haiku-5-5",
+  "avaliacao": {
+    "json_valido": true,
+    "schema_valido": true,
+    "campos": {
+      "solicitante_area": true,
+      "item": true,
+      "quantidade": true,
+      "unidade": true,
+      "prazo_entrega": true,
+      "valor_unitario": true,
+      "moeda": true,
+      "fornecedor": true
+    },
+    "caso_correto": true
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "tecnica": "T3",
+  "prompt_versao": "v1",
+  "prompt_hash12": "b3a7a7a94ceb",
+  "caso": "D38",
+  "tipo": "numero_extenso",
+  "repeticao": 1,
+  "resposta": "<raciocinio>\n1. solicitante_area: o texto menciona \"área de Manutenção\", então o valor é \"Manutenção\".\n2. item: o produto solicitado é \"óleo lubrificante\".\n3. quantidade: \"oito litros\" indica o número 8.\n4. unidade: a quantidade está em litros, então a unidade é \"l\", que está na lista permitida.\n5. prazo_entrega: \"22 de novembro de 2026\" convertido para AAAA-MM-DD resulta em 2026-11-22.\n6. valor_unitario: \"R$ 4,50 por unidade\" corresponde ao número 4.5. O texto diz \"preço de tabela\", mas o valor informado é o preço por unidade, então ele é extraído.\n7. moeda: o símbolo \"R$\" indica real, então o valor é \"BRL\".\n8. fornecedor: \"Distribuidora Pinheiro\" é o fornecedor indicado.\n</raciocinio>\n\n<json>\n{\n  \"solicitante_area\": \"Manutenção\",\n  \"item\": \"óleo lubrificante\",\n  \"quantidade\": 8,\n  \"unidade\": \"l\",\n  \"prazo_entrega\": \"2026-11-22\",\n  \"valor_unitario\": 4.5,\n  \"moeda\": \"BRL\",\n  \"fornecedor\": \"Distribuidora Pinheiro\"\n}\n</json>",
+  "tokens_entrada": 353,
+  "tokens_saida": 623,
+  "custo_usd": 0.0003468,
+  "latencia_s": 2.9769230999991123,
+  "tentativas": 1,
+  "stop_reason": "end_turn",
+  "esforco": "low",
+  "modelo": "claude-haiku-5-5",
+  "avaliacao": {
+    "json_valido": true,
+    "schema_valido": true,
+    "campos": {
+      "solicitante_area": true,
+      "item": true,
+      "quantidade": true,
+      "unidade": true,
+      "prazo_entrega": true,
+      "valor_unitario": true,
+      "moeda": true,
+      "fornecedor": true
+    },
+    "caso_correto": true
+  }
+}

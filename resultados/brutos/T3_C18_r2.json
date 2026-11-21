@@ -1,0 +1,32 @@
+{
+  "tecnica": "T3",
+  "prompt_versao": "v1",
+  "prompt_hash12": "b3a7a7a94ceb",
+  "caso": "C18",
+  "tipo": "unidades_variadas",
+  "repeticao": 2,
+  "resposta": "<raciocinio>\n1. **solicitante_area**: a mensagem diz \"para a área de Compras\", então o valor é \"Compras\".\n2. **item**: \"etiqueta adesiva\".\n3. **quantidade**: \"25cx\" indica 25 caixas, então o número é 25.\n4. **unidade**: \"cx\" está na lista permitida, então o valor é \"cx\".\n5. **prazo_entrega**: \"17-ago-2026\" corresponde a 17 de agosto de 2026. Convertendo para AAAA-MM-DD, fica \"2026-08-17\".\n6. **valor_unitario**: \"R$ 2450,75\" usa vírgula como separador decimal, então o número é 2450.75.\n7. **moeda**: o símbolo \"R$\" indica real brasileiro, então o valor é \"BRL\".\n8. **fornecedor**: \"Distribuidora Pinheiro\".\n\nNão há campos extras a incluir.\n</raciocinio>\n<json>\n{\"solicitante_area\": \"Compras\", \"item\": \"etiqueta adesiva\", \"quantidade\": 25, \"unidade\": \"cx\", \"prazo_entrega\": \"2026-08-17\", \"valor_unitario\": 2450.75, \"moeda\": \"BRL\", \"fornecedor\": \"Distribuidora Pinheiro\"}\n</json>",
+  "tokens_entrada": 346,
+  "tokens_saida": 720,
+  "custo_usd": 0.0003946,
+  "latencia_s": 4.961839100000361,
+  "tentativas": 1,
+  "stop_reason": "end_turn",
+  "esforco": "low",
+  "modelo": "claude-haiku-5-5",
+  "avaliacao": {
+    "json_valido": true,
+    "schema_valido": true,
+    "campos": {
+      "solicitante_area": true,
+      "item": true,
+      "quantidade": true,
+      "unidade": true,
+      "prazo_entrega": true,
+      "valor_unitario": true,
+      "moeda": true,
+      "fornecedor": true
+    },
+    "caso_correto": true
+  }
+}

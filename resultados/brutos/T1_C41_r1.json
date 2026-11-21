@@ -1,0 +1,32 @@
+{
+  "tecnica": "T1",
+  "prompt_versao": "v1",
+  "prompt_hash12": "1ef67d6a52fc",
+  "caso": "C41",
+  "tipo": "data_relativa",
+  "repeticao": 1,
+  "resposta": "{\"solicitante_area\": \"Financeiro\", \"item\": \"parafuso sextavado\", \"quantidade\": 25, \"unidade\": \"cx\", \"prazo_entrega\": null, \"valor_unitario\": 380.00, \"moeda\": \"BRL\", \"fornecedor\": \"Químicos Horizonte\"}",
+  "tokens_entrada": 295,
+  "tokens_saida": 203,
+  "custo_usd": 0.000131,
+  "latencia_s": 1.2992348000007041,
+  "tentativas": 1,
+  "stop_reason": "end_turn",
+  "esforco": "low",
+  "modelo": "claude-haiku-5-5",
+  "avaliacao": {
+    "json_valido": true,
+    "schema_valido": true,
+    "campos": {
+      "solicitante_area": true,
+      "item": true,
+      "quantidade": true,
+      "unidade": true,
+      "prazo_entrega": true,
+      "valor_unitario": true,
+      "moeda": true,
+      "fornecedor": true
+    },
+    "caso_correto": true
+  }
+}

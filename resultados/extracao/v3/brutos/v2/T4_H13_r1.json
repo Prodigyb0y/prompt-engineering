@@ -1,0 +1,32 @@
+{
+  "tecnica": "T4",
+  "prompt_versao": "v2",
+  "prompt_hash12": "2c3ccc1873da",
+  "caso": "H13",
+  "tipo": "moeda_extenso",
+  "repeticao": 1,
+  "resposta": "```json\n{\n  \"solicitante_area\": \"Manutenção\",\n  \"item\": \"óleo lubrificante\",\n  \"quantidade\": 10,\n  \"unidade\": \"l\",\n  \"prazo_entrega\": \"2026-12-22\",\n  \"valor_unitario\": 310,\n  \"moeda\": \"BRL\",\n  \"fornecedor\": \"Eletrotécnica Faísca\"\n}\n```",
+  "tokens_entrada": 770,
+  "tokens_saida": 130,
+  "custo_usd": 0.000142,
+  "latencia_s": 1.0087618999968981,
+  "tentativas": 1,
+  "stop_reason": "end_turn",
+  "esforco": "low",
+  "modelo": "claude-haiku-5-5",
+  "avaliacao": {
+    "json_valido": true,
+    "schema_valido": true,
+    "campos": {
+      "solicitante_area": true,
+      "item": true,
+      "quantidade": true,
+      "unidade": true,
+      "prazo_entrega": true,
+      "valor_unitario": true,
+      "moeda": true,
+      "fornecedor": true
+    },
+    "caso_correto": true
+  }
+}

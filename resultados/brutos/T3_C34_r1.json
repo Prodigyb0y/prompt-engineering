@@ -1,0 +1,32 @@
+{
+  "tecnica": "T3",
+  "prompt_versao": "v1",
+  "prompt_hash12": "b3a7a7a94ceb",
+  "caso": "C34",
+  "tipo": "data_formato",
+  "repeticao": 1,
+  "resposta": "<raciocinio>\n1. solicitante_area: o texto diz \"para a área de Logística\", então o valor é \"Logística\".\n2. item: \"cadeira ergonômica\".\n3. quantidade: \"8 unidades\", então 8.\n4. unidade: \"unidades\" corresponde a \"un\".\n5. prazo_entrega: \"Entrega até 2026-08-03\", já no formato AAAA-MM-DD, então \"2026-08-03\".\n6. valor_unitario: \"R$ 49,90\", com vírgula decimal, então 49.9.\n7. moeda: o símbolo \"R$\" indica \"BRL\".\n8. fornecedor: \"Químicos Horizonte\".\n\nOs campos correspondem exatamente aos nomes pedidos, sem campos extras.\n</raciocinio>\n\n<json>\n{\n  \"solicitante_area\": \"Logística\",\n  \"item\": \"cadeira ergonômica\",\n  \"quantidade\": 8,\n  \"unidade\": \"un\",\n  \"prazo_entrega\": \"2026-08-03\",\n  \"valor_unitario\": 49.9,\n  \"moeda\": \"BRL\",\n  \"fornecedor\": \"Químicos Horizonte\"\n}\n</json>",
+  "tokens_entrada": 337,
+  "tokens_saida": 506,
+  "custo_usd": 0.0002867,
+  "latencia_s": 2.7362193999979354,
+  "tentativas": 1,
+  "stop_reason": "end_turn",
+  "esforco": "low",
+  "modelo": "claude-haiku-5-5",
+  "avaliacao": {
+    "json_valido": true,
+    "schema_valido": true,
+    "campos": {
+      "solicitante_area": true,
+      "item": true,
+      "quantidade": true,
+      "unidade": true,
+      "prazo_entrega": true,
+      "valor_unitario": true,
+      "moeda": true,
+      "fornecedor": true
+    },
+    "caso_correto": true
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "tecnica": "T4",
+  "prompt_versao": "v2",
+  "prompt_hash12": "2c3ccc1873da",
+  "caso": "H02",
+  "tipo": "valor_total",
+  "repeticao": 2,
+  "resposta": "{\"solicitante_area\": \"RH\", \"item\": \"caneta esferográfica\", \"quantidade\": 20, \"unidade\": \"cx\", \"prazo_entrega\": \"2026-01-04\", \"valor_unitario\": 49.9, \"moeda\": \"USD\", \"fornecedor\": \"Informática Bitmais\"}",
+  "tokens_entrada": 764,
+  "tokens_saida": 199,
+  "custo_usd": 0.0001759,
+  "latencia_s": 1.1366060000000289,
+  "tentativas": 1,
+  "stop_reason": "end_turn",
+  "esforco": "low",
+  "modelo": "claude-haiku-5-5",
+  "avaliacao": {
+    "json_valido": true,
+    "schema_valido": true,
+    "campos": {
+      "solicitante_area": true,
+      "item": true,
+      "quantidade": true,
+      "unidade": true,
+      "prazo_entrega": true,
+      "valor_unitario": true,
+      "moeda": true,
+      "fornecedor": true
+    },
+    "caso_correto": true
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "tecnica": "T3",
+  "prompt_versao": "v1",
+  "prompt_hash12": "b3a7a7a94ceb",
+  "caso": "C47",
+  "tipo": "ruido",
+  "repeticao": 2,
+  "resposta": "<raciocinio>\n1. solicitante_area: o texto diz \"para a área de Financeiro\", então o valor é \"Financeiro\".\n2. item: \"caneta esferográfica\".\n3. quantidade: \"Solicito 8 un\", então o número é 8.\n4. unidade: \"un\" aparece na solicitação e está entre as opções permitidas.\n5. prazo_entrega: \"04-abr-2026\" equivale a 4 de abril de 2026, que no formato AAAA-MM-DD é 2026-04-04.\n6. valor_unitario: \"R$ 35,00\" equivale ao número 35.0.\n7. moeda: o símbolo \"R$\" indica real brasileiro, portanto \"BRL\".\n8. fornecedor: \"cotação feita com Embalagens Ponto Certo\", então o fornecedor é \"Embalagens Ponto Certo\".\n9. Não há campos extras, e todos os campos têm valor identificável no texto, então nenhum precisa ser null.\n</raciocinio>\n<json>\n{\n  \"solicitante_area\": \"Financeiro\",\n  \"item\": \"caneta esferográfica\",\n  \"quantidade\": 8,\n  \"unidade\": \"un\",\n  \"prazo_entrega\": \"2026-04-04\",\n  \"valor_unitario\": 35.00,\n  \"moeda\": \"BRL\",\n  \"fornecedor\": \"Embalagens Ponto Certo\"\n}\n</json>",
+  "tokens_entrada": 349,
+  "tokens_saida": 668,
+  "custo_usd": 0.00036889999999999997,
+  "latencia_s": 3.447461599997041,
+  "tentativas": 1,
+  "stop_reason": "end_turn",
+  "esforco": "low",
+  "modelo": "claude-haiku-5-5",
+  "avaliacao": {
+    "json_valido": true,
+    "schema_valido": true,
+    "campos": {
+      "solicitante_area": true,
+      "item": true,
+      "quantidade": true,
+      "unidade": true,
+      "prazo_entrega": true,
+      "valor_unitario": true,
+      "moeda": true,
+      "fornecedor": true
+    },
+    "caso_correto": true
+  }
+}

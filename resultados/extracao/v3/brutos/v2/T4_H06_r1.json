@@ -1,0 +1,32 @@
+{
+  "tecnica": "T4",
+  "prompt_versao": "v2",
+  "prompt_hash12": "2c3ccc1873da",
+  "caso": "H06",
+  "tipo": "valor_total",
+  "repeticao": 1,
+  "resposta": "{\"solicitante_area\": \"Manutenção\", \"item\": \"etiqueta adesiva\", \"quantidade\": 8, \"unidade\": \"cx\", \"prazo_entrega\": \"2026-01-09\", \"valor_unitario\": 380, \"moeda\": \"EUR\", \"fornecedor\": \"Informática Bitmais\"}",
+  "tokens_entrada": 760,
+  "tokens_saida": 196,
+  "custo_usd": 0.000174,
+  "latencia_s": 1.2182498999900417,
+  "tentativas": 1,
+  "stop_reason": "end_turn",
+  "esforco": "low",
+  "modelo": "claude-haiku-5-5",
+  "avaliacao": {
+    "json_valido": true,
+    "schema_valido": true,
+    "campos": {
+      "solicitante_area": true,
+      "item": true,
+      "quantidade": true,
+      "unidade": true,
+      "prazo_entrega": true,
+      "valor_unitario": true,
+      "moeda": true,
+      "fornecedor": true
+    },
+    "caso_correto": true
+  }
+}

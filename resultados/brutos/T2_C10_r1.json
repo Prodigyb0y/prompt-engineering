@@ -1,0 +1,32 @@
+{
+  "tecnica": "T2",
+  "prompt_versao": "v1",
+  "prompt_hash12": "be0e8998a563",
+  "caso": "C10",
+  "tipo": "campos_faltando",
+  "repeticao": 1,
+  "resposta": "{\"solicitante_area\": \"Financeiro\", \"item\": \"fita adesiva\", \"quantidade\": 40, \"unidade\": \"un\", \"prazo_entrega\": null, \"valor_unitario\": null, \"moeda\": null, \"fornecedor\": \"Distribuidora Pinheiro\"}",
+  "tokens_entrada": 817,
+  "tokens_saida": 96,
+  "custo_usd": 0.00012969999999999998,
+  "latencia_s": 1.1999703999972553,
+  "tentativas": 1,
+  "stop_reason": "end_turn",
+  "esforco": "low",
+  "modelo": "claude-haiku-5-5",
+  "avaliacao": {
+    "json_valido": true,
+    "schema_valido": true,
+    "campos": {
+      "solicitante_area": true,
+      "item": true,
+      "quantidade": true,
+      "unidade": true,
+      "prazo_entrega": true,
+      "valor_unitario": true,
+      "moeda": true,
+      "fornecedor": true
+    },
+    "caso_correto": true
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "tecnica": "T2",
+  "prompt_versao": "v1",
+  "prompt_hash12": "be0e8998a563",
+  "caso": "C08",
+  "tipo": "completa",
+  "repeticao": 2,
+  "resposta": "{\"solicitante_area\": \"Manutenção\", \"item\": \"tinta acrílica branca\", \"quantidade\": 100, \"unidade\": \"l\", \"prazo_entrega\": \"2026-01-28\", \"valor_unitario\": 8.9, \"moeda\": \"BRL\", \"fornecedor\": \"Distribuidora Pinheiro\"}",
+  "tokens_entrada": 849,
+  "tokens_saida": 111,
+  "custo_usd": 0.0001404,
+  "latencia_s": 0.9257332000015595,
+  "tentativas": 1,
+  "stop_reason": "end_turn",
+  "esforco": "low",
+  "modelo": "claude-haiku-5-5",
+  "avaliacao": {
+    "json_valido": true,
+    "schema_valido": true,
+    "campos": {
+      "solicitante_area": true,
+      "item": true,
+      "quantidade": true,
+      "unidade": true,
+      "prazo_entrega": true,
+      "valor_unitario": true,
+      "moeda": true,
+      "fornecedor": true
+    },
+    "caso_correto": true
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "tecnica": "T1",
+  "prompt_versao": "v1",
+  "prompt_hash12": "1ef67d6a52fc",
+  "caso": "C04",
+  "tipo": "completa",
+  "repeticao": 3,
+  "resposta": "{\"solicitante_area\": \"Logística\", \"item\": \"Óleo lubrificante\", \"quantidade\": 50, \"unidade\": \"l\", \"prazo_entrega\": \"2026-02-02\", \"valor_unitario\": 35.00, \"moeda\": \"BRL\", \"fornecedor\": \"Tecidos Santa Clara\"}",
+  "tokens_entrada": 294,
+  "tokens_saida": 108,
+  "custo_usd": 8.340000000000001e-05,
+  "latencia_s": 0.8129766000020027,
+  "tentativas": 1,
+  "stop_reason": "end_turn",
+  "esforco": "low",
+  "modelo": "claude-haiku-5-5",
+  "avaliacao": {
+    "json_valido": true,
+    "schema_valido": true,
+    "campos": {
+      "solicitante_area": true,
+      "item": true,
+      "quantidade": true,
+      "unidade": true,
+      "prazo_entrega": true,
+      "valor_unitario": true,
+      "moeda": true,
+      "fornecedor": true
+    },
+    "caso_correto": true
+  }
+}

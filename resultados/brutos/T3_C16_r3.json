@@ -1,0 +1,32 @@
+{
+  "tecnica": "T3",
+  "prompt_versao": "v1",
+  "prompt_hash12": "b3a7a7a94ceb",
+  "caso": "C16",
+  "tipo": "unidades_variadas",
+  "repeticao": 3,
+  "resposta": "<raciocinio>\n1. Área do solicitante: o texto diz \"para a área de Marketing\", então solicitante_area = \"Marketing\".\n2. Item: \"caneta esferográfica\".\n3. Quantidade: \"5cx\" indica 5 caixas, então quantidade = 5.\n4. Unidade: a abreviação \"cx\" está na lista permitida, então unidade = \"cx\".\n5. Prazo de entrega: \"15-fev-2026\" corresponde a 15 de fevereiro de 2026, que em AAAA-MM-DD fica \"2026-02-15\".\n6. Valor unitário: \"R$ 2450,75\" é o valor por unidade, então valor_unitario = 2450.75 (ponto decimal, como número).\n7. Moeda: o símbolo \"R$\" indica real, então moeda = \"BRL\".\n8. Fornecedor: \"Metalúrgica Vale Verde\" é mencionada como fornecedor preferido, então fornecedor = \"Metalúrgica Vale Verde\".\n9. Conferência: todos os campos estão preenchidos com os nomes exatos e sem campos extras.\n</raciocinio>\n\n<json>\n{\n  \"solicitante_area\": \"Marketing\",\n  \"item\": \"caneta esferográfica\",\n  \"quantidade\": 5,\n  \"unidade\": \"cx\",\n  \"prazo_entrega\": \"2026-02-15\",\n  \"valor_unitario\": 2450.75,\n  \"moeda\": \"BRL\",\n  \"fornecedor\": \"Metalúrgica Vale Verde\"\n}\n</json>",
+  "tokens_entrada": 345,
+  "tokens_saida": 741,
+  "custo_usd": 0.000405,
+  "latencia_s": 4.42949790000057,
+  "tentativas": 1,
+  "stop_reason": "end_turn",
+  "esforco": "low",
+  "modelo": "claude-haiku-5-5",
+  "avaliacao": {
+    "json_valido": true,
+    "schema_valido": true,
+    "campos": {
+      "solicitante_area": true,
+      "item": true,
+      "quantidade": true,
+      "unidade": true,
+      "prazo_entrega": true,
+      "valor_unitario": true,
+      "moeda": true,
+      "fornecedor": true
+    },
+    "caso_correto": true
+  }
+}

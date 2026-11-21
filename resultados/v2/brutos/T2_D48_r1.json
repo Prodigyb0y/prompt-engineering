@@ -1,0 +1,32 @@
+{
+  "tecnica": "T2",
+  "prompt_versao": "v1",
+  "prompt_hash12": "be0e8998a563",
+  "caso": "D48",
+  "tipo": "email_longo",
+  "repeticao": 1,
+  "resposta": "{\"solicitante_area\": \"Marketing\", \"item\": \"monitor 24 polegadas\", \"quantidade\": 3, \"unidade\": \"un\", \"prazo_entrega\": \"2026-09-15\", \"valor_unitario\": 4.5, \"moeda\": \"BRL\", \"fornecedor\": \"Distribuidora Pinheiro\"}",
+  "tokens_entrada": 958,
+  "tokens_saida": 111,
+  "custo_usd": 0.00015130000000000002,
+  "latencia_s": 0.7686271999991732,
+  "tentativas": 1,
+  "stop_reason": "end_turn",
+  "esforco": "low",
+  "modelo": "claude-haiku-5-5",
+  "avaliacao": {
+    "json_valido": true,
+    "schema_valido": true,
+    "campos": {
+      "solicitante_area": true,
+      "item": true,
+      "quantidade": true,
+      "unidade": true,
+      "prazo_entrega": true,
+      "valor_unitario": true,
+      "moeda": true,
+      "fornecedor": true
+    },
+    "caso_correto": true
+  }
+}

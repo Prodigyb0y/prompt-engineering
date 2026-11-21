@@ -1,0 +1,32 @@
+{
+  "tecnica": "T3",
+  "prompt_versao": "v1",
+  "prompt_hash12": "b3a7a7a94ceb",
+  "caso": "D47",
+  "tipo": "email_longo",
+  "repeticao": 1,
+  "resposta": "<raciocinio>\n1. solicitante_area: a mensagem indica \"(solicitante: Produção)\" e a assinatura diz \"Equipe de Produção\". Valor: \"Produção\".\n2. item: \"óleo lubrificante\".\n3. quantidade: \"5 litros\", logo o número é 5.\n4. unidade: litros corresponde a \"l\".\n5. prazo_entrega: \"08-dez-2026\" corresponde a 8 de dezembro de 2026, em formato AAAA-MM-DD: 2026-12-08.\n6. valor_unitario: \"R$ 380,00 por unidade\", logo 380.0.\n7. moeda: o símbolo \"R$\" indica real brasileiro: \"BRL\".\n8. fornecedor: \"Pode ser com a Químicos Horizonte\", logo \"Químicos Horizonte\".\n9. Os demais textos (almoxarifado, ramal, aviso de confidencialidade) não são campos do JSON e são ignorados.\n</raciocinio>\n\n<json>\n{\n  \"solicitante_area\": \"Produção\",\n  \"item\": \"óleo lubrificante\",\n  \"quantidade\": 5,\n  \"unidade\": \"l\",\n  \"prazo_entrega\": \"2026-12-08\",\n  \"valor_unitario\": 380.00,\n  \"moeda\": \"BRL\",\n  \"fornecedor\": \"Químicos Horizonte\"\n}\n</json>",
+  "tokens_entrada": 450,
+  "tokens_saida": 683,
+  "custo_usd": 0.0003865,
+  "latencia_s": 3.2232749000031617,
+  "tentativas": 1,
+  "stop_reason": "end_turn",
+  "esforco": "low",
+  "modelo": "claude-haiku-5-5",
+  "avaliacao": {
+    "json_valido": true,
+    "schema_valido": true,
+    "campos": {
+      "solicitante_area": true,
+      "item": true,
+      "quantidade": true,
+      "unidade": true,
+      "prazo_entrega": true,
+      "valor_unitario": true,
+      "moeda": true,
+      "fornecedor": true
+    },
+    "caso_correto": true
+  }
+}

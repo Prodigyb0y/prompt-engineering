@@ -1,0 +1,32 @@
+{
+  "tecnica": "T3",
+  "prompt_versao": "v1",
+  "prompt_hash12": "b3a7a7a94ceb",
+  "caso": "D42",
+  "tipo": "moeda_extenso",
+  "repeticao": 1,
+  "resposta": "<raciocinio>\n1. Área solicitante: o texto diz \"para a área de Compras\", então solicitante_area = \"Compras\".\n2. Item: \"papel A4\".\n3. Quantidade: \"100 unidades\", então quantidade = 100.\n4. Unidade: \"unidades\" corresponde a \"un\", a única opção adequada da lista.\n5. Prazo: \"16-mar-2026\" equivale a 16 de março de 2026, formato AAAA-MM-DD = 2026-03-16.\n6. Valor unitário: \"89,90\" no formato decimal brasileiro equivale a 89.90.\n7. Moeda: \"dólares\" corresponde a USD.\n8. Fornecedor: \"Informática Bitmais\".\n9. Não há campos extras a incluir.\n</raciocinio>\n\n<json>\n{\n  \"solicitante_area\": \"Compras\",\n  \"item\": \"Papel A4\",\n  \"quantidade\": 100,\n  \"unidade\": \"un\",\n  \"prazo_entrega\": \"2026-03-16\",\n  \"valor_unitario\": 89.90,\n  \"moeda\": \"USD\",\n  \"fornecedor\": \"Informática Bitmais\"\n}\n</json>",
+  "tokens_entrada": 335,
+  "tokens_saida": 556,
+  "custo_usd": 0.0003115,
+  "latencia_s": 3.2597413000003144,
+  "tentativas": 1,
+  "stop_reason": "end_turn",
+  "esforco": "low",
+  "modelo": "claude-haiku-5-5",
+  "avaliacao": {
+    "json_valido": true,
+    "schema_valido": true,
+    "campos": {
+      "solicitante_area": true,
+      "item": true,
+      "quantidade": true,
+      "unidade": true,
+      "prazo_entrega": true,
+      "valor_unitario": true,
+      "moeda": true,
+      "fornecedor": true
+    },
+    "caso_correto": true
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "tecnica": "T3",
+  "prompt_versao": "v1",
+  "prompt_hash12": "b3a7a7a94ceb",
+  "caso": "C01",
+  "tipo": "completa",
+  "repeticao": 1,
+  "resposta": "<raciocinio>\n1. \"Financeiro\" é a área do solicitante, então solicitante_area = \"Financeiro\".\n2. O item solicitado é \"parafuso sextavado\", então item = \"Parafuso sextavado\".\n3. \"5 caixas\" indica quantidade = 5 e unidade = \"cx\", que está entre as opções permitidas.\n4. \"Valor unitário R$ 8,90\" indica valor_unitario = 8.9 e moeda = \"BRL\", pois o símbolo R$ corresponde ao real.\n5. \"Chegar em 5 de abril de 2026\" converte para o formato AAAA-MM-DD: \"2026-04-05\".\n6. O fornecedor informado é \"Metalúrgica Vale Verde\".\n7. O JSON deve conter apenas os oito campos especificados, sem campos extras.\n</raciocinio>\n\n<json>\n{\"solicitante_area\": \"Financeiro\", \"item\": \"Parafuso sextavado\", \"quantidade\": 5, \"unidade\": \"cx\", \"prazo_entrega\": \"2026-04-05\", \"valor_unitario\": 8.9, \"moeda\": \"BRL\", \"fornecedor\": \"Metalúrgica Vale Verde\"}\n</json>",
+  "tokens_entrada": 347,
+  "tokens_saida": 676,
+  "custo_usd": 0.0003727,
+  "latencia_s": 5.9796114999990095,
+  "tentativas": 1,
+  "stop_reason": "end_turn",
+  "esforco": "low",
+  "modelo": "claude-haiku-5-5",
+  "avaliacao": {
+    "json_valido": true,
+    "schema_valido": true,
+    "campos": {
+      "solicitante_area": true,
+      "item": true,
+      "quantidade": true,
+      "unidade": true,
+      "prazo_entrega": true,
+      "valor_unitario": true,
+      "moeda": true,
+      "fornecedor": true
+    },
+    "caso_correto": true
+  }
+}

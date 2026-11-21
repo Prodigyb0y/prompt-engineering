@@ -1,0 +1,32 @@
+{
+  "tecnica": "T3",
+  "prompt_versao": "v1",
+  "prompt_hash12": "b3a7a7a94ceb",
+  "caso": "C23",
+  "tipo": "valor_br",
+  "repeticao": 3,
+  "resposta": "<raciocinio>\n1. **solicitante_area**: o texto diz \"para a área de Marketing\", então o valor é \"Marketing\".\n2. **item**: \"cabo elétrico 2,5mm\", descrição do produto solicitado.\n3. **quantidade**: \"Solicito 20 m\", logo o número é 20.\n4. **unidade**: a medida informada é \"m\", que está na lista permitida.\n5. **prazo_entrega**: \"14 de dezembro de 2026\" convertido para AAAA-MM-DD resulta em 2026-12-14.\n6. **valor_unitario**: \"Cada unidade custa R$ 1.200,00\", então o valor é 1200.0. O texto diz \"cada unidade\", mas a unidade de medida é metro. Extraio o valor como informado, sem alterá-lo.\n7. **moeda**: o símbolo \"R$\" indica real, portanto \"BRL\".\n8. **fornecedor**: \"cotação feita com Papelaria Aurora Ltda\", então o valor é \"Papelaria Aurora Ltda\".\n\nNenhum campo está ausente, então nenhum recebe null.\n</raciocinio>\n\n<json>\n{\n  \"solicitante_area\": \"Marketing\",\n  \"item\": \"Cabo elétrico 2,5mm\",\n  \"quantidade\": 20,\n  \"unidade\": \"m\",\n  \"prazo_entrega\": \"2026-12-14\",\n  \"valor_unitario\": 1200.0,\n  \"moeda\": \"BRL\",\n  \"fornecedor\": \"Papelaria Aurora Ltda\"\n}\n</json>",
+  "tokens_entrada": 354,
+  "tokens_saida": 863,
+  "custo_usd": 0.00046689999999999996,
+  "latencia_s": 3.779042899997876,
+  "tentativas": 1,
+  "stop_reason": "end_turn",
+  "esforco": "low",
+  "modelo": "claude-haiku-5-5",
+  "avaliacao": {
+    "json_valido": true,
+    "schema_valido": true,
+    "campos": {
+      "solicitante_area": true,
+      "item": true,
+      "quantidade": true,
+      "unidade": true,
+      "prazo_entrega": true,
+      "valor_unitario": true,
+      "moeda": true,
+      "fornecedor": true
+    },
+    "caso_correto": true
+  }
+}

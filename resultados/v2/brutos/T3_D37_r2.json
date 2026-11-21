@@ -1,0 +1,32 @@
+{
+  "tecnica": "T3",
+  "prompt_versao": "v1",
+  "prompt_hash12": "b3a7a7a94ceb",
+  "caso": "D37",
+  "tipo": "numero_extenso",
+  "repeticao": 2,
+  "resposta": "<raciocinio>\n1. Área do solicitante: o texto indica \"solicitante: Compras\", então solicitante_area = \"Compras\".\n2. Item: \"tinta acrílica branca\".\n3. Quantidade: \"cinco litros\", então quantidade = 5.\n4. Unidade: litros corresponde a \"l\", que está na lista permitida.\n5. Prazo de entrega: \"10 de setembro de 2026\" vira 2026-09-10.\n6. Valor unitário: \"R$ 12,50\" vira o número 12.5 (decimal com ponto).\n7. Moeda: o símbolo \"R$\" indica real, então moeda = \"BRL\".\n8. Fornecedor: \"Informática Bitmais\". O nome sugere uma empresa de informática, o que parece pouco compatível com a compra de tinta, mas o campo deve refletir o que está escrito na solicitação, então mantenho o nome como consta.\n9. Não há campos extras a incluir.\n</raciocinio>\n\n<json>\n{\n  \"solicitante_area\": \"Compras\",\n  \"item\": \"tinta acrílica branca\",\n  \"quantidade\": 5,\n  \"unidade\": \"l\",\n  \"prazo_entrega\": \"2026-09-10\",\n  \"valor_unitario\": 12.5,\n  \"moeda\": \"BRL\",\n  \"fornecedor\": \"Informática Bitmais\"\n}\n</json>",
+  "tokens_entrada": 342,
+  "tokens_saida": 692,
+  "custo_usd": 0.00038019999999999997,
+  "latencia_s": 3.567386800001259,
+  "tentativas": 1,
+  "stop_reason": "end_turn",
+  "esforco": "low",
+  "modelo": "claude-haiku-5-5",
+  "avaliacao": {
+    "json_valido": true,
+    "schema_valido": true,
+    "campos": {
+      "solicitante_area": true,
+      "item": true,
+      "quantidade": true,
+      "unidade": true,
+      "prazo_entrega": true,
+      "valor_unitario": true,
+      "moeda": true,
+      "fornecedor": true
+    },
+    "caso_correto": true
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "tecnica": "T3",
+  "prompt_versao": "v1",
+  "prompt_hash12": "b3a7a7a94ceb",
+  "caso": "D40",
+  "tipo": "numero_extenso",
+  "repeticao": 3,
+  "resposta": "<raciocinio>\n1. A área solicitante é \"Financeiro\", mencionada explicitamente.\n2. O item é \"luva de proteção\".\n3. A quantidade é \"cinquenta\", ou seja, 50.\n4. A unidade é \"unidade\", que corresponde a \"un\".\n5. O prazo de entrega é \"2026-08-03\", já no formato AAAA-MM-DD.\n6. O valor unitário é \"R$ 35,00\", então 35.0 como número.\n7. A moeda é real (R$), que corresponde a \"BRL\".\n8. O fornecedor é \"Tecidos Santa Clara\".\n9. Não há campos extras a incluir.\n</raciocinio>\n\n<json>\n{\n  \"solicitante_area\": \"Financeiro\",\n  \"item\": \"luva de proteção\",\n  \"quantidade\": 50,\n  \"unidade\": \"un\",\n  \"prazo_entrega\": \"2026-08-03\",\n  \"valor_unitario\": 35.0,\n  \"moeda\": \"BRL\",\n  \"fornecedor\": \"Tecidos Santa Clara\"\n}\n</json>",
+  "tokens_entrada": 346,
+  "tokens_saida": 599,
+  "custo_usd": 0.00033410000000000004,
+  "latencia_s": 2.8836386000002676,
+  "tentativas": 1,
+  "stop_reason": "end_turn",
+  "esforco": "low",
+  "modelo": "claude-haiku-5-5",
+  "avaliacao": {
+    "json_valido": true,
+    "schema_valido": true,
+    "campos": {
+      "solicitante_area": true,
+      "item": true,
+      "quantidade": true,
+      "unidade": true,
+      "prazo_entrega": true,
+      "valor_unitario": true,
+      "moeda": true,
+      "fornecedor": true
+    },
+    "caso_correto": true
+  }
+}

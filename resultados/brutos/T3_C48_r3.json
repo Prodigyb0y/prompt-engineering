@@ -1,0 +1,32 @@
+{
+  "tecnica": "T3",
+  "prompt_versao": "v1",
+  "prompt_hash12": "b3a7a7a94ceb",
+  "caso": "C48",
+  "tipo": "duas_quantidades",
+  "repeticao": 3,
+  "resposta": "<raciocinio>\n1. Área do solicitante: a mensagem diz \"para a área de Produção\", então solicitante_area = \"Produção\".\n2. Item: \"teclado sem fio\".\n3. Quantidade: \"4 unidades\", então quantidade = 4. O estoque de 9 unidades não é um campo pedido e não altera a quantidade solicitada.\n4. Unidade: \"unidades\" corresponde a \"un\".\n5. Prazo de entrega: \"1 de maio de 2026\", no formato AAAA-MM-DD, é 2026-05-01.\n6. Valor unitário: \"R$ 2450,75 por unidade\", então valor_unitario = 2450.75.\n7. Moeda: o símbolo \"R$\" indica BRL.\n8. Fornecedor: \"Distribuidora Pinheiro\".\n9. Não há campos extras no JSON, conforme solicitado.\n</raciocinio>\n<json>\n{\n  \"solicitante_area\": \"Produção\",\n  \"item\": \"teclado sem fio\",\n  \"quantidade\": 4,\n  \"unidade\": \"un\",\n  \"prazo_entrega\": \"2026-05-01\",\n  \"valor_unitario\": 2450.75,\n  \"moeda\": \"BRL\",\n  \"fornecedor\": \"Distribuidora Pinheiro\"\n}\n</json>",
+  "tokens_entrada": 370,
+  "tokens_saida": 653,
+  "custo_usd": 0.0003635,
+  "latencia_s": 2.9567215999995824,
+  "tentativas": 1,
+  "stop_reason": "end_turn",
+  "esforco": "low",
+  "modelo": "claude-haiku-5-5",
+  "avaliacao": {
+    "json_valido": true,
+    "schema_valido": true,
+    "campos": {
+      "solicitante_area": true,
+      "item": true,
+      "quantidade": true,
+      "unidade": true,
+      "prazo_entrega": true,
+      "valor_unitario": true,
+      "moeda": true,
+      "fornecedor": true
+    },
+    "caso_correto": true
+  }
+}

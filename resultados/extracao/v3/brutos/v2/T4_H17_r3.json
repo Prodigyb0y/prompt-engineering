@@ -1,0 +1,32 @@
+{
+  "tecnica": "T4",
+  "prompt_versao": "v2",
+  "prompt_hash12": "2c3ccc1873da",
+  "caso": "H17",
+  "tipo": "campos_faltando",
+  "repeticao": 3,
+  "resposta": "{\"solicitante_area\": \"Marketing\", \"item\": \"solda em barra\", \"quantidade\": 100, \"unidade\": \"kg\", \"prazo_entrega\": null, \"valor_unitario\": 380, \"moeda\": \"BRL\", \"fornecedor\": \"Distribuidora Pinheiro\"}",
+  "tokens_entrada": 753,
+  "tokens_saida": 99,
+  "custo_usd": 0.0001248,
+  "latencia_s": 0.9656154999975115,
+  "tentativas": 1,
+  "stop_reason": "end_turn",
+  "esforco": "low",
+  "modelo": "claude-haiku-5-5",
+  "avaliacao": {
+    "json_valido": true,
+    "schema_valido": true,
+    "campos": {
+      "solicitante_area": true,
+      "item": true,
+      "quantidade": true,
+      "unidade": true,
+      "prazo_entrega": true,
+      "valor_unitario": true,
+      "moeda": true,
+      "fornecedor": true
+    },
+    "caso_correto": true
+  }
+}

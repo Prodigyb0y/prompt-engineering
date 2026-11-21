@@ -1,0 +1,32 @@
+{
+  "tecnica": "T4",
+  "prompt_versao": "v2",
+  "prompt_hash12": "2c3ccc1873da",
+  "caso": "D26",
+  "tipo": "duas_quantidades",
+  "repeticao": 2,
+  "resposta": "{\"solicitante_area\": \"Manutenção\", \"item\": \"toner preto\", \"quantidade\": 15, \"unidade\": \"un\", \"prazo_entrega\": \"2026-03-26\", \"valor_unitario\": 1200, \"moeda\": \"BRL\", \"fornecedor\": \"Embalagens Ponto Certo\"}",
+  "tokens_entrada": 790,
+  "tokens_saida": 192,
+  "custo_usd": 0.000175,
+  "latencia_s": 1.386601200007135,
+  "tentativas": 1,
+  "stop_reason": "end_turn",
+  "esforco": "low",
+  "modelo": "claude-haiku-5-5",
+  "avaliacao": {
+    "json_valido": true,
+    "schema_valido": true,
+    "campos": {
+      "solicitante_area": true,
+      "item": true,
+      "quantidade": true,
+      "unidade": true,
+      "prazo_entrega": true,
+      "valor_unitario": true,
+      "moeda": true,
+      "fornecedor": true
+    },
+    "caso_correto": true
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "tecnica": "T4",
+  "prompt_versao": "v1",
+  "prompt_hash12": "bb14abcde430",
+  "caso": "H10",
+  "tipo": "numero_extenso",
+  "repeticao": 1,
+  "resposta": "{\"solicitante_area\":\"Produção\",\"item\":\"cadeira ergonômica\",\"quantidade\":12,\"unidade\":\"un\",\"prazo_entrega\":\"2026-07-03\",\"valor_unitario\":8.9,\"moeda\":\"BRL\",\"fornecedor\":\"Tecidos Santa Clara\"}",
+  "tokens_entrada": 704,
+  "tokens_saida": 101,
+  "custo_usd": 0.00012090000000000001,
+  "latencia_s": 0.9023999999917578,
+  "tentativas": 1,
+  "stop_reason": "end_turn",
+  "esforco": "low",
+  "modelo": "claude-haiku-5-5",
+  "avaliacao": {
+    "json_valido": true,
+    "schema_valido": true,
+    "campos": {
+      "solicitante_area": true,
+      "item": true,
+      "quantidade": true,
+      "unidade": true,
+      "prazo_entrega": true,
+      "valor_unitario": true,
+      "moeda": true,
+      "fornecedor": true
+    },
+    "caso_correto": true
+  }
+}

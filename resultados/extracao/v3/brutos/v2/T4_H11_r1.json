@@ -1,0 +1,32 @@
+{
+  "tecnica": "T4",
+  "prompt_versao": "v2",
+  "prompt_hash12": "2c3ccc1873da",
+  "caso": "H11",
+  "tipo": "numero_extenso",
+  "repeticao": 1,
+  "resposta": "{\"solicitante_area\": \"Logística\", \"item\": \"monitor 24 polegadas\", \"quantidade\": 8, \"unidade\": \"un\", \"prazo_entrega\": \"2026-06-22\", \"valor_unitario\": 380, \"moeda\": \"BRL\", \"fornecedor\": \"Informática Bitmais\"}",
+  "tokens_entrada": 773,
+  "tokens_saida": 104,
+  "custo_usd": 0.0001293,
+  "latencia_s": 0.8831970000028377,
+  "tentativas": 1,
+  "stop_reason": "end_turn",
+  "esforco": "low",
+  "modelo": "claude-haiku-5-5",
+  "avaliacao": {
+    "json_valido": true,
+    "schema_valido": true,
+    "campos": {
+      "solicitante_area": true,
+      "item": true,
+      "quantidade": true,
+      "unidade": true,
+      "prazo_entrega": true,
+      "valor_unitario": true,
+      "moeda": true,
+      "fornecedor": true
+    },
+    "caso_correto": true
+  }
+}

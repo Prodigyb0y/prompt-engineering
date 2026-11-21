@@ -1,0 +1,32 @@
+{
+  "tecnica": "T3",
+  "prompt_versao": "v1",
+  "prompt_hash12": "b3a7a7a94ceb",
+  "caso": "D26",
+  "tipo": "duas_quantidades",
+  "repeticao": 2,
+  "resposta": "<raciocinio>\n1. **solicitante_area**: O texto diz \"para a área de Manutenção\", então o valor é \"Manutenção\".\n2. **item**: O produto solicitado é \"toner preto\".\n3. **quantidade**: \"Preciso comprar 15 unidades\", logo 15. Os 9 itens em estoque são contexto e não alteram a quantidade solicitada.\n4. **unidade**: \"unidades\" corresponde a \"un\".\n5. **prazo_entrega**: \"26-mar-2026\" é 26 de março de 2026, em formato AAAA-MM-DD: 2026-03-26.\n6. **valor_unitario**: \"preço de tabela: R$ 1200,00 por unidade\" resulta em 1200.0.\n7. **moeda**: O símbolo \"R$\" indica real, então \"BRL\".\n8. **fornecedor**: \"Embalagens Ponto Certo\".\n</raciocinio>\n\n<json>\n{\n  \"solicitante_area\": \"Manutenção\",\n  \"item\": \"toner preto\",\n  \"quantidade\": 15,\n  \"unidade\": \"un\",\n  \"prazo_entrega\": \"2026-03-26\",\n  \"valor_unitario\": 1200.00,\n  \"moeda\": \"BRL\",\n  \"fornecedor\": \"Embalagens Ponto Certo\"\n}\n</json>",
+  "tokens_entrada": 364,
+  "tokens_saida": 643,
+  "custo_usd": 0.00035789999999999997,
+  "latencia_s": 3.2010001999988162,
+  "tentativas": 1,
+  "stop_reason": "end_turn",
+  "esforco": "low",
+  "modelo": "claude-haiku-5-5",
+  "avaliacao": {
+    "json_valido": true,
+    "schema_valido": true,
+    "campos": {
+      "solicitante_area": true,
+      "item": true,
+      "quantidade": true,
+      "unidade": true,
+      "prazo_entrega": true,
+      "valor_unitario": true,
+      "moeda": true,
+      "fornecedor": true
+    },
+    "caso_correto": true
+  }
+}

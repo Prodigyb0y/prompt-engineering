@@ -1,0 +1,32 @@
+{
+  "tecnica": "T3",
+  "prompt_versao": "v1",
+  "prompt_hash12": "b3a7a7a94ceb",
+  "caso": "D36",
+  "tipo": "valor_total",
+  "repeticao": 3,
+  "resposta": "<raciocinio>\n1. **solicitante_area:** A mensagem diz \"para a área de Manutenção\", então o valor é \"Manutenção\".\n2. **item:** O produto solicitado é \"fita adesiva\".\n3. **quantidade:** São \"25 caixas\", logo o valor é 25.\n4. **unidade:** \"caixas\" corresponde a \"cx\" na lista de valores permitidos.\n5. **prazo_entrega:** \"25 de setembro de 2026\" convertido para o formato AAAA-MM-DD resulta em 2026-09-25.\n6. **valor_unitario:** A mensagem informa o valor total de €222,50, não o unitário. Dividindo pela quantidade: 222,50 / 25 = 8,90 por caixa.\n7. **moeda:** O símbolo \"€\" indica euro, então o valor é \"EUR\".\n8. **fornecedor:** \"Pode ser com a Químicos Horizonte\" indica o fornecedor, então o valor é \"Químicos Horizonte\".\n</raciocinio>\n\n<json>\n{\n  \"solicitante_area\": \"Manutenção\",\n  \"item\": \"fita adesiva\",\n  \"quantidade\": 25,\n  \"unidade\": \"cx\",\n  \"prazo_entrega\": \"2026-09-25\",\n  \"valor_unitario\": 8.9,\n  \"moeda\": \"EUR\",\n  \"fornecedor\": \"Químicos Horizonte\"\n}\n</json>",
+  "tokens_entrada": 335,
+  "tokens_saida": 794,
+  "custo_usd": 0.0004305,
+  "latencia_s": 5.800725799999782,
+  "tentativas": 1,
+  "stop_reason": "end_turn",
+  "esforco": "low",
+  "modelo": "claude-haiku-5-5",
+  "avaliacao": {
+    "json_valido": true,
+    "schema_valido": true,
+    "campos": {
+      "solicitante_area": true,
+      "item": true,
+      "quantidade": true,
+      "unidade": true,
+      "prazo_entrega": true,
+      "valor_unitario": true,
+      "moeda": true,
+      "fornecedor": true
+    },
+    "caso_correto": true
+  }
+}

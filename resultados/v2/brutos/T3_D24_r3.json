@@ -1,0 +1,32 @@
+{
+  "tecnica": "T3",
+  "prompt_versao": "v1",
+  "prompt_hash12": "b3a7a7a94ceb",
+  "caso": "D24",
+  "tipo": "ruido",
+  "repeticao": 3,
+  "resposta": "<raciocinio>\n1. solicitante_area: a mensagem informa \"(solicitante: Marketing)\", então o valor é \"Marketing\".\n2. item: o pedido é de \"etiqueta adesiva\".\n3. quantidade: \"15 cx\" indica 15.\n4. unidade: \"cx\", que está na lista permitida.\n5. prazo_entrega: \"Entrga até 2026-08-22\", já no formato AAAA-MM-DD, então é \"2026-08-22\".\n6. valor_unitario: \"preço de tabela: R$ 35,00 por unidade\" resulta em 35.00.\n7. moeda: o símbolo \"R$\" indica real, então é \"BRL\".\n8. fornecedor: \"cotação feita com Informática Bitmais\" indica o fornecedor \"Informática Bitmais\".\n</raciocinio>\n\n<json>\n{\n  \"solicitante_area\": \"Marketing\",\n  \"item\": \"etiqueta adesiva\",\n  \"quantidade\": 15,\n  \"unidade\": \"cx\",\n  \"prazo_entrega\": \"2026-08-22\",\n  \"valor_unitario\": 35.00,\n  \"moeda\": \"BRL\",\n  \"fornecedor\": \"Informática Bitmais\"\n}\n</json>",
+  "tokens_entrada": 352,
+  "tokens_saida": 685,
+  "custo_usd": 0.00037769999999999997,
+  "latencia_s": 3.484754500001145,
+  "tentativas": 1,
+  "stop_reason": "end_turn",
+  "esforco": "low",
+  "modelo": "claude-haiku-5-5",
+  "avaliacao": {
+    "json_valido": true,
+    "schema_valido": true,
+    "campos": {
+      "solicitante_area": true,
+      "item": true,
+      "quantidade": true,
+      "unidade": true,
+      "prazo_entrega": true,
+      "valor_unitario": true,
+      "moeda": true,
+      "fornecedor": true
+    },
+    "caso_correto": true
+  }
+}

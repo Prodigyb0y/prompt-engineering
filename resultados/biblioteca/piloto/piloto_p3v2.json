@@ -1,0 +1,10 @@
+{
+  "chamadas": 5,
+  "acertos": 5,
+  "erro": null,
+  "custo_total_usd": 0.0006334,
+  "custo_medio_usd": 0.00012668,
+  "latencia_media_s": 1.442236460003187,
+  "projecao_rodada_completa_usd": 0.0163008,
+  "gasto_piloto_usd": 0.0006334
+}

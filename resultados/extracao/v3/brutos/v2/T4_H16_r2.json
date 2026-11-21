@@ -1,0 +1,32 @@
+{
+  "tecnica": "T4",
+  "prompt_versao": "v2",
+  "prompt_hash12": "2c3ccc1873da",
+  "caso": "H16",
+  "tipo": "campos_faltando",
+  "repeticao": 2,
+  "resposta": "{\"solicitante_area\": null, \"item\": \"luva de proteção\", \"quantidade\": 25, \"unidade\": \"un\", \"prazo_entrega\": \"2026-04-25\", \"valor_unitario\": null, \"moeda\": null, \"fornecedor\": null}",
+  "tokens_entrada": 725,
+  "tokens_saida": 84,
+  "custo_usd": 0.0001145,
+  "latencia_s": 0.9276413000043249,
+  "tentativas": 1,
+  "stop_reason": "end_turn",
+  "esforco": "low",
+  "modelo": "claude-haiku-5-5",
+  "avaliacao": {
+    "json_valido": true,
+    "schema_valido": true,
+    "campos": {
+      "solicitante_area": true,
+      "item": true,
+      "quantidade": true,
+      "unidade": true,
+      "prazo_entrega": true,
+      "valor_unitario": true,
+      "moeda": true,
+      "fornecedor": true
+    },
+    "caso_correto": true
+  }
+}

@@ -419,7 +419,73 @@
       "latencia_mediana_s": 1.9878982000009273
     },
     "E6/encadeado_v2": {
-      "medido": false
+      "medido": true,
+      "casos": 20,
+      "respostas": 60,
+      "repeticoes": 3,
+      "completo": true,
+      "prompts": [
+        "P1 system_prompt v2 2c3ccc1873da",
+        "P3 encadeado v2 01f069156bb0"
+      ],
+      "acerto_caso_media": 0.9833333333333334,
+      "acerto_caso_rep_min": 0.95,
+      "acerto_caso_rep_max": 1.0,
+      "ic95_baixo": 0.95,
+      "ic95_alto": 1.0,
+      "acerto_por_caso": {
+        "E01": 1.0,
+        "E02": 1.0,
+        "E03": 0.6666666666666666,
+        "E04": 1.0,
+        "E05": 1.0,
+        "E06": 1.0,
+        "E07": 1.0,
+        "E08": 1.0,
+        "E09": 1.0,
+        "E10": 1.0,
+        "E11": 1.0,
+        "E12": 1.0,
+        "E13": 1.0,
+        "E14": 1.0,
+        "E15": 1.0,
+        "E16": 1.0,
+        "E17": 1.0,
+        "E18": 1.0,
+        "E19": 1.0,
+        "E20": 1.0
+      },
+      "acerto_tipo": {
+        "completa": 1.0,
+        "falta_dois": 0.9166666666666666,
+        "falta_quatro": 1.0,
+        "falta_tres": 1.0,
+        "falta_um": 1.0,
+        "prazo_relativo": 1.0,
+        "so_valor_total": 1.0
+      },
+      "acerto_campo": {
+        "solicitante_area": 1.0,
+        "prazo_entrega": 1.0,
+        "valor_unitario": 0.9833333333333333,
+        "fornecedor": 1.0
+      },
+      "json_valido": null,
+      "truncadas": 0,
+      "chamadas_por_resposta": 2.0,
+      "tokens_entrada_media": 1514.0333333333333,
+      "tokens_saida_media": 243.85,
+      "custo_total_usd": 0.0163997,
+      "custo_por_resposta_usd": 0.0002733283333333333,
+      "custo_por_acerto_usd": 0.00027796101694915255,
+      "latencia_media_s": 2.188821453332882,
+      "latencia_mediana_s": 2.1325440500077093,
+      "extras": {
+        "formato_ok": 1.0,
+        "faltou_citar_total": 0,
+        "citou_a_mais_total": 1,
+        "palavras_corpo_media": 34.333333333333336
+      }
     }
   },
   "comparacoes": {
@@ -484,14 +550,33 @@
     "E6": {
       "base": "encadeado_v1",
       "alternativa": "encadeado_v2",
-      "medido": false
+      "casos_comparados": 20,
+      "a_favor_base": 1,
+      "a_favor_alternativa": 8,
+      "p_sinal": 0.0390625,
+      "casos_melhores_na_alternativa": [
+        "E04",
+        "E05",
+        "E06",
+        "E07",
+        "E10",
+        "E13",
+        "E15",
+        "E20"
+      ],
+      "casos_melhores_na_base": [
+        "E03"
+      ],
+      "diferenca_acerto_pp": 20.000000000000007,
+      "razao_custo": 1.0657875924457672,
+      "razao_latencia": 1.0030357366307443
     }
   },
   "custo_novo_usd": {
-    "piloto": 0.0035442,
-    "rodadas": 0.0814952,
-    "total": 0.0850394
+    "piloto": 0.0041776,
+    "rodadas": 0.0978949,
+    "total": 0.10207250000000001
   },
-  "chamadas_novas": 500,
-  "piloto_chamadas": 20
+  "chamadas_novas": 625,
+  "piloto_chamadas": 25
 }

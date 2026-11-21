@@ -1,0 +1,32 @@
+{
+  "tecnica": "T3",
+  "prompt_versao": "v1",
+  "prompt_hash12": "b3a7a7a94ceb",
+  "caso": "C50",
+  "tipo": "duas_quantidades",
+  "repeticao": 2,
+  "resposta": "<raciocinio>\n1. **solicitante_area**: a solicitação indica \"solicitante: Financeiro\", então o valor é \"Financeiro\".\n2. **item**: o produto solicitado é \"tinta acrílica branca\".\n3. **quantidade**: \"Preciso comprar 3 l\", logo a quantidade é 3. O número \"60\" refere-se ao estoque atual e não à compra, portanto é ignorado.\n4. **unidade**: \"l\" corresponde a litros, que está na lista permitida como \"l\".\n5. **prazo_entrega**: \"04-abr-2026\" convertido para AAAA-MM-DD resulta em \"2026-04-04\".\n6. **valor_unitario**: \"R$ 2450,75\" por unidade, com vírgula decimal, resulta em 2450.75.\n7. **moeda**: o símbolo \"R$\" indica real, então o valor é \"BRL\".\n8. **fornecedor**: \"Pode ser com a Eletrotécnica Faísca\" indica um fornecedor sugerido, então o valor é \"Eletrotécnica Faísca\".\n</raciocinio>\n\n<json>\n{\n  \"solicitante_area\": \"Financeiro\",\n  \"item\": \"tinta acrílica branca\",\n  \"quantidade\": 3,\n  \"unidade\": \"l\",\n  \"prazo_entrega\": \"2026-04-04\",\n  \"valor_unitario\": 2450.75,\n  \"moeda\": \"BRL\",\n  \"fornecedor\": \"Eletrotécnica Faísca\"\n}\n</json>",
+  "tokens_entrada": 365,
+  "tokens_saida": 674,
+  "custo_usd": 0.0003735,
+  "latencia_s": 2.8279680000014196,
+  "tentativas": 1,
+  "stop_reason": "end_turn",
+  "esforco": "low",
+  "modelo": "claude-haiku-5-5",
+  "avaliacao": {
+    "json_valido": true,
+    "schema_valido": true,
+    "campos": {
+      "solicitante_area": true,
+      "item": true,
+      "quantidade": true,
+      "unidade": true,
+      "prazo_entrega": true,
+      "valor_unitario": true,
+      "moeda": true,
+      "fornecedor": true
+    },
+    "caso_correto": true
+  }
+}

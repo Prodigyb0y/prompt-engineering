@@ -1,0 +1,32 @@
+{
+  "tecnica": "T4",
+  "prompt_versao": "v2",
+  "prompt_hash12": "2c3ccc1873da",
+  "caso": "H03",
+  "tipo": "valor_total",
+  "repeticao": 3,
+  "resposta": "{\"solicitante_area\": \"Compras\", \"item\": \"parafuso sextavado\", \"quantidade\": 5, \"unidade\": \"cx\", \"prazo_entrega\": \"2026-08-28\", \"valor_unitario\": 4.5, \"moeda\": \"BRL\", \"fornecedor\": \"Embalagens Ponto Certo\"}",
+  "tokens_entrada": 763,
+  "tokens_saida": 109,
+  "custo_usd": 0.0001308,
+  "latencia_s": 0.9688006000069436,
+  "tentativas": 1,
+  "stop_reason": "end_turn",
+  "esforco": "low",
+  "modelo": "claude-haiku-5-5",
+  "avaliacao": {
+    "json_valido": true,
+    "schema_valido": true,
+    "campos": {
+      "solicitante_area": true,
+      "item": true,
+      "quantidade": true,
+      "unidade": true,
+      "prazo_entrega": true,
+      "valor_unitario": true,
+      "moeda": true,
+      "fornecedor": true
+    },
+    "caso_correto": true
+  }
+}

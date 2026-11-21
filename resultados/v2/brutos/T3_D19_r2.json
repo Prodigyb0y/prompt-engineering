@@ -1,0 +1,32 @@
+{
+  "tecnica": "T3",
+  "prompt_versao": "v1",
+  "prompt_hash12": "b3a7a7a94ceb",
+  "caso": "D19",
+  "tipo": "data_relativa",
+  "repeticao": 2,
+  "resposta": "<raciocinio>\n1. **solicitante_area:** o texto menciona \"para a área de Produção\", então o valor é \"Produção\".\n2. **item:** o material solicitado é \"solda em barra\".\n3. **quantidade:** são 5 unidades, portanto 5.\n4. **unidade:** a quantidade veio em \"kg\", que está na lista permitida, então \"kg\".\n5. **prazo_entrega:** o pedido diz \"o quanto antes, daqui uns 20 dias\", mas não informa a data de referência para calcular uma data exata no formato AAAA-MM-DD. Por isso, o valor é null.\n6. **valor_unitario:** \"R$ 8,90\" corresponde a 8.90 como número.\n7. **moeda:** o símbolo R$ indica real, então \"BRL\".\n8. **fornecedor:** foi indicado \"Embalagens Ponto Certo\" (\"Pode ser com...\"), então esse é o fornecedor.\n</raciocinio>\n\n<json>\n{\n  \"solicitante_area\": \"Produção\",\n  \"item\": \"solda em barra\",\n  \"quantidade\": 5,\n  \"unidade\": \"kg\",\n  \"prazo_entrega\": null,\n  \"valor_unitario\": 8.90,\n  \"moeda\": \"BRL\",\n  \"fornecedor\": \"Embalagens Ponto Certo\"\n}\n</json>",
+  "tokens_entrada": 346,
+  "tokens_saida": 628,
+  "custo_usd": 0.0003486,
+  "latencia_s": 3.9913851999990584,
+  "tentativas": 1,
+  "stop_reason": "end_turn",
+  "esforco": "low",
+  "modelo": "claude-haiku-5-5",
+  "avaliacao": {
+    "json_valido": true,
+    "schema_valido": true,
+    "campos": {
+      "solicitante_area": true,
+      "item": true,
+      "quantidade": true,
+      "unidade": true,
+      "prazo_entrega": true,
+      "valor_unitario": true,
+      "moeda": true,
+      "fornecedor": true
+    },
+    "caso_correto": true
+  }
+}

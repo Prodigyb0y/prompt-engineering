@@ -1,0 +1,32 @@
+{
+  "tecnica": "T3",
+  "prompt_versao": "v1",
+  "prompt_hash12": "b3a7a7a94ceb",
+  "caso": "C09",
+  "tipo": "campos_faltando",
+  "repeticao": 2,
+  "resposta": "<raciocinio>\n1. solicitante_area: o texto indica \"solicitante: Manutenção\", então o valor é \"Manutenção\".\n2. item: o material solicitado é \"cabo elétrico 2,5mm\".\n3. quantidade: foram pedidos 40 metros, logo o número é 40.\n4. unidade: a medida é metros, que corresponde a \"m\".\n5. prazo_entrega: \"precisa chegar em 2026-09-25\", já no formato AAAA-MM-DD, então é \"2026-09-25\".\n6. valor_unitario: não há preço na solicitação, portanto null.\n7. moeda: sem valor informado, portanto null.\n8. fornecedor: \"Embalagens Ponto Certo\".\n9. Campos extras não devem ser incluídos, e a saudação não entra no JSON.\n</raciocinio>\n<json>\n{\n  \"solicitante_area\": \"Manutenção\",\n  \"item\": \"cabo elétrico 2,5mm\",\n  \"quantidade\": 40,\n  \"unidade\": \"m\",\n  \"prazo_entrega\": \"2026-09-25\",\n  \"valor_unitario\": null,\n  \"moeda\": null,\n  \"fornecedor\": \"Embalagens Ponto Certo\"\n}\n</json>",
+  "tokens_entrada": 337,
+  "tokens_saida": 417,
+  "custo_usd": 0.00024219999999999998,
+  "latencia_s": 3.0581296999989718,
+  "tentativas": 1,
+  "stop_reason": "end_turn",
+  "esforco": "low",
+  "modelo": "claude-haiku-5-5",
+  "avaliacao": {
+    "json_valido": true,
+    "schema_valido": true,
+    "campos": {
+      "solicitante_area": true,
+      "item": true,
+      "quantidade": true,
+      "unidade": true,
+      "prazo_entrega": true,
+      "valor_unitario": true,
+      "moeda": true,
+      "fornecedor": true
+    },
+    "caso_correto": true
+  }
+}

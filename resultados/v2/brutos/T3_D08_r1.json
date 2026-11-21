@@ -1,0 +1,32 @@
+{
+  "tecnica": "T3",
+  "prompt_versao": "v1",
+  "prompt_hash12": "b3a7a7a94ceb",
+  "caso": "D08",
+  "tipo": "unidades_variadas",
+  "repeticao": 1,
+  "resposta": "<raciocinio>\n1. Área do solicitante: \"(solicitante: TI)\" indica \"TI\".\n2. Item: \"teclado sem fio\".\n3. Quantidade: \"10unidades\", então 10.\n4. Unidade: \"unidades\" corresponde a \"un\".\n5. Prazo de entrega: \"18 de março de 2026\" vira 2026-03-18.\n6. Valor unitário: \"R$ 2450,75\" vira 2450.75, usando ponto como separador decimal.\n7. Moeda: o símbolo \"R$\" indica BRL.\n8. Fornecedor: \"Papelaria Aurora Ltda\".\n9. Os campos do JSON são exatamente os oito solicitados, sem campos extras.\n</raciocinio>\n\n<json>\n{\n  \"solicitante_area\": \"TI\",\n  \"item\": \"teclado sem fio\",\n  \"quantidade\": 10,\n  \"unidade\": \"un\",\n  \"prazo_entrega\": \"2026-03-18\",\n  \"valor_unitario\": 2450.75,\n  \"moeda\": \"BRL\",\n  \"fornecedor\": \"Papelaria Aurora Ltda\"\n}\n</json>",
+  "tokens_entrada": 343,
+  "tokens_saida": 557,
+  "custo_usd": 0.0003128,
+  "latencia_s": 3.8863051000007545,
+  "tentativas": 1,
+  "stop_reason": "end_turn",
+  "esforco": "low",
+  "modelo": "claude-haiku-5-5",
+  "avaliacao": {
+    "json_valido": true,
+    "schema_valido": true,
+    "campos": {
+      "solicitante_area": true,
+      "item": true,
+      "quantidade": true,
+      "unidade": true,
+      "prazo_entrega": true,
+      "valor_unitario": true,
+      "moeda": true,
+      "fornecedor": true
+    },
+    "caso_correto": true
+  }
+}

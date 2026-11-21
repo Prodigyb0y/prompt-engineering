@@ -1,0 +1,32 @@
+{
+  "tecnica": "T1",
+  "prompt_versao": "v1",
+  "prompt_hash12": "1ef67d6a52fc",
+  "caso": "D24",
+  "tipo": "ruido",
+  "repeticao": 1,
+  "resposta": "{\"solicitante_area\": \"Marketing\", \"item\": \"etiqueta adesiva\", \"quantidade\": 15, \"unidade\": \"cx\", \"prazo_entrega\": \"2026-08-22\", \"valor_unitario\": 35.0, \"moeda\": \"BRL\", \"fornecedor\": \"Informática Bitmais\"}",
+  "tokens_entrada": 303,
+  "tokens_saida": 252,
+  "custo_usd": 0.0001563,
+  "latencia_s": 1.237618899998779,
+  "tentativas": 1,
+  "stop_reason": "end_turn",
+  "esforco": "low",
+  "modelo": "claude-haiku-5-5",
+  "avaliacao": {
+    "json_valido": true,
+    "schema_valido": true,
+    "campos": {
+      "solicitante_area": true,
+      "item": true,
+      "quantidade": true,
+      "unidade": true,
+      "prazo_entrega": true,
+      "valor_unitario": true,
+      "moeda": true,
+      "fornecedor": true
+    },
+    "caso_correto": true
+  }
+}
