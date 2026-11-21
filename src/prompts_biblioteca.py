@@ -153,6 +153,52 @@ P3_ANATOMIA = [
     ("formato_saida", 'Formato: primeira linha "Assunto: ...", uma linha em branco e o corpo com até 120 palavras. Assine "Equipe de Compras · Gutenberg Systems". Sem markdown.', "Formato e tamanho do e-mail."),
 ]
 
+
+# P3 v2 - escrito DEPOIS de medir o v1 (E4) e ler os erros (resultados/biblioteca/DIAGNOSTICO.md).
+# O que o diagnóstico mostrou no fluxo encadeado: 13 erros em 60 respostas, nenhum por extração errada do P1.
+# 9 vezes o e-mail só "confirmou" um campo já recebido ("já temos a área e o fornecedor") e 4 vezes pediu o valor unitário
+# que já estava preenchido. O v1 dizia "nunca cite um campo preenchido" mas também deixava confirmar o que chegou; o
+# modelo usou essa brecha. O v2 troca a proibição geral por um procedimento: decidir pelo null, listar um por linha e
+# nunca escrever o nome de um campo preenchido (nem para confirmar). Tom, formato e vocabulário ficam como no v1.
+P3V2_CAMPOS_BLOCO = "\n".join([
+    "Como decidir o que falta: olhe os quatro campos abaixo no JSON. Falta o campo cujo valor é null. "
+    "Qualquer outro valor (texto ou número) significa que o campo veio preenchido e NÃO falta.",
+    "Nome exato que você deve usar ao pedir cada campo que falta:",
+    '- solicitante_area null: "área solicitante"',
+    '- prazo_entrega null: "prazo de entrega"',
+    '- valor_unitario null: "valor unitário" (peça também a moeda)',
+    '- fornecedor null: "fornecedor"',
+])
+
+P3V2_REGRAS_RESTO = f"""Regras do e-mail:
+- Abra com uma frase que confirma só o item e a quantidade recebidos. Nessa frase não escreva o nome de nenhum outro campo.
+- Peça os campos que faltam em uma lista, um por linha, cada linha começando com "- " e usando o nome exato do campo.
+- Nunca escreva o nome de um campo que veio preenchido: nem para confirmar que recebeu, nem para dizer que já temos, nem para dizer que não precisa informar. Se o campo não está na lista, ele não aparece no e-mail.
+- Se nenhum campo faltar, responda apenas {P3_SENTINELA}.
+
+Tom: profissional e cordial, frases curtas, trate o solicitante por "você". Sem pedir desculpas, sem tom de cobrança, sem jargão. Termine com um agradecimento breve.
+
+Formato: primeira linha "Assunto: ...", uma linha em branco e o corpo com até 120 palavras. Assine "Equipe de Compras · Gutenberg Systems". Sem markdown."""
+
+P3V2_SYSTEM = ("Você escreve e-mails para a equipe de Compras da Gutenberg Systems (empresa fictícia). "
+               "Você recebe os dados já extraídos de uma solicitação de compra, em JSON, "
+               "e escreve um e-mail curto ao solicitante pedindo apenas as informações que faltam.\n\n"
+               + P3V2_CAMPOS_BLOCO + "\n\n" + P3V2_REGRAS_RESTO)
+P3V2_ANATOMIA = [
+    ("papel", "Você escreve e-mails para a equipe de Compras da Gutenberg Systems (empresa fictícia).", "Papel e empresa (igual ao v1)."),
+    ("contexto", "Você recebe os dados já extraídos de uma solicitação de compra, em JSON,", "Encadeamento: a entrada deste prompt é a saída do P1."),
+    ("tarefa", "e escreve um e-mail curto ao solicitante pedindo apenas as informações que faltam.", "A tarefa: pedir só o que falta."),
+    ("regras", "Falta o campo cujo valor é null. Qualquer outro valor (texto ou número) significa que o campo veio preenchido e NÃO falta.",
+     "Mudança do v2: um procedimento (olhar o null) no lugar de deixar o modelo julgar o que \"falta\"."),
+    ("regras", 'Nome exato que você deve usar ao pedir cada campo que falta:', "Vocabulário controlado, como no v1: permite conferir o e-mail por regra em código."),
+    ("regras", "- Abra com uma frase que confirma só o item e a quantidade recebidos. Nessa frase não escreva o nome de nenhum outro campo.", "Mudança do v2: diz o que fazer com o que já veio, em vez de só proibir."),
+    ("regras", "- Nunca escreva o nome de um campo que veio preenchido: nem para confirmar que recebeu, nem para dizer que já temos, nem para dizer que não precisa informar. Se o campo não está na lista, ele não aparece no e-mail.",
+     "Mudança do v2: fecha a brecha que o diagnóstico encontrou (9 e-mails só confirmavam campos já recebidos)."),
+    ("formato_saida", '- Peça os campos que faltam em uma lista, um por linha, cada linha começando com "- " e usando o nome exato do campo.', "Mudança do v2: lista com um campo por linha, o que também ajuda quem lê."),
+    ("casos_borda", f"- Se nenhum campo faltar, responda apenas {P3_SENTINELA}.", "Caso de borda: nada a pedir."),
+    ("regras", 'Tom: profissional e cordial, frases curtas, trate o solicitante por "você". Sem pedir desculpas, sem tom de cobrança, sem jargão. Termine com um agradecimento breve.', "Controle de tom (igual ao v1)."),
+]
+
 # Controle do E4: um único prompt que extrai e escreve o e-mail de uma vez
 P3U_SYSTEM = ("Você escreve e-mails para a equipe de Compras da Gutenberg Systems (empresa fictícia). "
               "Você recebe a mensagem original de uma solicitação de compra, em texto livre. "
@@ -255,6 +301,9 @@ def definicoes():
          "descricao_tecnica": "Zero-shot (controle do Experimento 3)", "system": "", "user_template": P2_ZERO_USER, "anatomia": []},
         {"id": "P3", "nome": "E-mail pedindo só os campos que faltaram", "tecnica": "encadeado", "versao": "v1", "papel": "biblioteca",
          "descricao_tecnica": "Prompt encadeado e controle de tom", "system": P3_SYSTEM, "user_template": P3_USER, "anatomia": P3_ANATOMIA},
+        {"id": "P3", "nome": "E-mail pedindo só os campos que faltaram", "tecnica": "encadeado", "versao": "v2", "papel": "iteracao",
+         "descricao_tecnica": "Versão 2, escrita depois de medir e diagnosticar o v1 (Experimento 6)", "system": P3V2_SYSTEM, "user_template": P3_USER, "anatomia": P3V2_ANATOMIA,
+         "origem": "Corrige os erros do P3 v1 encontrados em resultados/biblioteca/DIAGNOSTICO.md. O v1 continua publicado e com os números dele."},
         {"id": "P3", "nome": "E-mail pedindo só os campos que faltaram", "tecnica": "unico", "versao": "v1", "papel": "controle",
          "descricao_tecnica": "Prompt único que extrai e escreve (controle do Experimento 4)", "system": P3U_SYSTEM, "user_template": P3U_USER, "anatomia": []},
         {"id": "P4", "nome": "Resumir reclamação de cliente em JSON", "tecnica": "saida_estruturada", "versao": "v1", "papel": "biblioteca",

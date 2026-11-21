@@ -417,6 +417,9 @@
       "custo_por_acerto_usd": 0.0002784416666666666,
       "latencia_media_s": 2.012519160000132,
       "latencia_mediana_s": 1.9878982000009273
+    },
+    "E6/encadeado_v2": {
+      "medido": false
     }
   },
   "comparacoes": {
@@ -477,6 +480,11 @@
       "diferenca_acerto_pp": 5.000000000000004,
       "razao_custo": 2.2619144327105327,
       "razao_latencia": 1.9031451272367819
+    },
+    "E6": {
+      "base": "encadeado_v1",
+      "alternativa": "encadeado_v2",
+      "medido": false
     }
   },
   "custo_novo_usd": {

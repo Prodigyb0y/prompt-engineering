@@ -34,7 +34,7 @@ def test_prompts_antigos_mantem_os_hashes_da_rodada_original():
 def test_anatomia_so_tem_trechos_literais_do_prompt_e_cada_prompt_da_biblioteca_tem_papel_e_tarefa():
     for d in pb.definicoes():
         res = pb.anatomia_resolvida(d)          # falha se o trecho não existir no prompt
-        if d["papel"] == "biblioteca":
+        if d["papel"] in ("biblioteca", "iteracao"):
             partes = {a["parte"] for a in res}
             assert "regras" in partes and ("formato_saida" in partes), d["id"]
             assert "papel" in partes or d["id"] == "P2"

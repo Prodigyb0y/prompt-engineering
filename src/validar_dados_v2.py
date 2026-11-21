@@ -46,19 +46,26 @@ def ler_valor_simbolo(texto):
     return (num(m[2]), SIMB[m[1]]) if m else (None, None)
 
 
-def main():
-    casos = json.loads((DADOS / "casos_teste.json").read_text(encoding="utf-8"))
-    gab = json.loads((DADOS / "gabarito.json").read_text(encoding="utf-8"))
-    fonte = json.loads((DADOS / "registros_fonte.json").read_text(encoding="utf-8"))
-    fewshot = json.loads((DADOS.parent / "v1" / "exemplos_fewshot.json").read_text(encoding="utf-8"))
-    v1 = json.loads((DADOS.parent / "v1" / "casos_teste.json").read_text(encoding="utf-8"))
+TIPOS_V2 = {"completa", "campos_faltando", "unidades_variadas", "valor_br", "moeda_simbolo", "data_formato",
+            "data_relativa", "fornecedor_apelido", "ruido", "duas_quantidades", "correcao", "valor_total",
+            "numero_extenso", "moeda_extenso", "email_longo"}
+
+
+def main(dados=DADOS, n=50, tipos_esperados=TIPOS_V2, outras_versoes=("v1",), rotulo="v2", amostra_n=10):
+    """Valida `dados` (n casos). `outras_versoes`: pastas irmãs cujos textos o conjunto não pode repetir."""
+    DADOS_ = Path(dados)
+    casos = json.loads((DADOS_ / "casos_teste.json").read_text(encoding="utf-8"))
+    gab = json.loads((DADOS_ / "gabarito.json").read_text(encoding="utf-8"))
+    fonte = json.loads((DADOS_ / "registros_fonte.json").read_text(encoding="utf-8"))
+    fewshot = json.loads((DADOS_.parent / "v1" / "exemplos_fewshot.json").read_text(encoding="utf-8"))
+    v1 = [c for v in outras_versoes for c in json.loads((DADOS_.parent / v / "casos_teste.json").read_text(encoding="utf-8"))]
     erros = []
 
     def err(cid, msg):
         erros.append(f"{cid}: {msg}")
 
-    if len(casos) != 50 or len({c["id"] for c in casos}) != 50:
-        erros.append("esperados 50 casos com ids únicos")
+    if len(casos) != n or len({c["id"] for c in casos}) != n:
+        erros.append(f"esperados {n} casos com ids únicos")
     for c in casos:
         cid, tipo, texto = c["id"], c["tipo"], c["texto"]
         g, ex = gab[cid], fonte[cid]["extras"]
@@ -119,25 +126,22 @@ def main():
             err(cid, "distrator ausente")
         if tipo == "email_longo" and not all(s in texto for s in ["Att,", "ramal", "confidencial"]):
             err(cid, "e-mail sem saudação/assinatura/aviso")
-    tipos_esperados = {"completa", "campos_faltando", "unidades_variadas", "valor_br", "moeda_simbolo", "data_formato",
-                       "data_relativa", "fornecedor_apelido", "ruido", "duas_quantidades", "correcao", "valor_total",
-                       "numero_extenso", "moeda_extenso", "email_longo"}
-    if {c["tipo"] for c in casos} != tipos_esperados:
+    if {c["tipo"] for c in casos} != set(tipos_esperados):
         erros.append("cobertura de tipos diferente da esperada")
     textos = {c["texto"] for c in casos}
-    if len(textos) != 50:
+    if len(textos) != n:
         erros.append("textos duplicados")
     if textos & {e["entrada"] for e in fewshot}:
         erros.append("caso repete exemplo few-shot")
     if textos & {c["texto"] for c in v1}:
-        erros.append("caso v2 idêntico a um caso v1")
-    amostra = random.Random(42).sample([c["id"] for c in casos], 10)
+        erros.append("caso idêntico a um caso de outra versão dos dados")
+    amostra = random.Random(42).sample([c["id"] for c in casos], min(amostra_n, n))
     print("Casos sorteados para revisão manual (seed 42):", ", ".join(sorted(amostra)))
     if erros:
         print(f"FALHOU: {len(erros)} problema(s)")
         print("\n".join(erros))
         sys.exit(1)
-    print("OK: 50 casos v2, gabarito consistente com o registro e com a releitura independente do texto.")
+    print(f"OK: {n} casos {rotulo}, gabarito consistente com o registro e com a releitura independente do texto.")
 
 
 if __name__ == "__main__":

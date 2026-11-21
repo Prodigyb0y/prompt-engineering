@@ -41,12 +41,14 @@ VARIANTES = {
     ("E3", "few_shot"): {"dados": "p2", "passos": [("P2", "few_shot", "v1")]},
     ("E4", "encadeado"): {"dados": "p3", "passos": [("P1", "system_prompt", "v2"), ("P3", "encadeado", "v1")]},
     ("E4", "unico"): {"dados": "p3", "passos": [("P3", "unico", "v1")]},
+    # E6: mesmo fluxo do E4 encadeado, trocando só o e-mail (P3 v1 -> P3 v2). O v1 é o E4/encadeado já medido.
+    ("E6", "encadeado_v2"): {"dados": "p3", "passos": [("P1", "system_prompt", "v2"), ("P3", "encadeado", "v2")]},
     ("P4", "saida_estruturada"): {"dados": "p4", "passos": [("P4", "saida_estruturada", "v1")]},
     ("E5", "direto"): {"dados": "p5", "passos": [("P5", "direto", "v1")]},
     ("E5", "cot"): {"dados": "p5", "passos": [("P5", "chain_of_thought", "v1")], "cot": True},
 }
 ORDEM = [("E3", "zero_shot"), ("E3", "few_shot"), ("E4", "encadeado"), ("E4", "unico"),
-         ("P4", "saida_estruturada"), ("E5", "direto"), ("E5", "cot")]
+         ("P4", "saida_estruturada"), ("E5", "direto"), ("E5", "cot"), ("E6", "encadeado_v2")]
 
 
 class ControleBiblioteca(ControleCusto):
@@ -165,6 +167,38 @@ def executar_piloto(cliente, pasta=PILOTO, dados=DADOS):
     saida["projecao_rodada_completa_usd"] = projetar(saida) if all("custo_medio_usd" in v for v in saida.values() if isinstance(v, dict)) and len(saida) == 4 else None
     saida["gasto_piloto_usd"] = sum(v.get("custo_total_usd", 0.0) for v in saida.values() if isinstance(v, dict))
     (pasta / "piloto.json").write_text(json.dumps(saida, ensure_ascii=False, indent=2) + "\n", encoding="utf-8", newline="\n")
+    return saida
+
+
+def executar_piloto_p3v2(cliente, pasta=PILOTO, dados=DADOS, reps=REPETICOES):
+    """5 chamadas do P3 v2 (1 repetição), com a extração do gabarito como entrada (como no piloto do P3 v1).
+
+    Grava piloto_p3v2.jsonl e piloto_p3v2.json sem mexer no piloto original. A projeção da rodada do E6 usa o custo
+    médio medido aqui mais o custo do P1 (CUSTO_P1_ESTIMADO)."""
+    pasta.mkdir(parents=True, exist_ok=True)
+    cfg = VARIANTES[("E6", "encadeado_v2")]
+    casos, gab = carregar_dados(cfg["dados"], dados)
+    regs = []
+    erro = None
+    for caso in casos_do_piloto(casos):
+        entrada = json.dumps(gab[caso["id"]]["extracao"], ensure_ascii=False)
+        try:
+            reg = executar_caso(cliente, cfg, caso, gab[caso["id"]], entrada_inicial=entrada, passos=[("P3", "encadeado", "v2")])
+        except Exception as exc:  # noqa: BLE001
+            erro = f"{type(exc).__name__}: {exc}"
+            break
+        reg.update({"prompt_piloto": "P3v2", "repeticao": 1, "modelo": MODELO, "esforco": ESFORCO})
+        regs.append(reg)
+        print(f"[piloto P3 v2 {caso['id']}] ok={reg['avaliacao']['caso_correto']} custo=US$ {reg['custo_usd']:.6f}", flush=True)
+    n = len(regs)
+    saida = {"chamadas": n, "acertos": sum(r["avaliacao"]["caso_correto"] for r in regs), "erro": erro,
+             "custo_total_usd": sum(r["custo_usd"] for r in regs),
+             "custo_medio_usd": (sum(r["custo_usd"] for r in regs) / n) if n else None,
+             "latencia_media_s": (sum(r["latencia_s"] for r in regs) / n) if n else None}
+    saida["projecao_rodada_completa_usd"] = (20 * reps * (saida["custo_medio_usd"] + CUSTO_P1_ESTIMADO)) if (n == CASOS_PILOTO and not erro) else None
+    saida["gasto_piloto_usd"] = saida["custo_total_usd"]
+    (pasta / "piloto_p3v2.jsonl").write_text("".join(json.dumps(r, ensure_ascii=False) + "\n" for r in regs), encoding="utf-8", newline="\n")
+    (pasta / "piloto_p3v2.json").write_text(json.dumps(saida, ensure_ascii=False, indent=2) + "\n", encoding="utf-8", newline="\n")
     return saida
 
 

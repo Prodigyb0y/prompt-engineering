@@ -97,6 +97,7 @@ Dados: [`dados/biblioteca/REVISAO_E_LIMITACOES.md`](../dados/biblioteca/REVISAO_
 | P4 | Saída estruturada | 95,0% | 86,7%–100,0% | 90,0%–100,0% | US$ 0,000219 | 60 | sim |
 | E5 | Sem raciocínio | 95,0% | 85,0%–100,0% | 95,0%–95,0% | US$ 0,000123 | 60 | sim |
 | E5 | Com raciocínio (chain-of-thought) | 100,0% | 100,0%–100,0% | 100,0%–100,0% | US$ 0,000278 | 60 | sim |
+| E6 | Encadeado com e-mail v2 (P1 → P3 v2) | não medido | — | — | — | 0 | — |
 
 Comparações pareadas:
 
@@ -105,6 +106,7 @@ Comparações pareadas:
 | E3 | Zero-shot contra Few-shot | 1 | 2 | 1,000 |
 | E4 | Prompt único (extrai e escreve) contra Encadeado (P1 → P3) | 6 | 4 | 0,754 |
 | E5 | Sem raciocínio contra Com raciocínio (chain-of-thought) | 0 | 1 | 1,000 |
+| E6 | não medido | — | — | — |
 
 Custo das rodadas novas: US$ 0,085039 em 500 chamadas (piloto US$ 0,003544, rodadas US$ 0,081495). Relatório completo: `resultados/biblioteca/RELATORIO.md` (gerado por `src/analisar_biblioteca.py`).
 

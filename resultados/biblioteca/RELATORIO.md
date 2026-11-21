@@ -13,6 +13,7 @@ Gasto novo: US$ 0,085039 (piloto US$ 0,003544; rodadas US$ 0,081495).
 | P4 | Saída estruturada | 95,0% | 90,0%–100,0% | 0,000219 | 0,000231 | 1,67 | 60 |
 | E5 | Sem raciocínio | 95,0% | 95,0%–95,0% | 0,000123 | 0,000130 | 1,06 | 60 |
 | E5 | Com raciocínio (chain-of-thought) | 100,0% | 100,0%–100,0% | 0,000278 | 0,000278 | 2,01 | 60 |
+| E6 | Encadeado com e-mail v2 (P1 → P3 v2) | não medido | — | — | — | — | 0 |
 
 ## Comparações pareadas (teste do sinal exato, empates excluídos)
 
@@ -21,3 +22,4 @@ Gasto novo: US$ 0,085039 (piloto US$ 0,003544; rodadas US$ 0,081495).
 | E3 | Zero-shot | Few-shot | 1 | 2 | 1,000 |
 | E4 | Prompt único (extrai e escreve) | Encadeado (P1 → P3) | 6 | 4 | 0,754 |
 | E5 | Sem raciocínio | Com raciocínio (chain-of-thought) | 0 | 1 | 1,000 |
+| E6 | Encadeado com e-mail v1 (P1 → P3 v1) | Encadeado com e-mail v2 (P1 → P3 v2) | — | — | não medido |

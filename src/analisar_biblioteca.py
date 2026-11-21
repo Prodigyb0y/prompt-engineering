@@ -28,7 +28,10 @@ RAIZ = Path(__file__).resolve().parent.parent
 
 # (experimento) -> (variante base, variante alternativa). A "alternativa" é a opção mais elaborada/cara.
 PARES = {"E3": ("zero_shot", "few_shot"), "E4": ("unico", "encadeado"), "E5": ("direto", "cot")}
-ROTULOS = {"zero_shot": "Zero-shot", "few_shot": "Few-shot", "unico": "Prompt único (extrai e escreve)",
+# comparação entre experimentos: (chave da base, chave da alternativa). No E6 a base é o E4/encadeado já medido (e-mail v1).
+PARES_CRUZADOS = {"E6": ("E4/encadeado", "E6/encadeado_v2")}
+ROTULOS = {"encadeado_v1": "Encadeado com e-mail v1 (P1 → P3 v1)", "encadeado_v2": "Encadeado com e-mail v2 (P1 → P3 v2)",
+           "zero_shot": "Zero-shot", "few_shot": "Few-shot", "unico": "Prompt único (extrai e escreve)",
            "encadeado": "Encadeado (P1 → P3)", "direto": "Sem raciocínio", "cot": "Com raciocínio (chain-of-thought)",
            "saida_estruturada": "Saída estruturada"}
 
@@ -123,7 +126,13 @@ def resumir_tudo(pasta_brutos=ex.BRUTOS, pasta_piloto=ex.PILOTO):
     for exp, (base, alt) in PARES.items():
         a, b = variantes[f"{exp}/{base}"], variantes[f"{exp}/{alt}"]
         comps[exp] = {"base": base, "alternativa": alt, **(comparar_par(a, b) if a["medido"] and b["medido"] else {"medido": False})}
+    for exp, (kb, ka) in PARES_CRUZADOS.items():
+        a, b = variantes[kb], variantes[ka]
+        comps[exp] = {"base": "encadeado_v1", "alternativa": ka.split("/")[1], **(comparar_par(a, b) if a["medido"] and b["medido"] else {"medido": False})}
     piloto = carregar_piloto(pasta_piloto)
+    p6 = Path(pasta_piloto) / "piloto_p3v2.jsonl"
+    if p6.exists():
+        piloto = piloto + [json.loads(l) for l in p6.read_text(encoding="utf-8").splitlines() if l.strip()]
     custo_piloto = sum(r["custo_usd"] for r in piloto)
     custo_rodadas = sum(r["custo_usd"] for regs in brutos.values() for r in regs)
     return {"variantes": variantes, "comparacoes": comps,

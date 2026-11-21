@@ -36,7 +36,7 @@ def test_resumo_de_rodada_completa_com_cliente_falso(tmp_path):
     assert r["variantes"]["E4/encadeado"]["custo_por_resposta_usd"] == pytest.approx(2 * por_chamada)
     assert r["variantes"]["E4/encadeado"]["chamadas_por_resposta"] == 2
     assert r["custo_novo_usd"]["rodadas"] == pytest.approx(sum(x["custo_total_usd"] for x in r["variantes"].values()))
-    assert r["chamadas_novas"] == 120 + 180 + 60 + 120 - 0 and r["variantes"]["E3/few_shot"]["truncadas"] == 0
+    assert r["chamadas_novas"] == 120 + 180 + 60 + 120 + 120 and r["variantes"]["E3/few_shot"]["truncadas"] == 0
     c = r["comparacoes"]["E4"]
     assert c["razao_custo"] == pytest.approx(2.0) and c["p_sinal"] == 1.0 and c["a_favor_base"] == c["a_favor_alternativa"] == 0
 
