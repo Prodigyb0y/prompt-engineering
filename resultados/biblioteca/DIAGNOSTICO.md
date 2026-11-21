@@ -28,6 +28,16 @@ Erros do prompt único em que o e-mail pediu a área solicitante e a área era "
 | Sem raciocínio | 60 | 3 | A19 (escalar_fornecedor_e_item), escalar → duas respostas (pedir_informacao → escalar), 1x; A19 (escalar_fornecedor_e_item), escalar → pedir_informacao, 2x |
 | Com raciocínio | 60 | 0 | — |
 
+## E6: o P3 v2 corrigiu o erro do P3 v1?
+
+Extração do P1 correta em 60 de 60 respostas. E-mails com lista de itens: 51 de 60.
+
+| P3 | Respostas | Erradas (oficial) | Pediu campo que já tinha | Só confirmou dado recebido | Esqueceu campo | Acerto oficial | Acerto pela reanálise por pedido |
+|---|---|---|---|---|---|---|---|
+| v1 | 60 | 13 | 4 | 9 | 0 | 78,3% | 93,3% |
+| v2 | 60 | 1 | 1 | 0 | 0 | 98,3% | 98,3% |
+
+
 ## P4: onde errou
 
 3 de 60 respostas erradas; campo errado: sentimento: 3. Sentimento esperado → obtido: neutro → insatisfeito (2); irritado → insatisfeito (1). Invenções de número ou valor: 0.

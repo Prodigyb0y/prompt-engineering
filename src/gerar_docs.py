@@ -58,7 +58,7 @@ def readme(r):
               f"Onde não há medição, o texto diz \"não medido\"; nenhum número foi estimado. Para medir: `{cb.COMANDOS['piloto']}`, depois `{cb.COMANDOS['completo']}` e `{cb.COMANDOS['depois']}`.", ""]
     L += ["## O que este projeto mostra", "",
           "- **Prompts bem estruturados:** cinco prompts de negócio, cada um com papel, contexto, tarefa, formato de saída, regras e casos de borda, e uma técnica em destaque.",
-          "- **Experimentos com LLM:** cinco comparações curtas (técnica, antes e depois, few-shot, encadear, raciocínio), cada uma com o que foi testado, o resultado e quando usar.",
+          "- **Experimentos com LLM:** seis comparações curtas (técnica, antes e depois, few-shot, encadear, raciocínio, reescrever um prompt depois de ler os erros), cada uma com o que foi testado, o resultado e quando usar.",
           f"- **Decisões com custo medido:** acerto contra um gabarito escrito antes de rodar, custo por chamada e teto de gasto no código (gasto até aqui: {co.usd(C['total_usd'], 4)} de {co.usd(C['teto_total_usd'], 2)}).", "",
           "## Biblioteca de prompts", ""]
     L.append(_tabela(["#", "Prompt (problema de negócio)", "Técnica em destaque", "Acerto", "Custo por chamada", "Arquivo"],
@@ -73,7 +73,11 @@ def readme(r):
           f"Placar no tipo \"{e2['placar']['tipo']}\" (respostas certas): **{e2['placar']['antes']}/{e2['placar']['de']} → {e2['placar']['depois']}/{e2['placar']['de']}**. O que mudou no prompt (T4 v1 → v2):", "", "```diff"]
     for l in e2["diff"]:
         L.append({"add": "+ ", "del": "- ", "ctx": "  ", "sep": "  "}[l["tipo"]] + l["texto"])
-    L += ["```", "", f"Ressalva: {e2['ressalva']}", "", "## Experimentos", ""]
+    L += ["```", "", f"Ressalva: {e2['ressalva']}", ""]
+    v = e2.get("validacao")
+    if v:
+        L += ["### Testado em pedidos novos", "", v["texto"], "", v["criterio"], "", f"Ressalva: {v['ressalva']}", ""]
+    L += ["## Experimentos", ""]
     for e in r["experimentos"]:
         if e["medido"]:
             L += [f"**{e['id']} · {e['titulo']}** — {e['resultado']}", f"Quando usar: {e['quando_usar']}", ""]
@@ -118,6 +122,28 @@ def _secao(texto, inicio, fim=None):
     return texto[ini:m.end() + f.start()].strip()
 
 
+def _validacao_md():
+    arq = RAIZ / "resultados" / "extracao" / "v3" / "validacao.json"
+    if not arq.exists():
+        return []
+    v = json.loads(arq.read_text(encoding="utf-8"))
+    vt = v["veredito"]
+    linhas = [[t, str(d["casos"]), f"{d['certas_v1']}/{d['respostas']}", f"{d['certas_v2']}/{d['respostas_v2']}"] for t, d in v["por_tipo"].items()]
+    return ["### 4.1 Validação do T4 v2 em pedidos novos", "",
+            f"{v['casos']} pedidos (H01 a H20) gerados por `src/gerar_dados_v3.py` (seed 3003, textos diferentes dos da v1, da v2 e dos exemplos few-shot) e congelados por hash em `dados/extracao/v3/CONGELADO.sha256` antes de qualquer chamada. "
+            "T4 v1 e T4 v2, 3 repetições cada, mesmas regras de acerto da extração, mesmo controle de custo. Critério escrito antes da rodada em `src/comparar_validacao.py`: generaliza se a v2 acertar pelo menos 17 das 18 respostas de valor total e não ficar abaixo da v1 nos demais tipos.", "",
+            _tabela(["Tipo", "Casos", "T4 v1 (respostas certas)", "T4 v2 (respostas certas)"], linhas), "",
+            f"Acerto geral: v1 {ab.pct(v['acerto_v1'])}, v2 {ab.pct(v['acerto_v2'])}. Custo por resposta: v1 {co.usd(v['custo_v1'])}, v2 {co.usd(v['custo_v2'])}. Tokens de saída por resposta: v1 {ab.num(v['tokens_saida_v1'], 1)}, v2 {ab.num(v['tokens_saida_v2'], 1)}. "
+            f"Casos melhores na v2: {len(v['melhorou'])}; piores: {len(v['piorou'])}; teste do sinal exato pareado: p = {ab.num(v['p_sinal'], 3)}. Veredito do critério: {'generalizou' if vt['generaliza'] else 'não generalizou'}; regressão: {'sim' if vt['regressao'] else 'não'}. "
+            "Relatório: `resultados/extracao/v3/VALIDACAO.md`.", "",
+            "Limitações: só 6 casos de valor total; mesmo gerador de frases dos 50 casos anteriores; gabarito do próprio autor.", "",
+            "### 4.2 E6: P3 v2 (diagnóstico antes da correção)", "",
+            "O E6 repete o fluxo do E4 (P1 v2 → e-mail) trocando só o prompt do e-mail e usa como base a rodada `E4/encadeado`, já medida. "
+            "O P3 v2 (`prompts/P3_encadeado_v2.json`) foi escrito depois de ler os erros do P3 v1 nos mesmos 20 casos (ver `resultados/biblioteca/DIAGNOSTICO.md`): é resultado de desenvolvimento. "
+            "A regra de acerto oficial não mudou; a \"reanálise por pedido\" (campo contado só se aparece em item de lista) é auxiliar e foi escrita depois de ler os erros. "
+            "Piloto de 5 chamadas antes da rodada completa: 5 de 5 certas, projeção de custo conferida contra o teto.", ""]
+
+
 def medicao(r, anterior=None):
     ant = anterior if anterior is not None else ANTERIOR.read_text(encoding="utf-8")
     ab_resumo = ab.resumir_tudo()
@@ -129,7 +155,7 @@ def medicao(r, anterior=None):
         _secao(ant, "## 4. Tarefa e dados", "## 5. Técnicas de prompt").replace("## 4. Tarefa e dados", "## 6. Dados da extração"),
     ]
     novo = [
-        "## 4. Rodadas novas: P2 a P5 (E3, E4, E5 e P4)", "",
+        "## 4. Rodadas novas: P2 a P5 (E3, E4, E5, E6 e P4) e validação do T4 v2", "",
         "Regras de acerto, escritas antes de qualquer rodada paga (código em `src/avaliadores.py`):", "",
         "```text", avaliadores.__doc__.split("\n\n", 1)[1].strip(), "```", "",
         f"Escala: {r['como_medi']['casos_novos']} casos por prompt novo, {r['como_medi']['repeticoes']} repetições por variante, piloto de 5 chamadas por prompt antes da rodada completa. "
@@ -155,6 +181,8 @@ def medicao(r, anterior=None):
     novo += ["Comparações pareadas:", "", _tabela(["Exp.", "Par (base contra alternativa)", "Casos a favor da base", "Casos a favor da alternativa", "p (sinal exato)"], cl), "",
              f"Custo das rodadas novas: {co.usd(ab_resumo['custo_novo_usd']['total'])} em {ab_resumo['chamadas_novas']} chamadas (piloto {co.usd(ab_resumo['custo_novo_usd']['piloto'])}, rodadas {co.usd(ab_resumo['custo_novo_usd']['rodadas'])}). "
              "Relatório completo: `resultados/biblioteca/RELATORIO.md` (gerado por `src/analisar_biblioteca.py`).", ""]
+    val = _validacao_md()
+    novo += val
     mapa = ["## 7. Mapa de caminhos (reorganização do repositório)", "",
             "O repositório foi reorganizado em \"biblioteca + experimentos\". Os arquivos de resultado antigos foram **movidos sem alteração de conteúdo** (os hashes de congelamento continuam batendo, e há teste para isso); "
             "por isso os relatórios gerados originalmente ainda citam os caminhos antigos no próprio texto.", "",
@@ -165,7 +193,8 @@ def medicao(r, anterior=None):
             "isso mudou e as pastas deixaram de ser ignoradas.", "",
             _tabela(["Rodada", "Pasta", "Arquivos"], [["Extração v1 (piloto + 600 respostas)", "`resultados/extracao/v1/brutos/`", "601 itens (600 respostas e a pasta `piloto/`)"],
                                                    ["Extração v2 (600 respostas)", "`resultados/extracao/v2/brutos/`", "600"], ["Iteração T4 v1 → v2 (150 respostas do T4 v2)", "`resultados/extracao/v2/iteracao/brutos/`", "150"],
-                                                   ["Rodadas novas (P2 a P5)", "`resultados/biblioteca/brutos/` e `piloto/`", "um `.jsonl` por variante"]]), "",
+                                                   ["Rodadas novas (P2 a P5, E6)", "`resultados/biblioteca/brutos/` e `piloto/`", "um `.jsonl` por variante"],
+                                                   ["Validação do T4 v2 (pedidos novos)", "`resultados/extracao/v3/brutos/{v1,v2}/`", "60 em cada"]]), "",
             "As pastas da extração foram recuperadas do computador do autor, onde ficaram fora do Git até aqui, e a auditoria (`src/auditar.py`) foi refeita sobre elas: reavaliou as respostas com 0 divergências, e os relatórios regenerados ficaram idênticos aos já publicados. "
             "As respostas gravadas que a demo embutia continuam em `resultados/extracao/v2/respostas_gravadas.json`.", "",
             "### Comandos das rodadas antigas (extração)", "", "```bash",

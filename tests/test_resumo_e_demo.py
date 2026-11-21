@@ -107,12 +107,12 @@ def test_diferenca_so_passa_no_teste_quando_p_menor_que_0_05():
 
 
 def test_resumo_de_rodada_fake_completa_gera_frases_e_cartoes(tmp_path):
-    brutos = _rodar(tmp_path, Errado(), so=[("E3", "zero_shot"), ("E3", "few_shot"), ("E4", "unico"), ("E4", "encadeado"), ("P4", "saida_estruturada"), ("E5", "direto"), ("E5", "cot")])
+    brutos = _rodar(tmp_path, Errado(), so=[("E3", "zero_shot"), ("E3", "few_shot"), ("E4", "unico"), ("E4", "encadeado"), ("P4", "saida_estruturada"), ("E5", "direto"), ("E5", "cot"), ("E6", "encadeado_v2")])
     r = co.construir(pasta_brutos=brutos, pasta_piloto=tmp_path / "sem")
     e3 = next(e for e in r["experimentos"] if e["id"] == "E3")
     assert e3["status"] == "medido" and "10,0 pontos a mais" in e3["resultado"] and e3["quando_usar"]
-    assert [e["status"] for e in r["experimentos"]] == ["medido"] * 5 and r["pendencias"] == []
-    assert all(p["medido"] for p in r["prompts"]) and r["projeto"]["experimentos_medidos"] == 5
+    assert [e["status"] for e in r["experimentos"]] == ["medido"] * 6 and r["pendencias"] == []
+    assert all(p["medido"] for p in r["prompts"]) and r["projeto"]["experimentos_medidos"] == 6
     p2 = next(p for p in r["prompts"] if p["id"] == "P2")
     assert p2["exemplo"]["gravada"] and p2["custo_chamada_usd"] > 0
     assert all(g["medido"] and len(g["casos"]) >= 18 for g in r["playground"])
@@ -164,7 +164,7 @@ def test_json_embutido_valido_e_igual_ao_resumo():
     html = (RAIZ / "docs" / "index.html").read_text(encoding="utf-8")
     m = re.search(r'<script id="dados" type="application/json">(.*?)</script>', html, re.DOTALL)
     d = json.loads(m.group(1).replace("<\\/", "</").replace("<\\!--", "<!--"))
-    assert d == gdm.dados_da_pagina(_resumo()) and d["projeto"]["prompts"] == 5 and len(d["experimentos"]) == 5
+    assert d == gdm.dados_da_pagina(_resumo()) and d["projeto"]["prompts"] == 5 and len(d["experimentos"]) == 6
 
 
 def test_modelo_da_pagina_nao_tem_numero_de_resultado_digitado():
@@ -174,10 +174,10 @@ def test_modelo_da_pagina_nao_tem_numero_de_resultado_digitado():
 
 def test_destaques_e_conclusao_vem_dos_dados_e_sem_jargao():
     r = _resumo()
-    assert len(r["destaques"]) == 2 + sum(1 for e in r["experimentos"] if e["id"] in ("E3", "E4", "E5") and e["status"] == "medido")
+    assert len(r["destaques"]) == 2 + sum(1 for e in r["experimentos"] if e["id"] in ("E3", "E4", "E5", "E6") and e["status"] == "medido")
     assert r["destaques"][1]["grande"] == "{antes}/{de} → {depois}/{de}".format(**next(e for e in r["experimentos"] if e["id"] == "E2")["placar"])
     c = r["conclusao"]
-    assert c and len(c["pode"]) >= 4 and len(c["nao_pode"]) == 5 and c["na_pratica"]
+    assert c and len(c["pode"]) >= 4 and len(c["nao_pode"]) == 6 and c["na_pratica"]
     texto = " ".join([c["resumo"]] + [x["titulo"] + " " + x["texto"] for x in c["pode"]] + c["nao_pode"] + c["na_pratica"] + [e["resultado"] or "" for e in r["experimentos"]])
     for termo in ("p = ", "p-valor", "teste pareado", "bootstrap", "intervalo de confiança"):
         assert termo not in texto, termo
@@ -189,3 +189,15 @@ def test_pagina_traz_conclusao_destaques_e_cartao_sem_hash():
     for marca in ('id="conclusao"', 'id="destaques"', 'href="#conclusao"', "O que dá para concluir", "O que não dá para concluir"):
         assert marca in html, marca
     assert 'h("span", { class: "chip", text: "hash "' not in html
+
+
+def test_e6_e_validacao_do_t4_v2_vem_dos_arquivos_medidos():
+    r = _resumo()
+    e6 = next(e for e in r["experimentos"] if e["id"] == "E6")
+    arq = json.loads((RAIZ / "resultados" / "extracao" / "v3" / "validacao.json").read_text(encoding="utf-8"))
+    e2 = next(e for e in r["experimentos"] if e["id"] == "E2")
+    assert e2["validacao"]["acerto_v2"] == arq["acerto_v2"] and e2["validacao"]["veredito"]["generaliza"] == arq["veredito"]["generaliza"]
+    assert e6["status"] == "medido" and e6["diff"] and e6["explicacao"] and "desenvolvimento" in e6["ressalva"]
+    assert e6["variantes"]["encadeado_v1"]["acerto_caso_media"] < e6["variantes"]["encadeado_v2"]["acerto_caso_media"]
+    assert any(g["id"] == "E6" and g["medido"] for g in r["playground"])
+    assert r["custo"]["total_usd"] <= 1.0 and r["custo"]["novo_usd"] <= 0.6

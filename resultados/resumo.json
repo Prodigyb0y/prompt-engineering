@@ -24,6 +24,11 @@
    "ancora": "exp-e5",
    "grande": "100,0% vs 95,0%",
    "rotulo": "Com raciocínio (chain-of-thought) contra Sem raciocínio, a 2,3× o custo (E5)"
+  },
+  {
+   "ancora": "exp-e6",
+   "grande": "78,3% → 98,3%",
+   "rotulo": "e-mail com o prompt reescrito depois de ler os erros (E6, casos de desenvolvimento)"
   }
  ],
  "conclusao": {
@@ -31,7 +36,7 @@
   "pode": [
    {
     "titulo": "Uma regra de negócio escrita no prompt corrige um erro que se repete.",
-    "texto": "Duas linhas novas levaram o tipo \"valor total\" de 0/12 para 12/12 respostas certas, sem nenhum caso pior (E2). Vale para os casos em que a regra foi escrita; falta testar em pedidos novos."
+    "texto": "Duas linhas novas levaram o tipo \"valor total\" de 0/12 para 12/12 respostas certas, sem nenhum caso pior (E2). Em 20 pedidos novos, o tipo \"valor total\" foi de 0/18 para 18/18, sem regressão nos outros tipos, mas com só 6 casos desse tipo."
    },
    {
     "titulo": "Em extração simples, escrever a regra pesou mais do que escolher a técnica.",
@@ -46,15 +51,20 @@
     "texto": "Pela regra oficial, o encadeado acertou 78,3% contra 81,7% do prompt único (E4). Lendo os erros, o encadeado pediu de novo um campo que já tinha 4 vez(es), contra 9, e nunca errou por extração do P1; a maior parte dos erros dele foi só confirmar um dado recebido. Contando só o que o e-mail pede de novo (regra escrita depois de ler os erros), o resultado se inverte: 93,3% contra 85,0%."
    },
    {
+    "titulo": "Medir, ler os erros e reescrever o prompt funcionou no e-mail.",
+    "texto": "O P3 v2 acertou 98,3% contra 78,3% do v1 (E6), a 1,07× o custo. A v2 foi escrita depois de ler os erros nos mesmos 20 casos, então é resultado de desenvolvimento: falta testá-la em casos novos."
+   },
+   {
     "titulo": "Testar prompts com número custa pouco.",
-    "texto": "O projeto inteiro gastou US$ 0,3340 de um teto de US$ 1,00. O custo médio por resposta ficou entre US$ 0,000137 e US$ 0,000278, conforme o prompt."
+    "texto": "O projeto inteiro gastou US$ 0,3510 de um teto de US$ 1,00. O custo médio por resposta ficou entre US$ 0,000137 e US$ 0,000278, conforme o prompt."
    }
   ],
   "nao_pode": [
    "Que esses números valem para dados reais: os dados são fictícios e mais regulares do que e-mails e chamados reais.",
    "Que valem para outros modelos: só testei o claude-haiku-5-5, com esforço de raciocínio baixo.",
    "Que as diferenças de E3, E4, E5 sejam sólidas: com 20 casos, poucos casos mudam o resultado, e nenhuma delas foi grande o bastante para descartar o acaso (detalhes no apêndice).",
-   "Que a regra do T4 v2 vale para pedidos novos: ela foi escrita olhando os mesmos 50 pedidos em que foi medida.",
+   "Que a regra do T4 v2 vale para qualquer pedido: ela foi validada em 20 pedidos novos, mas do mesmo estilo de frases e com só 6 casos de valor total.",
+   "Que o P3 v2 vale para e-mails novos: ele foi reescrito olhando os erros dos mesmos 20 casos em que foi medido.",
    "Que o gabarito é neutro: fui a única pessoa a escrevê-lo."
   ],
   "na_pratica": [
@@ -91,8 +101,8 @@
   "modelo": "claude-haiku-5-5",
   "esforco": "low",
   "prompts": 5,
-  "experimentos": 5,
-  "experimentos_medidos": 5,
+  "experimentos": 6,
+  "experimentos_medidos": 6,
   "prompts_medidos": 5,
   "limitacoes": [
    "Dados 100% fictícios e gerados por script: mais regulares do que e-mails e chamados reais.",
@@ -105,12 +115,12 @@
  },
  "custo": {
   "anterior_usd": 0.248969,
-  "novo_usd": 0.0850394,
-  "total_usd": 0.3340084,
+  "novo_usd": 0.10207250000000001,
+  "total_usd": 0.3510415,
   "teto_total_usd": 1.0,
   "teto_rodadas_novas_usd": 0.6,
-  "sobra_usd": 0.6659916,
-  "sobra_rodadas_novas_usd": 0.5149606,
+  "sobra_usd": 0.6489585,
+  "sobra_rodadas_novas_usd": 0.49792749999999997,
   "detalhe_anterior": [
    {
     "rodada": "Extração v1 (piloto de 10 chamadas e 600 respostas)",
@@ -125,9 +135,9 @@
     "usd": 0.021739
    }
   ],
-  "novo_piloto_usd": 0.0035442,
-  "novo_rodadas_usd": 0.0814952,
-  "chamadas_novas": 500
+  "novo_piloto_usd": 0.0041776,
+  "novo_rodadas_usd": 0.0978949,
+  "chamadas_novas": 625
  },
  "prompts": [
   {
@@ -720,7 +730,7 @@
     "Campos citados a mais: 18"
    ],
    "chamadas_por_resposta": 2.0,
-   "aprendi": "Nas 60 respostas do fluxo encadeado, 13 saíram erradas pela regra oficial. Nenhuma deixou de pedir um campo que faltava; 9 só confirmaram um dado já recebido (por exemplo, \"com fornecedor X\"), quebrando a regra \"nunca cite\" sem pedir nada de novo, e 4 pediram de novo um campo que já tinha. A extração do P1 estava certa em 60 de 60, então o erro nasce no e-mail, não na passagem entre os dois prompts. Lição: \"nunca cite\" não bastou. Hipótese para a próxima versão: dizer o que fazer no lugar (abrir só com o item e a quantidade) e listar cada campo pedido em uma linha.",
+   "aprendi": "Nas 60 respostas do fluxo encadeado, 13 saíram erradas pela regra oficial. Nenhuma deixou de pedir um campo que faltava; 9 só confirmaram um dado já recebido (por exemplo, \"com fornecedor X\"), quebrando a regra \"nunca cite\" sem pedir nada de novo, e 4 pediram de novo um campo que já tinha. A extração do P1 estava certa em 60 de 60, então o erro nasce no e-mail, não na passagem entre os dois prompts. Lição: \"nunca cite\" não bastou. Hipótese para a próxima versão: dizer o que fazer no lugar (abrir só com o item e a quantidade) e listar cada campo pedido em uma linha. Testei a hipótese (P3 v2, Experimento 6): o acerto foi de 78,3% para 98,3% nos mesmos 20 casos, com 1 erro em 60 respostas. A v2 foi escrita depois de ler os erros nesses mesmos casos; ainda falta testá-la em casos novos.",
    "exemplo": {
     "caso": "E02",
     "entrada": "Preciso comprar 20 metros de cabo elétrico 2,5mm (solicitante: Logística). Prazo: 12 de março de 2026.",
@@ -1288,7 +1298,7 @@
    "titulo": "Antes e depois de um prompt",
    "pergunta": "Se um prompt erra sempre no mesmo tipo de caso, dá para corrigir com uma regra escrita, sem estragar o resto?",
    "como_medido": "O mesmo prompt (T4) em duas versões, nos mesmos 50 pedidos, 3 repetições cada. A regressão é conferida caso a caso.",
-   "ressalva": "A regra nova foi escrita depois de ver os erros nesses mesmos 50 casos. É resultado de desenvolvimento: mostra o ciclo medir, diagnosticar, corrigir e medir de novo, mas não prova que a regra vale para casos novos (isso ainda não foi testado).",
+   "ressalva": "A regra nova foi escrita depois de ver os erros nesses mesmos 50 casos. É resultado de desenvolvimento: mostra o ciclo medir, diagnosticar, corrigir e medir de novo, mas, sozinha, esta medição não prova que a regra vale para casos novos. Esse teste foi feito à parte, em 20 pedidos novos (veja \"Testado em pedidos novos\" abaixo).",
    "o_que_testei": "O T4 (o prompt com system prompt) em duas versões, v1 contra v2 (duas linhas a mais), nos mesmos 50 pedidos, 3 repetições cada.",
    "medido": true,
    "status": "medido",
@@ -1313,7 +1323,7 @@
      ]
     }
    ],
-   "quando_usar": "Quando um tipo de erro se repete, leia os erros, escreva a regra que falta no prompt e rode de novo no mesmo conjunto para conferir que nada piorou. Depois valide em casos que a regra nunca viu (ainda não feito).",
+   "quando_usar": "Quando um tipo de erro se repete, leia os erros, escreva a regra que falta no prompt e rode de novo no mesmo conjunto para conferir que nada piorou. Depois valide em casos que a regra nunca viu (feito aqui em 20 pedidos novos).",
    "placar": {
     "antes": 0,
     "depois": 12,
@@ -1360,7 +1370,30 @@
     }
    ],
    "hash_v1": "bb14abcde430",
-   "hash_v2": "2c3ccc1873da"
+   "hash_v2": "2c3ccc1873da",
+   "validacao": {
+    "casos": 20,
+    "acerto_v1": 0.7,
+    "acerto_v2": 1.0,
+    "custo_v1": 0.00019394,
+    "custo_v2": 0.00015180666666666668,
+    "tokens_saida_v1": 245.8,
+    "tokens_saida_v2": 147.73333333333332,
+    "veredito": {
+     "valor_total_certas_v1": 0,
+     "valor_total_certas_v2": 18,
+     "valor_total_respostas": 18,
+     "generaliza": true,
+     "resto_certas_v1": 42,
+     "resto_certas_v2": 42,
+     "resto_respostas": 42,
+     "regressao": false
+    },
+    "casos_valor_total": 6,
+    "texto": "Testei as duas versões em 20 pedidos novos, escritos por script com outra seed e congelados antes de rodar. No tipo \"valor total\", a v1 acertou 0/18 e a v2 18/18. Nos outros tipos, 42/42 contra 42/42: sem regressão. Acerto geral 70,0% contra 100,0%; a v2 também custou menos por resposta (US$ 0,000152 contra US$ 0,000194) e gastou menos tokens de saída.",
+    "criterio": "Critério escrito antes da rodada: a regra \"generaliza\" se a v2 acertar pelo menos 17 das 18 respostas de valor total e não ficar pior nos outros tipos. Resultado: generalizou.",
+    "ressalva": "São só 6 casos de valor total, escritos pelo mesmo gerador de frases dos 50 casos anteriores, e o gabarito é meu. Mostra que a regra não foi decorada, não que vale para qualquer pedido real."
+   }
   },
   {
    "id": "E3",
@@ -1949,6 +1982,321 @@
      "Com raciocínio, a decisão saiu certa em 60 de 60 respostas. Sem raciocínio, os 3 erros foram todos no mesmo pedido (A19, tipo \"escalar_fornecedor_e_item\"), que reúne dois motivos para escalar ao mesmo tempo (fornecedor fora da lista e item controlado). Em 1 resposta o modelo escreveu uma decisão errada, se corrigiu no meio do texto e entregou duas decisões na mesma saída: a final estava certa, mas um código não consegue ler duas respostas, e por isso conta como erro.",
      "Quando duas regras da política disparam juntas, deixar o modelo escrever o raciocínio antes foi o que evitou o erro."
     ]
+   }
+  },
+  {
+   "id": "E6",
+   "titulo": "O erro do e-mail some se eu reescrever o prompt?",
+   "pergunta": "O P3 errava citando campos que já estavam preenchidos. Trocar a proibição por uma instrução do que fazer corrige o erro sem estragar o resto?",
+   "o_que_testei": "O mesmo fluxo do Experimento 4 (P1 → P3), trocando só o prompt do e-mail: P3 v1 (a base já medida no E4) contra P3 v2, nos mesmos 20 casos, 3 repetições cada. Medir, diagnosticar, corrigir e medir de novo.",
+   "como_medido": "A mesma regra de acerto do P3, escrita antes da rodada: o e-mail cita todos os campos que faltam e nenhum que não falta, conferido por regra em código.",
+   "ressalva": "A v2 foi escrita depois de ler os erros nestes mesmos 20 casos, então o resultado é de desenvolvimento. Falta testar a v2 em casos novos.",
+   "medido": true,
+   "status": "medido",
+   "resultado": "O P3 v2 acertou 98,3% contra 78,3% do P3 v1 (20,0 pontos a mais): melhor em 8 casos e pior em 1, com custo de 1,07× por resposta. Campos citados a mais: 18 no v1 e 1 no v2.",
+   "diff": [
+    {
+     "tipo": "sep",
+     "texto": "…"
+    },
+    {
+     "tipo": "ctx",
+     "texto": ""
+    },
+    {
+     "tipo": "del",
+     "texto": "Campos que podem faltar e o nome exato que você deve usar ao pedi-los:"
+    },
+    {
+     "tipo": "del",
+     "texto": "- solicitante_area vazio: \"área solicitante\""
+    },
+    {
+     "tipo": "del",
+     "texto": "- prazo_entrega vazio: \"prazo de entrega\""
+    },
+    {
+     "tipo": "del",
+     "texto": "- valor_unitario vazio: \"valor unitário\" (peça também a moeda)"
+    },
+    {
+     "tipo": "del",
+     "texto": "- fornecedor vazio: \"fornecedor\""
+    },
+    {
+     "tipo": "add",
+     "texto": "Como decidir o que falta: olhe os quatro campos abaixo no JSON. Falta o campo cujo valor é null. Qualquer outro valor (texto ou número) significa que o campo veio preenchido e NÃO falta."
+    },
+    {
+     "tipo": "add",
+     "texto": "Nome exato que você deve usar ao pedir cada campo que falta:"
+    },
+    {
+     "tipo": "add",
+     "texto": "- solicitante_area null: \"área solicitante\""
+    },
+    {
+     "tipo": "add",
+     "texto": "- prazo_entrega null: \"prazo de entrega\""
+    },
+    {
+     "tipo": "add",
+     "texto": "- valor_unitario null: \"valor unitário\" (peça também a moeda)"
+    },
+    {
+     "tipo": "add",
+     "texto": "- fornecedor null: \"fornecedor\""
+    },
+    {
+     "tipo": "ctx",
+     "texto": ""
+    },
+    {
+     "tipo": "ctx",
+     "texto": "Regras do e-mail:"
+    },
+    {
+     "tipo": "del",
+     "texto": "- Peça somente os campos que faltam. Nunca peça nem cite um campo que já veio preenchido."
+    },
+    {
+     "tipo": "del",
+     "texto": "- Use o nome exato do campo, sem sinônimos."
+    },
+    {
+     "tipo": "del",
+     "texto": "- Você pode confirmar o item e a quantidade recebidos em uma frase; não peça nada sobre eles."
+    },
+    {
+     "tipo": "add",
+     "texto": "- Abra com uma frase que confirma só o item e a quantidade recebidos. Nessa frase não escreva o nome de nenhum outro campo."
+    },
+    {
+     "tipo": "add",
+     "texto": "- Peça os campos que faltam em uma lista, um por linha, cada linha começando com \"- \" e usando o nome exato do campo."
+    },
+    {
+     "tipo": "add",
+     "texto": "- Nunca escreva o nome de um campo que veio preenchido: nem para confirmar que recebeu, nem para dizer que já temos, nem para dizer que não precisa informar. Se o campo não está na lista, ele não aparece no e-mail."
+    },
+    {
+     "tipo": "ctx",
+     "texto": "- Se nenhum campo faltar, responda apenas NENHUM_CAMPO_FALTANTE."
+    }
+   ],
+   "hash_v1": "333d7e7cff49",
+   "hash_v2": "01f069156bb0",
+   "arquivo_v2": "prompts/P3_encadeado_v2.json",
+   "numero": "78,3% contra 98,3% (P3 v1 contra P3 v2), 20 casos × 3 repetições",
+   "grupos": [
+    {
+     "titulo": "Acerto (20 casos × 3 repetições)",
+     "barras": [
+      {
+       "rotulo": "Encadeado com e-mail v1 (P1 → P3 v1)",
+       "valor": 0.7833333333333333,
+       "texto": "78,3%",
+       "sub": "US$ 0,000256 por resposta"
+      },
+      {
+       "rotulo": "Encadeado com e-mail v2 (P1 → P3 v2)",
+       "valor": 0.9833333333333334,
+       "texto": "98,3%",
+       "sub": "US$ 0,000273 por resposta"
+      }
+     ]
+    },
+    {
+     "titulo": "Custo por resposta (a barra maior é o mais caro)",
+     "barras": [
+      {
+       "rotulo": "Encadeado com e-mail v1 (P1 → P3 v1)",
+       "valor": 0.9382732610962397,
+       "texto": "US$ 0,000256",
+       "sub": "latência média 2,18 s"
+      },
+      {
+       "rotulo": "Encadeado com e-mail v2 (P1 → P3 v2)",
+       "valor": 1.0,
+       "texto": "US$ 0,000273",
+       "sub": "latência média 2,19 s"
+      }
+     ]
+    }
+   ],
+   "quando_usar": "Quando o prompt erra por quebrar uma proibição, troque a proibição por uma instrução do que fazer e do formato esperado, e meça de novo (78,3% para 98,3% aqui). Antes de confiar na versão nova, teste-a em casos que você não usou para escrevê-la.",
+   "explicacao": {
+    "titulo": "Por que melhorou, e o que isso não prova",
+    "paragrafos": [
+     "O que mudou no prompt: em vez de só proibir (\"nunca cite um campo preenchido\"), a v2 diz o que fazer no lugar. O e-mail abre só com o item e a quantidade, cada campo pedido vai em uma linha com \"- \", e a decisão de pedir ou não um campo depende de ele estar vazio (null) no JSON recebido.",
+     "Antes, 13 de 60 respostas erravam (9 só confirmavam um dado recebido e 4 pediam de novo um campo que já tinha). Agora, 1 de 60. Nenhum e-mail deixou de pedir um campo que faltava, nem antes nem depois. A extração do P1 estava certa em 60 de 60, então a diferença vem só do e-mail.",
+     "O erro que sobrou pediu de novo o valor unitário, que já estava preenchido. Contando só o que o e-mail pede de novo (regra auxiliar escrita depois de ler os erros), a v1 teria 93,3% e a v2 98,3%: mesmo com essa conta mais branda, a v2 não ficou pior.",
+     "Ressalva importante: eu escrevi a v2 olhando os erros destes mesmos 20 casos. Este é um resultado de desenvolvimento, não prova que a v2 acerta em e-mails novos."
+    ]
+   },
+   "comparacao": {
+    "base": "encadeado_v1",
+    "alternativa": "encadeado_v2",
+    "casos_comparados": 20,
+    "a_favor_base": 1,
+    "a_favor_alternativa": 8,
+    "p_sinal": 0.0390625,
+    "casos_melhores_na_alternativa": [
+     "E04",
+     "E05",
+     "E06",
+     "E07",
+     "E10",
+     "E13",
+     "E15",
+     "E20"
+    ],
+    "casos_melhores_na_base": [
+     "E03"
+    ],
+    "diferenca_acerto_pp": 20.000000000000007,
+    "razao_custo": 1.0657875924457672,
+    "razao_latencia": 1.0030357366307443
+   },
+   "variantes": {
+    "encadeado_v1": {
+     "medido": true,
+     "casos": 20,
+     "respostas": 60,
+     "repeticoes": 3,
+     "completo": true,
+     "prompts": [
+      "P1 system_prompt v2 2c3ccc1873da",
+      "P3 encadeado v1 333d7e7cff49"
+     ],
+     "acerto_caso_media": 0.7833333333333333,
+     "acerto_caso_rep_min": 0.75,
+     "acerto_caso_rep_max": 0.8,
+     "ic95_baixo": 0.65,
+     "ic95_alto": 0.9,
+     "acerto_por_caso": {
+      "E01": 1.0,
+      "E02": 1.0,
+      "E03": 1.0,
+      "E04": 0.6666666666666666,
+      "E05": 0.6666666666666666,
+      "E06": 0.3333333333333333,
+      "E07": 0.6666666666666666,
+      "E08": 1.0,
+      "E09": 1.0,
+      "E10": 0.3333333333333333,
+      "E11": 1.0,
+      "E12": 1.0,
+      "E13": 0.0,
+      "E14": 1.0,
+      "E15": 0.6666666666666666,
+      "E16": 1.0,
+      "E17": 1.0,
+      "E18": 1.0,
+      "E19": 1.0,
+      "E20": 0.3333333333333333
+     },
+     "acerto_tipo": {
+      "completa": 1.0,
+      "falta_dois": 0.5833333333333334,
+      "falta_quatro": 1.0,
+      "falta_tres": 0.6666666666666666,
+      "falta_um": 0.75,
+      "prazo_relativo": 1.0,
+      "so_valor_total": 1.0
+     },
+     "acerto_campo": {
+      "solicitante_area": 0.9666666666666667,
+      "prazo_entrega": 0.9666666666666667,
+      "valor_unitario": 0.9166666666666666,
+      "fornecedor": 0.85
+     },
+     "json_valido": null,
+     "truncadas": 0,
+     "chamadas_por_resposta": 2.0,
+     "tokens_entrada_media": 1364.15,
+     "tokens_saida_media": 240.08333333333334,
+     "custo_total_usd": 0.0153874,
+     "custo_por_resposta_usd": 0.00025645666666666665,
+     "custo_por_acerto_usd": 0.00032739148936170216,
+     "latencia_media_s": 2.182196878333828,
+     "latencia_mediana_s": 2.2265977499992005,
+     "extras": {
+      "formato_ok": 1.0,
+      "faltou_citar_total": 0,
+      "citou_a_mais_total": 18,
+      "palavras_corpo_media": 39.56666666666667
+     }
+    },
+    "encadeado_v2": {
+     "medido": true,
+     "casos": 20,
+     "respostas": 60,
+     "repeticoes": 3,
+     "completo": true,
+     "prompts": [
+      "P1 system_prompt v2 2c3ccc1873da",
+      "P3 encadeado v2 01f069156bb0"
+     ],
+     "acerto_caso_media": 0.9833333333333334,
+     "acerto_caso_rep_min": 0.95,
+     "acerto_caso_rep_max": 1.0,
+     "ic95_baixo": 0.95,
+     "ic95_alto": 1.0,
+     "acerto_por_caso": {
+      "E01": 1.0,
+      "E02": 1.0,
+      "E03": 0.6666666666666666,
+      "E04": 1.0,
+      "E05": 1.0,
+      "E06": 1.0,
+      "E07": 1.0,
+      "E08": 1.0,
+      "E09": 1.0,
+      "E10": 1.0,
+      "E11": 1.0,
+      "E12": 1.0,
+      "E13": 1.0,
+      "E14": 1.0,
+      "E15": 1.0,
+      "E16": 1.0,
+      "E17": 1.0,
+      "E18": 1.0,
+      "E19": 1.0,
+      "E20": 1.0
+     },
+     "acerto_tipo": {
+      "completa": 1.0,
+      "falta_dois": 0.9166666666666666,
+      "falta_quatro": 1.0,
+      "falta_tres": 1.0,
+      "falta_um": 1.0,
+      "prazo_relativo": 1.0,
+      "so_valor_total": 1.0
+     },
+     "acerto_campo": {
+      "solicitante_area": 1.0,
+      "prazo_entrega": 1.0,
+      "valor_unitario": 0.9833333333333333,
+      "fornecedor": 1.0
+     },
+     "json_valido": null,
+     "truncadas": 0,
+     "chamadas_por_resposta": 2.0,
+     "tokens_entrada_media": 1514.0333333333333,
+     "tokens_saida_media": 243.85,
+     "custo_total_usd": 0.0163997,
+     "custo_por_resposta_usd": 0.0002733283333333333,
+     "custo_por_acerto_usd": 0.00027796101694915255,
+     "latencia_media_s": 2.188821453332882,
+     "latencia_mediana_s": 2.1325440500077093,
+     "extras": {
+      "formato_ok": 1.0,
+      "faltou_citar_total": 0,
+      "citou_a_mais_total": 1,
+      "palavras_corpo_media": 34.333333333333336
+     }
+    }
    }
   }
  ],
@@ -11494,6 +11842,1900 @@
     }
    ],
    "nota": "Respostas reais gravadas do claude-haiku-5-5. Não são chamadas ao vivo."
+  },
+  {
+   "id": "E6",
+   "rotulo": "Experimento 6: e-mail P3 v1 contra v2",
+   "medido": true,
+   "casos": [
+    {
+     "id": "E01",
+     "tipo": "completa",
+     "texto": "Oi, preciso de 15 caixas de papel A4 (solicitante: Financeiro). Valor unitário € 120,00. Pode ser com a Químicos Horizonte. Prazo: 05-out-2026.",
+     "gabarito": {
+      "faltantes": [],
+      "extracao": {
+       "solicitante_area": "Financeiro",
+       "item": "papel A4",
+       "quantidade": 15,
+       "unidade": "cx",
+       "prazo_entrega": "2026-10-05",
+       "valor_unitario": 120,
+       "moeda": "EUR",
+       "fornecedor": "Químicos Horizonte"
+      }
+     },
+     "variantes": [
+      {
+       "id": "encadeado",
+       "rotulo": "P3 v1 (E-mail com proibição)",
+       "reps": [
+        {
+         "resposta": "NENHUM_CAMPO_FALTANTE",
+         "correto": true,
+         "campos": {
+          "solicitante_area": true,
+          "prazo_entrega": true,
+          "valor_unitario": true,
+          "fornecedor": true
+         }
+        },
+        {
+         "resposta": "NENHUM_CAMPO_FALTANTE",
+         "correto": true,
+         "campos": {
+          "solicitante_area": true,
+          "prazo_entrega": true,
+          "valor_unitario": true,
+          "fornecedor": true
+         }
+        },
+        {
+         "resposta": "NENHUM_CAMPO_FALTANTE",
+         "correto": true,
+         "campos": {
+          "solicitante_area": true,
+          "prazo_entrega": true,
+          "valor_unitario": true,
+          "fornecedor": true
+         }
+        }
+       ]
+      },
+      {
+       "id": "encadeado_v2",
+       "rotulo": "P3 v2 (E-mail com instrução)",
+       "reps": [
+        {
+         "resposta": "NENHUM_CAMPO_FALTANTE",
+         "correto": true,
+         "campos": {
+          "solicitante_area": true,
+          "prazo_entrega": true,
+          "valor_unitario": true,
+          "fornecedor": true
+         }
+        },
+        {
+         "resposta": "NENHUM_CAMPO_FALTANTE",
+         "correto": true,
+         "campos": {
+          "solicitante_area": true,
+          "prazo_entrega": true,
+          "valor_unitario": true,
+          "fornecedor": true
+         }
+        },
+        {
+         "resposta": "NENHUM_CAMPO_FALTANTE",
+         "correto": true,
+         "campos": {
+          "solicitante_area": true,
+          "prazo_entrega": true,
+          "valor_unitario": true,
+          "fornecedor": true
+         }
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "id": "E02",
+     "tipo": "falta_dois",
+     "texto": "Preciso comprar 20 metros de cabo elétrico 2,5mm (solicitante: Logística). Prazo: 12 de março de 2026.",
+     "gabarito": {
+      "faltantes": [
+       "valor_unitario",
+       "fornecedor"
+      ],
+      "extracao": {
+       "solicitante_area": "Logística",
+       "item": "cabo elétrico 2,5mm",
+       "quantidade": 20,
+       "unidade": "m",
+       "prazo_entrega": "2026-03-12",
+       "valor_unitario": null,
+       "moeda": null,
+       "fornecedor": null
+      }
+     },
+     "variantes": [
+      {
+       "id": "encadeado",
+       "rotulo": "P3 v1 (E-mail com proibição)",
+       "reps": [
+        {
+         "resposta": "Assunto: Solicitação de compra: cabo elétrico 2,5mm\n\nOlá,\n\nRecebemos sua solicitação de 20 m de cabo elétrico 2,5mm para a área de Logística. Para dar andamento à compra, preciso que você nos informe:\n\n1. Valor unitário e moeda\n2. Fornecedor\n\nAssim que tivermos essas informações, seguimos com o processo.\n\nObrigado pela atenção.\n\nEquipe de Compras · Gutenberg Systems",
+         "correto": true,
+         "campos": {
+          "solicitante_area": true,
+          "prazo_entrega": true,
+          "valor_unitario": true,
+          "fornecedor": true
+         }
+        },
+        {
+         "resposta": "Assunto: Informações pendentes para a solicitação de compra de cabo elétrico 2,5mm\n\nOlá,\n\nRecebemos sua solicitação de compra de 20 m de cabo elétrico 2,5mm. Para dar andamento, precisamos apenas de três informações:\n\n1. valor unitário, com a moeda\n2. fornecedor\n\nAssim que receber esses dados, seguimos com a cotação.\n\nAgradecemos sua atenção.\n\nEquipe de Compras · Gutenberg Systems",
+         "correto": true,
+         "campos": {
+          "solicitante_area": true,
+          "prazo_entrega": true,
+          "valor_unitario": true,
+          "fornecedor": true
+         }
+        },
+        {
+         "resposta": "Assunto: Informações pendentes para a solicitação de cabo elétrico 2,5mm\n\nOlá,\n\nRecebemos sua solicitação de 20 m de cabo elétrico 2,5mm. Para dar andamento à compra, precisamos das seguintes informações:\n\n- valor unitário, com a moeda\n- fornecedor\n\nAssim que você nos enviar esses dados, seguimos com o processo.\n\nObrigado,\n\nEquipe de Compras · Gutenberg Systems",
+         "correto": true,
+         "campos": {
+          "solicitante_area": true,
+          "prazo_entrega": true,
+          "valor_unitario": true,
+          "fornecedor": true
+         }
+        }
+       ]
+      },
+      {
+       "id": "encadeado_v2",
+       "rotulo": "P3 v2 (E-mail com instrução)",
+       "reps": [
+        {
+         "resposta": "Assunto: Solicitação de compra: cabo elétrico 2,5mm\n\nOlá,\n\nRecebemos sua solicitação de 20 m de cabo elétrico 2,5mm.\n\nPara dar andamento, precisamos das seguintes informações:\n\n- valor unitário (com a moeda)\n- fornecedor\n\nAssim que receber esses dados, seguimos com a cotação.\n\nAgradecemos sua atenção.\n\nEquipe de Compras · Gutenberg Systems",
+         "correto": true,
+         "campos": {
+          "solicitante_area": true,
+          "prazo_entrega": true,
+          "valor_unitario": true,
+          "fornecedor": true
+         }
+        },
+        {
+         "resposta": "Assunto: Solicitação de compra - cabo elétrico 2,5mm\n\nOlá,\n\nRecebemos sua solicitação de 20 m de cabo elétrico 2,5mm.\n\nPara dar andamento, preciso das seguintes informações:\n\n- valor unitário\n- fornecedor\n\nAssim que receber, seguimos com a cotação. Obrigado!\n\nEquipe de Compras · Gutenberg Systems",
+         "correto": true,
+         "campos": {
+          "solicitante_area": true,
+          "prazo_entrega": true,
+          "valor_unitario": true,
+          "fornecedor": true
+         }
+        },
+        {
+         "resposta": "Assunto: Solicitação de compra: cabo elétrico 2,5mm\n\nOlá,\n\nRecebemos sua solicitação de 20 m de cabo elétrico 2,5mm.\n\nPara dar andamento, precisamos das seguintes informações:\n\n- valor unitário (informe também a moeda)\n- fornecedor\n\nAssim que recebermos, seguimos com a cotação.\n\nObrigado pela atenção.\n\nEquipe de Compras · Gutenberg Systems",
+         "correto": true,
+         "campos": {
+          "solicitante_area": true,
+          "prazo_entrega": true,
+          "valor_unitario": true,
+          "fornecedor": true
+         }
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "id": "E03",
+     "tipo": "falta_dois",
+     "texto": "Bom dia! Solicito 20 litros de detergente industrial. preço de tabela: R$ 380,00 por unidade. precisa chegar em 2026-09-22.",
+     "gabarito": {
+      "faltantes": [
+       "solicitante_area",
+       "fornecedor"
+      ],
+      "extracao": {
+       "solicitante_area": null,
+       "item": "detergente industrial",
+       "quantidade": 20,
+       "unidade": "l",
+       "prazo_entrega": "2026-09-22",
+       "valor_unitario": 380,
+       "moeda": "BRL",
+       "fornecedor": null
+      }
+     },
+     "variantes": [
+      {
+       "id": "encadeado",
+       "rotulo": "P3 v1 (E-mail com proibição)",
+       "reps": [
+        {
+         "resposta": "Assunto: Informações pendentes para a solicitação de detergente industrial\n\nOlá,\n\nRecebemos sua solicitação de 20 litros de detergente industrial. Para dar andamento à compra, precisamos de duas informações:\n\n1. Área solicitante\n2. Fornecedor\n\nAssim que receber esses dados, seguimos com o processo.\n\nObrigado,\n\nEquipe de Compras · Gutenberg Systems",
+         "correto": true,
+         "campos": {
+          "solicitante_area": true,
+          "prazo_entrega": true,
+          "valor_unitario": true,
+          "fornecedor": true
+         }
+        },
+        {
+         "resposta": "Assunto: Informações pendentes para a solicitação de detergente industrial\n\nOlá,\n\nRecebemos sua solicitação de compra de 20 litros de detergente industrial. Para dar seguimento, precisamos apenas de duas informações:\n\n1. área solicitante\n2. fornecedor\n\nAssim que você enviar esses dados, seguimos com o processo.\n\nObrigado,\n\nEquipe de Compras · Gutenberg Systems",
+         "correto": true,
+         "campos": {
+          "solicitante_area": true,
+          "prazo_entrega": true,
+          "valor_unitario": true,
+          "fornecedor": true
+         }
+        },
+        {
+         "resposta": "Assunto: Informações pendentes para a compra de detergente industrial\n\nOlá,\n\nRecebemos sua solicitação de compra de 20 litros de detergente industrial. Para dar andamento, precisamos das seguintes informações:\n\n1. Área solicitante\n2. Fornecedor\n\nAssim que recebermos esses dados, seguimos com a compra.\n\nObrigado,\n\nEquipe de Compras · Gutenberg Systems",
+         "correto": true,
+         "campos": {
+          "solicitante_area": true,
+          "prazo_entrega": true,
+          "valor_unitario": true,
+          "fornecedor": true
+         }
+        }
+       ]
+      },
+      {
+       "id": "encadeado_v2",
+       "rotulo": "P3 v2 (E-mail com instrução)",
+       "reps": [
+        {
+         "resposta": "Assunto: Informações pendentes para a compra de detergente industrial\n\nOlá,\n\nRecebemos sua solicitação de compra de 20 litros de detergente industrial.\n\nPara dar andamento, precisamos das seguintes informações:\n\n- área solicitante\n- fornecedor\n\nAssim que recebermos, seguimos com a compra.\n\nObrigado!\n\nEquipe de Compras · Gutenberg Systems",
+         "correto": true,
+         "campos": {
+          "solicitante_area": true,
+          "prazo_entrega": true,
+          "valor_unitario": true,
+          "fornecedor": true
+         }
+        },
+        {
+         "resposta": "Assunto: Informações pendentes para a compra de detergente industrial\n\nOlá,\n\nRecebemos sua solicitação de 20 litros de detergente industrial.\n\nPara dar andamento, precisamos das seguintes informações:\n\n- área solicitante\n- fornecedor\n\nAssim que receber esses dados, seguimos com a compra.\n\nObrigado!\n\nEquipe de Compras · Gutenberg Systems",
+         "correto": true,
+         "campos": {
+          "solicitante_area": true,
+          "prazo_entrega": true,
+          "valor_unitario": true,
+          "fornecedor": true
+         }
+        },
+        {
+         "resposta": "Assunto: Informações pendentes para sua solicitação de compra\n\nOlá,\n\nRecebemos sua solicitação de 20 litros de detergente industrial. Para dar andamento, precisamos de mais algumas informações:\n\n- área solicitante\n- valor unitário (informe também a moeda)\n- fornecedor\n\nAssim que receber esses dados, seguimos com a compra.\n\nAgradecemos sua atenção.\n\nEquipe de Compras · Gutenberg Systems",
+         "correto": false,
+         "campos": {
+          "solicitante_area": true,
+          "prazo_entrega": true,
+          "valor_unitario": false,
+          "fornecedor": true
+         }
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "id": "E04",
+     "tipo": "falta_um",
+     "texto": "Preciso comprar 100 un de luva de proteção para a área de Produção. cotação feita com Químicos Horizonte. precisa chegar em 18/03/2026.",
+     "gabarito": {
+      "faltantes": [
+       "valor_unitario"
+      ],
+      "extracao": {
+       "solicitante_area": "Produção",
+       "item": "luva de proteção",
+       "quantidade": 100,
+       "unidade": "un",
+       "prazo_entrega": "2026-03-18",
+       "valor_unitario": null,
+       "moeda": null,
+       "fornecedor": "Químicos Horizonte"
+      }
+     },
+     "variantes": [
+      {
+       "id": "encadeado",
+       "rotulo": "P3 v1 (E-mail com proibição)",
+       "reps": [
+        {
+         "resposta": "Assunto: Informações pendentes para a solicitação de luva de proteção\n\nOlá,\n\nRecebemos sua solicitação de 100 unidades de luva de proteção e já temos a área solicitante, o prazo de entrega e o fornecedor.\n\nPara dar andamento à compra, precisamos apenas do valor unitário e da moeda em que ele está expresso. Pode nos enviar essas informações?\n\nAgradecemos sua atenção.\n\nEquipe de Compras · Gutenberg Systems",
+         "correto": false,
+         "campos": {
+          "solicitante_area": false,
+          "prazo_entrega": false,
+          "valor_unitario": true,
+          "fornecedor": false
+         }
+        },
+        {
+         "resposta": "Assunto: Informações pendentes para a solicitação de compra de luva de proteção\n\nOlá,\n\nRecebemos sua solicitação de compra de 100 unidades de luva de proteção.\n\nPara dar andamento, precisamos apenas da informação abaixo:\n\n- valor unitário, com a moeda\n\nAgradecemos a atenção.\n\nEquipe de Compras · Gutenberg Systems",
+         "correto": true,
+         "campos": {
+          "solicitante_area": true,
+          "prazo_entrega": true,
+          "valor_unitario": true,
+          "fornecedor": true
+         }
+        },
+        {
+         "resposta": "Assunto: Informações pendentes para a solicitação de compra de luvas de proteção\n\nOlá,\n\nRecebemos sua solicitação de compra de 100 unidades de luva de proteção.\n\nPara dar andamento, precisamos apenas da informação abaixo:\n\n- valor unitário, com a moeda correspondente\n\nAssim que você nos enviar esse dado, seguimos com a solicitação.\n\nObrigado pela atenção.\n\nEquipe de Compras · Gutenberg Systems",
+         "correto": true,
+         "campos": {
+          "solicitante_area": true,
+          "prazo_entrega": true,
+          "valor_unitario": true,
+          "fornecedor": true
+         }
+        }
+       ]
+      },
+      {
+       "id": "encadeado_v2",
+       "rotulo": "P3 v2 (E-mail com instrução)",
+       "reps": [
+        {
+         "resposta": "Assunto: Solicitação de compra: luva de proteção, falta um dado\n\nOlá,\n\nRecebemos sua solicitação de 100 unidades de luva de proteção.\n\nPara dar andamento, preciso que você nos informe:\n\n- valor unitário (e a moeda)\n\nAssim que tivermos essa informação, seguimos com a compra.\n\nObrigado pela atenção.\n\nEquipe de Compras · Gutenberg Systems",
+         "correto": true,
+         "campos": {
+          "solicitante_area": true,
+          "prazo_entrega": true,
+          "valor_unitario": true,
+          "fornecedor": true
+         }
+        },
+        {
+         "resposta": "Assunto: Informações pendentes para a compra de luvas de proteção\n\nOlá,\n\nRecebemos sua solicitação de compra de 100 unidades de luva de proteção.\n\nPara dar andamento, precisamos das seguintes informações:\n\n- valor unitário (informe também a moeda)\n\nAssim que recebermos, seguimos com a compra.\n\nObrigado pela atenção.\n\nEquipe de Compras · Gutenberg Systems",
+         "correto": true,
+         "campos": {
+          "solicitante_area": true,
+          "prazo_entrega": true,
+          "valor_unitario": true,
+          "fornecedor": true
+         }
+        },
+        {
+         "resposta": "Assunto: Solicitação de compra: luva de proteção, pendência de valor unitário\n\nOlá,\n\nRecebemos sua solicitação de 100 unidades de luva de proteção. Para dar andamento à compra, precisamos apenas da informação abaixo:\n\n- valor unitário (com a moeda)\n\nAssim que receber, seguimos com o processo.\n\nObrigado,\n\nEquipe de Compras · Gutenberg Systems",
+         "correto": true,
+         "campos": {
+          "solicitante_area": true,
+          "prazo_entrega": true,
+          "valor_unitario": true,
+          "fornecedor": true
+         }
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "id": "E05",
+     "tipo": "falta_um",
+     "texto": "Oi, preciso de 2 l de tinta acrílica branca (solicitante: Manutenção). Cada unidade custa € 12,50. Entrega até 27/12/2026.",
+     "gabarito": {
+      "faltantes": [
+       "fornecedor"
+      ],
+      "extracao": {
+       "solicitante_area": "Manutenção",
+       "item": "tinta acrílica branca",
+       "quantidade": 2,
+       "unidade": "l",
+       "prazo_entrega": "2026-12-27",
+       "valor_unitario": 12.5,
+       "moeda": "EUR",
+       "fornecedor": null
+      }
+     },
+     "variantes": [
+      {
+       "id": "encadeado",
+       "rotulo": "P3 v1 (E-mail com proibição)",
+       "reps": [
+        {
+         "resposta": "Assunto: Informações pendentes para a solicitação de tinta acrílica branca\n\nOlá,\n\nRecebemos sua solicitação de 2 litros de tinta acrílica branca. Para dar andamento à compra, precisamos apenas de mais uma informação:\n\n- fornecedor\n\nPode nos informar o fornecedor desejado?\n\nAgradecemos sua atenção.\n\nEquipe de Compras · Gutenberg Systems",
+         "correto": true,
+         "campos": {
+          "solicitante_area": true,
+          "prazo_entrega": true,
+          "valor_unitario": true,
+          "fornecedor": true
+         }
+        },
+        {
+         "resposta": "Assunto: Solicitação de compra: informações pendentes\n\nOlá,\n\nRecebemos sua solicitação de compra de 2 litros de tinta acrílica branca. Para dar seguimento, precisamos apenas do fornecedor.\n\nVocê pode nos informar o fornecedor desta compra?\n\nAgradecemos sua atenção.\n\nEquipe de Compras · Gutenberg Systems",
+         "correto": true,
+         "campos": {
+          "solicitante_area": true,
+          "prazo_entrega": true,
+          "valor_unitario": true,
+          "fornecedor": true
+         }
+        },
+        {
+         "resposta": "Assunto: Informações pendentes para a solicitação de tinta acrílica branca\n\nOlá,\n\nRecebemos sua solicitação de compra de 2 litros de tinta acrílica branca. Para dar seguimento, precisamos de mais duas informações:\n\n1. Fornecedor\n2. Valor unitário, com a moeda, em que a solicitação deve ser atendida\n\nAssim que você nos enviar esses dados, seguimos com a compra.\n\nObrigado pela colaboração.\n\nEquipe de Compras · Gutenberg Systems",
+         "correto": false,
+         "campos": {
+          "solicitante_area": true,
+          "prazo_entrega": true,
+          "valor_unitario": false,
+          "fornecedor": true
+         }
+        }
+       ]
+      },
+      {
+       "id": "encadeado_v2",
+       "rotulo": "P3 v2 (E-mail com instrução)",
+       "reps": [
+        {
+         "resposta": "Assunto: Informações pendentes para a solicitação de compra\n\nOlá,\n\nRecebemos sua solicitação de compra de 2 l de tinta acrílica branca.\n\nPara dar andamento, precisamos das seguintes informações:\n\n- fornecedor\n\nAssim que você responder, seguimos com a compra.\n\nObrigado pela atenção.\n\nEquipe de Compras · Gutenberg Systems",
+         "correto": true,
+         "campos": {
+          "solicitante_area": true,
+          "prazo_entrega": true,
+          "valor_unitario": true,
+          "fornecedor": true
+         }
+        },
+        {
+         "resposta": "Assunto: Solicitação de compra: tinta acrílica branca\n\nOlá,\n\nRecebemos sua solicitação de 2 litros de tinta acrílica branca.\n\nPara dar andamento à compra, precisamos das seguintes informações:\n\n- fornecedor\n\nPode nos enviar esse dado? Assim que recebermos, seguimos com o processo.\n\nObrigado,\n\nEquipe de Compras · Gutenberg Systems",
+         "correto": true,
+         "campos": {
+          "solicitante_area": true,
+          "prazo_entrega": true,
+          "valor_unitario": true,
+          "fornecedor": true
+         }
+        },
+        {
+         "resposta": "Assunto: Solicitação de compra: tinta acrílica branca\n\nOlá,\n\nRecebemos sua solicitação de 2 litros de tinta acrílica branca.\n\nPara dar andamento à compra, preciso que você nos informe:\n\n- fornecedor\n\nObrigado pela atenção.\n\nEquipe de Compras · Gutenberg Systems",
+         "correto": true,
+         "campos": {
+          "solicitante_area": true,
+          "prazo_entrega": true,
+          "valor_unitario": true,
+          "fornecedor": true
+         }
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "id": "E06",
+     "tipo": "falta_um",
+     "texto": "Bom dia! Solicito 40 un de cadeira ergonômica para a área de Produção. Pode ser com a Embalagens Ponto Certo. Entrega até 07/12/2026.",
+     "gabarito": {
+      "faltantes": [
+       "valor_unitario"
+      ],
+      "extracao": {
+       "solicitante_area": "Produção",
+       "item": "cadeira ergonômica",
+       "quantidade": 40,
+       "unidade": "un",
+       "prazo_entrega": "2026-12-07",
+       "valor_unitario": null,
+       "moeda": null,
+       "fornecedor": "Embalagens Ponto Certo"
+      }
+     },
+     "variantes": [
+      {
+       "id": "encadeado",
+       "rotulo": "P3 v1 (E-mail com proibição)",
+       "reps": [
+        {
+         "resposta": "Assunto: Informações pendentes para a solicitação de compra de cadeiras ergonômicas\n\nOlá,\n\nRecebemos sua solicitação de compra de 40 unidades de cadeira ergonômica. Para dar seguimento, precisamos apenas da informação abaixo:\n\n- valor unitário, com a moeda correspondente\n\nAssim que você nos enviar esse dado, seguimos com o processo.\n\nAgradecemos sua atenção.\n\nEquipe de Compras · Gutenberg Systems",
+         "correto": true,
+         "campos": {
+          "solicitante_area": true,
+          "prazo_entrega": true,
+          "valor_unitario": true,
+          "fornecedor": true
+         }
+        },
+        {
+         "resposta": "Assunto: Informações pendentes para a compra de cadeiras ergonômicas\n\nOlá,\n\nRecebemos sua solicitação de compra de 40 unidades de cadeira ergonômica, com fornecedor Embalagens Ponto Certo.\n\nPara dar seguimento, precisamos que você informe o valor unitário e a moeda correspondente.\n\nAgradecemos sua atenção.\n\nEquipe de Compras · Gutenberg Systems",
+         "correto": false,
+         "campos": {
+          "solicitante_area": true,
+          "prazo_entrega": true,
+          "valor_unitario": true,
+          "fornecedor": false
+         }
+        },
+        {
+         "resposta": "Assunto: Informações pendentes para a compra de cadeiras ergonômicas\n\nOlá,\n\nRecebemos sua solicitação de compra de 40 unidades de cadeira ergonômica, já com fornecedor e prazo de entrega definidos.\n\nPara dar seguimento, precisamos apenas do valor unitário e da moeda em que ele está cotado.\n\nFicamos no aguardo da resposta. Obrigado!\n\nEquipe de Compras · Gutenberg Systems",
+         "correto": false,
+         "campos": {
+          "solicitante_area": true,
+          "prazo_entrega": false,
+          "valor_unitario": true,
+          "fornecedor": false
+         }
+        }
+       ]
+      },
+      {
+       "id": "encadeado_v2",
+       "rotulo": "P3 v2 (E-mail com instrução)",
+       "reps": [
+        {
+         "resposta": "Assunto: Informações pendentes para a compra de cadeiras ergonômicas\n\nOlá,\n\nRecebemos sua solicitação de 40 unidades de cadeira ergonômica. Para dar andamento à compra, precisamos de mais uma informação:\n\n- valor unitário (e a moeda)\n\nAssim que você nos enviar esse dado, seguimos com o processo.\n\nObrigado pela atenção.\n\nEquipe de Compras · Gutenberg Systems",
+         "correto": true,
+         "campos": {
+          "solicitante_area": true,
+          "prazo_entrega": true,
+          "valor_unitario": true,
+          "fornecedor": true
+         }
+        },
+        {
+         "resposta": "Assunto: Informações pendentes para a compra de cadeiras ergonômicas\n\nOlá,\n\nRecebemos sua solicitação de 40 unidades de cadeira ergonômica. Para dar sequência à compra, precisamos de mais uma informação:\n\n- valor unitário (e a moeda)\n\nAssim que você nos enviar, seguimos com o processo.\n\nObrigado!\n\nEquipe de Compras · Gutenberg Systems",
+         "correto": true,
+         "campos": {
+          "solicitante_area": true,
+          "prazo_entrega": true,
+          "valor_unitario": true,
+          "fornecedor": true
+         }
+        },
+        {
+         "resposta": "Assunto: Informações pendentes para a compra de cadeiras ergonômicas\n\nOlá,\n\nRecebemos sua solicitação de compra de 40 unidades de cadeira ergonômica.\n\nPara dar andamento, precisamos das seguintes informações:\n\n- valor unitário (com a moeda)\n\nObrigado pela atenção.\n\nEquipe de Compras · Gutenberg Systems",
+         "correto": true,
+         "campos": {
+          "solicitante_area": true,
+          "prazo_entrega": true,
+          "valor_unitario": true,
+          "fornecedor": true
+         }
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "id": "E07",
+     "tipo": "falta_um",
+     "texto": "Preciso comprar 25 m de tubo PVC 50mm para a área de TI. Valor unitário € 120,00. precisa chegar em 2 de março de 2026.",
+     "gabarito": {
+      "faltantes": [
+       "fornecedor"
+      ],
+      "extracao": {
+       "solicitante_area": "TI",
+       "item": "tubo PVC 50mm",
+       "quantidade": 25,
+       "unidade": "m",
+       "prazo_entrega": "2026-03-02",
+       "valor_unitario": 120,
+       "moeda": "EUR",
+       "fornecedor": null
+      }
+     },
+     "variantes": [
+      {
+       "id": "encadeado",
+       "rotulo": "P3 v1 (E-mail com proibição)",
+       "reps": [
+        {
+         "resposta": "Assunto: Solicitação de compra: tubo PVC 50mm, informações pendentes\n\nOlá,\n\nRecebemos sua solicitação de compra de 25 m de tubo PVC 50mm. Para dar andamento, precisamos apenas de mais uma informação:\n\n- fornecedor\n\nAssim que você responder, seguimos com a cotação.\n\nAgradecemos sua atenção.\n\nEquipe de Compras · Gutenberg Systems",
+         "correto": true,
+         "campos": {
+          "solicitante_area": true,
+          "prazo_entrega": true,
+          "valor_unitario": true,
+          "fornecedor": true
+         }
+        },
+        {
+         "resposta": "Assunto: Solicitação de compra: informações pendentes\n\nOlá,\n\nRecebemos sua solicitação de compra de 25 m de tubo PVC 50mm. Para dar andamento, precisamos apenas de mais uma informação:\n\n- fornecedor\n\nAssim que você nos enviar o fornecedor, seguimos com a cotação.\n\nObrigado!\n\nEquipe de Compras · Gutenberg Systems",
+         "correto": true,
+         "campos": {
+          "solicitante_area": true,
+          "prazo_entrega": true,
+          "valor_unitario": true,
+          "fornecedor": true
+         }
+        },
+        {
+         "resposta": "Assunto: Solicitação de compra - informações pendentes\n\nOlá,\n\nRecebemos sua solicitação de compra de 25 m de tubo PVC 50mm. Para dar andamento, precisamos apenas de duas informações:\n\n1. Fornecedor\n2. Valor unitário, com a moeda\n\nAssim que recebermos esses dados, seguimos com a cotação.\n\nAgradecemos sua atenção.\n\nEquipe de Compras · Gutenberg Systems",
+         "correto": false,
+         "campos": {
+          "solicitante_area": true,
+          "prazo_entrega": true,
+          "valor_unitario": false,
+          "fornecedor": true
+         }
+        }
+       ]
+      },
+      {
+       "id": "encadeado_v2",
+       "rotulo": "P3 v2 (E-mail com instrução)",
+       "reps": [
+        {
+         "resposta": "Assunto: Solicitação de compra: tubo PVC 50mm\n\nOlá,\n\nRecebemos sua solicitação de compra de 25 m de tubo PVC 50mm.\n\nPara dar andamento, precisamos das seguintes informações:\n\n- fornecedor\n\nAssim que você responder, seguimos com a cotação.\n\nObrigado!\n\nEquipe de Compras · Gutenberg Systems",
+         "correto": true,
+         "campos": {
+          "solicitante_area": true,
+          "prazo_entrega": true,
+          "valor_unitario": true,
+          "fornecedor": true
+         }
+        },
+        {
+         "resposta": "Assunto: Solicitação de compra: tubo PVC 50mm\n\nOlá,\n\nRecebemos sua solicitação de 25 m de tubo PVC 50mm.\n\nPara dar andamento à compra, precisamos das seguintes informações:\n\n- fornecedor\n\nAssim que você responder, seguimos com o processo.\n\nObrigado!\n\nEquipe de Compras · Gutenberg Systems",
+         "correto": true,
+         "campos": {
+          "solicitante_area": true,
+          "prazo_entrega": true,
+          "valor_unitario": true,
+          "fornecedor": true
+         }
+        },
+        {
+         "resposta": "Assunto: Solicitação de compra: tubo PVC 50mm, falta informar o fornecedor\n\nOlá,\n\nRecebemos sua solicitação de 25 m de tubo PVC 50mm.\n\nPara dar andamento à compra, precisamos que você nos informe:\n\n- fornecedor\n\nObrigado pela atenção.\n\nEquipe de Compras · Gutenberg Systems",
+         "correto": true,
+         "campos": {
+          "solicitante_area": true,
+          "prazo_entrega": true,
+          "valor_unitario": true,
+          "fornecedor": true
+         }
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "id": "E08",
+     "tipo": "falta_tres",
+     "texto": "Oi, preciso de 15 un de teclado sem fio para a área de Compras.",
+     "gabarito": {
+      "faltantes": [
+       "prazo_entrega",
+       "valor_unitario",
+       "fornecedor"
+      ],
+      "extracao": {
+       "solicitante_area": "Compras",
+       "item": "teclado sem fio",
+       "quantidade": 15,
+       "unidade": "un",
+       "prazo_entrega": null,
+       "valor_unitario": null,
+       "moeda": null,
+       "fornecedor": null
+      }
+     },
+     "variantes": [
+      {
+       "id": "encadeado",
+       "rotulo": "P3 v1 (E-mail com proibição)",
+       "reps": [
+        {
+         "resposta": "Assunto: Informações pendentes para a solicitação de teclado sem fio\n\nOlá,\n\nRecebemos sua solicitação de 15 unidades de teclado sem fio. Para dar andamento, precisamos das seguintes informações:\n\n1. Prazo de entrega\n2. Valor unitário, com a moeda\n3. Fornecedor\n\nAssim que você enviar esses dados, seguimos com a compra.\n\nObrigado pela atenção.\n\nEquipe de Compras · Gutenberg Systems",
+         "correto": true,
+         "campos": {
+          "solicitante_area": true,
+          "prazo_entrega": true,
+          "valor_unitario": true,
+          "fornecedor": true
+         }
+        },
+        {
+         "resposta": "Assunto: Informações pendentes da solicitação de teclados sem fio\n\nOlá,\n\nRecebemos sua solicitação de 15 unidades de teclado sem fio. Para dar andamento, precisamos das seguintes informações:\n\n1. Prazo de entrega\n2. Valor unitário, com a moeda\n3. Fornecedor\n\nAssim que você enviar esses dados, seguimos com a compra.\n\nObrigado,\n\nEquipe de Compras · Gutenberg Systems",
+         "correto": true,
+         "campos": {
+          "solicitante_area": true,
+          "prazo_entrega": true,
+          "valor_unitario": true,
+          "fornecedor": true
+         }
+        },
+        {
+         "resposta": "Assunto: Informações pendentes para a solicitação de teclados sem fio\n\nOlá,\n\nRecebemos sua solicitação de 15 unidades de teclado sem fio. Para dar seguimento, precisamos das seguintes informações:\n\n- prazo de entrega\n- valor unitário, com a moeda\n- fornecedor\n\nAssim que você enviar esses dados, seguimos com o processo.\n\nObrigado,\n\nEquipe de Compras · Gutenberg Systems",
+         "correto": true,
+         "campos": {
+          "solicitante_area": true,
+          "prazo_entrega": true,
+          "valor_unitario": true,
+          "fornecedor": true
+         }
+        }
+       ]
+      },
+      {
+       "id": "encadeado_v2",
+       "rotulo": "P3 v2 (E-mail com instrução)",
+       "reps": [
+        {
+         "resposta": "Assunto: Informações pendentes da sua solicitação de compra\n\nOlá,\n\nRecebemos sua solicitação de 15 unidades de teclado sem fio. Para dar andamento, precisamos das seguintes informações:\n\n- prazo de entrega\n- valor unitário (informe também a moeda)\n- fornecedor\n\nAssim que receber esses dados, seguimos com a compra.\n\nObrigado pela atenção.\n\nEquipe de Compras · Gutenberg Systems",
+         "correto": true,
+         "campos": {
+          "solicitante_area": true,
+          "prazo_entrega": true,
+          "valor_unitario": true,
+          "fornecedor": true
+         }
+        },
+        {
+         "resposta": "Assunto: Informações pendentes da sua solicitação de compra\n\nOlá,\n\nRecebemos sua solicitação de 15 unidades de teclado sem fio. Para dar andamento, precisamos das informações abaixo:\n\n- prazo de entrega\n- valor unitário (com a moeda)\n- fornecedor\n\nAssim que recebermos esses dados, seguimos com a compra. Agradecemos sua atenção.\n\nEquipe de Compras · Gutenberg Systems",
+         "correto": true,
+         "campos": {
+          "solicitante_area": true,
+          "prazo_entrega": true,
+          "valor_unitario": true,
+          "fornecedor": true
+         }
+        },
+        {
+         "resposta": "Assunto: Informações pendentes para a solicitação de 15 teclados sem fio\n\nOlá,\n\nRecebemos sua solicitação de 15 teclados sem fio. Para dar andamento à compra, precisamos das seguintes informações:\n\n- prazo de entrega\n- valor unitário (com a moeda)\n- fornecedor\n\nAssim que recebermos, seguimos com o processo.\n\nAgradecemos sua atenção.\n\nEquipe de Compras · Gutenberg Systems",
+         "correto": true,
+         "campos": {
+          "solicitante_area": true,
+          "prazo_entrega": true,
+          "valor_unitario": true,
+          "fornecedor": true
+         }
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "id": "E09",
+     "tipo": "prazo_relativo",
+     "texto": "Preciso comprar 12 unidades de fita adesiva (solicitante: Manutenção). preço de tabela: US$ 4,50 por unidade. Entrega na semana que vem.",
+     "gabarito": {
+      "faltantes": [
+       "prazo_entrega",
+       "fornecedor"
+      ],
+      "extracao": {
+       "solicitante_area": "Manutenção",
+       "item": "fita adesiva",
+       "quantidade": 12,
+       "unidade": "un",
+       "prazo_entrega": null,
+       "valor_unitario": 4.5,
+       "moeda": "USD",
+       "fornecedor": null
+      }
+     },
+     "variantes": [
+      {
+       "id": "encadeado",
+       "rotulo": "P3 v1 (E-mail com proibição)",
+       "reps": [
+        {
+         "resposta": "Assunto: Solicitação de compra: fita adesiva, informações pendentes\n\nOlá,\n\nRecebemos sua solicitação de 12 unidades de fita adesiva. Para dar seguimento, precisamos das seguintes informações:\n\n- prazo de entrega\n- fornecedor\n\nAssim que você nos enviar esses dados, seguimos com a compra.\n\nAgradecemos sua atenção.\n\nEquipe de Compras · Gutenberg Systems",
+         "correto": true,
+         "campos": {
+          "solicitante_area": true,
+          "prazo_entrega": true,
+          "valor_unitario": true,
+          "fornecedor": true
+         }
+        },
+        {
+         "resposta": "Assunto: Solicitação de compra: informações pendentes\n\nOlá,\n\nRecebemos sua solicitação de compra de 12 unidades de fita adesiva. Para dar seguimento, precisamos das seguintes informações:\n\n- prazo de entrega\n- fornecedor\n\nAssim que você nos enviar esses dados, damos andamento ao processo.\n\nObrigado.\n\nEquipe de Compras · Gutenberg Systems",
+         "correto": true,
+         "campos": {
+          "solicitante_area": true,
+          "prazo_entrega": true,
+          "valor_unitario": true,
+          "fornecedor": true
+         }
+        },
+        {
+         "resposta": "Assunto: Solicitação de compra: fita adesiva, informações pendentes\n\nOlá,\n\nRecebemos sua solicitação de 12 unidades de fita adesiva e já estamos analisando o pedido.\n\nPara dar andamento, precisamos das seguintes informações:\n\n- prazo de entrega\n- fornecedor\n\nAssim que você nos enviar esses dados, seguimos com a compra.\n\nObrigado pela atenção.\n\nEquipe de Compras · Gutenberg Systems",
+         "correto": true,
+         "campos": {
+          "solicitante_area": true,
+          "prazo_entrega": true,
+          "valor_unitario": true,
+          "fornecedor": true
+         }
+        }
+       ]
+      },
+      {
+       "id": "encadeado_v2",
+       "rotulo": "P3 v2 (E-mail com instrução)",
+       "reps": [
+        {
+         "resposta": "Assunto: Solicitação de compra: fita adesiva, 12 un\n\nOlá,\n\nRecebemos sua solicitação de 12 unidades de fita adesiva.\n\nPara dar andamento, precisamos das seguintes informações:\n\n- prazo de entrega\n- fornecedor\n\nAssim que receber esses dados, seguimos com a compra.\n\nObrigado!\n\nEquipe de Compras · Gutenberg Systems",
+         "correto": true,
+         "campos": {
+          "solicitante_area": true,
+          "prazo_entrega": true,
+          "valor_unitario": true,
+          "fornecedor": true
+         }
+        },
+        {
+         "resposta": "Assunto: Solicitação de compra: fita adesiva, 12 unidades\n\nOlá,\n\nRecebemos sua solicitação de 12 unidades de fita adesiva.\n\nPara dar andamento, precisamos das seguintes informações:\n\n- prazo de entrega\n- fornecedor\n\nAssim que receber esses dados, seguimos com a compra. Obrigado!\n\nEquipe de Compras · Gutenberg Systems",
+         "correto": true,
+         "campos": {
+          "solicitante_area": true,
+          "prazo_entrega": true,
+          "valor_unitario": true,
+          "fornecedor": true
+         }
+        },
+        {
+         "resposta": "Assunto: Solicitação de compra: fita adesiva (12 un)\n\nOlá,\n\nRecebemos sua solicitação de 12 unidades de fita adesiva.\n\nPara dar andamento, preciso das seguintes informações:\n\n- prazo de entrega\n- fornecedor\n\nAssim que receber, seguimos com a compra. Obrigado!\n\nEquipe de Compras · Gutenberg Systems",
+         "correto": true,
+         "campos": {
+          "solicitante_area": true,
+          "prazo_entrega": true,
+          "valor_unitario": true,
+          "fornecedor": true
+         }
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "id": "E10",
+     "tipo": "falta_tres",
+     "texto": "Bom dia! Solicito 50 unidades de toner preto. cotação feita com Metalúrgica Vale Verde.",
+     "gabarito": {
+      "faltantes": [
+       "solicitante_area",
+       "prazo_entrega",
+       "valor_unitario"
+      ],
+      "extracao": {
+       "solicitante_area": null,
+       "item": "toner preto",
+       "quantidade": 50,
+       "unidade": "un",
+       "prazo_entrega": null,
+       "valor_unitario": null,
+       "moeda": null,
+       "fornecedor": "Metalúrgica Vale Verde"
+      }
+     },
+     "variantes": [
+      {
+       "id": "encadeado",
+       "rotulo": "P3 v1 (E-mail com proibição)",
+       "reps": [
+        {
+         "resposta": "Assunto: Informações pendentes para a solicitação de compra de toner preto\n\nOlá,\n\nRecebemos sua solicitação de compra de 50 unidades de toner preto. Para dar seguimento, precisamos das seguintes informações:\n\n- área solicitante\n- prazo de entrega\n- valor unitário, com a moeda\n\nO fornecedor já consta como Metalúrgica Vale Verde, então não é necessário informá-lo novamente.\n\nAssim que recebermos esses dados, daremos andamento ao processo.\n\nAgradecemos sua atenção.\n\nEquipe de Compras · Gutenberg Systems",
+         "correto": false,
+         "campos": {
+          "solicitante_area": true,
+          "prazo_entrega": true,
+          "valor_unitario": true,
+          "fornecedor": false
+         }
+        },
+        {
+         "resposta": "Assunto: Informações pendentes para a solicitação de compra de toner preto\n\nOlá,\n\nRecebemos sua solicitação de compra de 50 unidades de toner preto. Para dar andamento, precisamos apenas de mais algumas informações:\n\n- área solicitante\n- prazo de entrega\n- valor unitário, com a moeda\n\nO fornecedor já consta como Metalúrgica Vale Verde, então não é necessário informá-lo novamente.\n\nAssim que recebermos esses dados, seguimos com a compra.\n\nObrigado pela atenção.\n\nEquipe de Compras · Gutenberg Systems",
+         "correto": false,
+         "campos": {
+          "solicitante_area": true,
+          "prazo_entrega": true,
+          "valor_unitario": true,
+          "fornecedor": false
+         }
+        },
+        {
+         "resposta": "Assunto: Informações pendentes para a solicitação de toner preto\n\nOlá,\n\nRecebemos sua solicitação de compra de 50 unidades de toner preto. Para dar andamento, precisamos de algumas informações:\n\n- área solicitante\n- prazo de entrega\n- valor unitário e moeda\n\nAssim que tivermos esses dados, seguimos com o processo.\n\nObrigado pela colaboração.\n\nEquipe de Compras · Gutenberg Systems",
+         "correto": true,
+         "campos": {
+          "solicitante_area": true,
+          "prazo_entrega": true,
+          "valor_unitario": true,
+          "fornecedor": true
+         }
+        }
+       ]
+      },
+      {
+       "id": "encadeado_v2",
+       "rotulo": "P3 v2 (E-mail com instrução)",
+       "reps": [
+        {
+         "resposta": "Assunto: Solicitação de compra: toner preto\n\nOlá,\n\nRecebemos sua solicitação de 50 unidades de toner preto. Para dar andamento, precisamos das seguintes informações:\n\n- área solicitante\n- prazo de entrega\n- valor unitário (com a moeda)\n\nAssim que tivermos esses dados, seguimos com a cotação.\n\nObrigado,\n\nEquipe de Compras · Gutenberg Systems",
+         "correto": true,
+         "campos": {
+          "solicitante_area": true,
+          "prazo_entrega": true,
+          "valor_unitario": true,
+          "fornecedor": true
+         }
+        },
+        {
+         "resposta": "Assunto: Solicitação de compra: toner preto\n\nOlá,\n\nRecebemos sua solicitação de 50 unidades de toner preto. Para dar andamento, precisamos das seguintes informações:\n\n- área solicitante\n- prazo de entrega\n- valor unitário (com a moeda)\n\nAssim que tivermos esses dados, seguimos com a compra.\n\nObrigado pela atenção.\n\nEquipe de Compras · Gutenberg Systems",
+         "correto": true,
+         "campos": {
+          "solicitante_area": true,
+          "prazo_entrega": true,
+          "valor_unitario": true,
+          "fornecedor": true
+         }
+        },
+        {
+         "resposta": "Assunto: Solicitação de compra: toner preto, 50 unidades\n\nOlá,\n\nRecebemos a sua solicitação de 50 unidades de toner preto.\n\nPara dar andamento, precisamos das seguintes informações:\n\n- área solicitante\n- prazo de entrega\n- valor unitário\n- moeda\n\nAssim que você responder, seguimos com a compra.\n\nObrigado,\n\nEquipe de Compras · Gutenberg Systems",
+         "correto": true,
+         "campos": {
+          "solicitante_area": true,
+          "prazo_entrega": true,
+          "valor_unitario": true,
+          "fornecedor": true
+         }
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "id": "E11",
+     "tipo": "falta_um",
+     "texto": "Preciso comprar 4 litros de óleo lubrificante. preço de tabela: € 120,00 por unidade. Fornecedor: Eletrotécnica Faísca. Entrega até 2026-01-14.",
+     "gabarito": {
+      "faltantes": [
+       "solicitante_area"
+      ],
+      "extracao": {
+       "solicitante_area": null,
+       "item": "óleo lubrificante",
+       "quantidade": 4,
+       "unidade": "l",
+       "prazo_entrega": "2026-01-14",
+       "valor_unitario": 120,
+       "moeda": "EUR",
+       "fornecedor": "Eletrotécnica Faísca"
+      }
+     },
+     "variantes": [
+      {
+       "id": "encadeado",
+       "rotulo": "P3 v1 (E-mail com proibição)",
+       "reps": [
+        {
+         "resposta": "Assunto: Informação pendente na solicitação de compra de óleo lubrificante\n\nOlá,\n\nRecebemos sua solicitação de compra de 4 litros de óleo lubrificante. Para dar andamento, precisamos apenas de uma informação: qual é a área solicitante?\n\nAssim que recebermos, seguimos com o processo.\n\nAgradecemos sua atenção.\n\nEquipe de Compras · Gutenberg Systems",
+         "correto": true,
+         "campos": {
+          "solicitante_area": true,
+          "prazo_entrega": true,
+          "valor_unitario": true,
+          "fornecedor": true
+         }
+        },
+        {
+         "resposta": "Assunto: Informação pendente na solicitação de compra de óleo lubrificante\n\nOlá,\n\nRecebemos sua solicitação de compra de 4 litros de óleo lubrificante e já registramos os dados do item.\n\nPara dar seguimento, precisamos apenas da informação abaixo:\n\n- área solicitante\n\nAssim que você nos enviar, prosseguimos com a análise.\n\nAgradecemos sua atenção.\n\nEquipe de Compras · Gutenberg Systems",
+         "correto": true,
+         "campos": {
+          "solicitante_area": true,
+          "prazo_entrega": true,
+          "valor_unitario": true,
+          "fornecedor": true
+         }
+        },
+        {
+         "resposta": "Assunto: Informação pendente na solicitação de compra de óleo lubrificante\n\nOlá,\n\nRecebemos sua solicitação de compra de 4 litros de óleo lubrificante e já estamos analisando.\n\nPara dar andamento, precisamos apenas da informação abaixo:\n\n- área solicitante\n\nAssim que recebermos, seguimos com o processo.\n\nObrigado,\n\nEquipe de Compras · Gutenberg Systems",
+         "correto": true,
+         "campos": {
+          "solicitante_area": true,
+          "prazo_entrega": true,
+          "valor_unitario": true,
+          "fornecedor": true
+         }
+        }
+       ]
+      },
+      {
+       "id": "encadeado_v2",
+       "rotulo": "P3 v2 (E-mail com instrução)",
+       "reps": [
+        {
+         "resposta": "Assunto: Informações pendentes para a compra de óleo lubrificante\n\nOlá,\n\nRecebemos sua solicitação de compra de 4 litros de óleo lubrificante.\n\nPara dar seguimento, preciso que você nos informe:\n\n- área solicitante\n\nAssim que recebermos, seguimos com a compra.\n\nObrigado!\n\nEquipe de Compras · Gutenberg Systems",
+         "correto": true,
+         "campos": {
+          "solicitante_area": true,
+          "prazo_entrega": true,
+          "valor_unitario": true,
+          "fornecedor": true
+         }
+        },
+        {
+         "resposta": "Assunto: Solicitação de compra: informações pendentes\n\nOlá,\n\nRecebemos sua solicitação de compra de 4 l de óleo lubrificante.\n\nPara dar seguimento, precisamos que você nos informe:\n\n- área solicitante\n\nAgradecemos sua atenção.\n\nEquipe de Compras · Gutenberg Systems",
+         "correto": true,
+         "campos": {
+          "solicitante_area": true,
+          "prazo_entrega": true,
+          "valor_unitario": true,
+          "fornecedor": true
+         }
+        },
+        {
+         "resposta": "Assunto: Solicitação de compra: óleo lubrificante, informações pendentes\n\nOlá,\n\nRecebemos sua solicitação de compra de 4 litros de óleo lubrificante.\n\nPara dar andamento, precisamos das seguintes informações:\n\n- área solicitante\n\nObrigado pela atenção.\n\nEquipe de Compras · Gutenberg Systems",
+         "correto": true,
+         "campos": {
+          "solicitante_area": true,
+          "prazo_entrega": true,
+          "valor_unitario": true,
+          "fornecedor": true
+         }
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "id": "E12",
+     "tipo": "prazo_relativo",
+     "texto": "Oi, preciso de 40 cx de caneta esferográfica para a área de Compras. preço de tabela: € 12,50 por unidade. Pode ser com a Embalagens Ponto Certo. Entrega na semana que vem.",
+     "gabarito": {
+      "faltantes": [
+       "prazo_entrega"
+      ],
+      "extracao": {
+       "solicitante_area": "Compras",
+       "item": "caneta esferográfica",
+       "quantidade": 40,
+       "unidade": "cx",
+       "prazo_entrega": null,
+       "valor_unitario": 12.5,
+       "moeda": "EUR",
+       "fornecedor": "Embalagens Ponto Certo"
+      }
+     },
+     "variantes": [
+      {
+       "id": "encadeado",
+       "rotulo": "P3 v1 (E-mail com proibição)",
+       "reps": [
+        {
+         "resposta": "Assunto: Solicitação de compra: informações pendentes\n\nOlá,\n\nRecebemos sua solicitação de compra de 40 caixas (cx) de caneta esferográfica.\n\nPara dar andamento, precisamos apenas da informação abaixo:\n\n- prazo de entrega\n\nAssim que você nos enviar, seguimos com o processo.\n\nObrigado pela atenção.\n\nEquipe de Compras · Gutenberg Systems",
+         "correto": true,
+         "campos": {
+          "solicitante_area": true,
+          "prazo_entrega": true,
+          "valor_unitario": true,
+          "fornecedor": true
+         }
+        },
+        {
+         "resposta": "Assunto: Informações pendentes para a solicitação de caneta esferográfica\n\nOlá,\n\nRecebemos sua solicitação de 40 caixas (cx) de caneta esferográfica.\n\nPara dar andamento à compra, precisamos apenas da informação abaixo:\n\n- prazo de entrega\n\nAssim que você nos enviar, seguimos com o processo.\n\nObrigado pela atenção.\n\nEquipe de Compras · Gutenberg Systems",
+         "correto": true,
+         "campos": {
+          "solicitante_area": true,
+          "prazo_entrega": true,
+          "valor_unitario": true,
+          "fornecedor": true
+         }
+        },
+        {
+         "resposta": "Assunto: Informações pendentes na solicitação de compra\n\nOlá,\n\nRecebemos sua solicitação de compra de 40 caixas (cx) de caneta esferográfica. Para dar andamento, precisamos apenas de mais uma informação:\n\n- prazo de entrega\n\nAssim que você nos enviar esse dado, seguimos com o processo.\n\nObrigado pela atenção.\n\nEquipe de Compras · Gutenberg Systems",
+         "correto": true,
+         "campos": {
+          "solicitante_area": true,
+          "prazo_entrega": true,
+          "valor_unitario": true,
+          "fornecedor": true
+         }
+        }
+       ]
+      },
+      {
+       "id": "encadeado_v2",
+       "rotulo": "P3 v2 (E-mail com instrução)",
+       "reps": [
+        {
+         "resposta": "Assunto: Solicitação de compra: caneta esferográfica\n\nOlá,\n\nRecebemos sua solicitação de 40 cx de caneta esferográfica.\n\nPara dar andamento, precisamos apenas da seguinte informação:\n\n- prazo de entrega\n\nAssim que você responder, seguimos com o processo. Obrigado!\n\nEquipe de Compras · Gutenberg Systems",
+         "correto": true,
+         "campos": {
+          "solicitante_area": true,
+          "prazo_entrega": true,
+          "valor_unitario": true,
+          "fornecedor": true
+         }
+        },
+        {
+         "resposta": "Assunto: Solicitação de compra: caneta esferográfica\n\nOlá,\n\nRecebemos sua solicitação de 40 caixas (cx) de caneta esferográfica.\n\nPara dar andamento, precisamos apenas da seguinte informação:\n\n- prazo de entrega\n\nAssim que recebermos, seguimos com a compra.\n\nObrigado!\n\nEquipe de Compras · Gutenberg Systems",
+         "correto": true,
+         "campos": {
+          "solicitante_area": true,
+          "prazo_entrega": true,
+          "valor_unitario": true,
+          "fornecedor": true
+         }
+        },
+        {
+         "resposta": "Assunto: Solicitação de compra: caneta esferográfica\n\nOlá,\n\nRecebemos sua solicitação de 40 cx de caneta esferográfica. Para dar andamento, precisamos apenas da seguinte informação:\n\n- prazo de entrega\n\nAssim que você responder, seguimos com o processo.\n\nObrigado!\n\nEquipe de Compras · Gutenberg Systems",
+         "correto": true,
+         "campos": {
+          "solicitante_area": true,
+          "prazo_entrega": true,
+          "valor_unitario": true,
+          "fornecedor": true
+         }
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "id": "E13",
+     "tipo": "falta_dois",
+     "texto": "Pedido de compra: 15 caixas de etiqueta adesiva. Valor unitário € 35,00. cotação feita com Tecidos Santa Clara.",
+     "gabarito": {
+      "faltantes": [
+       "solicitante_area",
+       "prazo_entrega"
+      ],
+      "extracao": {
+       "solicitante_area": null,
+       "item": "etiqueta adesiva",
+       "quantidade": 15,
+       "unidade": "cx",
+       "prazo_entrega": null,
+       "valor_unitario": 35,
+       "moeda": "EUR",
+       "fornecedor": "Tecidos Santa Clara"
+      }
+     },
+     "variantes": [
+      {
+       "id": "encadeado",
+       "rotulo": "P3 v1 (E-mail com proibição)",
+       "reps": [
+        {
+         "resposta": "Assunto: Informações pendentes para a solicitação de compra de etiqueta adesiva\n\nOlá,\n\nRecebemos sua solicitação de compra de 15 caixas (cx) de etiqueta adesiva, com valor unitário de 35 EUR e fornecedor Tecidos Santa Clara.\n\nPara dar seguimento, precisamos das seguintes informações:\n\n- área solicitante\n- prazo de entrega\n\nAssim que recebermos esses dados, seguimos com a solicitação.\n\nObrigado pela atenção.\n\nEquipe de Compras · Gutenberg Systems",
+         "correto": false,
+         "campos": {
+          "solicitante_area": true,
+          "prazo_entrega": true,
+          "valor_unitario": false,
+          "fornecedor": false
+         }
+        },
+        {
+         "resposta": "Assunto: Informações pendentes para a solicitação de etiqueta adesiva\n\nOlá,\n\nRecebemos sua solicitação de compra de 15 caixas (cx) de etiqueta adesiva. Para dar andamento, precisamos de três informações:\n\n- área solicitante\n- prazo de entrega\n- valor unitário (informe também a moeda)\n\nObrigado pela atenção!\n\nEquipe de Compras · Gutenberg Systems",
+         "correto": false,
+         "campos": {
+          "solicitante_area": true,
+          "prazo_entrega": true,
+          "valor_unitario": false,
+          "fornecedor": true
+         }
+        },
+        {
+         "resposta": "Assunto: Informações pendentes para a solicitação de compra de etiqueta adesiva\n\nOlá,\n\nRecebemos sua solicitação de compra de 15 caixas (cx) de etiqueta adesiva, com valor unitário de 35 EUR e fornecedor Tecidos Santa Clara.\n\nPara dar seguimento, precisamos das seguintes informações:\n\n1. Área solicitante\n2. Prazo de entrega\n\nAssim que recebermos esses dados, seguimos com a solicitação.\n\nObrigado pela atenção.\n\nEquipe de Compras · Gutenberg Systems",
+         "correto": false,
+         "campos": {
+          "solicitante_area": true,
+          "prazo_entrega": true,
+          "valor_unitario": false,
+          "fornecedor": false
+         }
+        }
+       ]
+      },
+      {
+       "id": "encadeado_v2",
+       "rotulo": "P3 v2 (E-mail com instrução)",
+       "reps": [
+        {
+         "resposta": "Assunto: Solicitação de compra: etiqueta adesiva\n\nOlá,\n\nRecebemos sua solicitação de 15 cx de etiqueta adesiva. Para dar andamento, precisamos de mais duas informações:\n\n- área solicitante\n- prazo de entrega\n\nAssim que recebermos, seguimos com a compra. Obrigado!\n\nEquipe de Compras · Gutenberg Systems",
+         "correto": true,
+         "campos": {
+          "solicitante_area": true,
+          "prazo_entrega": true,
+          "valor_unitario": true,
+          "fornecedor": true
+         }
+        },
+        {
+         "resposta": "Assunto: Solicitação de compra: etiqueta adesiva\n\nRecebemos sua solicitação de 15 cx de etiqueta adesiva. Para dar andamento, precisamos das seguintes informações:\n\n- área solicitante\n- prazo de entrega\n\nAssim que recebermos, seguimos com a compra. Obrigado!\n\nEquipe de Compras · Gutenberg Systems",
+         "correto": true,
+         "campos": {
+          "solicitante_area": true,
+          "prazo_entrega": true,
+          "valor_unitario": true,
+          "fornecedor": true
+         }
+        },
+        {
+         "resposta": "Assunto: Informações pendentes para sua solicitação de etiqueta adesiva\n\nRecebemos sua solicitação de 15 cx de etiqueta adesiva.\n\nPara dar andamento, precisamos das seguintes informações:\n\n- área solicitante\n- prazo de entrega\n\nAssim que receber esses dados, seguimos com a compra. Obrigado!\n\nEquipe de Compras · Gutenberg Systems",
+         "correto": true,
+         "campos": {
+          "solicitante_area": true,
+          "prazo_entrega": true,
+          "valor_unitario": true,
+          "fornecedor": true
+         }
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "id": "E14",
+     "tipo": "falta_um",
+     "texto": "Bom dia! Solicito 5 unidades de monitor 24 polegadas. preço de tabela: R$ 4,50 por unidade. Fornecedor: Químicos Horizonte. Prazo: 02/01/2026.",
+     "gabarito": {
+      "faltantes": [
+       "solicitante_area"
+      ],
+      "extracao": {
+       "solicitante_area": null,
+       "item": "monitor 24 polegadas",
+       "quantidade": 5,
+       "unidade": "un",
+       "prazo_entrega": "2026-01-02",
+       "valor_unitario": 4.5,
+       "moeda": "BRL",
+       "fornecedor": "Químicos Horizonte"
+      }
+     },
+     "variantes": [
+      {
+       "id": "encadeado",
+       "rotulo": "P3 v1 (E-mail com proibição)",
+       "reps": [
+        {
+         "resposta": "Assunto: Informações pendentes na solicitação de compra de monitores\n\nOlá,\n\nRecebemos sua solicitação de compra de 5 unidades de monitor 24 polegadas. Para dar andamento, precisamos apenas de uma informação:\n\n- área solicitante\n\nAssim que você nos enviar, seguimos com o processamento.\n\nObrigado,\n\nEquipe de Compras · Gutenberg Systems",
+         "correto": true,
+         "campos": {
+          "solicitante_area": true,
+          "prazo_entrega": true,
+          "valor_unitario": true,
+          "fornecedor": true
+         }
+        },
+        {
+         "resposta": "Assunto: Informações pendentes para a solicitação de compra de monitores\n\nOlá,\n\nRecebemos sua solicitação de compra de 5 unidades de monitor 24 polegadas. Para dar andamento, precisamos apenas de mais uma informação:\n\n- área solicitante\n\nAssim que você nos enviar, seguimos com o processo.\n\nObrigado,\n\nEquipe de Compras · Gutenberg Systems",
+         "correto": true,
+         "campos": {
+          "solicitante_area": true,
+          "prazo_entrega": true,
+          "valor_unitario": true,
+          "fornecedor": true
+         }
+        },
+        {
+         "resposta": "Assunto: Informações necessárias para a solicitação de compra de monitores\n\nOlá,\n\nRecebemos sua solicitação de compra de 5 unidades de monitor 24 polegadas. Para dar andamento, precisamos apenas de uma informação: a área solicitante.\n\nPoderia nos informar a área solicitante?\n\nAgradecemos sua atenção.\n\nEquipe de Compras · Gutenberg Systems",
+         "correto": true,
+         "campos": {
+          "solicitante_area": true,
+          "prazo_entrega": true,
+          "valor_unitario": true,
+          "fornecedor": true
+         }
+        }
+       ]
+      },
+      {
+       "id": "encadeado_v2",
+       "rotulo": "P3 v2 (E-mail com instrução)",
+       "reps": [
+        {
+         "resposta": "Assunto: Solicitação de compra: monitor 24 polegadas\n\nOlá,\n\nRecebemos sua solicitação de 5 unidades de monitor 24 polegadas.\n\nPara dar andamento, preciso que você nos informe:\n\n- área solicitante\n\nObrigado pela atenção.\n\nEquipe de Compras · Gutenberg Systems",
+         "correto": true,
+         "campos": {
+          "solicitante_area": true,
+          "prazo_entrega": true,
+          "valor_unitario": true,
+          "fornecedor": true
+         }
+        },
+        {
+         "resposta": "Assunto: Solicitação de compra: informações pendentes\n\nOlá,\n\nRecebemos sua solicitação de 5 unidades de monitor 24 polegadas.\n\nPara dar andamento, precisamos das seguintes informações:\n\n- área solicitante\n\nAssim que você responder, seguimos com a compra.\n\nObrigado pela atenção.\n\nEquipe de Compras · Gutenberg Systems",
+         "correto": true,
+         "campos": {
+          "solicitante_area": true,
+          "prazo_entrega": true,
+          "valor_unitario": true,
+          "fornecedor": true
+         }
+        },
+        {
+         "resposta": "Assunto: Solicitação de compra: informações pendentes\n\nOlá,\n\nRecebemos sua solicitação de 5 unidades de monitor 24 polegadas.\n\nPara dar andamento, precisamos das seguintes informações:\n\n- área solicitante\n\nAssim que você responder, seguimos com a compra.\n\nObrigado pela atenção.\n\nEquipe de Compras · Gutenberg Systems",
+         "correto": true,
+         "campos": {
+          "solicitante_area": true,
+          "prazo_entrega": true,
+          "valor_unitario": true,
+          "fornecedor": true
+         }
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "id": "E15",
+     "tipo": "falta_um",
+     "texto": "Preciso comprar 8 caixas de parafuso sextavado para a área de Compras. preço de tabela: R$ 35,00 por unidade. Pode ser com a Distribuidora Pinheiro.",
+     "gabarito": {
+      "faltantes": [
+       "prazo_entrega"
+      ],
+      "extracao": {
+       "solicitante_area": "Compras",
+       "item": "parafuso sextavado",
+       "quantidade": 8,
+       "unidade": "cx",
+       "prazo_entrega": null,
+       "valor_unitario": 35,
+       "moeda": "BRL",
+       "fornecedor": "Distribuidora Pinheiro"
+      }
+     },
+     "variantes": [
+      {
+       "id": "encadeado",
+       "rotulo": "P3 v1 (E-mail com proibição)",
+       "reps": [
+        {
+         "resposta": "Assunto: Informações pendentes da solicitação de compra\n\nOlá,\n\nRecebemos sua solicitação de compra de 8 caixas (cx) de parafuso sextavado. Para dar andamento, precisamos apenas de mais duas informações:\n\n1. Prazo de entrega\n2. Área solicitante, caso não tenha sido informada corretamente\n\nObrigado pela atenção.\n\nEquipe de Compras · Gutenberg Systems",
+         "correto": false,
+         "campos": {
+          "solicitante_area": false,
+          "prazo_entrega": true,
+          "valor_unitario": true,
+          "fornecedor": true
+         }
+        },
+        {
+         "resposta": "Assunto: Informações pendentes na solicitação de compra de parafuso sextavado\n\nOlá,\n\nRecebemos sua solicitação de compra de 8 caixas (cx) de parafuso sextavado.\n\nPara dar andamento, precisamos apenas da informação abaixo:\n\n- prazo de entrega\n\nAssim que recebermos, seguimos com o processo.\n\nObrigado,\n\nEquipe de Compras · Gutenberg Systems",
+         "correto": true,
+         "campos": {
+          "solicitante_area": true,
+          "prazo_entrega": true,
+          "valor_unitario": true,
+          "fornecedor": true
+         }
+        },
+        {
+         "resposta": "Assunto: Informações pendentes para a solicitação de parafuso sextavado\n\nOlá,\n\nRecebemos sua solicitação de 8 caixas (cx) de parafuso sextavado. Para dar andamento, precisamos de mais uma informação:\n\n- prazo de entrega\n\nAssim que você nos enviar, seguimos com o processo.\n\nObrigado!\n\nEquipe de Compras · Gutenberg Systems",
+         "correto": true,
+         "campos": {
+          "solicitante_area": true,
+          "prazo_entrega": true,
+          "valor_unitario": true,
+          "fornecedor": true
+         }
+        }
+       ]
+      },
+      {
+       "id": "encadeado_v2",
+       "rotulo": "P3 v2 (E-mail com instrução)",
+       "reps": [
+        {
+         "resposta": "Assunto: Solicitação de compra: parafuso sextavado\n\nOlá,\n\nRecebemos sua solicitação de 8 caixas de parafuso sextavado e já estamos providenciando.\n\nPara dar andamento, precisamos apenas da seguinte informação:\n\n- prazo de entrega\n\nAssim que você responder, seguimos com a compra.\n\nObrigado,\n\nEquipe de Compras · Gutenberg Systems",
+         "correto": true,
+         "campos": {
+          "solicitante_area": true,
+          "prazo_entrega": true,
+          "valor_unitario": true,
+          "fornecedor": true
+         }
+        },
+        {
+         "resposta": "Assunto: Solicitação de compra: parafuso sextavado\n\nOlá,\n\nRecebemos sua solicitação de 8 caixas de parafuso sextavado.\n\nPara dar andamento, precisamos das seguintes informações:\n\n- prazo de entrega\n\nAssim que você responder, seguimos com a compra.\n\nObrigado,\n\nEquipe de Compras · Gutenberg Systems",
+         "correto": true,
+         "campos": {
+          "solicitante_area": true,
+          "prazo_entrega": true,
+          "valor_unitario": true,
+          "fornecedor": true
+         }
+        },
+        {
+         "resposta": "Assunto: Solicitação de compra: parafuso sextavado\n\nOlá,\n\nRecebemos sua solicitação de 8 caixas de parafuso sextavado. Para dar andamento, precisamos de mais uma informação:\n\n- prazo de entrega\n\nAssim que você responder, seguimos com a compra.\n\nObrigado!\n\nEquipe de Compras · Gutenberg Systems",
+         "correto": true,
+         "campos": {
+          "solicitante_area": true,
+          "prazo_entrega": true,
+          "valor_unitario": true,
+          "fornecedor": true
+         }
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "id": "E16",
+     "tipo": "falta_quatro",
+     "texto": "Preciso comprar 15 metros de cabo de rede cat6.",
+     "gabarito": {
+      "faltantes": [
+       "solicitante_area",
+       "prazo_entrega",
+       "valor_unitario",
+       "fornecedor"
+      ],
+      "extracao": {
+       "solicitante_area": null,
+       "item": "cabo de rede cat6",
+       "quantidade": 15,
+       "unidade": "m",
+       "prazo_entrega": null,
+       "valor_unitario": null,
+       "moeda": null,
+       "fornecedor": null
+      }
+     },
+     "variantes": [
+      {
+       "id": "encadeado",
+       "rotulo": "P3 v1 (E-mail com proibição)",
+       "reps": [
+        {
+         "resposta": "Assunto: Informações pendentes para a solicitação de compra de cabo de rede CAT6\n\nOlá,\n\nRecebemos sua solicitação de compra de 15 m de cabo de rede CAT6. Para dar andamento, precisamos das informações abaixo:\n\n1. Área solicitante\n2. Prazo de entrega\n3. Valor unitário, com a moeda\n4. Fornecedor\n\nAssim que receber esses dados, seguimos com o processo.\n\nObrigado pela colaboração.\n\nEquipe de Compras · Gutenberg Systems",
+         "correto": true,
+         "campos": {
+          "solicitante_area": true,
+          "prazo_entrega": true,
+          "valor_unitario": true,
+          "fornecedor": true
+         }
+        },
+        {
+         "resposta": "Assunto: Informações pendentes para a solicitação de compra de cabo de rede CAT6\n\nOlá,\n\nRecebemos sua solicitação de compra de 15 m de cabo de rede CAT6. Para dar andamento, precisamos das seguintes informações:\n\n- área solicitante\n- prazo de entrega\n- valor unitário, com a moeda\n- fornecedor\n\nAssim que você nos enviar esses dados, seguimos com a cotação.\n\nAgradecemos a atenção.\n\nEquipe de Compras · Gutenberg Systems",
+         "correto": true,
+         "campos": {
+          "solicitante_area": true,
+          "prazo_entrega": true,
+          "valor_unitario": true,
+          "fornecedor": true
+         }
+        },
+        {
+         "resposta": "Assunto: Informações pendentes para a solicitação de compra de cabo de rede CAT6\n\nOlá,\n\nRecebemos sua solicitação de compra de 15 m de cabo de rede CAT6. Para dar seguimento, precisamos das seguintes informações:\n\n1. Área solicitante\n2. Prazo de entrega\n3. Valor unitário, com a moeda correspondente\n4. Fornecedor\n\nAssim que você nos enviar esses dados, damos andamento à solicitação.\n\nObrigado pela atenção.\n\nEquipe de Compras · Gutenberg Systems",
+         "correto": true,
+         "campos": {
+          "solicitante_area": true,
+          "prazo_entrega": true,
+          "valor_unitario": true,
+          "fornecedor": true
+         }
+        }
+       ]
+      },
+      {
+       "id": "encadeado_v2",
+       "rotulo": "P3 v2 (E-mail com instrução)",
+       "reps": [
+        {
+         "resposta": "Assunto: Solicitação de compra: cabo de rede cat6\n\nOlá,\n\nRecebemos sua solicitação de 15 m de cabo de rede cat6. Para dar andamento, precisamos das seguintes informações:\n\n- área solicitante\n- prazo de entrega\n- valor unitário (com a moeda)\n- fornecedor\n\nAssim que você responder, seguimos com a compra.\n\nObrigado pela atenção.\n\nEquipe de Compras · Gutenberg Systems",
+         "correto": true,
+         "campos": {
+          "solicitante_area": true,
+          "prazo_entrega": true,
+          "valor_unitario": true,
+          "fornecedor": true
+         }
+        },
+        {
+         "resposta": "Assunto: Informações necessárias para sua solicitação de compra\n\nOlá,\n\nRecebemos sua solicitação de 15 m de cabo de rede cat6. Para dar andamento à compra, precisamos das seguintes informações:\n\n- área solicitante\n- prazo de entrega\n- valor unitário (informe também a moeda)\n- fornecedor\n\nAssim que recebermos esses dados, seguimos com o processo.\n\nObrigado,\n\nEquipe de Compras · Gutenberg Systems",
+         "correto": true,
+         "campos": {
+          "solicitante_area": true,
+          "prazo_entrega": true,
+          "valor_unitario": true,
+          "fornecedor": true
+         }
+        },
+        {
+         "resposta": "Assunto: Solicitação de compra: cabo de rede cat6\n\nOlá,\n\nRecebemos sua solicitação de 15 m de cabo de rede cat6. Para dar seguimento, preciso de algumas informações:\n\n- área solicitante\n- prazo de entrega\n- valor unitário (informe também a moeda)\n- fornecedor\n\nAssim que receber esses dados, seguimos com a compra.\n\nObrigado,\n\nEquipe de Compras · Gutenberg Systems",
+         "correto": true,
+         "campos": {
+          "solicitante_area": true,
+          "prazo_entrega": true,
+          "valor_unitario": true,
+          "fornecedor": true
+         }
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "id": "E17",
+     "tipo": "so_valor_total",
+     "texto": "Bom dia! Solicito 3 litros de álcool isopropílico para a área de Manutenção. valor total R$ 360,00. Fornecedor: Químicos Horizonte. Entrega até 4 de fevereiro de 2026.",
+     "gabarito": {
+      "faltantes": [],
+      "extracao": {
+       "solicitante_area": "Manutenção",
+       "item": "álcool isopropílico",
+       "quantidade": 3,
+       "unidade": "l",
+       "prazo_entrega": "2026-02-04",
+       "valor_unitario": 120,
+       "moeda": "BRL",
+       "fornecedor": "Químicos Horizonte"
+      }
+     },
+     "variantes": [
+      {
+       "id": "encadeado",
+       "rotulo": "P3 v1 (E-mail com proibição)",
+       "reps": [
+        {
+         "resposta": "NENHUM_CAMPO_FALTANTE",
+         "correto": true,
+         "campos": {
+          "solicitante_area": true,
+          "prazo_entrega": true,
+          "valor_unitario": true,
+          "fornecedor": true
+         }
+        },
+        {
+         "resposta": "NENHUM_CAMPO_FALTANTE",
+         "correto": true,
+         "campos": {
+          "solicitante_area": true,
+          "prazo_entrega": true,
+          "valor_unitario": true,
+          "fornecedor": true
+         }
+        },
+        {
+         "resposta": "NENHUM_CAMPO_FALTANTE",
+         "correto": true,
+         "campos": {
+          "solicitante_area": true,
+          "prazo_entrega": true,
+          "valor_unitario": true,
+          "fornecedor": true
+         }
+        }
+       ]
+      },
+      {
+       "id": "encadeado_v2",
+       "rotulo": "P3 v2 (E-mail com instrução)",
+       "reps": [
+        {
+         "resposta": "NENHUM_CAMPO_FALTANTE",
+         "correto": true,
+         "campos": {
+          "solicitante_area": true,
+          "prazo_entrega": true,
+          "valor_unitario": true,
+          "fornecedor": true
+         }
+        },
+        {
+         "resposta": "NENHUM_CAMPO_FALTANTE",
+         "correto": true,
+         "campos": {
+          "solicitante_area": true,
+          "prazo_entrega": true,
+          "valor_unitario": true,
+          "fornecedor": true
+         }
+        },
+        {
+         "resposta": "NENHUM_CAMPO_FALTANTE",
+         "correto": true,
+         "campos": {
+          "solicitante_area": true,
+          "prazo_entrega": true,
+          "valor_unitario": true,
+          "fornecedor": true
+         }
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "id": "E18",
+     "tipo": "completa",
+     "texto": "Preciso comprar 2 kg de solda em barra (solicitante: Manutenção). Valor unitário R$ 380,00. cotação feita com Metalúrgica Vale Verde. Entrega até 17-jul-2026.",
+     "gabarito": {
+      "faltantes": [],
+      "extracao": {
+       "solicitante_area": "Manutenção",
+       "item": "solda em barra",
+       "quantidade": 2,
+       "unidade": "kg",
+       "prazo_entrega": "2026-07-17",
+       "valor_unitario": 380,
+       "moeda": "BRL",
+       "fornecedor": "Metalúrgica Vale Verde"
+      }
+     },
+     "variantes": [
+      {
+       "id": "encadeado",
+       "rotulo": "P3 v1 (E-mail com proibição)",
+       "reps": [
+        {
+         "resposta": "NENHUM_CAMPO_FALTANTE",
+         "correto": true,
+         "campos": {
+          "solicitante_area": true,
+          "prazo_entrega": true,
+          "valor_unitario": true,
+          "fornecedor": true
+         }
+        },
+        {
+         "resposta": "NENHUM_CAMPO_FALTANTE",
+         "correto": true,
+         "campos": {
+          "solicitante_area": true,
+          "prazo_entrega": true,
+          "valor_unitario": true,
+          "fornecedor": true
+         }
+        },
+        {
+         "resposta": "NENHUM_CAMPO_FALTANTE",
+         "correto": true,
+         "campos": {
+          "solicitante_area": true,
+          "prazo_entrega": true,
+          "valor_unitario": true,
+          "fornecedor": true
+         }
+        }
+       ]
+      },
+      {
+       "id": "encadeado_v2",
+       "rotulo": "P3 v2 (E-mail com instrução)",
+       "reps": [
+        {
+         "resposta": "NENHUM_CAMPO_FALTANTE",
+         "correto": true,
+         "campos": {
+          "solicitante_area": true,
+          "prazo_entrega": true,
+          "valor_unitario": true,
+          "fornecedor": true
+         }
+        },
+        {
+         "resposta": "NENHUM_CAMPO_FALTANTE",
+         "correto": true,
+         "campos": {
+          "solicitante_area": true,
+          "prazo_entrega": true,
+          "valor_unitario": true,
+          "fornecedor": true
+         }
+        },
+        {
+         "resposta": "NENHUM_CAMPO_FALTANTE",
+         "correto": true,
+         "campos": {
+          "solicitante_area": true,
+          "prazo_entrega": true,
+          "valor_unitario": true,
+          "fornecedor": true
+         }
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "id": "E19",
+     "tipo": "falta_um",
+     "texto": "Preciso comprar 40 metros de cabo elétrico 2,5mm (solicitante: Logística). Valor unitário US$ 120,00. Fornecedor: Tecidos Santa Clara.",
+     "gabarito": {
+      "faltantes": [
+       "prazo_entrega"
+      ],
+      "extracao": {
+       "solicitante_area": "Logística",
+       "item": "cabo elétrico 2,5mm",
+       "quantidade": 40,
+       "unidade": "m",
+       "prazo_entrega": null,
+       "valor_unitario": 120,
+       "moeda": "USD",
+       "fornecedor": "Tecidos Santa Clara"
+      }
+     },
+     "variantes": [
+      {
+       "id": "encadeado",
+       "rotulo": "P3 v1 (E-mail com proibição)",
+       "reps": [
+        {
+         "resposta": "Assunto: Informações pendentes para a solicitação de compra de cabo elétrico\n\nOlá,\n\nRecebemos sua solicitação de compra de 40 m de cabo elétrico 2,5mm.\n\nPara dar andamento, precisamos apenas da informação abaixo:\n\n- prazo de entrega\n\nAssim que você nos enviar, seguimos com a cotação.\n\nAgradecemos sua atenção.\n\nEquipe de Compras · Gutenberg Systems",
+         "correto": true,
+         "campos": {
+          "solicitante_area": true,
+          "prazo_entrega": true,
+          "valor_unitario": true,
+          "fornecedor": true
+         }
+        },
+        {
+         "resposta": "Assunto: Informações pendentes na solicitação de compra de cabo elétrico\n\nOlá,\n\nRecebemos sua solicitação de compra de 40 m de cabo elétrico 2,5mm. Para dar andamento, precisamos apenas de uma informação:\n\n- prazo de entrega\n\nAssim que você nos enviar esse dado, seguimos com o processo.\n\nObrigado,\n\nEquipe de Compras · Gutenberg Systems",
+         "correto": true,
+         "campos": {
+          "solicitante_area": true,
+          "prazo_entrega": true,
+          "valor_unitario": true,
+          "fornecedor": true
+         }
+        },
+        {
+         "resposta": "Assunto: Informações pendentes para a solicitação de compra de cabo elétrico 2,5mm\n\nOlá,\n\nRecebemos sua solicitação de compra de 40 m de cabo elétrico 2,5mm. Para dar andamento, precisamos apenas de mais uma informação:\n\n- prazo de entrega\n\nAssim que você nos enviar esse dado, seguimos com o processo.\n\nAgradecemos sua atenção.\n\nEquipe de Compras · Gutenberg Systems",
+         "correto": true,
+         "campos": {
+          "solicitante_area": true,
+          "prazo_entrega": true,
+          "valor_unitario": true,
+          "fornecedor": true
+         }
+        }
+       ]
+      },
+      {
+       "id": "encadeado_v2",
+       "rotulo": "P3 v2 (E-mail com instrução)",
+       "reps": [
+        {
+         "resposta": "Assunto: Solicitação de compra de cabo elétrico 2,5mm: falta uma informação\n\nOlá,\n\nRecebemos sua solicitação de compra de 40 m de cabo elétrico 2,5mm.\n\nPara dar andamento, precisamos apenas da seguinte informação:\n\n- prazo de entrega\n\nAssim que você enviar, seguimos com a cotação. Obrigado.\n\nEquipe de Compras · Gutenberg Systems",
+         "correto": true,
+         "campos": {
+          "solicitante_area": true,
+          "prazo_entrega": true,
+          "valor_unitario": true,
+          "fornecedor": true
+         }
+        },
+        {
+         "resposta": "Assunto: Solicitação de compra: informação pendente\n\nRecebemos sua solicitação de compra de 40 m de cabo elétrico 2,5mm.\n\nPara dar andamento, precisamos da seguinte informação:\n\n- prazo de entrega\n\nAssim que você nos enviar, seguimos com a cotação.\n\nObrigado pela atenção.\n\nEquipe de Compras · Gutenberg Systems",
+         "correto": true,
+         "campos": {
+          "solicitante_area": true,
+          "prazo_entrega": true,
+          "valor_unitario": true,
+          "fornecedor": true
+         }
+        },
+        {
+         "resposta": "Assunto: Informações pendentes para sua solicitação de compra\n\nOlá,\n\nRecebemos sua solicitação de 40 m de cabo elétrico 2,5mm.\n\nPara dar seguimento, precisamos das seguintes informações:\n\n- prazo de entrega\n\nAssim que recebermos, seguimos com a compra.\n\nObrigado,\n\nEquipe de Compras · Gutenberg Systems",
+         "correto": true,
+         "campos": {
+          "solicitante_area": true,
+          "prazo_entrega": true,
+          "valor_unitario": true,
+          "fornecedor": true
+         }
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "id": "E20",
+     "tipo": "falta_dois",
+     "texto": "Pedido de compra: 20 caixas de fita adesiva (solicitante: Logística). cotação feita com Químicos Horizonte.",
+     "gabarito": {
+      "faltantes": [
+       "prazo_entrega",
+       "valor_unitario"
+      ],
+      "extracao": {
+       "solicitante_area": "Logística",
+       "item": "fita adesiva",
+       "quantidade": 20,
+       "unidade": "cx",
+       "prazo_entrega": null,
+       "valor_unitario": null,
+       "moeda": null,
+       "fornecedor": "Químicos Horizonte"
+      }
+     },
+     "variantes": [
+      {
+       "id": "encadeado",
+       "rotulo": "P3 v1 (E-mail com proibição)",
+       "reps": [
+        {
+         "resposta": "Assunto: Complemento de informações da solicitação de compra\n\nOlá,\n\nRecebemos sua solicitação de compra de 20 caixas (cx) de fita adesiva, e o fornecedor Químicos Horizonte já está indicado.\n\nPara dar seguimento, precisamos das seguintes informações:\n\n- prazo de entrega\n- valor unitário, com a moeda correspondente\n\nAssim que você nos enviar esses dados, damos continuidade ao processo.\n\nObrigado,\n\nEquipe de Compras · Gutenberg Systems",
+         "correto": false,
+         "campos": {
+          "solicitante_area": true,
+          "prazo_entrega": true,
+          "valor_unitario": true,
+          "fornecedor": false
+         }
+        },
+        {
+         "resposta": "Assunto: Solicitação de compra: fita adesiva, informações pendentes\n\nOlá,\n\nRecebemos sua solicitação de compra de 20 cx de fita adesiva, da área Logística, com fornecedor Químicos Horizonte.\n\nPara dar seguimento, precisamos das seguintes informações:\n\n- prazo de entrega\n- valor unitário, com a moeda\n\nAssim que recebermos esses dados, seguimos com a compra.\n\nAgradecemos sua atenção.\n\nEquipe de Compras · Gutenberg Systems",
+         "correto": false,
+         "campos": {
+          "solicitante_area": true,
+          "prazo_entrega": true,
+          "valor_unitario": true,
+          "fornecedor": false
+         }
+        },
+        {
+         "resposta": "Assunto: Informações pendentes para a solicitação de compra\n\nOlá,\n\nRecebemos sua solicitação de compra de 20 cx de fita adesiva. Para dar andamento, precisamos das seguintes informações:\n\n- prazo de entrega\n- valor unitário, com a moeda\n\nAssim que recebermos, seguimos com o processo.\n\nAgradecemos sua atenção.\n\nEquipe de Compras · Gutenberg Systems",
+         "correto": true,
+         "campos": {
+          "solicitante_area": true,
+          "prazo_entrega": true,
+          "valor_unitario": true,
+          "fornecedor": true
+         }
+        }
+       ]
+      },
+      {
+       "id": "encadeado_v2",
+       "rotulo": "P3 v2 (E-mail com instrução)",
+       "reps": [
+        {
+         "resposta": "Assunto: Informações necessárias para a solicitação de fita adesiva\n\nOlá,\n\nRecebemos sua solicitação de 20 caixas (cx) de fita adesiva.\n\nPara dar andamento, precisamos das seguintes informações:\n\n- prazo de entrega\n- valor unitário (com a moeda)\n\nAssim que receber esses dados, seguimos com a compra.\n\nObrigado pela atenção.\n\nEquipe de Compras · Gutenberg Systems",
+         "correto": true,
+         "campos": {
+          "solicitante_area": true,
+          "prazo_entrega": true,
+          "valor_unitario": true,
+          "fornecedor": true
+         }
+        },
+        {
+         "resposta": "Assunto: Informações pendentes para a solicitação de fita adesiva\n\nOlá,\n\nRecebemos a sua solicitação de 20 caixas de fita adesiva.\n\nPara dar andamento, preciso das seguintes informações:\n- prazo de entrega\n- valor unitário (com a moeda)\n\nAssim que receber, seguimos com a compra. Obrigado!\n\nEquipe de Compras · Gutenberg Systems",
+         "correto": true,
+         "campos": {
+          "solicitante_area": true,
+          "prazo_entrega": true,
+          "valor_unitario": true,
+          "fornecedor": true
+         }
+        },
+        {
+         "resposta": "Assunto: Informações pendentes para a solicitação de fita adesiva\n\nOlá,\n\nRecebemos sua solicitação de 20 caixas de fita adesiva.\n\nPara dar andamento, precisamos das seguintes informações:\n- prazo de entrega\n- valor unitário (com a moeda)\n\nAssim que receber, seguimos com a compra. Obrigado!\n\nEquipe de Compras · Gutenberg Systems",
+         "correto": true,
+         "campos": {
+          "solicitante_area": true,
+          "prazo_entrega": true,
+          "valor_unitario": true,
+          "fornecedor": true
+         }
+        }
+       ]
+      }
+     ]
+    }
+   ],
+   "nota": "Respostas reais gravadas do claude-haiku-5-5, mesmos 20 casos do Experimento 4. Não são chamadas ao vivo."
   }
  ],
  "como_medi": {

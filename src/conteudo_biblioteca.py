@@ -55,7 +55,7 @@ EXPERIMENTOS = {
         "titulo": "Antes e depois de um prompt",
         "pergunta": "Se um prompt erra sempre no mesmo tipo de caso, dá para corrigir com uma regra escrita, sem estragar o resto?",
         "como_medido": "O mesmo prompt (T4) em duas versões, nos mesmos 50 pedidos, 3 repetições cada. A regressão é conferida caso a caso.",
-        "ressalva": "A regra nova foi escrita depois de ver os erros nesses mesmos 50 casos. É resultado de desenvolvimento: mostra o ciclo medir, diagnosticar, corrigir e medir de novo, mas não prova que a regra vale para casos novos (isso ainda não foi testado).",
+        "ressalva": "A regra nova foi escrita depois de ver os erros nesses mesmos 50 casos. É resultado de desenvolvimento: mostra o ciclo medir, diagnosticar, corrigir e medir de novo, mas, sozinha, esta medição não prova que a regra vale para casos novos. Esse teste foi feito à parte, em 20 pedidos novos (veja \"Testado em pedidos novos\" abaixo).",
     },
     "E3": {
         "titulo": "Few-shot ajuda na classificação?",
@@ -77,6 +77,13 @@ EXPERIMENTOS = {
         "o_que_testei": "O P5 com chain-of-thought (raciocínio separado da saída) contra o P5 que responde direto, com a mesma política, nos mesmos 20 casos, 3 repetições cada.",
         "como_medido": "A decisão é igual ao gabarito, que é calculado pela própria política escrita no prompt. Com raciocínio, só o bloco <json> é lido.",
         "ressalva": "A política tem 4 regras e o gabarito segue a política: mede obediência a uma regra escrita, não julgamento. Todas as variantes podem raciocinar internamente (esforço fixado em baixo), o que reduz a diferença.",
+    },
+    "E6": {
+        "titulo": "O erro do e-mail some se eu reescrever o prompt?",
+        "pergunta": "O P3 errava citando campos que já estavam preenchidos. Trocar a proibição por uma instrução do que fazer corrige o erro sem estragar o resto?",
+        "o_que_testei": "O mesmo fluxo do Experimento 4 (P1 → P3), trocando só o prompt do e-mail: P3 v1 (a base já medida no E4) contra P3 v2, nos mesmos 20 casos, 3 repetições cada. Medir, diagnosticar, corrigir e medir de novo.",
+        "como_medido": "A mesma regra de acerto do P3, escrita antes da rodada: o e-mail cita todos os campos que faltam e nenhum que não falta, conferido por regra em código.",
+        "ressalva": "A v2 foi escrita depois de ler os erros nestes mesmos 20 casos, então o resultado é de desenvolvimento. Falta testar a v2 em casos novos.",
     },
 }
 

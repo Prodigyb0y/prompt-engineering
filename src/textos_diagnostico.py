@@ -66,13 +66,23 @@ def quando_usar_e4(d):
             "Encadeie quando o dado intermediário (o JSON) ajudar a evitar ambiguidade ou quando você precisar auditá-lo; em qualquer dos dois, escreva o que o e-mail deve fazer com os dados já recebidos, não só o que não citar.")
 
 
+def _p3_v2(d):
+    e6 = d.get("E6")
+    if not e6:
+        return ""
+    v1, v2 = e6["v1"], e6["v2"]
+    return (f" Testei a hipótese (P3 v2, Experimento 6): o acerto foi de {pct(v1['acerto_oficial'])} para {pct(v2['acerto_oficial'])} nos mesmos 20 casos, com {v2['erradas']} erro em {v2['respostas']} respostas. "
+            "A v2 foi escrita depois de ler os erros nesses mesmos casos; ainda falta testá-la em casos novos.")
+
+
 def aprendi_p3(d):
     enc, uni, ext = _e4(d)
     ce = enc["classes"]
     return (f"Nas {enc['respostas']} respostas do fluxo encadeado, {enc['erradas']} saíram erradas pela regra oficial. Nenhuma deixou de pedir um campo que faltava; {ce.get('so_confirmou_dado_recebido', 0)} só confirmaram "
             f"um dado já recebido (por exemplo, \"com fornecedor X\"), quebrando a regra \"nunca cite\" sem pedir nada de novo, e {ce.get('pediu_campo_que_ja_tinha', 0)} pediram de novo um campo que já tinha. "
             f"A extração do P1 estava certa em {ext['certas']} de {ext['de']}, então o erro nasce no e-mail, não na passagem entre os dois prompts. "
-            "Lição: \"nunca cite\" não bastou. Hipótese para a próxima versão: dizer o que fazer no lugar (abrir só com o item e a quantidade) e listar cada campo pedido em uma linha.")
+            "Lição: \"nunca cite\" não bastou. Hipótese para a próxima versão: dizer o que fazer no lugar (abrir só com o item e a quantidade) e listar cada campo pedido em uma linha."
+            + _p3_v2(d))
 
 
 def conclusao_e4(d, a_enc, a_uni):
@@ -113,3 +123,23 @@ def explicacao_e5(d):
 
 def aprendi_p5(d):
     return " ".join(explicacao_e5(d)["paragrafos"])
+
+
+def explicacao_e6(d):
+    e6 = d["E6"]
+    v1, v2 = e6["v1"], e6["v2"]
+    c1 = v1["classes"]
+    p1 = (f"O que mudou no prompt: em vez de só proibir (\"nunca cite um campo preenchido\"), a v2 diz o que fazer no lugar. O e-mail abre só com o item e a quantidade, cada campo pedido vai em uma linha com \"- \", "
+          "e a decisão de pedir ou não um campo depende de ele estar vazio (null) no JSON recebido.")
+    p2 = (f"Antes, {v1['erradas']} de {v1['respostas']} respostas erravam ({c1.get('so_confirmou_dado_recebido', 0)} só confirmavam um dado recebido e {c1.get('pediu_campo_que_ja_tinha', 0)} pediam de novo um campo que já tinha). "
+          f"Agora, {v2['erradas']} de {v2['respostas']}. Nenhum e-mail deixou de pedir um campo que faltava, nem antes nem depois. A extração do P1 estava certa em {v2['extracao_p1_certa']} de {v2['respostas']}, então a diferença vem só do e-mail.")
+    p3 = (f"O erro que sobrou pediu de novo o valor unitário, que já estava preenchido. Contando só o que o e-mail pede de novo (regra auxiliar escrita depois de ler os erros), a v1 teria {pct(v1['acerto_pedido'])} e a v2 {pct(v2['acerto_pedido'])}: "
+          "mesmo com essa conta mais branda, a v2 não ficou pior.")
+    p4 = "Ressalva importante: eu escrevi a v2 olhando os erros destes mesmos 20 casos. Este é um resultado de desenvolvimento, não prova que a v2 acerta em e-mails novos."
+    return {"titulo": "Por que melhorou, e o que isso não prova", "paragrafos": [p1, p2, p3, p4]}
+
+
+def quando_usar_e6(d):
+    v1, v2 = d["E6"]["v1"], d["E6"]["v2"]
+    return (f"Quando o prompt erra por quebrar uma proibição, troque a proibição por uma instrução do que fazer e do formato esperado, e meça de novo ({pct(v1['acerto_oficial'])} para {pct(v2['acerto_oficial'])} aqui). "
+            "Antes de confiar na versão nova, teste-a em casos que você não usou para escrevê-la.")

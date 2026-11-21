@@ -149,5 +149,97 @@
    "com_duas_decisoes": 0,
    "erros": []
   }
+ },
+ "E6": {
+  "v1": {
+   "respostas": 60,
+   "erradas": 13,
+   "classes": {
+    "so_confirmou_dado_recebido": 9,
+    "pediu_campo_que_ja_tinha": 4
+   },
+   "pediu_a_mais_por_campo": {
+    "valor_unitario": 3,
+    "solicitante_area": 1
+   },
+   "erros": [
+    {
+     "caso": "E04",
+     "repeticao": 1
+    },
+    {
+     "caso": "E05",
+     "repeticao": 3
+    },
+    {
+     "caso": "E06",
+     "repeticao": 2
+    },
+    {
+     "caso": "E06",
+     "repeticao": 3
+    },
+    {
+     "caso": "E07",
+     "repeticao": 3
+    },
+    {
+     "caso": "E10",
+     "repeticao": 1
+    },
+    {
+     "caso": "E10",
+     "repeticao": 2
+    },
+    {
+     "caso": "E13",
+     "repeticao": 1
+    },
+    {
+     "caso": "E13",
+     "repeticao": 2
+    },
+    {
+     "caso": "E13",
+     "repeticao": 3
+    },
+    {
+     "caso": "E15",
+     "repeticao": 1
+    },
+    {
+     "caso": "E20",
+     "repeticao": 1
+    },
+    {
+     "caso": "E20",
+     "repeticao": 2
+    }
+   ],
+   "extracao_p1_certa": 60,
+   "com_lista": 45,
+   "acerto_pedido": 0.9333333333333333,
+   "acerto_oficial": 0.7833333333333333
+  },
+  "v2": {
+   "respostas": 60,
+   "erradas": 1,
+   "classes": {
+    "pediu_campo_que_ja_tinha": 1
+   },
+   "pediu_a_mais_por_campo": {
+    "valor_unitario": 1
+   },
+   "erros": [
+    {
+     "caso": "E03",
+     "repeticao": 3
+    }
+   ],
+   "extracao_p1_certa": 60,
+   "com_lista": 51,
+   "acerto_pedido": 0.9833333333333334,
+   "acerto_oficial": 0.9833333333333334
+  }
  }
 }

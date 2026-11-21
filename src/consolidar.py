@@ -115,7 +115,7 @@ def montar_e2(it, v1, v2, tipos_resumo):
             "grupos": [{"titulo": "Acerto por caso (50 casos × 3 repetições)", "barras": [
                 {"rotulo": f"T4 v1 ({v1['hash12']})", "valor": it["acerto_v1"], "texto": pct(it["acerto_v1"]), "sub": f"{usd(it['custo_v1'])} por resposta"},
                 {"rotulo": f"T4 v2 ({v2['hash12']})", "valor": it["acerto_v2"], "texto": pct(it["acerto_v2"]), "sub": f"{usd(it['custo_v2'])} por resposta"}]}],
-            "quando_usar": "Quando um tipo de erro se repete, leia os erros, escreva a regra que falta no prompt e rode de novo no mesmo conjunto para conferir que nada piorou. Depois valide em casos que a regra nunca viu (ainda não feito).",
+            "quando_usar": "Quando um tipo de erro se repete, leia os erros, escreva a regra que falta no prompt e rode de novo no mesmo conjunto para conferir que nada piorou. Depois valide em casos que a regra nunca viu (feito aqui em 20 pedidos novos).",
             "placar": {"antes": vt["certas_v1"], "depois": vt["certas_v2"], "de": resp_v2, "tipo": "valor total"},
             "melhoraram": it["melhorou"], "pioraram": it["piorou"], "p_sinal": it["p_sinal"], "sem_regressao": sem_regressao,
             "tokens_saida": [it["tokens_saida_v1"], it["tokens_saida_v2"]], "diff": diff, "hash_v1": v1["hash12"], "hash_v2": v2["hash12"]}
@@ -173,6 +173,49 @@ def montar_experimento_novo(exp, resumo_ab):
             "numero": f"{pct(base['acerto_caso_media'])} contra {pct(alt['acerto_caso_media'])} ({ab.ROTULOS[base_v]} contra {ab.ROTULOS[alt_v]}), {n} casos × {base['repeticoes']} repetições",
             "grupos": [{"titulo": f"Acerto ({n} casos × {base['repeticoes']} repetições)", "barras": barras}, {"titulo": "Custo por resposta (a barra maior é o mais caro)", "barras": barras_c}],
             "quando_usar": quando, "comparacao": comp, "variantes": {base_v: base, alt_v: alt}}
+
+
+def montar_e6(resumo_ab, dg):
+    comp = resumo_ab["comparacoes"]["E6"]
+    base, alt = resumo_ab["variantes"]["E4/encadeado"], resumo_ab["variantes"]["E6/encadeado_v2"]
+    comum = {"id": "E6", **cb.EXPERIMENTOS["E6"]}
+    if not (base["medido"] and alt["medido"]):
+        return {**comum, "medido": False, "status": "nao_medido", "resultado": None, "numero": None, "grupos": [], "quando_usar": None,
+                "pendencia": "Rodada ainda não executada: precisa da chave da API do autor. Nenhum resultado foi estimado.", "comando": f"{cb.COMANDOS['completo']} --so E6"}
+    completo = base["completo"] and alt["completo"]
+    dif = comp["diferenca_acerto_pp"]
+    resultado = (f"O P3 v2 acertou {pct(alt['acerto_caso_media'])} contra {pct(base['acerto_caso_media'])} do P3 v1 ({br(dif)} pontos a mais): melhor em {cs(comp['a_favor_alternativa'])} e pior em {comp['a_favor_base']}, "
+                 f"com custo de {br(comp['razao_custo'], 2)}× por resposta. Campos citados a mais: {base['extras']['citou_a_mais_total']} no v1 e {alt['extras']['citou_a_mais_total']} no v2.")
+    barras = [{"rotulo": ab.ROTULOS[v], "valor": s_["acerto_caso_media"], "texto": pct(s_["acerto_caso_media"]), "sub": f"{usd(s_['custo_por_resposta_usd'])} por resposta"} for v, s_ in (("encadeado_v1", base), ("encadeado_v2", alt))]
+    custo_max = max(base["custo_por_resposta_usd"], alt["custo_por_resposta_usd"])
+    barras_c = [{"rotulo": ab.ROTULOS[v], "valor": s_["custo_por_resposta_usd"] / custo_max, "texto": usd(s_["custo_por_resposta_usd"]), "sub": f"latência média {br(s_['latencia_media_s'], 2)} s"} for v, s_ in (("encadeado_v1", base), ("encadeado_v2", alt))]
+    n = base["casos"]
+    v1p, v2p = pb.carregar("P3", "encadeado", "v1"), pb.carregar("P3", "encadeado", "v2")
+    return {**comum, "medido": True, "status": "medido" if completo else "parcial", "resultado": resultado,
+            "diff": diff_prompts(v1p, v2p), "hash_v1": v1p["hash12"], "hash_v2": v2p["hash12"], "arquivo_v2": "prompts/P3_encadeado_v2.json",
+            "numero": f"{pct(base['acerto_caso_media'])} contra {pct(alt['acerto_caso_media'])} (P3 v1 contra P3 v2), {n} casos × {base['repeticoes']} repetições",
+            "grupos": [{"titulo": f"Acerto ({n} casos × {base['repeticoes']} repetições)", "barras": barras}, {"titulo": "Custo por resposta (a barra maior é o mais caro)", "barras": barras_c}],
+            "quando_usar": td.quando_usar_e6(dg) if dg else None, "explicacao": td.explicacao_e6(dg) if dg else None,
+            "comparacao": comp, "variantes": {"encadeado_v1": base, "encadeado_v2": alt}}
+
+
+def montar_validacao():
+    """Validação do T4 v2 em 20 pedidos novos (resultados/extracao/v3/validacao.json), se já medida."""
+    arq = RAIZ / "resultados" / "extracao" / "v3" / "validacao.json"
+    if not arq.exists():
+        return None
+    v = _json(arq)
+    if not v.get("completo"):
+        return None
+    vt = v["veredito"]
+    t = v["por_tipo"]["valor_total"]
+    return {"casos": v["casos"], "acerto_v1": v["acerto_v1"], "acerto_v2": v["acerto_v2"], "custo_v1": v["custo_v1"], "custo_v2": v["custo_v2"],
+            "tokens_saida_v1": v["tokens_saida_v1"], "tokens_saida_v2": v["tokens_saida_v2"], "veredito": vt, "casos_valor_total": t["casos"],
+            "texto": (f"Testei as duas versões em {v['casos']} pedidos novos, escritos por script com outra seed e congelados antes de rodar. No tipo \"valor total\", a v1 acertou {vt['valor_total_certas_v1']}/{vt['valor_total_respostas']} e a v2 "
+                      f"{vt['valor_total_certas_v2']}/{vt['valor_total_respostas']}. Nos outros tipos, {vt['resto_certas_v1']}/{vt['resto_respostas']} contra {vt['resto_certas_v2']}/{vt['resto_respostas']}: "
+                      f"sem regressão. Acerto geral {pct(v['acerto_v1'])} contra {pct(v['acerto_v2'])}; a v2 também custou menos por resposta ({usd(v['custo_v2'])} contra {usd(v['custo_v1'])}) e gastou menos tokens de saída."),
+            "criterio": f"Critério escrito antes da rodada: a regra \"generaliza\" se a v2 acertar pelo menos 17 das {vt['valor_total_respostas']} respostas de valor total e não ficar pior nos outros tipos. Resultado: {'generalizou' if vt['generaliza'] else 'não generalizou'}.",
+            "ressalva": f"São só {t['casos']} casos de valor total, escritos pelo mesmo gerador de frases dos 50 casos anteriores, e o gabarito é meu. Mostra que a regra não foi decorada, não que vale para qualquer pedido real."}
 
 
 # ------------------------------------------------------------------ prompts (biblioteca)
@@ -289,11 +332,21 @@ def montar_playground(resumo_ab, brutos_por_variante, raiz=RAIZ):
                 vs.append({"id": v, "rotulo": ab.ROTULOS[v], "reps": [{"resposta": r["resposta"], "correto": r["avaliacao"]["caso_correto"], "campos": r["avaliacao"]["campos"]} for r in regs]})
             itens.append({"id": c["id"], "tipo": c["tipo"], "texto": c["texto"], "gabarito": gab[c["id"]], "variantes": vs})
         grupos.append({"id": exp, "rotulo": rotulos[exp], "medido": True, "casos": itens, "nota": "Respostas reais gravadas do claude-haiku-5-5. Não são chamadas ao vivo."})
+    if brutos_por_variante.get(("E6", "encadeado_v2")) and brutos_por_variante.get(("E4", "encadeado")):
+        casos_d, gab = ex.carregar_dados("p3", raiz / "dados" / "biblioteca")
+        itens = []
+        for c in casos_d:
+            vs = []
+            for chave, rot in ((("E4", "encadeado"), "P3 v1 (E-mail com proibição)"), (("E6", "encadeado_v2"), "P3 v2 (E-mail com instrução)")):
+                regs = sorted((r for r in brutos_por_variante[chave] if r["caso"] == c["id"]), key=lambda r: r["repeticao"])
+                vs.append({"id": chave[1], "rotulo": rot, "reps": [{"resposta": r["resposta"], "correto": r["avaliacao"]["caso_correto"], "campos": r["avaliacao"]["campos"]} for r in regs]})
+            itens.append({"id": c["id"], "tipo": c["tipo"], "texto": c["texto"], "gabarito": gab[c["id"]], "variantes": vs})
+        grupos.append({"id": "E6", "rotulo": "Experimento 6: e-mail P3 v1 contra v2", "medido": True, "casos": itens, "nota": "Respostas reais gravadas do claude-haiku-5-5, mesmos 20 casos do Experimento 4. Não são chamadas ao vivo."})
     return grupos
 
 
 # ------------------------------------------------------------------ destaques e conclusão
-def montar_destaques(e1, e2, novos):
+def montar_destaques(e1, e2, novos, e6=None):
     d = [{"ancora": "exp-e1", "grande": f"{e1['casos_sem_diferenca']} de {e1['casos_total']}", "rotulo": "pedidos em que as 4 técnicas acertaram igual (E1)"},
          {"ancora": "exp-e2", "grande": f"{e2['placar']['antes']}/{e2['placar']['de']} → {e2['placar']['depois']}/{e2['placar']['de']}",
           "rotulo": f"respostas certas no tipo \"{e2['placar']['tipo']}\" depois de 2 linhas novas no prompt (E2)"}]
@@ -304,15 +357,19 @@ def montar_destaques(e1, e2, novos):
         b, a = e["variantes"][base_v], e["variantes"][alt_v]
         d.append({"ancora": "exp-" + e["id"].lower(), "grande": f"{pct(a['acerto_caso_media'])} vs {pct(b['acerto_caso_media'])}",
                   "rotulo": f"{ab.ROTULOS[alt_v]} contra {ab.ROTULOS[base_v]}, a {br(e['comparacao']['razao_custo'])}× o custo ({e['id']})"})
+    if e6 and e6["status"] == "medido":
+        b, a = e6["variantes"]["encadeado_v1"], e6["variantes"]["encadeado_v2"]
+        d.append({"ancora": "exp-e6", "grande": f"{pct(b['acerto_caso_media'])} → {pct(a['acerto_caso_media'])}", "rotulo": "e-mail com o prompt reescrito depois de ler os erros (E6, casos de desenvolvimento)"})
     return d
 
 
-def montar_conclusao(e1, e2, novos, prompts, resumo_ab, dg=None):
+def montar_conclusao(e1, e2, novos, prompts, resumo_ab, dg=None, e6=None):
     pode, nao_pode = [], []
     pl_ = e2["placar"]
     pode.append({"titulo": "Uma regra de negócio escrita no prompt corrige um erro que se repete.",
                  "texto": f"Duas linhas novas levaram o tipo \"{pl_['tipo']}\" de {pl_['antes']}/{pl_['de']} para {pl_['depois']}/{pl_['de']} respostas certas, sem nenhum caso pior (E2). "
-                          "Vale para os casos em que a regra foi escrita; falta testar em pedidos novos."})
+                          + (f"Em {e2['validacao']['casos']} pedidos novos, o tipo \"valor total\" foi de {e2['validacao']['veredito']['valor_total_certas_v1']}/{e2['validacao']['veredito']['valor_total_respostas']} para {e2['validacao']['veredito']['valor_total_certas_v2']}/{e2['validacao']['veredito']['valor_total_respostas']}, sem regressão nos outros tipos, mas com só {e2['validacao']['casos_valor_total']} casos desse tipo."
+                            if e2.get("validacao") else "Vale para os casos em que a regra foi escrita; falta testar em pedidos novos.")})
     razao = e1["tecnicas"]["T3"]["custo_resposta_usd"] / e1["tecnicas"]["T1"]["custo_resposta_usd"]
     pode.append({"titulo": "Em extração simples, escrever a regra pesou mais do que escolher a técnica.",
                  "texto": f"Em {e1['casos_sem_diferenca']} de {e1['casos_total']} pedidos as quatro técnicas acertaram igual (E1). O raciocínio passo a passo custou {br(razao)} vezes o zero-shot por resposta."})
@@ -340,6 +397,11 @@ def montar_conclusao(e1, e2, novos, prompts, resumo_ab, dg=None):
         else:
             pode.append({"titulo": "Encadear dois prompts não foi melhor do que pedir tudo de uma vez.",
                          "texto": f"O fluxo encadeado acertou {pct(a4)} contra {pct(b4)} do prompt único, com custo parecido (E4). {erro_txt}"})
+    if e6 and e6["status"] == "medido":
+        b6, a6 = e6["variantes"]["encadeado_v1"], e6["variantes"]["encadeado_v2"]
+        pode.append({"titulo": "Medir, ler os erros e reescrever o prompt funcionou no e-mail.",
+                     "texto": f"O P3 v2 acertou {pct(a6['acerto_caso_media'])} contra {pct(b6['acerto_caso_media'])} do v1 (E6), a {br(e6['comparacao']['razao_custo'], 2)}× o custo. "
+                              "A v2 foi escrita depois de ler os erros nos mesmos 20 casos, então é resultado de desenvolvimento: falta testá-la em casos novos."})
     custos = [p["custo_chamada_usd"] for p in prompts if p["medido"]]
     pode.append({"titulo": "Testar prompts com número custa pouco.",
                  "texto": f"O projeto inteiro gastou {usd(resumo_ab['gasto_total_usd'], 4)} de um teto de {usd(ex.TETO_TOTAL_USD, 2)}. O custo médio por resposta ficou entre {usd(min(custos))} e {usd(max(custos))}, conforme o prompt."})
@@ -349,8 +411,11 @@ def montar_conclusao(e1, e2, novos, prompts, resumo_ab, dg=None):
                  "Que valem para outros modelos: só testei o claude-haiku-5-5, com esforço de raciocínio baixo.",
                  (f"Que as diferenças de {', '.join(sem_prova)} sejam sólidas: com 20 casos, poucos casos mudam o resultado, e nenhuma delas foi grande o bastante para descartar o acaso (detalhes no apêndice)."
                   if sem_prova else "Que o resultado vale além dos 20 casos testados."),
-                 "Que a regra do T4 v2 vale para pedidos novos: ela foi escrita olhando os mesmos 50 pedidos em que foi medida.",
+                 ("Que a regra do T4 v2 vale para qualquer pedido: ela foi validada em 20 pedidos novos, mas do mesmo estilo de frases e com só 6 casos de valor total." if e2.get("validacao")
+                  else "Que a regra do T4 v2 vale para pedidos novos: ela foi escrita olhando os mesmos 50 pedidos em que foi medida."),
+                 "Que o P3 v2 vale para e-mails novos: ele foi reescrito olhando os erros dos mesmos 20 casos em que foi medido." if e6 else "",
                  "Que o gabarito é neutro: fui a única pessoa a escrevê-lo."]
+    nao_pode = [x for x in nao_pode if x]
     na_pratica = ["Comece pelo prompt mais simples e escreva nele as regras de negócio que importam.",
                   "Se o erro está nos casos de borda, teste exemplos (few-shot) e compare o custo.",
                   "Use raciocínio passo a passo quando a decisão exige conta ou precedência entre regras, e confira se o custo extra compensa.",
@@ -369,6 +434,7 @@ def construir(raiz=RAIZ, pasta_brutos=ex.BRUTOS, pasta_piloto=ex.PILOTO):
     e1 = montar_e1(resumo_v2, casos_v2)
     e2 = montar_e2(it, pl.carregar("T4", "v1"), pl.carregar("T4", "v2"), None)
     experimentos = [e1, e2] + [montar_experimento_novo(x, resumo_ab) for x in ("E3", "E4", "E5")]
+    e2["validacao"] = montar_validacao()
     prompts = montar_prompts(resumo_ab, e1, e2, brutos, raiz)
     novo = resumo_ab["custo_novo_usd"]["total"]
     anterior = math.fsum(x["usd"] for x in GASTO_DETALHE)
@@ -391,9 +457,12 @@ def construir(raiz=RAIZ, pasta_brutos=ex.BRUTOS, pasta_piloto=ex.PILOTO):
                 e["quando_usar"] = td.quando_usar_e4(dg)
             else:
                 e["explicacao"] = td.explicacao_e5(dg)
+    e6 = montar_e6(resumo_ab, dg)
+    experimentos.append(e6)
+    medidos = [e for e in experimentos if e["status"] == "medido"]
     r = {
-        "destaques": montar_destaques(e1, e2, novos),
-        "conclusao": montar_conclusao(e1, e2, novos, prompts, {"gasto_total_usd": anterior + novo}, dg) if all(e["status"] == "medido" for e in novos) else None,
+        "destaques": montar_destaques(e1, e2, novos, e6),
+        "conclusao": montar_conclusao(e1, e2, novos, prompts, {"gasto_total_usd": anterior + novo}, dg, e6) if all(e["status"] == "medido" for e in novos) else None,
         "glossario": [{"termo": t, "def": d} for t, d in cb.GLOSSARIO],
         "projeto": {"nome": cb.NOME, "frase_impacto": cb.FRASE_IMPACTO, "empresa_nota": cb.EMPRESA_NOTA, "repo": cb.REPO, "demo": cb.DEMO,
                     "modelo": "claude-haiku-5-5", "esforco": "low", "prompts": len(prompts), "experimentos": len(experimentos),

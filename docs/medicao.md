@@ -5,7 +5,7 @@ Apêndice técnico do [Prompt Lab](../README.md). Aqui ficam intervalo de confia
 ## 1. Resumo do que foi medido
 
 - Extração (E1 e E2): 50 casos, 3 repetições, rodadas v1 e v2 e a iteração do T4, **medidas e auditadas** (números abaixo, sem alteração).
-- P2 a P5 (E3, E4, E5 e P4): 20 casos por prompt, 3 repetições. Experimentos medidos: 5 de 5 no total (inclui E1 e E2).
+- P2 a P5 (E3, E4, E5 e P4): 20 casos por prompt, 3 repetições. Experimentos medidos: 6 de 6 no total (inclui E1 e E2).
 
 ## 2. Como cada métrica da extração foi medida
 
@@ -66,7 +66,7 @@ O T4 v1 errou 12 de 12 respostas do tipo `valor_total`. O T4 v2 (hash `2c3ccc187
 
 As 29 respostas erradas têm a mesma causa: o texto de cinco casos traz "Papelaria Aurora Ltda." com um ponto de separador de frase que o meu gerador inseriu, e o gabarito não tem ponto. Os modelos copiaram a abreviação como estava escrita. É **artefato do caso, não erro de modelo**. Na recontagem pós-hoc (não oficial) as quatro técnicas chegam a 100% (`resultados/extracao/v1/ERROS.md`). Mantive o resultado oficial, porque mudar a regra depois de ver o resultado quebraria o congelamento. Conclusão da v1: acerto entre 90,0% e 98,0%, intervalos que se sobrepõem, **nenhuma técnica declarada melhor**; a tarefa ficou fácil demais, e por isso criei a v2.
 
-## 4. Rodadas novas: P2 a P5 (E3, E4, E5 e P4)
+## 4. Rodadas novas: P2 a P5 (E3, E4, E5, E6 e P4) e validação do T4 v2
 
 Regras de acerto, escritas antes de qualquer rodada paga (código em `src/avaliadores.py`):
 
@@ -97,7 +97,7 @@ Dados: [`dados/biblioteca/REVISAO_E_LIMITACOES.md`](../dados/biblioteca/REVISAO_
 | P4 | Saída estruturada | 95,0% | 86,7%–100,0% | 90,0%–100,0% | US$ 0,000219 | 60 | sim |
 | E5 | Sem raciocínio | 95,0% | 85,0%–100,0% | 95,0%–95,0% | US$ 0,000123 | 60 | sim |
 | E5 | Com raciocínio (chain-of-thought) | 100,0% | 100,0%–100,0% | 100,0%–100,0% | US$ 0,000278 | 60 | sim |
-| E6 | Encadeado com e-mail v2 (P1 → P3 v2) | não medido | — | — | — | 0 | — |
+| E6 | Encadeado com e-mail v2 (P1 → P3 v2) | 98,3% | 95,0%–100,0% | 95,0%–100,0% | US$ 0,000273 | 60 | sim |
 
 Comparações pareadas:
 
@@ -106,9 +106,33 @@ Comparações pareadas:
 | E3 | Zero-shot contra Few-shot | 1 | 2 | 1,000 |
 | E4 | Prompt único (extrai e escreve) contra Encadeado (P1 → P3) | 6 | 4 | 0,754 |
 | E5 | Sem raciocínio contra Com raciocínio (chain-of-thought) | 0 | 1 | 1,000 |
-| E6 | não medido | — | — | — |
+| E6 | Encadeado com e-mail v1 (P1 → P3 v1) contra Encadeado com e-mail v2 (P1 → P3 v2) | 1 | 8 | 0,039 |
 
-Custo das rodadas novas: US$ 0,085039 em 500 chamadas (piloto US$ 0,003544, rodadas US$ 0,081495). Relatório completo: `resultados/biblioteca/RELATORIO.md` (gerado por `src/analisar_biblioteca.py`).
+Custo das rodadas novas: US$ 0,102073 em 625 chamadas (piloto US$ 0,004178, rodadas US$ 0,097895). Relatório completo: `resultados/biblioteca/RELATORIO.md` (gerado por `src/analisar_biblioteca.py`).
+
+### 4.1 Validação do T4 v2 em pedidos novos
+
+20 pedidos (H01 a H20) gerados por `src/gerar_dados_v3.py` (seed 3003, textos diferentes dos da v1, da v2 e dos exemplos few-shot) e congelados por hash em `dados/extracao/v3/CONGELADO.sha256` antes de qualquer chamada. T4 v1 e T4 v2, 3 repetições cada, mesmas regras de acerto da extração, mesmo controle de custo. Critério escrito antes da rodada em `src/comparar_validacao.py`: generaliza se a v2 acertar pelo menos 17 das 18 respostas de valor total e não ficar abaixo da v1 nos demais tipos.
+
+| Tipo | Casos | T4 v1 (respostas certas) | T4 v2 (respostas certas) |
+|---|---|---|---|
+| campos_faltando | 2 | 6/6 | 6/6 |
+| completa | 1 | 3/3 | 3/3 |
+| correcao | 3 | 9/9 | 9/9 |
+| data_relativa | 1 | 3/3 | 3/3 |
+| email_longo | 2 | 6/6 | 6/6 |
+| moeda_extenso | 2 | 6/6 | 6/6 |
+| numero_extenso | 2 | 6/6 | 6/6 |
+| valor_br | 1 | 3/3 | 3/3 |
+| valor_total | 6 | 0/18 | 18/18 |
+
+Acerto geral: v1 70,0%, v2 100,0%. Custo por resposta: v1 US$ 0,000194, v2 US$ 0,000152. Tokens de saída por resposta: v1 245,8, v2 147,7. Casos melhores na v2: 6; piores: 0; teste do sinal exato pareado: p = 0,031. Veredito do critério: generalizou; regressão: não. Relatório: `resultados/extracao/v3/VALIDACAO.md`.
+
+Limitações: só 6 casos de valor total; mesmo gerador de frases dos 50 casos anteriores; gabarito do próprio autor.
+
+### 4.2 E6: P3 v2 (diagnóstico antes da correção)
+
+O E6 repete o fluxo do E4 (P1 v2 → e-mail) trocando só o prompt do e-mail e usa como base a rodada `E4/encadeado`, já medida. O P3 v2 (`prompts/P3_encadeado_v2.json`) foi escrito depois de ler os erros do P3 v1 nos mesmos 20 casos (ver `resultados/biblioteca/DIAGNOSTICO.md`): é resultado de desenvolvimento. A regra de acerto oficial não mudou; a "reanálise por pedido" (campo contado só se aparece em item de lista) é auxiliar e foi escrita depois de ler os erros. Piloto de 5 chamadas antes da rodada completa: 5 de 5 certas, projeção de custo conferida contra o teto.
 
 ## 5. Auditoria e decisões registradas
 
@@ -157,7 +181,8 @@ O repositório foi reorganizado em "biblioteca + experimentos". Os arquivos de r
 | Extração v1 (piloto + 600 respostas) | `resultados/extracao/v1/brutos/` | 601 itens (600 respostas e a pasta `piloto/`) |
 | Extração v2 (600 respostas) | `resultados/extracao/v2/brutos/` | 600 |
 | Iteração T4 v1 → v2 (150 respostas do T4 v2) | `resultados/extracao/v2/iteracao/brutos/` | 150 |
-| Rodadas novas (P2 a P5) | `resultados/biblioteca/brutos/` e `piloto/` | um `.jsonl` por variante |
+| Rodadas novas (P2 a P5, E6) | `resultados/biblioteca/brutos/` e `piloto/` | um `.jsonl` por variante |
+| Validação do T4 v2 (pedidos novos) | `resultados/extracao/v3/brutos/{v1,v2}/` | 60 em cada |
 
 As pastas da extração foram recuperadas do computador do autor, onde ficaram fora do Git até aqui, e a auditoria (`src/auditar.py`) foi refeita sobre elas: reavaliou as respostas com 0 divergências, e os relatórios regenerados ficaram idênticos aos já publicados. As respostas gravadas que a demo embutia continuam em `resultados/extracao/v2/respostas_gravadas.json`.
 

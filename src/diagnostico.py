@@ -180,9 +180,34 @@ def diagnostico_e5(pasta_brutos=ex.BRUTOS, raiz=RAIZ):
     return saida
 
 
+def diagnostico_e6(pasta_brutos=ex.BRUTOS, raiz=RAIZ):
+    """E6: P3 v2 (encadeado) contra o P3 v1 (E4/encadeado), mesmas regras e mesmos 20 casos."""
+    gab = _json(raiz / "dados" / "biblioteca" / "p3" / "gabarito.json")
+    saida = {}
+    for rot, arq in (("v1", "E4_encadeado"), ("v2", "E6_encadeado_v2")):
+        regs = [json.loads(l) for l in (Path(pasta_brutos) / f"{arq}.jsonl").read_text(encoding="utf-8").splitlines() if l.strip()]
+        erradas = [r for r in regs if not r["avaliacao"]["caso_correto"]]
+        classes = Counter()
+        pedidos = Counter()
+        for r in erradas:
+            c = classificar_resposta_p3(r, gab[r["caso"]])
+            classes[c["classe"]] += 1
+            pedidos.update(c["pediu_a_mais"])
+        por_caso = {}
+        for r in regs:
+            por_caso.setdefault(r["caso"], []).append(1.0 if classificar_resposta_p3(r, gab[r["caso"]])["correta_por_pedido"] else 0.0)
+        saida[rot] = {"respostas": len(regs), "erradas": len(erradas), "classes": dict(classes), "pediu_a_mais_por_campo": dict(pedidos),
+                      "erros": [{"caso": r["caso"], "repeticao": r["repeticao"]} for r in erradas],
+                      "extracao_p1_certa": sum(_extracao_certa(r["etapas"][0]["resposta"], gab[r["caso"]]["extracao"]) for r in regs),
+                      "com_lista": sum(1 for r in regs if any(ITEM_LISTA.match(l) for l in r["resposta"].splitlines())),
+                      "acerto_pedido": math.fsum(math.fsum(x) / len(x) for x in por_caso.values()) / len(por_caso),
+                      "acerto_oficial": ab.resumir_variante(regs)["acerto_caso_media"]}
+    return saida
+
+
 def construir(pasta_brutos=ex.BRUTOS, raiz=RAIZ):
     return {"E4": diagnostico_e4(pasta_brutos, raiz), "E3": diagnostico_e3(pasta_brutos, raiz), "P4": diagnostico_p4(pasta_brutos, raiz),
-            "E5": diagnostico_e5(pasta_brutos, raiz)}
+            "E5": diagnostico_e5(pasta_brutos, raiz), "E6": diagnostico_e6(pasta_brutos, raiz)}
 
 
 def _pct(x):
@@ -215,6 +240,15 @@ def relatorio(d):
         x = e5[v]
         erros = "; ".join("{} ({}), {} → {}, {}x".format(t["caso"], t["subtipo"], t["esperada"], t["obtida"], t["n"]) for t in x["erros"]) or "—"
         L.append(f"| {rot} | {x['respostas']} | {x['erradas']} | {erros} |")
+    e6 = d["E6"]
+    L += ["", "## E6: o P3 v2 corrigiu o erro do P3 v1?", "",
+          f"Extração do P1 correta em {e6['v2']['extracao_p1_certa']} de {e6['v2']['respostas']} respostas. E-mails com lista de itens: {e6['v2']['com_lista']} de {e6['v2']['respostas']}.", "",
+          "| P3 | Respostas | Erradas (oficial) | Pediu campo que já tinha | Só confirmou dado recebido | Esqueceu campo | Acerto oficial | Acerto pela reanálise por pedido |", "|---|---|---|---|---|---|---|---|"]
+    for v in ("v1", "v2"):
+        x = e6[v]
+        c = x["classes"]
+        L.append(f"| {v} | {x['respostas']} | {x['erradas']} | {c.get('pediu_campo_que_ja_tinha', 0)} | {c.get('so_confirmou_dado_recebido', 0)} | {c.get('esqueceu_campo', 0)} | {_pct(x['acerto_oficial'])} | {_pct(x['acerto_pedido'])} |")
+    L.append("")
     campos4 = ", ".join(f"{k}: {n}" for k, n in p4["campo_errado"].items())
     trocas4 = "; ".join("{} → {} ({})".format(t["esperado"], t["obtido"], t["n"]) for t in p4["sentimento_esperado_obtido"])
     L += ["", "## P4: onde errou", "", f"{p4['erradas']} de {p4['respostas']} respostas erradas; campo errado: {campos4}. "

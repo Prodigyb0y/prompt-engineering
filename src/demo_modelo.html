@@ -482,6 +482,24 @@ function diffViewer(e) {
   raiz.append(d, h("p", { class: "suave", style: "font-size:.85rem;margin:8px 0 0", text: "Respostas certas no tipo \"" + e.placar.tipo + "\" (4 casos × 3 repetições). Sem regressão: " + (e.sem_regressao ? "nenhum caso piorou." : "há casos que pioraram.") }));
   return raiz;
 }
+function diffSimples(e, titulo, rotuloAria) {
+  const raiz = h("div", { class: "grupo" });
+  raiz.append(h("h5", { text: titulo }), h("div", { class: "leg-diff" }, h("span", { class: "a", text: "adicionado" }), h("span", { class: "d", text: "removido" })));
+  const d = h("div", { class: "diff", role: "group", "aria-label": rotuloAria });
+  e.diff.forEach((l) => d.append(h("div", { class: l.tipo, text: l.texto })));
+  raiz.append(d);
+  return raiz;
+}
+function validacaoBloco(v) {
+  const raiz = h("div", { class: "grupo" });
+  raiz.append(h("h5", { text: "Testado em " + v.casos + " pedidos novos (não usados para escrever a regra)" }),
+    h("div", { class: "placar", role: "img", "aria-label": "Valor total em pedidos novos: " + v.veredito.valor_total_certas_v1 + " de " + v.veredito.valor_total_respostas + " antes, " + v.veredito.valor_total_certas_v2 + " de " + v.veredito.valor_total_respostas + " depois" },
+      h("div", { class: "lado antes" }, h("div", { class: "n", text: v.veredito.valor_total_certas_v1 + "/" + v.veredito.valor_total_respostas }), h("div", { class: "l", text: "T4 v1, valor total" })),
+      h("div", { class: "seta", "aria-hidden": "true", text: "→" }),
+      h("div", { class: "lado depois" }, h("div", { class: "n", text: v.veredito.valor_total_certas_v2 + "/" + v.veredito.valor_total_respostas }), h("div", { class: "l", text: "T4 v2, valor total" }))),
+    h("p", { text: v.texto }), h("p", { class: "suave", style: "font-size:.85rem", text: v.criterio }), h("p", { class: "suave", style: "font-size:.85rem", text: "Ressalva: " + v.ressalva }));
+  return raiz;
+}
 const lista = $("#lista-exp");
 D.experimentos.forEach((e, i) => {
   const bloco = h("article", { class: "exp", id: "exp-" + e.id.toLowerCase() });
@@ -492,7 +510,8 @@ D.experimentos.forEach((e, i) => {
   if (e.medido) {
     bloco.append(h("p", { class: "resultado", text: e.resultado }));
     if (e.explicacao) bloco.append(h("div", { class: "mini explic" }, h("b", { text: e.explicacao.titulo }), ...e.explicacao.paragrafos.map((t) => h("p", { text: t }))));
-    if (e.id === "E2") bloco.append(diffViewer(e));
+    if (e.id === "E2") { bloco.append(diffViewer(e)); if (e.validacao) bloco.append(validacaoBloco(e.validacao)); }
+    if (e.id === "E6") bloco.append(diffSimples(e, "O que mudou no e-mail (P3 v1 → v2, system prompt)", "Diferença entre o P3 v1 e o P3 v2"));
     e.grupos.forEach((g) => bloco.append(barras(g)));
     bloco.append(h("div", { class: "campos-exp" },
       h("div", { class: "mini" }, h("b", { text: "Número e como foi medido" }), h("div", {}, h("strong", { text: e.numero })), h("div", { class: "suave", style: "margin-top:6px", text: e.como_medido })),

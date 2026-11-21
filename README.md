@@ -11,8 +11,8 @@ Projeto de portfólio com exemplos de prompts bem estruturados e experimentaçõ
 ## O que este projeto mostra
 
 - **Prompts bem estruturados:** cinco prompts de negócio, cada um com papel, contexto, tarefa, formato de saída, regras e casos de borda, e uma técnica em destaque.
-- **Experimentos com LLM:** cinco comparações curtas (técnica, antes e depois, few-shot, encadear, raciocínio), cada uma com o que foi testado, o resultado e quando usar.
-- **Decisões com custo medido:** acerto contra um gabarito escrito antes de rodar, custo por chamada e teto de gasto no código (gasto até aqui: US$ 0,3340 de US$ 1,00).
+- **Experimentos com LLM:** seis comparações curtas (técnica, antes e depois, few-shot, encadear, raciocínio, reescrever um prompt depois de ler os erros), cada uma com o que foi testado, o resultado e quando usar.
+- **Decisões com custo medido:** acerto contra um gabarito escrito antes de rodar, custo por chamada e teto de gasto no código (gasto até aqui: US$ 0,3510 de US$ 1,00).
 
 ## Biblioteca de prompts
 
@@ -92,7 +92,15 @@ Placar no tipo "valor total" (respostas certas): **0/12 → 12/12**. O que mudou
   - prazo_entrega só recebe data quando o texto traz uma data completa com dia, mês e ano. Converta para AAAA-MM-DD. Prazos relativos ("daqui 15 dias", "semana que vem") viram null.
 ```
 
-Ressalva: A regra nova foi escrita depois de ver os erros nesses mesmos 50 casos. É resultado de desenvolvimento: mostra o ciclo medir, diagnosticar, corrigir e medir de novo, mas não prova que a regra vale para casos novos (isso ainda não foi testado).
+Ressalva: A regra nova foi escrita depois de ver os erros nesses mesmos 50 casos. É resultado de desenvolvimento: mostra o ciclo medir, diagnosticar, corrigir e medir de novo, mas, sozinha, esta medição não prova que a regra vale para casos novos. Esse teste foi feito à parte, em 20 pedidos novos (veja "Testado em pedidos novos" abaixo).
+
+### Testado em pedidos novos
+
+Testei as duas versões em 20 pedidos novos, escritos por script com outra seed e congelados antes de rodar. No tipo "valor total", a v1 acertou 0/18 e a v2 18/18. Nos outros tipos, 42/42 contra 42/42: sem regressão. Acerto geral 70,0% contra 100,0%; a v2 também custou menos por resposta (US$ 0,000152 contra US$ 0,000194) e gastou menos tokens de saída.
+
+Critério escrito antes da rodada: a regra "generaliza" se a v2 acertar pelo menos 17 das 18 respostas de valor total e não ficar pior nos outros tipos. Resultado: generalizou.
+
+Ressalva: São só 6 casos de valor total, escritos pelo mesmo gerador de frases dos 50 casos anteriores, e o gabarito é meu. Mostra que a regra não foi decorada, não que vale para qualquer pedido real.
 
 ## Experimentos
 
@@ -100,7 +108,7 @@ Ressalva: A regra nova foi escrita depois de ver os erros nesses mesmos 50 casos
 Quando usar: Em extração simples, comece pelo prompt mais barato e escreva as regras de negócio dentro dele. O raciocínio passo a passo custou 2,8 vezes mais por resposta que o zero-shot; a vantagem numérica dele apareceu só onde havia cálculo implícito, e esse caso a regra escrita resolveu (Experimento 2).
 
 **E2 · Antes e depois de um prompt** — Duas linhas acrescentadas ao prompt levaram o acerto de 92,0% para 100,0%, sem regressão e com custo por resposta menor.
-Quando usar: Quando um tipo de erro se repete, leia os erros, escreva a regra que falta no prompt e rode de novo no mesmo conjunto para conferir que nada piorou. Depois valide em casos que a regra nunca viu (ainda não feito).
+Quando usar: Quando um tipo de erro se repete, leia os erros, escreva a regra que falta no prompt e rode de novo no mesmo conjunto para conferir que nada piorou. Depois valide em casos que a regra nunca viu (feito aqui em 20 pedidos novos).
 
 **E3 · Few-shot ajuda na classificação?** — "Few-shot" acertou 98,3% contra 91,7% de "Zero-shot" (6,7 pontos a mais): melhor em 2 casos e pior em 1. A variante "Few-shot" custou 1,9 vezes o custo por resposta (US$ 0,000137 contra US$ 0,000073). Com 20 casos isso é um indício, não uma prova.
 Quando usar: Use exemplos quando as definições não resolvem os empates: escolha exemplos que ensinem a convenção dos casos ambíguos.
@@ -110,6 +118,9 @@ Quando usar: O encadeado e o prompt único ficaram próximos pela regra oficial 
 
 **E5 · Vale pagar pelo raciocínio?** — "Com raciocínio (chain-of-thought)" acertou 100,0% contra 95,0% de "Sem raciocínio" (5,0 pontos a mais): melhor em 1 caso e pior em 0. A variante "Com raciocínio (chain-of-thought)" custou 2,3 vezes o custo por resposta (US$ 0,000278 contra US$ 0,000123). Com 20 casos isso é um indício, não uma prova.
 Quando usar: Vale pagar pelo raciocínio quando a decisão exige conta ou precedência entre regras; compare o ganho com o custo antes de adotar.
+
+**E6 · O erro do e-mail some se eu reescrever o prompt?** — O P3 v2 acertou 98,3% contra 78,3% do P3 v1 (20,0 pontos a mais): melhor em 8 casos e pior em 1, com custo de 1,07× por resposta. Campos citados a mais: 18 no v1 e 1 no v2.
+Quando usar: Quando o prompt erra por quebrar uma proibição, troque a proibição por uma instrução do que fazer e do formato esperado, e meça de novo (78,3% para 98,3% aqui). Antes de confiar na versão nova, teste-a em casos que você não usou para escrevê-la.
 
 ## Por que isso importa para um time de negócio
 
