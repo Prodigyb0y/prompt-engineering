@@ -70,7 +70,7 @@ def _rodar(cliente, lista, gabarito, pasta, tecnicas, reps, versao):
                     "stop_reason": r.get("stop_reason"), "esforco": ESFORCO, "modelo": MODELO,
                     "avaliacao": aval}, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
                 novas += 1
-                print(f"[{tid} {versao} {caso['id']} r{rep}] ok={aval['caso_correto']} custo=US$ {r['custo_usd']:.6f} gasto={cliente.controle.gasto:.6f}", flush=True)
+                print(f"({feitas + novas}/{len(lista) * reps}) [{tid} {versao} {caso['id']} r{rep}] ok={aval['caso_correto']} custo=US$ {r['custo_usd']:.6f} gasto={cliente.controle.gasto:.6f}", flush=True)
     return feitas, novas
 
 
@@ -93,6 +93,8 @@ def main_validacao():
     gab = json.loads((caminhos.DADOS / "gabarito.json").read_text(encoding="utf-8"))
     ctl = ex.ControleBiblioteca()
     cli = ClienteAnthropic(ctl)
+    print(f"Validação: 2 versões x {len(casos)} casos x 3 repetições = {2 * len(casos) * 3} chamadas, uns 5 a 15 minutos. "
+          "Pode deixar rodando; se parar com Ctrl+C, rode o mesmo comando de novo (o que já foi gravado é pulado).", flush=True)
     try:
         feitas, novas = executar_validacao(cli, casos, gab)
     except TetoExcedido as e:

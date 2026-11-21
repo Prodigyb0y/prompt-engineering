@@ -12,6 +12,7 @@ Regra auxiliar do P3 ("pedido"): um campo conta como PEDIDO no e-mail quando seu
 "o prazo já consta") conta como MENÇÃO, isto é, o e-mail confirma um dado recebido sem pedi-lo de novo.
 """
 import json
+import math
 import re
 from collections import Counter
 from pathlib import Path
@@ -98,7 +99,7 @@ def diagnostico_e4(pasta_brutos=ex.BRUTOS, raiz=RAIZ):
         por_caso = {}
         for r in regs:
             por_caso.setdefault(r["caso"], []).append(1.0 if classificar_resposta_p3(r, gab[r["caso"]])["correta_por_pedido"] else 0.0)
-        acerto_pedido = sum(sum(x) / len(x) for x in por_caso.values()) / len(por_caso)
+        acerto_pedido = math.fsum(math.fsum(x) / len(x) for x in por_caso.values()) / len(por_caso)
         saida[v] = {"respostas": n, "erradas": len(erradas), "classes": dict(classes), "pediu_a_mais_por_campo": dict(por_campo_pedido),
                     "so_mencionou_por_campo": dict(por_campo_mencao), "extracao_p1_errada_nas_erradas": extracao_errada if v == "encadeado" else None,
                     "pediu_area_compras": area_compras, "casos_com_pedido_a_mais": por_caso_pedido,

@@ -9,6 +9,7 @@ Uso: PE_VERSAO=v2 python src/comparar_iteracao.py   (depois de PE_VERSAO=v2 pyth
 import collections
 import difflib
 import json
+import math
 import sys
 
 import caminhos
@@ -18,7 +19,7 @@ import validador
 
 
 def _media(xs):
-    return sum(xs) / len(xs) if xs else 0.0
+    return math.fsum(xs) / len(xs) if xs else 0.0
 
 
 def comparar(base, nova, casos):

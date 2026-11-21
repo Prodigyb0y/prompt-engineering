@@ -42,7 +42,7 @@ def carregar(pasta):
 def bootstrap_ic(valores, n=10_000, seed=42):
     rng = random.Random(seed)
     k = len(valores)
-    medias = sorted(sum(rng.choices(valores, k=k)) / k for _ in range(n))
+    medias = sorted(math.fsum(rng.choices(valores, k=k)) / k for _ in range(n))
     return medias[int(0.025 * n)], medias[int(0.975 * n) - 1]
 
 
@@ -65,21 +65,21 @@ def resumir(regs):
             por_caso[r["caso"]].append(ok)
             por_rep[r["repeticao"]].append(ok)
             por_tipo[r["tipo"]].append(ok)
-        media_caso = [sum(v) / len(v) for v in por_caso.values()]
+        media_caso = [math.fsum(v) / len(v) for v in por_caso.values()]
         acertos = sum(1 for r in rs if r["avaliacao"]["caso_correto"])
-        custo = sum(r["custo_usd"] for r in rs)
+        custo = math.fsum(r["custo_usd"] for r in rs)
         lat = [r["latencia_s"] for r in rs]
-        rep_acc = [sum(v) / len(v) for v in por_rep.values()]
+        rep_acc = [math.fsum(v) / len(v) for v in por_rep.values()]
         ic = bootstrap_ic(media_caso)
         saida[tid] = {
             "tecnica": NOMES.get(tid, tid), "prompt_hash12": rs[0]["prompt_hash12"], "prompt_versao": rs[0]["prompt_versao"],
             "casos": len(por_caso), "respostas": len(rs), "repeticoes": len(por_rep),
-            "acerto_caso_media": sum(media_caso) / len(media_caso),
+            "acerto_caso_media": math.fsum(media_caso) / len(media_caso),
             "acerto_caso_rep_min": min(rep_acc), "acerto_caso_rep_max": max(rep_acc),
             "ic95_baixo": ic[0], "ic95_alto": ic[1],
-            "acerto_por_caso": {c: sum(v) / len(v) for c, v in sorted(por_caso.items())},
+            "acerto_por_caso": {c: math.fsum(v) / len(v) for c, v in sorted(por_caso.items())},
             "acerto_campo": {c: sum(r["avaliacao"]["campos"][c] for r in rs) / len(rs) for c in CAMPOS},
-            "acerto_tipo": {t: sum(v) / len(v) for t, v in sorted(por_tipo.items())},
+            "acerto_tipo": {t: math.fsum(v) / len(v) for t, v in sorted(por_tipo.items())},
             "json_valido": sum(r["avaliacao"]["json_valido"] for r in rs) / len(rs),
             "schema_valido": sum(r["avaliacao"]["schema_valido"] for r in rs) / len(rs),
             "truncadas": sum(1 for r in rs if r.get("stop_reason") not in (None, "end_turn")),
@@ -87,7 +87,7 @@ def resumir(regs):
             "tokens_saida_media": sum(r["tokens_saida"] for r in rs) / len(rs),
             "custo_total_usd": custo, "custo_por_caso_usd": custo / len(rs),
             "custo_por_acerto_usd": (custo / acertos) if acertos else None,
-            "latencia_media_s": sum(lat) / len(lat), "latencia_mediana_s": mediana(lat),
+            "latencia_media_s": math.fsum(lat) / len(lat), "latencia_mediana_s": mediana(lat),
         }
     return saida
 

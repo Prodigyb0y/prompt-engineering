@@ -22,8 +22,8 @@ def test_acerto_custo_e_latencia_batem_com_conta_manual():
     # T1: 25 casos sempre certos + 5 casos certos só na repetição 1 (1/3 cada)
     assert s["T1"]["acerto_caso_media"] == pytest.approx((25 + 5 / 3) / 50)
     assert s["T1"]["acerto_caso_rep_max"] == 30 / 50 and s["T1"]["acerto_caso_rep_min"] == 25 / 50
-    assert s["T1"]["custo_total_usd"] == 150 * 0.002
-    assert s["T1"]["custo_por_acerto_usd"] == (150 * 0.002) / (25 * 3 + 5)
+    assert s["T1"]["custo_total_usd"] == pytest.approx(150 * 0.002, rel=1e-12)
+    assert s["T1"]["custo_por_acerto_usd"] == pytest.approx((150 * 0.002) / (25 * 3 + 5), rel=1e-12)
     assert s["T1"]["latencia_media_s"] == 2.0 and s["T1"]["latencia_mediana_s"] == 2.0
     assert s["T4"]["acerto_caso_media"] == 1.0 and s["T4"]["custo_por_caso_usd"] == 0.001
 

@@ -10,6 +10,7 @@ medido aparece com "medido": false e o comando para medir. Uso: python src/conso
 """
 import difflib
 import json
+import math
 from pathlib import Path
 
 import analisar_biblioteca as ab
@@ -60,7 +61,7 @@ def montar_e1(resumo_v2, casos_v2):
     por_tec = {}
     for t in NOMES_TEC:
         r = resumo_v2[t]
-        certas_vt = round(sum(r["acerto_por_caso"][c] for c in casos_vt) * reps)
+        certas_vt = round(math.fsum(r["acerto_por_caso"][c] for c in casos_vt) * reps)
         por_tec[t] = {"rotulo": NOMES_TEC[t], "hash12": r["prompt_hash12"], "acerto": r["acerto_caso_media"], "custo_resposta_usd": r["custo_por_caso_usd"],
                       "latencia_media_s": r["latencia_media_s"], "certas_valor_total": certas_vt, "respostas_valor_total": n_resp_vt,
                       "ic95": [r["ic95_baixo"], r["ic95_alto"]], "rep_min": r["acerto_caso_rep_min"], "rep_max": r["acerto_caso_rep_max"]}
@@ -370,7 +371,7 @@ def construir(raiz=RAIZ, pasta_brutos=ex.BRUTOS, pasta_piloto=ex.PILOTO):
     experimentos = [e1, e2] + [montar_experimento_novo(x, resumo_ab) for x in ("E3", "E4", "E5")]
     prompts = montar_prompts(resumo_ab, e1, e2, brutos, raiz)
     novo = resumo_ab["custo_novo_usd"]["total"]
-    anterior = sum(x["usd"] for x in GASTO_DETALHE)
+    anterior = math.fsum(x["usd"] for x in GASTO_DETALHE)
     assert abs(anterior - ex.GASTO_ANTERIOR_USD) < 1e-9, "o gasto anterior do livro-caixa difere da constante do controle de custo"
     medidos = [e for e in experimentos if e["status"] == "medido"]
     for p in prompts:

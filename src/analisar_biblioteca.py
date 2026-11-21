@@ -17,6 +17,7 @@ Se uma variante não tem respostas, ela aparece com "medido": false. Nada é est
 Uso: python src/analisar_biblioteca.py
 """
 import json
+import math
 import statistics
 from collections import defaultdict
 from pathlib import Path
@@ -53,7 +54,7 @@ def carregar_piloto(pasta=ex.PILOTO):
 
 
 def _media(x):
-    return sum(x) / len(x) if x else None
+    return math.fsum(x) / len(x) if x else None
 
 
 def resumir_variante(regs, n_casos=20, reps_planejadas=ex.REPETICOES):
@@ -65,10 +66,10 @@ def resumir_variante(regs, n_casos=20, reps_planejadas=ex.REPETICOES):
         por_rep[r["repeticao"]].append(ok)
         for k, v in r["avaliacao"]["campos"].items():
             campos[k].append(1.0 if v else 0.0)
-    acerto_caso = {c: sum(v) / len(v) for c, v in por_caso.items()}
+    acerto_caso = {c: math.fsum(v) / len(v) for c, v in por_caso.items()}
     vals = [acerto_caso[c] for c in sorted(acerto_caso)]
     lo, hi = an_ext.bootstrap_ic(vals) if vals else (None, None)
-    custo = sum(r["custo_usd"] for r in regs)
+    custo = math.fsum(r["custo_usd"] for r in regs)
     certas = sum(1 for r in regs if r["avaliacao"]["caso_correto"])
     etapas = [e for r in regs for e in r["etapas"]]
     lat = [r["latencia_s"] for r in regs]
@@ -133,8 +134,8 @@ def resumir_tudo(pasta_brutos=ex.BRUTOS, pasta_piloto=ex.PILOTO):
     p6 = Path(pasta_piloto) / "piloto_p3v2.jsonl"
     if p6.exists():
         piloto = piloto + [json.loads(l) for l in p6.read_text(encoding="utf-8").splitlines() if l.strip()]
-    custo_piloto = sum(r["custo_usd"] for r in piloto)
-    custo_rodadas = sum(r["custo_usd"] for regs in brutos.values() for r in regs)
+    custo_piloto = math.fsum(r["custo_usd"] for r in piloto)
+    custo_rodadas = math.fsum(r["custo_usd"] for regs in brutos.values() for r in regs)
     return {"variantes": variantes, "comparacoes": comps,
             "custo_novo_usd": {"piloto": custo_piloto, "rodadas": custo_rodadas, "total": custo_piloto + custo_rodadas},
             "chamadas_novas": len(piloto) + sum(len(r["etapas"]) for regs in brutos.values() for r in regs),
