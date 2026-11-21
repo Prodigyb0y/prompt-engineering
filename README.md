@@ -2,9 +2,9 @@
 
 **Prompts de negócio que você pode ler, copiar e conferir: o texto completo, por que foi escrito assim, o que mudou quando experimentei e quanto custou.**
 
-[![Prompt Lab: tela inicial da demo](docs/img/demo-desktop.png)](https://prodigyb0y.github.io/prompt-engineering/)
+[![Prompt Lab: tela inicial da demo](docs/img/demo-desktop.png)](https://prodigyb0y.github.io/prompt-lab/)
 
-**Demo (sem instalação e sem chave): https://prodigyb0y.github.io/prompt-engineering/** · [versão para celular](docs/img/demo-mobile.png)
+**Demo (sem instalação e sem chave): https://prodigyb0y.github.io/prompt-lab/** · [versão para celular](docs/img/demo-mobile.png)
 
 Projeto de portfólio com exemplos de prompts bem estruturados e experimentações com LLMs. É uma **recriação conceitual com dados 100% fictícios**: Gutenberg Systems é uma empresa fictícia. Todos os dados são gerados por script, com seed fixa; não há dados, pessoas, sistemas ou documentos de nenhuma empresa real.
 
@@ -129,7 +129,7 @@ Quando usar: Quando o prompt erra por quebrar uma proibição, troque a proibiç
 3. **Custo medido, não suposto.** Cada resposta tem o custo calculado a partir dos tokens informados pela API, e o cliente para antes de passar do teto. Isso permite decidir se uma técnica mais cara compensa, com número.
 
 
-**Conclusão.** Dá para concluir o método (prompt estruturado, gabarito escrito antes, custo medido) e a direção dos resultados. Não dá para concluir que uma técnica é melhor que outra em geral. A versão completa, com o que dá e o que não dá para concluir, está na seção "Conclusão" da [demo](https://prodigyb0y.github.io/prompt-engineering/).
+**Conclusão.** Dá para concluir o método (prompt estruturado, gabarito escrito antes, custo medido) e a direção dos resultados. Não dá para concluir que uma técnica é melhor que outra em geral. A versão completa, com o que dá e o que não dá para concluir, está na seção "Conclusão" da [demo](https://prodigyb0y.github.io/prompt-lab/).
 
 ## Limitações
 
@@ -144,8 +144,8 @@ Quando usar: Quando o prompt erra por quebrar uma proibição, troque a proibiç
 ## Como rodar
 
 ```bash
-git clone https://github.com/Prodigyb0y/prompt-engineering
-cd prompt-engineering
+git clone https://github.com/Prodigyb0y/prompt-lab
+cd prompt-lab
 python -m venv .venv && .venv/bin/pip install -r requirements.txt     # Windows: .venv\Scripts\python.exe -m pip ...
 .venv/bin/python -m pytest -q                     # testes que não chamam a API
 cp .env.example .env                              # preencha ANTHROPIC_API_KEY (nunca versione o .env)

@@ -91,7 +91,7 @@ def readme(r):
           "## Limitações", ""]
     L += [f"- {x}" for x in P["limitacoes"]]
     L += ["- Não verifiquei se algum nome de fornecedor fictício coincide com empresa real (só conferi uma lista curta de nomes conhecidos).", "",
-          "## Como rodar", "", "```bash", f"git clone {P['repo']}", "cd prompt-engineering",
+          "## Como rodar", "", "```bash", f"git clone {P['repo']}", "cd prompt-lab",
           "python -m venv .venv && .venv/bin/pip install -r requirements.txt     # Windows: .venv\\Scripts\\python.exe -m pip ...",
           ".venv/bin/python -m pytest -q                     # testes que não chamam a API",
           "cp .env.example .env                              # preencha ANTHROPIC_API_KEY (nunca versione o .env)",

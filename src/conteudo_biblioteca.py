@@ -9,8 +9,8 @@ dessas frases aponta para o arquivo onde se pode conferir.
 NOME = "Prompt Lab · Gutenberg Systems"
 EMPRESA_NOTA = "Gutenberg Systems é uma empresa fictícia. Todos os dados são gerados por script, com seed fixa; não há dados, pessoas, sistemas ou documentos de nenhuma empresa real."
 FRASE_IMPACTO = "Prompts de negócio que você pode ler, copiar e conferir: o texto completo, por que foi escrito assim, o que mudou quando experimentei e quanto custou."
-REPO = "https://github.com/Prodigyb0y/prompt-engineering"
-DEMO = "https://prodigyb0y.github.io/prompt-engineering/"
+REPO = "https://github.com/Prodigyb0y/prompt-lab"
+DEMO = "https://prodigyb0y.github.io/prompt-lab/"
 
 PROMPTS = {
     "P1": {
