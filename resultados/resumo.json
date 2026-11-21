@@ -341,8 +341,9 @@
     "valor": 1.0,
     "texto": "100,0%",
     "base": "50 casos × 3 repetições, medido na iteração do T4",
-    "sufixo": " · casos de desenvolvimento",
-    "nota": "Resultado de desenvolvimento: a regra foi escrita olhando os mesmos casos."
+    "sufixo": " · validado em 20 pedidos novos",
+    "tabela": "100,0% nos 50 casos de desenvolvimento; 100,0% em 20 pedidos novos (só 6 de valor total)",
+    "nota": "Nos 50 casos a regra foi escrita olhando os mesmos casos (desenvolvimento). Nos 20 pedidos novos, validação: São só 6 casos de valor total, escritos pelo mesmo gerador de frases dos 50 casos anteriores, e o gabarito é meu. Mostra que a regra não foi decorada, não que vale para qualquer pedido real."
    },
    "custo_chamada_usd": 0.00014492866666666667,
    "latencia_media_s": null,
@@ -538,9 +539,9 @@
    "id": "P3",
    "nome": "E-mail pedindo só os campos que faltaram",
    "tecnica": "Prompt encadeado e controle de tom",
-   "versao": "v1",
-   "hash12": "333d7e7cff49",
-   "arquivo": "prompts/P3_encadeado_v1.json",
+   "versao": "v2",
+   "hash12": "01f069156bb0",
+   "arquivo": "prompts/P3_encadeado_v2.json",
    "controles": [
     {
      "arquivo": "prompts/P3_unico_v1.json",
@@ -551,14 +552,14 @@
    "problema": "Quando o pedido chega incompleto, alguém escreve um e-mail pedindo o que falta, e às vezes pede o que já foi informado.",
    "quem_usa": "Time de compras.",
    "tecnica_porque": "Este prompt recebe a saída do P1 (o JSON com campos null) e só se preocupa em escrever. O tom é escrito no prompt, não deixado ao acaso.",
-   "system": "Você escreve e-mails para a equipe de Compras da Gutenberg Systems (empresa fictícia). Você recebe os dados já extraídos de uma solicitação de compra, em JSON, e escreve um e-mail curto ao solicitante pedindo apenas as informações que faltam.\n\nCampos que podem faltar e o nome exato que você deve usar ao pedi-los:\n- solicitante_area vazio: \"área solicitante\"\n- prazo_entrega vazio: \"prazo de entrega\"\n- valor_unitario vazio: \"valor unitário\" (peça também a moeda)\n- fornecedor vazio: \"fornecedor\"\n\nRegras do e-mail:\n- Peça somente os campos que faltam. Nunca peça nem cite um campo que já veio preenchido.\n- Use o nome exato do campo, sem sinônimos.\n- Você pode confirmar o item e a quantidade recebidos em uma frase; não peça nada sobre eles.\n- Se nenhum campo faltar, responda apenas NENHUM_CAMPO_FALTANTE.\n\nTom: profissional e cordial, frases curtas, trate o solicitante por \"você\". Sem pedir desculpas, sem tom de cobrança, sem jargão. Termine com um agradecimento breve.\n\nFormato: primeira linha \"Assunto: ...\", uma linha em branco e o corpo com até 120 palavras. Assine \"Equipe de Compras · Gutenberg Systems\". Sem markdown.",
+   "system": "Você escreve e-mails para a equipe de Compras da Gutenberg Systems (empresa fictícia). Você recebe os dados já extraídos de uma solicitação de compra, em JSON, e escreve um e-mail curto ao solicitante pedindo apenas as informações que faltam.\n\nComo decidir o que falta: olhe os quatro campos abaixo no JSON. Falta o campo cujo valor é null. Qualquer outro valor (texto ou número) significa que o campo veio preenchido e NÃO falta.\nNome exato que você deve usar ao pedir cada campo que falta:\n- solicitante_area null: \"área solicitante\"\n- prazo_entrega null: \"prazo de entrega\"\n- valor_unitario null: \"valor unitário\" (peça também a moeda)\n- fornecedor null: \"fornecedor\"\n\nRegras do e-mail:\n- Abra com uma frase que confirma só o item e a quantidade recebidos. Nessa frase não escreva o nome de nenhum outro campo.\n- Peça os campos que faltam em uma lista, um por linha, cada linha começando com \"- \" e usando o nome exato do campo.\n- Nunca escreva o nome de um campo que veio preenchido: nem para confirmar que recebeu, nem para dizer que já temos, nem para dizer que não precisa informar. Se o campo não está na lista, ele não aparece no e-mail.\n- Se nenhum campo faltar, responda apenas NENHUM_CAMPO_FALTANTE.\n\nTom: profissional e cordial, frases curtas, trate o solicitante por \"você\". Sem pedir desculpas, sem tom de cobrança, sem jargão. Termine com um agradecimento breve.\n\nFormato: primeira linha \"Assunto: ...\", uma linha em branco e o corpo com até 120 palavras. Assine \"Equipe de Compras · Gutenberg Systems\". Sem markdown.",
    "user_template": "Dados extraídos (JSON):\n{texto}",
    "anatomia": [
     {
      "parte": "papel",
      "rotulo": "Papel",
      "trecho": "Você escreve e-mails para a equipe de Compras da Gutenberg Systems (empresa fictícia).",
-     "funcao": "Papel e empresa."
+     "funcao": "Papel e empresa (igual ao v1)."
     },
     {
      "parte": "contexto",
@@ -575,32 +576,44 @@
     {
      "parte": "regras",
      "rotulo": "Regras",
-     "trecho": "Campos que podem faltar e o nome exato que você deve usar ao pedi-los:\n- solicitante_area vazio: \"área solicitante\"\n- prazo_entrega vazio: \"prazo de entrega\"\n- valor_unitario vazio: \"valor unitário\" (peça também a moeda)\n- fornecedor vazio: \"fornecedor\"",
-     "funcao": "Vocabulário controlado: cada campo tem um nome fixo, o que permite conferir o e-mail por regra em código."
+     "trecho": "Falta o campo cujo valor é null. Qualquer outro valor (texto ou número) significa que o campo veio preenchido e NÃO falta.",
+     "funcao": "Mudança do v2: um procedimento (olhar o null) no lugar de deixar o modelo julgar o que \"falta\"."
     },
     {
      "parte": "regras",
      "rotulo": "Regras",
-     "trecho": "- Peça somente os campos que faltam. Nunca peça nem cite um campo que já veio preenchido.",
-     "funcao": "A regra central do prompt."
+     "trecho": "Nome exato que você deve usar ao pedir cada campo que falta:",
+     "funcao": "Vocabulário controlado, como no v1: permite conferir o e-mail por regra em código."
+    },
+    {
+     "parte": "regras",
+     "rotulo": "Regras",
+     "trecho": "- Abra com uma frase que confirma só o item e a quantidade recebidos. Nessa frase não escreva o nome de nenhum outro campo.",
+     "funcao": "Mudança do v2: diz o que fazer com o que já veio, em vez de só proibir."
+    },
+    {
+     "parte": "regras",
+     "rotulo": "Regras",
+     "trecho": "- Nunca escreva o nome de um campo que veio preenchido: nem para confirmar que recebeu, nem para dizer que já temos, nem para dizer que não precisa informar. Se o campo não está na lista, ele não aparece no e-mail.",
+     "funcao": "Mudança do v2: fecha a brecha que o diagnóstico encontrou (9 e-mails só confirmavam campos já recebidos)."
+    },
+    {
+     "parte": "formato_saida",
+     "rotulo": "Formato de saída",
+     "trecho": "- Peça os campos que faltam em uma lista, um por linha, cada linha começando com \"- \" e usando o nome exato do campo.",
+     "funcao": "Mudança do v2: lista com um campo por linha, o que também ajuda quem lê."
     },
     {
      "parte": "casos_borda",
      "rotulo": "Casos de borda",
      "trecho": "- Se nenhum campo faltar, responda apenas NENHUM_CAMPO_FALTANTE.",
-     "funcao": "Caso de borda: nada a pedir. Devolve um código, não um e-mail inútil."
+     "funcao": "Caso de borda: nada a pedir."
     },
     {
      "parte": "regras",
      "rotulo": "Regras",
      "trecho": "Tom: profissional e cordial, frases curtas, trate o solicitante por \"você\". Sem pedir desculpas, sem tom de cobrança, sem jargão. Termine com um agradecimento breve.",
-     "funcao": "Controle de tom: o tom é escrito, não deixado ao acaso."
-    },
-    {
-     "parte": "formato_saida",
-     "rotulo": "Formato de saída",
-     "trecho": "Formato: primeira linha \"Assunto: ...\", uma linha em branco e o corpo com até 120 palavras. Assine \"Equipe de Compras · Gutenberg Systems\". Sem markdown.",
-     "funcao": "Formato e tamanho do e-mail."
+     "funcao": "Controle de tom (igual ao v1)."
     }
    ],
    "segmentos": {
@@ -608,7 +621,7 @@
      {
       "texto": "Você escreve e-mails para a equipe de Compras da Gutenberg Systems (empresa fictícia).",
       "parte": "papel",
-      "funcao": "Papel e empresa."
+      "funcao": "Papel e empresa (igual ao v1)."
      },
      {
       "texto": " ",
@@ -631,34 +644,64 @@
       "funcao": "A tarefa: pedir só o que falta."
      },
      {
-      "texto": "\n\n",
+      "texto": "\n\nComo decidir o que falta: olhe os quatro campos abaixo no JSON. ",
       "parte": null,
       "funcao": null
      },
      {
-      "texto": "Campos que podem faltar e o nome exato que você deve usar ao pedi-los:\n- solicitante_area vazio: \"área solicitante\"\n- prazo_entrega vazio: \"prazo de entrega\"\n- valor_unitario vazio: \"valor unitário\" (peça também a moeda)\n- fornecedor vazio: \"fornecedor\"",
+      "texto": "Falta o campo cujo valor é null. Qualquer outro valor (texto ou número) significa que o campo veio preenchido e NÃO falta.",
       "parte": "regras",
-      "funcao": "Vocabulário controlado: cada campo tem um nome fixo, o que permite conferir o e-mail por regra em código."
+      "funcao": "Mudança do v2: um procedimento (olhar o null) no lugar de deixar o modelo julgar o que \"falta\"."
      },
      {
-      "texto": "\n\nRegras do e-mail:\n",
+      "texto": "\n",
       "parte": null,
       "funcao": null
      },
      {
-      "texto": "- Peça somente os campos que faltam. Nunca peça nem cite um campo que já veio preenchido.",
+      "texto": "Nome exato que você deve usar ao pedir cada campo que falta:",
       "parte": "regras",
-      "funcao": "A regra central do prompt."
+      "funcao": "Vocabulário controlado, como no v1: permite conferir o e-mail por regra em código."
      },
      {
-      "texto": "\n- Use o nome exato do campo, sem sinônimos.\n- Você pode confirmar o item e a quantidade recebidos em uma frase; não peça nada sobre eles.\n",
+      "texto": "\n- solicitante_area null: \"área solicitante\"\n- prazo_entrega null: \"prazo de entrega\"\n- valor_unitario null: \"valor unitário\" (peça também a moeda)\n- fornecedor null: \"fornecedor\"\n\nRegras do e-mail:\n",
+      "parte": null,
+      "funcao": null
+     },
+     {
+      "texto": "- Abra com uma frase que confirma só o item e a quantidade recebidos. Nessa frase não escreva o nome de nenhum outro campo.",
+      "parte": "regras",
+      "funcao": "Mudança do v2: diz o que fazer com o que já veio, em vez de só proibir."
+     },
+     {
+      "texto": "\n",
+      "parte": null,
+      "funcao": null
+     },
+     {
+      "texto": "- Peça os campos que faltam em uma lista, um por linha, cada linha começando com \"- \" e usando o nome exato do campo.",
+      "parte": "formato_saida",
+      "funcao": "Mudança do v2: lista com um campo por linha, o que também ajuda quem lê."
+     },
+     {
+      "texto": "\n",
+      "parte": null,
+      "funcao": null
+     },
+     {
+      "texto": "- Nunca escreva o nome de um campo que veio preenchido: nem para confirmar que recebeu, nem para dizer que já temos, nem para dizer que não precisa informar. Se o campo não está na lista, ele não aparece no e-mail.",
+      "parte": "regras",
+      "funcao": "Mudança do v2: fecha a brecha que o diagnóstico encontrou (9 e-mails só confirmavam campos já recebidos)."
+     },
+     {
+      "texto": "\n",
       "parte": null,
       "funcao": null
      },
      {
       "texto": "- Se nenhum campo faltar, responda apenas NENHUM_CAMPO_FALTANTE.",
       "parte": "casos_borda",
-      "funcao": "Caso de borda: nada a pedir. Devolve um código, não um e-mail inútil."
+      "funcao": "Caso de borda: nada a pedir."
      },
      {
       "texto": "\n\n",
@@ -668,17 +711,12 @@
      {
       "texto": "Tom: profissional e cordial, frases curtas, trate o solicitante por \"você\". Sem pedir desculpas, sem tom de cobrança, sem jargão. Termine com um agradecimento breve.",
       "parte": "regras",
-      "funcao": "Controle de tom: o tom é escrito, não deixado ao acaso."
+      "funcao": "Controle de tom (igual ao v1)."
      },
      {
-      "texto": "\n\n",
+      "texto": "\n\nFormato: primeira linha \"Assunto: ...\", uma linha em branco e o corpo com até 120 palavras. Assine \"Equipe de Compras · Gutenberg Systems\". Sem markdown.",
       "parte": null,
       "funcao": null
-     },
-     {
-      "texto": "Formato: primeira linha \"Assunto: ...\", uma linha em branco e o corpo com até 120 palavras. Assine \"Equipe de Compras · Gutenberg Systems\". Sem markdown.",
-      "parte": "formato_saida",
-      "funcao": "Formato e tamanho do e-mail."
      }
     ],
     "user": [
@@ -715,19 +753,26 @@
      "rotulo": "Casos de borda"
     }
    ],
+   "anterior": {
+    "versao": "v1",
+    "hash12": "333d7e7cff49",
+    "arquivo": "prompts/P3_encadeado_v1.json"
+   },
    "medido": true,
    "acerto": {
-    "valor": 0.7833333333333333,
-    "texto": "78,3%",
+    "valor": 0.9833333333333334,
+    "texto": "98,3%",
     "base": "20 casos × 3 repetições",
-    "nota": null
+    "nota": "A v2 foi escrita depois de ler os erros da v1 nos mesmos 20 casos: resultado de desenvolvimento, ainda não testado em casos novos.",
+    "sufixo": " · v1: 78,3%",
+    "tabela": "98,3% na v2 (v1: 78,3%, Experimento 6); casos de desenvolvimento"
    },
-   "custo_chamada_usd": 0.00025645666666666665,
-   "latencia_media_s": 2.182196878333828,
+   "custo_chamada_usd": 0.0002733283333333333,
+   "latencia_media_s": 2.188821453332882,
    "extras": [
     "E-mails no formato pedido: 100,0%",
     "Campos que faltou citar: 0",
-    "Campos citados a mais: 18"
+    "Campos citados a mais: 1"
    ],
    "chamadas_por_resposta": 2.0,
    "aprendi": "Nas 60 respostas do fluxo encadeado, 13 saíram erradas pela regra oficial. Nenhuma deixou de pedir um campo que faltava; 9 só confirmaram um dado já recebido (por exemplo, \"com fornecedor X\"), quebrando a regra \"nunca cite\" sem pedir nada de novo, e 4 pediram de novo um campo que já tinha. A extração do P1 estava certa em 60 de 60, então o erro nasce no e-mail, não na passagem entre os dois prompts. Lição: \"nunca cite\" não bastou. Hipótese para a próxima versão: dizer o que fazer no lugar (abrir só com o item e a quantidade) e listar cada campo pedido em uma linha. Testei a hipótese (P3 v2, Experimento 6): o acerto foi de 78,3% para 98,3% nos mesmos 20 casos, com 1 erro em 60 respostas. A v2 foi escrita depois de ler os erros nesses mesmos casos; ainda falta testá-la em casos novos.",
@@ -736,7 +781,7 @@
     "entrada": "Preciso comprar 20 metros de cabo elétrico 2,5mm (solicitante: Logística). Prazo: 12 de março de 2026.",
     "esperado": "Campos que faltam: valor unitário, fornecedor",
     "gravada": {
-     "resposta": "Assunto: Solicitação de compra: cabo elétrico 2,5mm\n\nOlá,\n\nRecebemos sua solicitação de 20 m de cabo elétrico 2,5mm para a área de Logística. Para dar andamento à compra, preciso que você nos informe:\n\n1. Valor unitário e moeda\n2. Fornecedor\n\nAssim que tivermos essas informações, seguimos com o processo.\n\nObrigado pela atenção.\n\nEquipe de Compras · Gutenberg Systems",
+     "resposta": "Assunto: Solicitação de compra: cabo elétrico 2,5mm\n\nOlá,\n\nRecebemos sua solicitação de 20 m de cabo elétrico 2,5mm.\n\nPara dar andamento, precisamos das seguintes informações:\n\n- valor unitário (com a moeda)\n- fornecedor\n\nAssim que receber esses dados, seguimos com a cotação.\n\nAgradecemos sua atenção.\n\nEquipe de Compras · Gutenberg Systems",
      "correto": true
     },
     "nota": null

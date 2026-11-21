@@ -268,8 +268,11 @@ def montar_prompts(resumo_ab, e1, e2, brutos_por_variante, raiz=RAIZ):
         if d["id"] == "P1":
             t4v1, t4v2 = pl.carregar("T4", "v1"), pl.carregar("T4", "v2")
             it = _json(EXT_V2 / "iteracao.json")
+            val = montar_validacao()
             item.update({"medido": True, "acerto": {"valor": it["acerto_v2"], "texto": pct(it["acerto_v2"]), "base": "50 casos × 3 repetições, medido na iteração do T4",
-                                                    "sufixo": " · casos de desenvolvimento", "nota": "Resultado de desenvolvimento: a regra foi escrita olhando os mesmos casos."},
+                                                    "sufixo": " · validado em 20 pedidos novos" if val else " · casos de desenvolvimento",
+                                                    "tabela": (f"{pct(it['acerto_v2'])} nos 50 casos de desenvolvimento; {pct(val['acerto_v2'])} em {val['casos']} pedidos novos (só {val['casos_valor_total']} de valor total)" if val else f"{pct(it['acerto_v2'])} (casos de desenvolvimento)"),
+                                                    "nota": ("Nos 50 casos a regra foi escrita olhando os mesmos casos (desenvolvimento). Nos 20 pedidos novos, validação: " + val["ressalva"]) if val else "Resultado de desenvolvimento: a regra foi escrita olhando os mesmos casos."},
                          "custo_chamada_usd": it["custo_v2"], "latencia_media_s": None, "extras": [],
                          "aprendi": e2["resultado"] + " " + f"Antes das duas linhas, o T4 v1 acertou {e2['placar']['antes']} de {e2['placar']['de']} respostas do tipo \"valor total\" (Experimento 2).",
                          "exemplo": {"caso": "D34", "entrada": next(c["texto"] for c in _json(EXT_V2 / "respostas_gravadas.json")["casos"] if c["id"] == "D34"),
@@ -278,7 +281,13 @@ def montar_prompts(resumo_ab, e1, e2, brutos_por_variante, raiz=RAIZ):
                                      "nota": "As respostas brutas do T4 v2 não foram preservadas; só os totais da iteração (Experimento 2)."}})
             saida.append(item)
             continue
-        chave = {"P2": "E3/few_shot", "P3": "E4/encadeado", "P4": "P4/saida_estruturada", "P5": "E5/cot"}[d["id"]]
+        if d["id"] == "P3" and resumo_ab["variantes"]["E6/encadeado_v2"]["medido"]:
+            v2 = pb.carregar("P3", "encadeado", "v2")
+            item.update({"versao": "v2", "hash12": v2["hash12"], "arquivo": "prompts/P3_encadeado_v2.json", "system": v2["system"], "user_template": v2["user_template"],
+                         "anatomia": v2["anatomia"], "segmentos": _segmentos(v2),
+                         "partes": [{"parte": k, "rotulo": r_} for k, r_ in pb.PARTES.items() if any(a["parte"] == k for a in v2["anatomia"])],
+                         "anterior": {"versao": "v1", "hash12": arq["hash12"], "arquivo": f"prompts/{pb.nome_arquivo(d)}"}})
+        chave = {"P2": "E3/few_shot", "P3": "E6/encadeado_v2" if d["id"] == "P3" and resumo_ab["variantes"]["E6/encadeado_v2"]["medido"] else "E4/encadeado", "P4": "P4/saida_estruturada", "P5": "E5/cot"}[d["id"]]
         v = resumo_ab["variantes"][chave]
         dados = {"P2": "p2", "P3": "p3", "P4": "p4", "P5": "p5"}[d["id"]]
         casos, gab = ex.carregar_dados(dados, raiz / "dados" / "biblioteca")
@@ -290,7 +299,12 @@ def montar_prompts(resumo_ab, e1, e2, brutos_por_variante, raiz=RAIZ):
                 extras = [f"E-mails no formato pedido: {pct(v['extras']['formato_ok'])}", f"Campos que faltou citar: {v['extras']['faltou_citar_total']}", f"Campos citados a mais: {v['extras']['citou_a_mais_total']}"]
             if d["id"] == "P4":
                 extras = [f"Respostas com invenção de número ou valor: {v['extras']['respostas_com_invencao']} de {v['respostas']}"]
-            item.update({"medido": True, "acerto": {"valor": v["acerto_caso_media"], "texto": pct(v["acerto_caso_media"]), "base": f"{v['casos']} casos × {v['repeticoes']} repetições", "nota": None if v["completo"] else "Rodada incompleta."},
+            acerto = {"valor": v["acerto_caso_media"], "texto": pct(v["acerto_caso_media"]), "base": f"{v['casos']} casos × {v['repeticoes']} repetições", "nota": None if v["completo"] else "Rodada incompleta."}
+            if d["id"] == "P3" and "anterior" in item:
+                v1 = resumo_ab["variantes"]["E4/encadeado"]
+                acerto.update({"sufixo": f" · v1: {pct(v1['acerto_caso_media'])}", "tabela": f"{pct(v['acerto_caso_media'])} na v2 (v1: {pct(v1['acerto_caso_media'])}, Experimento 6); casos de desenvolvimento",
+                               "nota": "A v2 foi escrita depois de ler os erros da v1 nos mesmos 20 casos: resultado de desenvolvimento, ainda não testado em casos novos."})
+            item.update({"medido": True, "acerto": acerto,
                          "custo_chamada_usd": v["custo_por_resposta_usd"], "latencia_media_s": v["latencia_media_s"], "extras": extras,
                          "chamadas_por_resposta": v["chamadas_por_resposta"], "aprendi": info["aprendi_projeto"]})
         else:

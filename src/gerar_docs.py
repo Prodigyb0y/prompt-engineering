@@ -35,7 +35,7 @@ def _tabela(cabecalho, linhas):
 
 
 def _texto_acerto(p):
-    return "não medido" if not p["medido"] else p["acerto"]["texto"] + (" (desenvolvimento)" if p["id"] == "P1" else "")
+    return "não medido" if not p["medido"] else p["acerto"].get("tabela") or p["acerto"]["texto"]
 
 
 def _texto_custo(p):
@@ -63,7 +63,7 @@ def readme(r):
           "## Biblioteca de prompts", ""]
     L.append(_tabela(["#", "Prompt (problema de negócio)", "Técnica em destaque", "Acerto", "Custo por chamada", "Arquivo"],
                      [[p["id"], f"**{p['nome']}**. {p['problema']}", p["tecnica"], _texto_acerto(p), _texto_custo(p), f"[`{p['arquivo']}`]({p['arquivo']})"] for p in r["prompts"]]))
-    L += ["", "O acerto de cada prompt é medido contra um gabarito escrito e congelado (hash) antes de rodar; o do P1 foi medido nos mesmos 50 casos em que a regra foi escrita. "
+    L += ["", "O acerto de cada prompt é medido contra um gabarito escrito e congelado (hash) antes de rodar; o do P1 foi medido nos 50 casos em que a regra foi escrita e depois conferido em 20 pedidos novos, e o do P3 v2 foi medido nos mesmos 20 casos em que a v2 foi escrita (a v1 e o link para ela estão no Experimento 6). "
           "A regra de acerto de cada prompt está em [`src/avaliadores.py`](src/avaliadores.py). Cada cartão da demo mostra o prompt completo, as partes coloridas, um exemplo de entrada e saída e o que aprendi.", ""]
 
     L += [f"## O prompt P1 completo (T4 v2, hash `{p1['hash12']}`)", "", "System prompt:", "", "```text", p1["system"], "```", "", "Mensagem do usuário (o `{texto}` recebe o pedido):", "", "```text", p1["user_template"], "```", "",
