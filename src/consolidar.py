@@ -14,6 +14,8 @@ from pathlib import Path
 
 import analisar_biblioteca as ab
 import conteudo_biblioteca as cb
+import diagnostico as dgn
+import textos_diagnostico as td
 import experimentos as ex
 import prompts_biblioteca as pb
 import prompts_lib as pl
@@ -304,7 +306,7 @@ def montar_destaques(e1, e2, novos):
     return d
 
 
-def montar_conclusao(e1, e2, novos, prompts, resumo_ab):
+def montar_conclusao(e1, e2, novos, prompts, resumo_ab, dg=None):
     pode, nao_pode = [], []
     pl_ = e2["placar"]
     pode.append({"titulo": "Uma regra de negócio escrita no prompt corrige um erro que se repete.",
@@ -332,8 +334,11 @@ def montar_conclusao(e1, e2, novos, prompts, resumo_ab):
         mais = {k: v["extras"]["citou_a_mais_total"] for k, v in vs.items()}
         erro_txt = (f"Em nenhum dos dois fluxos o e-mail deixou de citar um campo que faltava; todos os erros foram citar campo a mais ({mais['encadeado']} no encadeado e {mais['unico']} no prompt único, em {vs['encadeado']['respostas']} respostas cada)."
                     if falt == 0 else f"Os erros incluíram {falt} campos que faltavam e não foram citados, além de campos citados a mais.")
-        pode.append({"titulo": "Encadear dois prompts não foi melhor do que pedir tudo de uma vez.",
-                     "texto": f"O fluxo encadeado acertou {pct(a4)} contra {pct(b4)} do prompt único, com custo parecido (E4). {erro_txt}"})
+        if dg:
+            pode.append(td.conclusao_e4(dg, a4, b4))
+        else:
+            pode.append({"titulo": "Encadear dois prompts não foi melhor do que pedir tudo de uma vez.",
+                         "texto": f"O fluxo encadeado acertou {pct(a4)} contra {pct(b4)} do prompt único, com custo parecido (E4). {erro_txt}"})
     custos = [p["custo_chamada_usd"] for p in prompts if p["medido"]]
     pode.append({"titulo": "Testar prompts com número custa pouco.",
                  "texto": f"O projeto inteiro gastou {usd(resumo_ab['gasto_total_usd'], 4)} de um teto de {usd(ex.TETO_TOTAL_USD, 2)}. O custo médio por resposta ficou entre {usd(min(custos))} e {usd(max(custos))}, conforme o prompt."})
@@ -371,9 +376,23 @@ def construir(raiz=RAIZ, pasta_brutos=ex.BRUTOS, pasta_piloto=ex.PILOTO):
     for p in prompts:
         p["acerto_def"] = cb.ACERTO_DEF[p["id"]]
     novos = [e for e in experimentos if e["id"] in ("E3", "E4", "E5")]
+    dg = dgn.construir(pasta_brutos, raiz) if all(e["status"] == "medido" for e in novos) else None
+    if dg:   # textos escritos depois de ler os erros (src/diagnostico.py), no lugar dos escritos antes da medição
+        por_id = {p["id"]: p for p in prompts}
+        for pid, fn in (("P2", td.aprendi_p2), ("P3", td.aprendi_p3), ("P4", td.aprendi_p4), ("P5", td.aprendi_p5)):
+            por_id[pid]["aprendi_preparo"] = por_id[pid]["aprendi"]
+            por_id[pid]["aprendi"] = fn(dg)
+        for e in novos:
+            if e["id"] == "E3":
+                e["explicacao"] = td.explicacao_e3(dg)
+            elif e["id"] == "E4":
+                e["explicacao"] = td.explicacao_e4(dg)
+                e["quando_usar"] = td.quando_usar_e4(dg)
+            else:
+                e["explicacao"] = td.explicacao_e5(dg)
     r = {
         "destaques": montar_destaques(e1, e2, novos),
-        "conclusao": montar_conclusao(e1, e2, novos, prompts, {"gasto_total_usd": anterior + novo}) if all(e["status"] == "medido" for e in novos) else None,
+        "conclusao": montar_conclusao(e1, e2, novos, prompts, {"gasto_total_usd": anterior + novo}, dg) if all(e["status"] == "medido" for e in novos) else None,
         "glossario": [{"termo": t, "def": d} for t, d in cb.GLOSSARIO],
         "projeto": {"nome": cb.NOME, "frase_impacto": cb.FRASE_IMPACTO, "empresa_nota": cb.EMPRESA_NOTA, "repo": cb.REPO, "demo": cb.DEMO,
                     "modelo": "claude-haiku-5-5", "esforco": "low", "prompts": len(prompts), "experimentos": len(experimentos),

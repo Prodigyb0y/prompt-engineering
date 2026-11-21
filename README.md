@@ -106,7 +106,7 @@ Quando usar: Quando um tipo de erro se repete, leia os erros, escreva a regra qu
 Quando usar: Use exemplos quando as definições não resolvem os empates: escolha exemplos que ensinem a convenção dos casos ambíguos.
 
 **E4 · Encadear ou pedir tudo de uma vez?** — "Encadeado (P1 → P3)" acertou 78,3% contra 81,7% de "Prompt único (extrai e escreve)" (3,3 pontos a menos): pior em 6 casos e melhor em 4. A variante "Encadeado (P1 → P3)" custou 0,9 vez o custo por resposta (US$ 0,000256 contra US$ 0,000270). Com 20 casos isso é um indício, não uma prova.
-Quando usar: O prompt único acertou um pouco mais, mas a diferença é pequena e não é conclusiva, e os dois custaram parecido. Encadeie se precisar guardar e conferir o JSON da etapa intermediária; senão, comece pelo prompt único.
+Quando usar: O encadeado e o prompt único ficaram próximos pela regra oficial (78,3% contra 81,7%). Lendo os erros, o encadeado pediu de novo um campo que já tinha 4 vez(es), contra 9 do prompt único, e nunca por erro de extração. Encadeie quando o dado intermediário (o JSON) ajudar a evitar ambiguidade ou quando você precisar auditá-lo; em qualquer dos dois, escreva o que o e-mail deve fazer com os dados já recebidos, não só o que não citar.
 
 **E5 · Vale pagar pelo raciocínio?** — "Com raciocínio (chain-of-thought)" acertou 100,0% contra 95,0% de "Sem raciocínio" (5,0 pontos a mais): melhor em 1 caso e pior em 0. A variante "Com raciocínio (chain-of-thought)" custou 2,3 vezes o custo por resposta (US$ 0,000278 contra US$ 0,000123). Com 20 casos isso é um indício, não uma prova.
 Quando usar: Vale pagar pelo raciocínio quando a decisão exige conta ou precedência entre regras; compare o ganho com o custo antes de adotar.

@@ -1,0 +1,32 @@
+{
+  "tecnica": "T3",
+  "prompt_versao": "v1",
+  "prompt_hash12": "b3a7a7a94ceb",
+  "caso": "D41",
+  "tipo": "moeda_extenso",
+  "repeticao": 2,
+  "resposta": "<raciocinio>\n1. **solicitante_area**: a solicitação menciona \"para a área de Manutenção\", então o valor é \"Manutenção\".\n2. **item**: o produto pedido é \"teclado sem fio\".\n3. **quantidade**: \"15 unidades\" indica o número 15.\n4. **unidade**: \"unidades\" corresponde a \"un\", que está na lista permitida.\n5. **prazo_entrega**: \"10-dez-2026\" equivale a 10 de dezembro de 2026, que em AAAA-MM-DD é \"2026-12-10\".\n6. **valor_unitario**: \"1.200 euros por unidade\". No português brasileiro, o ponto é separador de milhar, então \"1.200\" é 1200.\n7. **moeda**: \"euros\" corresponde a \"EUR\".\n8. **fornecedor**: \"Tecidos Santa Clara\".\n\nNão há campos extras a incluir. Todos os campos foram identificados no texto.\n</raciocinio>\n<json>\n{\n  \"solicitante_area\": \"Manutenção\",\n  \"item\": \"teclado sem fio\",\n  \"quantidade\": 15,\n  \"unidade\": \"un\",\n  \"prazo_entrega\": \"2026-12-10\",\n  \"valor_unitario\": 1200,\n  \"moeda\": \"EUR\",\n  \"fornecedor\": \"Tecidos Santa Clara\"\n}\n</json>",
+  "tokens_entrada": 346,
+  "tokens_saida": 672,
+  "custo_usd": 0.0003706,
+  "latencia_s": 3.6781505000035395,
+  "tentativas": 1,
+  "stop_reason": "end_turn",
+  "esforco": "low",
+  "modelo": "claude-haiku-5-5",
+  "avaliacao": {
+    "json_valido": true,
+    "schema_valido": true,
+    "campos": {
+      "solicitante_area": true,
+      "item": true,
+      "quantidade": true,
+      "unidade": true,
+      "prazo_entrega": true,
+      "valor_unitario": true,
+      "moeda": true,
+      "fornecedor": true
+    },
+    "caso_correto": true
+  }
+}

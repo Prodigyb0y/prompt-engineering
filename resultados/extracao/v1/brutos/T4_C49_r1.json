@@ -1,0 +1,32 @@
+{
+  "tecnica": "T4",
+  "prompt_versao": "v1",
+  "prompt_hash12": "bb14abcde430",
+  "caso": "C49",
+  "tipo": "duas_quantidades",
+  "repeticao": 1,
+  "resposta": "{\"solicitante_area\": \"Marketing\", \"item\": \"papel A4\", \"quantidade\": 15, \"unidade\": \"un\", \"prazo_entrega\": \"2026-08-11\", \"valor_unitario\": 12.5, \"moeda\": \"BRL\", \"fornecedor\": \"Papelaria Aurora Ltda\"}",
+  "tokens_entrada": 715,
+  "tokens_saida": 221,
+  "custo_usd": 0.000182,
+  "latencia_s": 1.2097544999996899,
+  "tentativas": 1,
+  "stop_reason": "end_turn",
+  "esforco": "low",
+  "modelo": "claude-haiku-5-5",
+  "avaliacao": {
+    "json_valido": true,
+    "schema_valido": true,
+    "campos": {
+      "solicitante_area": true,
+      "item": true,
+      "quantidade": true,
+      "unidade": true,
+      "prazo_entrega": true,
+      "valor_unitario": true,
+      "moeda": true,
+      "fornecedor": true
+    },
+    "caso_correto": true
+  }
+}

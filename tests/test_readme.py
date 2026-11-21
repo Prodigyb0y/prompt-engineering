@@ -77,3 +77,11 @@ def test_jargao_estatistico_fora_do_texto_principal():
 
 def test_sem_chave_no_texto():
     assert not re.search(r"sk-ant-[A-Za-z0-9_\-]{20,}", README + MEDICAO)
+
+
+def test_respostas_brutas_estao_no_repositorio():
+    for pasta, n in (("resultados/extracao/v1/brutos", 601), ("resultados/extracao/v2/brutos", 600), ("resultados/extracao/v2/iteracao/brutos", 150)):
+        assert len(list((RAIZ / pasta).iterdir())) == n, pasta
+    gi = (RAIZ / ".gitignore").read_text(encoding="utf-8")
+    assert "brutos" not in gi
+    assert "Política das respostas brutas" in MEDICAO

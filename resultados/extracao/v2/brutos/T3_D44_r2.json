@@ -1,0 +1,32 @@
+{
+  "tecnica": "T3",
+  "prompt_versao": "v1",
+  "prompt_hash12": "b3a7a7a94ceb",
+  "caso": "D44",
+  "tipo": "moeda_extenso",
+  "repeticao": 2,
+  "resposta": "<raciocinio>\n1. **solicitante_area**: a solicitação diz \"para a área de Compras\", então o valor é \"Compras\".\n2. **item**: o material pedido é \"tubo PVC 50mm\".\n3. **quantidade**: \"5 metros\" indica o número 5.\n4. **unidade**: metros correspondem a \"m\", que está na lista permitida.\n5. **prazo_entrega**: \"18 de maio de 2026\" vira 2026-05-18.\n6. **valor_unitario**: \"2.450,75\" no formato brasileiro (ponto para milhar, vírgula decimal) equivale a 2450.75.\n7. **moeda**: \"dólares\" corresponde a \"USD\".\n8. **fornecedor**: a cotação foi feita com \"Tecidos Santa Clara\", que é o nome informado, mesmo que pareça estranho para tubos PVC. Mantenho o nome como foi escrito.\n9. Não há campos extras. Os nomes seguem exatamente a especificação.\n</raciocinio>\n\n<json>\n{\n  \"solicitante_area\": \"Compras\",\n  \"item\": \"tubo PVC 50mm\",\n  \"quantidade\": 5,\n  \"unidade\": \"m\",\n  \"prazo_entrega\": \"2026-05-18\",\n  \"valor_unitario\": 2450.75,\n  \"moeda\": \"USD\",\n  \"fornecedor\": \"Tecidos Santa Clara\"\n}\n</json>",
+  "tokens_entrada": 351,
+  "tokens_saida": 669,
+  "custo_usd": 0.00036960000000000004,
+  "latencia_s": 3.2211029999998573,
+  "tentativas": 1,
+  "stop_reason": "end_turn",
+  "esforco": "low",
+  "modelo": "claude-haiku-5-5",
+  "avaliacao": {
+    "json_valido": true,
+    "schema_valido": true,
+    "campos": {
+      "solicitante_area": true,
+      "item": true,
+      "quantidade": true,
+      "unidade": true,
+      "prazo_entrega": true,
+      "valor_unitario": true,
+      "moeda": true,
+      "fornecedor": true
+    },
+    "caso_correto": true
+  }
+}

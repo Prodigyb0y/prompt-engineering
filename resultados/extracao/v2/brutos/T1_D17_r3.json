@@ -1,0 +1,32 @@
+{
+  "tecnica": "T1",
+  "prompt_versao": "v1",
+  "prompt_hash12": "1ef67d6a52fc",
+  "caso": "D17",
+  "tipo": "data_formato",
+  "repeticao": 3,
+  "resposta": "{\"solicitante_area\": \"Financeiro\", \"item\": \"Papel A4\", \"quantidade\": 8, \"unidade\": \"cx\", \"prazo_entrega\": \"2026-10-07\", \"valor_unitario\": 120.00, \"moeda\": \"BRL\", \"fornecedor\": \"Químicos Horizonte\"}",
+  "tokens_entrada": 285,
+  "tokens_saida": 208,
+  "custo_usd": 0.0001325,
+  "latencia_s": 1.2839740999988862,
+  "tentativas": 1,
+  "stop_reason": "end_turn",
+  "esforco": "low",
+  "modelo": "claude-haiku-5-5",
+  "avaliacao": {
+    "json_valido": true,
+    "schema_valido": true,
+    "campos": {
+      "solicitante_area": true,
+      "item": true,
+      "quantidade": true,
+      "unidade": true,
+      "prazo_entrega": true,
+      "valor_unitario": true,
+      "moeda": true,
+      "fornecedor": true
+    },
+    "caso_correto": true
+  }
+}

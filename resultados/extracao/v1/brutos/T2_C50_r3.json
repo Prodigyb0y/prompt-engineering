@@ -1,0 +1,32 @@
+{
+  "tecnica": "T2",
+  "prompt_versao": "v1",
+  "prompt_hash12": "be0e8998a563",
+  "caso": "C50",
+  "tipo": "duas_quantidades",
+  "repeticao": 3,
+  "resposta": "{\"solicitante_area\": \"Financeiro\", \"item\": \"tinta acrílica branca\", \"quantidade\": 3, \"unidade\": \"l\", \"prazo_entrega\": \"2026-04-04\", \"valor_unitario\": 2450.75, \"moeda\": \"BRL\", \"fornecedor\": \"Eletrotécnica Faísca\"}",
+  "tokens_entrada": 870,
+  "tokens_saida": 112,
+  "custo_usd": 0.000143,
+  "latencia_s": 1.1257330000007642,
+  "tentativas": 1,
+  "stop_reason": "end_turn",
+  "esforco": "low",
+  "modelo": "claude-haiku-5-5",
+  "avaliacao": {
+    "json_valido": true,
+    "schema_valido": true,
+    "campos": {
+      "solicitante_area": true,
+      "item": true,
+      "quantidade": true,
+      "unidade": true,
+      "prazo_entrega": true,
+      "valor_unitario": true,
+      "moeda": true,
+      "fornecedor": true
+    },
+    "caso_correto": true
+  }
+}

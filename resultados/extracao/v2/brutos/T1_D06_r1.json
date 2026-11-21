@@ -1,0 +1,32 @@
+{
+  "tecnica": "T1",
+  "prompt_versao": "v1",
+  "prompt_hash12": "1ef67d6a52fc",
+  "caso": "D06",
+  "tipo": "campos_faltando",
+  "repeticao": 1,
+  "resposta": "{\"solicitante_area\": null, \"item\": \"álcool isopropílico\", \"quantidade\": 25, \"unidade\": \"l\", \"prazo_entrega\": \"2026-07-12\", \"valor_unitario\": null, \"moeda\": null, \"fornecedor\": null}",
+  "tokens_entrada": 254,
+  "tokens_saida": 86,
+  "custo_usd": 6.840000000000001e-05,
+  "latencia_s": 1.2976889000019582,
+  "tentativas": 1,
+  "stop_reason": "end_turn",
+  "esforco": "low",
+  "modelo": "claude-haiku-5-5",
+  "avaliacao": {
+    "json_valido": true,
+    "schema_valido": true,
+    "campos": {
+      "solicitante_area": true,
+      "item": true,
+      "quantidade": true,
+      "unidade": true,
+      "prazo_entrega": true,
+      "valor_unitario": true,
+      "moeda": true,
+      "fornecedor": true
+    },
+    "caso_correto": true
+  }
+}

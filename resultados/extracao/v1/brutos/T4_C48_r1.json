@@ -1,0 +1,32 @@
+{
+  "tecnica": "T4",
+  "prompt_versao": "v1",
+  "prompt_hash12": "bb14abcde430",
+  "caso": "C48",
+  "tipo": "duas_quantidades",
+  "repeticao": 1,
+  "resposta": "{\"solicitante_area\": \"Produção\", \"item\": \"teclado sem fio\", \"quantidade\": 4, \"unidade\": \"un\", \"prazo_entrega\": \"2026-05-01\", \"valor_unitario\": 2450.75, \"moeda\": \"BRL\", \"fornecedor\": \"Distribuidora Pinheiro\"}",
+  "tokens_entrada": 727,
+  "tokens_saida": 108,
+  "custo_usd": 0.0001267,
+  "latencia_s": 1.355252000001201,
+  "tentativas": 1,
+  "stop_reason": "end_turn",
+  "esforco": "low",
+  "modelo": "claude-haiku-5-5",
+  "avaliacao": {
+    "json_valido": true,
+    "schema_valido": true,
+    "campos": {
+      "solicitante_area": true,
+      "item": true,
+      "quantidade": true,
+      "unidade": true,
+      "prazo_entrega": true,
+      "valor_unitario": true,
+      "moeda": true,
+      "fornecedor": true
+    },
+    "caso_correto": true
+  }
+}

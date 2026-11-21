@@ -1,0 +1,32 @@
+{
+  "tecnica": "T3",
+  "prompt_versao": "v1",
+  "prompt_hash12": "b3a7a7a94ceb",
+  "caso": "C21",
+  "tipo": "valor_br",
+  "repeticao": 3,
+  "resposta": "<raciocinio>\n1. solicitante_area: a mensagem diz \"para a área de Compras\", então o valor é \"Compras\".\n2. item: o produto solicitado é \"caneta esferográfica\".\n3. quantidade: \"40 un\", então o valor é 40.\n4. unidade: a mensagem usa \"un\", que está entre as opções permitidas.\n5. prazo_entrega: \"10 de setembro de 2026\" convertido para o formato AAAA-MM-DD resulta em \"2026-09-10\".\n6. valor_unitario: \"R$ 15.800,00\" está no formato brasileiro, em que o ponto separa milhares e a vírgula separa decimais. O valor é quinze mil e oitocentos reais, portanto 15800.0.\n7. moeda: o símbolo \"R$\" indica \"BRL\".\n8. fornecedor: \"Distribuidora Pinheiro\".\n9. Não há campos extras. Todos os campos estão preenchidos com base no texto, sem necessidade de null.\n</raciocinio>\n\n<json>\n{\n  \"solicitante_area\": \"Compras\",\n  \"item\": \"caneta esferográfica\",\n  \"quantidade\": 40,\n  \"unidade\": \"un\",\n  \"prazo_entrega\": \"2026-09-10\",\n  \"valor_unitario\": 15800.0,\n  \"moeda\": \"BRL\",\n  \"fornecedor\": \"Distribuidora Pinheiro\"\n}\n</json>",
+  "tokens_entrada": 347,
+  "tokens_saida": 688,
+  "custo_usd": 0.0003787,
+  "latencia_s": 3.8156133000011323,
+  "tentativas": 1,
+  "stop_reason": "end_turn",
+  "esforco": "low",
+  "modelo": "claude-haiku-5-5",
+  "avaliacao": {
+    "json_valido": true,
+    "schema_valido": true,
+    "campos": {
+      "solicitante_area": true,
+      "item": true,
+      "quantidade": true,
+      "unidade": true,
+      "prazo_entrega": true,
+      "valor_unitario": true,
+      "moeda": true,
+      "fornecedor": true
+    },
+    "caso_correto": true
+  }
+}

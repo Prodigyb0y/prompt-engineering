@@ -4,7 +4,7 @@
   python src/rodar.py --completo   # 4 técnicas x 50 casos x 3 repetições
   PE_VERSAO=v2 python src/rodar.py --iteracao   # só o T4 com o prompt v2, 50 casos x 3 repetições (150 chamadas)
 
-Cada resposta vai para resultados/brutos/<T>_<caso>_r<rep>.json (pasta fora do Git).
+Cada resposta vai para resultados/brutos/<T>_<caso>_r<rep>.json (a pasta é versionada no Git, para o resultado poder ser conferido).
 Roda de forma retomável: arquivo que já existe é pulado. Para no primeiro erro que
 sobrar depois dos retries, ou quando o teto de gasto bloquearia a próxima chamada.
 """

@@ -1,0 +1,32 @@
+{
+  "tecnica": "T2",
+  "prompt_versao": "v1",
+  "prompt_hash12": "be0e8998a563",
+  "caso": "C12",
+  "tipo": "campos_faltando",
+  "repeticao": 2,
+  "resposta": "{\"solicitante_area\": \"Logística\", \"item\": \"solda em barra\", \"quantidade\": 20, \"unidade\": \"kg\", \"prazo_entrega\": null, \"valor_unitario\": null, \"moeda\": null, \"fornecedor\": \"Tecidos Santa Clara\"}",
+  "tokens_entrada": 813,
+  "tokens_saida": 93,
+  "custo_usd": 0.00012780000000000002,
+  "latencia_s": 0.9444561999989673,
+  "tentativas": 1,
+  "stop_reason": "end_turn",
+  "esforco": "low",
+  "modelo": "claude-haiku-5-5",
+  "avaliacao": {
+    "json_valido": true,
+    "schema_valido": true,
+    "campos": {
+      "solicitante_area": true,
+      "item": true,
+      "quantidade": true,
+      "unidade": true,
+      "prazo_entrega": true,
+      "valor_unitario": true,
+      "moeda": true,
+      "fornecedor": true
+    },
+    "caso_correto": true
+  }
+}

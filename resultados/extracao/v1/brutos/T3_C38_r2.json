@@ -1,0 +1,32 @@
+{
+  "tecnica": "T3",
+  "prompt_versao": "v1",
+  "prompt_hash12": "b3a7a7a94ceb",
+  "caso": "C38",
+  "tipo": "data_relativa",
+  "repeticao": 2,
+  "resposta": "<raciocinio>\n1. solicitante_area: o texto informa \"solicitante: Compras\", então o valor é \"Compras\".\n2. item: o produto solicitado é \"caneta esferográfica\".\n3. quantidade: \"8 caixas\" indica o número 8.\n4. unidade: a quantidade é em caixas, que corresponde a \"cx\".\n5. prazo_entrega: o texto diz \"10 dias úteis\", mas não há data de referência para convertê-lo em AAAA-MM-DD. Por isso, o valor é null.\n6. valor_unitario: \"Cada unidade custa R$ 35,00\". Como a unidade de compra é a caixa, o valor é 35.00.\n7. moeda: o símbolo \"R$\" indica real, então o valor é \"BRL\".\n8. fornecedor: \"Pode ser com a Informática Bitmais\" indica o fornecedor \"Informática Bitmais\".\n</raciocinio>\n<json>\n{\n  \"solicitante_area\": \"Compras\",\n  \"item\": \"caneta esferográfica\",\n  \"quantidade\": 8,\n  \"unidade\": \"cx\",\n  \"prazo_entrega\": null,\n  \"valor_unitario\": 35.00,\n  \"moeda\": \"BRL\",\n  \"fornecedor\": \"Informática Bitmais\"\n}\n</json>",
+  "tokens_entrada": 339,
+  "tokens_saida": 670,
+  "custo_usd": 0.00036889999999999997,
+  "latencia_s": 2.975810999996611,
+  "tentativas": 1,
+  "stop_reason": "end_turn",
+  "esforco": "low",
+  "modelo": "claude-haiku-5-5",
+  "avaliacao": {
+    "json_valido": true,
+    "schema_valido": true,
+    "campos": {
+      "solicitante_area": true,
+      "item": true,
+      "quantidade": true,
+      "unidade": true,
+      "prazo_entrega": true,
+      "valor_unitario": true,
+      "moeda": true,
+      "fornecedor": true
+    },
+    "caso_correto": true
+  }
+}

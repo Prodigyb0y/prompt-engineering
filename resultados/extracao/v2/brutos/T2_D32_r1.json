@@ -1,0 +1,32 @@
+{
+  "tecnica": "T2",
+  "prompt_versao": "v1",
+  "prompt_hash12": "be0e8998a563",
+  "caso": "D32",
+  "tipo": "correcao",
+  "repeticao": 1,
+  "resposta": "{\"solicitante_area\": \"Financeiro\", \"item\": \"luva de proteção\", \"quantidade\": 40, \"unidade\": \"cx\", \"prazo_entrega\": \"2026-10-26\", \"valor_unitario\": 8.9, \"moeda\": \"BRL\", \"fornecedor\": \"Papelaria Aurora Ltda\"}",
+  "tokens_entrada": 890,
+  "tokens_saida": 224,
+  "custo_usd": 0.000201,
+  "latencia_s": 1.2704610000000685,
+  "tentativas": 1,
+  "stop_reason": "end_turn",
+  "esforco": "low",
+  "modelo": "claude-haiku-5-5",
+  "avaliacao": {
+    "json_valido": true,
+    "schema_valido": true,
+    "campos": {
+      "solicitante_area": true,
+      "item": true,
+      "quantidade": true,
+      "unidade": true,
+      "prazo_entrega": true,
+      "valor_unitario": true,
+      "moeda": true,
+      "fornecedor": true
+    },
+    "caso_correto": true
+  }
+}

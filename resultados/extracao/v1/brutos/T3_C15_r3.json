@@ -1,0 +1,32 @@
+{
+  "tecnica": "T3",
+  "prompt_versao": "v1",
+  "prompt_hash12": "b3a7a7a94ceb",
+  "caso": "C15",
+  "tipo": "unidades_variadas",
+  "repeticao": 3,
+  "resposta": "<raciocinio>\n1. Área do solicitante: \"para a área de Marketing\" → \"Marketing\".\n2. Item: \"óleo lubrificante\" → \"Óleo lubrificante\".\n3. Quantidade: \"50l\" → 50.\n4. Unidade: \"l\" (litro), que está na lista permitida → \"l\".\n5. Prazo de entrega: \"22 de janeiro de 2026\" → \"2026-01-22\".\n6. Valor unitário: \"R$ 8,90 por unidade\" → 8.90 (decimal com ponto).\n7. Moeda: o símbolo \"R$\" indica real → \"BRL\".\n8. Fornecedor: \"Papelaria Aurora Ltda\" → \"Papelaria Aurora Ltda\".\n9. Verifico os campos: não há campos extras e todos os valores seguem os formatos exigidos.\n</raciocinio>\n\n<json>\n{\n  \"solicitante_area\": \"Marketing\",\n  \"item\": \"Óleo lubrificante\",\n  \"quantidade\": 50,\n  \"unidade\": \"l\",\n  \"prazo_entrega\": \"2026-01-22\",\n  \"valor_unitario\": 8.90,\n  \"moeda\": \"BRL\",\n  \"fornecedor\": \"Papelaria Aurora Ltda\"\n}\n</json>",
+  "tokens_entrada": 351,
+  "tokens_saida": 669,
+  "custo_usd": 0.00036960000000000004,
+  "latencia_s": 4.449171899999783,
+  "tentativas": 1,
+  "stop_reason": "end_turn",
+  "esforco": "low",
+  "modelo": "claude-haiku-5-5",
+  "avaliacao": {
+    "json_valido": true,
+    "schema_valido": true,
+    "campos": {
+      "solicitante_area": true,
+      "item": true,
+      "quantidade": true,
+      "unidade": true,
+      "prazo_entrega": true,
+      "valor_unitario": true,
+      "moeda": true,
+      "fornecedor": true
+    },
+    "caso_correto": true
+  }
+}

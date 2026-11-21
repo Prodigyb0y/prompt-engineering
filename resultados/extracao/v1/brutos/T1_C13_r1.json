@@ -1,0 +1,32 @@
+{
+  "tecnica": "T1",
+  "prompt_versao": "v1",
+  "prompt_hash12": "1ef67d6a52fc",
+  "caso": "C13",
+  "tipo": "campos_faltando",
+  "repeticao": 1,
+  "resposta": "{\"solicitante_area\": null, \"item\": \"toner preto\", \"quantidade\": 25, \"unidade\": \"un\", \"prazo_entrega\": \"2026-09-08\", \"valor_unitario\": 35.00, \"moeda\": \"BRL\", \"fornecedor\": \"Papelaria Aurora Ltda.\"}",
+  "tokens_entrada": 280,
+  "tokens_saida": 102,
+  "custo_usd": 7.9e-05,
+  "latencia_s": 0.7869261000014376,
+  "tentativas": 1,
+  "stop_reason": "end_turn",
+  "esforco": "low",
+  "modelo": "claude-haiku-5-5",
+  "avaliacao": {
+    "json_valido": true,
+    "schema_valido": true,
+    "campos": {
+      "solicitante_area": true,
+      "item": true,
+      "quantidade": true,
+      "unidade": true,
+      "prazo_entrega": true,
+      "valor_unitario": true,
+      "moeda": true,
+      "fornecedor": false
+    },
+    "caso_correto": false
+  }
+}

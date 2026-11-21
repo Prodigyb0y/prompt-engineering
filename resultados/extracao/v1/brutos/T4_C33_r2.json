@@ -1,0 +1,32 @@
+{
+  "tecnica": "T4",
+  "prompt_versao": "v1",
+  "prompt_hash12": "bb14abcde430",
+  "caso": "C33",
+  "tipo": "data_formato",
+  "repeticao": 2,
+  "resposta": "{\"solicitante_area\": \"Marketing\", \"item\": \"cadeira ergonômica\", \"quantidade\": 25, \"unidade\": \"un\", \"prazo_entrega\": \"2026-12-17\", \"valor_unitario\": 380, \"moeda\": \"BRL\", \"fornecedor\": \"Informática Bitmais\"}",
+  "tokens_entrada": 699,
+  "tokens_saida": 104,
+  "custo_usd": 0.00012190000000000001,
+  "latencia_s": 0.9685815999982879,
+  "tentativas": 1,
+  "stop_reason": "end_turn",
+  "esforco": "low",
+  "modelo": "claude-haiku-5-5",
+  "avaliacao": {
+    "json_valido": true,
+    "schema_valido": true,
+    "campos": {
+      "solicitante_area": true,
+      "item": true,
+      "quantidade": true,
+      "unidade": true,
+      "prazo_entrega": true,
+      "valor_unitario": true,
+      "moeda": true,
+      "fornecedor": true
+    },
+    "caso_correto": true
+  }
+}

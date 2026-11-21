@@ -75,6 +75,7 @@ h3{font-size:1.1rem;margin:0 0 8px}
 .gloss{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;margin:0 0 22px}
 .gloss div{background:var(--panel);border:1px solid var(--borda);border-radius:12px;padding:10px 14px;font-size:.88rem;color:var(--suave)}
 .gloss dt{font-weight:650;color:var(--texto);margin:0 0 2px}.gloss dd{margin:0}
+.explic p{margin:6px 0 0}.explic{margin-top:12px}
 .cartao .def{color:var(--suave);font-size:.84rem;margin:0}
 .concl li{margin-bottom:12px}.concl li b{display:block;color:var(--texto)}
 /* biblioteca */
@@ -440,7 +441,8 @@ function abrirPainel(p) {
       p.extras && p.extras.length ? h("ul", { class: "lista" }, p.extras.map((x) => h("li", { text: x }))) : null,
       p.controles.length ? h("p", { class: "suave", style: "font-size:.88rem", text: "Controle usado no experimento: " + p.controles.map((x) => x.arquivo + " (hash " + x.hash12 + ")").join(", ") }) : null,
       h("p", { class: "suave", style: "font-size:.88rem", text: "Arquivo: " + p.arquivo })),
-    h("div", { class: "bloco" }, h("h4", { text: "O que aprendi" }), h("p", { text: p.aprendi })));
+    h("div", { class: "bloco" }, h("h4", { text: p.aprendi_preparo ? "O que aprendi depois de medir" : "O que aprendi" }), h("p", { text: p.aprendi }),
+      p.aprendi_preparo ? h("h4", { style: "margin-top:12px", text: "O que aprendi ao preparar os dados" }) : "", p.aprendi_preparo ? h("p", { text: p.aprendi_preparo }) : ""));
   painel.classList.add("aberto"); veu.classList.add("aberto"); painel.setAttribute("aria-hidden", "false"); document.body.classList.add("sem-rolagem");
   c.scrollTop = 0; $("#fechar").focus();
 }
@@ -486,6 +488,7 @@ D.experimentos.forEach((e, i) => {
     h("div", { class: "mini" }, h("b", { text: "O que testei" }), e.o_que_testei));
   if (e.medido) {
     bloco.append(h("p", { class: "resultado", text: e.resultado }));
+    if (e.explicacao) bloco.append(h("div", { class: "mini explic" }, h("b", { text: e.explicacao.titulo }), ...e.explicacao.paragrafos.map((t) => h("p", { text: t }))));
     if (e.id === "E2") bloco.append(diffViewer(e));
     e.grupos.forEach((g) => bloco.append(barras(g)));
     bloco.append(h("div", { class: "campos-exp" },

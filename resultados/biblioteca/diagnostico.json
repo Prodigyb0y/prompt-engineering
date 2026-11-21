@@ -1,0 +1,153 @@
+{
+ "E4": {
+  "encadeado": {
+   "respostas": 60,
+   "erradas": 13,
+   "classes": {
+    "so_confirmou_dado_recebido": 9,
+    "pediu_campo_que_ja_tinha": 4
+   },
+   "pediu_a_mais_por_campo": {
+    "valor_unitario": 3,
+    "solicitante_area": 1
+   },
+   "so_mencionou_por_campo": {
+    "fornecedor": 9,
+    "prazo_entrega": 2,
+    "solicitante_area": 1,
+    "valor_unitario": 2
+   },
+   "extracao_p1_errada_nas_erradas": 0,
+   "pediu_area_compras": 1,
+   "casos_com_pedido_a_mais": {
+    "E05": 1,
+    "E07": 1,
+    "E13": 1,
+    "E15": 1
+   },
+   "acerto_pedido": 0.9333333333333333,
+   "acerto_oficial": 0.7833333333333333
+  },
+  "unico": {
+   "respostas": 60,
+   "erradas": 11,
+   "classes": {
+    "so_confirmou_dado_recebido": 2,
+    "pediu_campo_que_ja_tinha": 9
+   },
+   "pediu_a_mais_por_campo": {
+    "solicitante_area": 9
+   },
+   "so_mencionou_por_campo": {
+    "prazo_entrega": 1,
+    "valor_unitario": 2,
+    "fornecedor": 1
+   },
+   "extracao_p1_errada_nas_erradas": null,
+   "pediu_area_compras": 9,
+   "casos_com_pedido_a_mais": {
+    "E08": 3,
+    "E12": 3,
+    "E15": 3
+   },
+   "acerto_pedido": 0.85,
+   "acerto_oficial": 0.8166666666666667
+  },
+  "extracao_p1_certa_em_todas": {
+   "certas": 60,
+   "de": 60
+  }
+ },
+ "E3": {
+  "zero_shot": {
+   "respostas": 60,
+   "erradas": 5,
+   "campo_errado": {
+    "urgencia": 5
+   },
+   "urgencia_esperada_obtida": [
+    {
+     "esperada": "media",
+     "obtida": "baixa",
+     "n": 5
+    }
+   ],
+   "erradas_em_casos_com_prazo_no_texto": 5,
+   "casos": [
+    "S01",
+    "S11"
+   ]
+  },
+  "few_shot": {
+   "respostas": 60,
+   "erradas": 1,
+   "campo_errado": {
+    "urgencia": 1
+   },
+   "urgencia_esperada_obtida": [
+    {
+     "esperada": "alta",
+     "obtida": "media",
+     "n": 1
+    }
+   ],
+   "erradas_em_casos_com_prazo_no_texto": 1,
+   "casos": [
+    "S20"
+   ]
+  }
+ },
+ "P4": {
+  "respostas": 60,
+  "erradas": 3,
+  "campo_errado": {
+   "sentimento": 3
+  },
+  "sentimento_esperado_obtido": [
+   {
+    "esperado": "neutro",
+    "obtido": "insatisfeito",
+    "n": 2
+   },
+   {
+    "esperado": "irritado",
+    "obtido": "insatisfeito",
+    "n": 1
+   }
+  ],
+  "invencoes": 0,
+  "casos": [
+   "R02",
+   "R10"
+  ]
+ },
+ "E5": {
+  "direto": {
+   "respostas": 60,
+   "erradas": 3,
+   "com_duas_decisoes": 1,
+   "erros": [
+    {
+     "caso": "A19",
+     "subtipo": "escalar_fornecedor_e_item",
+     "esperada": "escalar",
+     "obtida": "duas respostas (pedir_informacao → escalar)",
+     "n": 1
+    },
+    {
+     "caso": "A19",
+     "subtipo": "escalar_fornecedor_e_item",
+     "esperada": "escalar",
+     "obtida": "pedir_informacao",
+     "n": 2
+    }
+   ]
+  },
+  "cot": {
+   "respostas": 60,
+   "erradas": 0,
+   "com_duas_decisoes": 0,
+   "erros": []
+  }
+ }
+}

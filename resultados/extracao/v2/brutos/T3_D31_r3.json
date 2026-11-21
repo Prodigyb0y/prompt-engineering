@@ -1,0 +1,32 @@
+{
+  "tecnica": "T3",
+  "prompt_versao": "v1",
+  "prompt_hash12": "b3a7a7a94ceb",
+  "caso": "D31",
+  "tipo": "correcao",
+  "repeticao": 3,
+  "resposta": "<raciocinio>\n1. solicitante_area: o texto diz \"para a área de Marketing\", então o valor é \"Marketing\".\n2. item: \"parafuso sextavado\".\n3. quantidade: \"50 cx\", logo 50.\n4. unidade: \"cx\", que está na lista permitida.\n5. prazo_entrega: há duas datas. \"Prazo: 24/10/2026\" é a inicial, e \"Melhor ficar para 25/05/2026\" é uma alteração posterior, que prevalece. Convertendo para AAAA-MM-DD, fica 2026-05-25.\n6. valor_unitario: \"preço de tabela: R$ 120,00 por unidade\", logo 120.0. O preço é por unidade, e a unidade de compra é a caixa, então o valor corresponde a cada unidade conforme o texto.\n7. moeda: o símbolo R$ indica \"BRL\".\n8. fornecedor: \"Distribuidora Pinheiro\".\n9. Não há campos extras a incluir.\n</raciocinio>\n\n<json>\n{\n  \"solicitante_area\": \"Marketing\",\n  \"item\": \"parafuso sextavado\",\n  \"quantidade\": 50,\n  \"unidade\": \"cx\",\n  \"prazo_entrega\": \"2026-05-25\",\n  \"valor_unitario\": 120.0,\n  \"moeda\": \"BRL\",\n  \"fornecedor\": \"Distribuidora Pinheiro\"\n}\n</json>",
+  "tokens_entrada": 361,
+  "tokens_saida": 733,
+  "custo_usd": 0.00040260000000000003,
+  "latencia_s": 3.2561177000025054,
+  "tentativas": 1,
+  "stop_reason": "end_turn",
+  "esforco": "low",
+  "modelo": "claude-haiku-5-5",
+  "avaliacao": {
+    "json_valido": true,
+    "schema_valido": true,
+    "campos": {
+      "solicitante_area": true,
+      "item": true,
+      "quantidade": true,
+      "unidade": true,
+      "prazo_entrega": true,
+      "valor_unitario": true,
+      "moeda": true,
+      "fornecedor": true
+    },
+    "caso_correto": true
+  }
+}

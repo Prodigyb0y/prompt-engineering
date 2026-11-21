@@ -1,0 +1,32 @@
+{
+  "tecnica": "T3",
+  "prompt_versao": "v1",
+  "prompt_hash12": "b3a7a7a94ceb",
+  "caso": "C22",
+  "tipo": "valor_br",
+  "repeticao": 1,
+  "resposta": "<raciocinio>\n1. Área solicitante: a frase diz \"para a área de Financeiro\", então o valor é \"Financeiro\".\n2. Item: \"monitor 24 polegadas\".\n3. Quantidade: \"20 unidades\" resulta em 20.\n4. Unidade: \"unidades\" corresponde a \"un\", que está na lista permitida.\n5. Prazo de entrega: \"9 de agosto de 2026\" vira 2026-08-09.\n6. Valor unitário: \"R$ 12.999,00\" em formato numérico, com vírgula decimal convertida para ponto, resulta em 12999.0.\n7. Moeda: o símbolo \"R$\" indica real brasileiro, então é \"BRL\".\n8. Fornecedor: \"Pode ser com a Metalúrgica Vale Verde\" indica o fornecedor preferido, então é \"Metalúrgica Vale Verde\".\n9. Conferência: há exatamente os oito campos pedidos, sem campos extras, e todos os valores vêm do texto.\n</raciocinio>\n<json>\n{\n  \"solicitante_area\": \"Financeiro\",\n  \"item\": \"Monitor 24 polegadas\",\n  \"quantidade\": 20,\n  \"unidade\": \"un\",\n  \"prazo_entrega\": \"2026-08-09\",\n  \"valor_unitario\": 12999.00,\n  \"moeda\": \"BRL\",\n  \"fornecedor\": \"Metalúrgica Vale Verde\"\n}\n</json>",
+  "tokens_entrada": 352,
+  "tokens_saida": 710,
+  "custo_usd": 0.0003902,
+  "latencia_s": 3.839533100002882,
+  "tentativas": 1,
+  "stop_reason": "end_turn",
+  "esforco": "low",
+  "modelo": "claude-haiku-5-5",
+  "avaliacao": {
+    "json_valido": true,
+    "schema_valido": true,
+    "campos": {
+      "solicitante_area": true,
+      "item": true,
+      "quantidade": true,
+      "unidade": true,
+      "prazo_entrega": true,
+      "valor_unitario": true,
+      "moeda": true,
+      "fornecedor": true
+    },
+    "caso_correto": true
+  }
+}

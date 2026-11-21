@@ -1,0 +1,32 @@
+{
+  "tecnica": "T3",
+  "prompt_versao": "v1",
+  "prompt_hash12": "b3a7a7a94ceb",
+  "caso": "C32",
+  "tipo": "data_formato",
+  "repeticao": 1,
+  "resposta": "<raciocinio>\n1. Área do solicitante: o texto diz \"(solicitante: RH)\", então solicitante_area = \"RH\".\n2. Item: \"papel A4\".\n3. Quantidade: \"5 cx\", então quantidade = 5.\n4. Unidade: \"cx\" está na lista permitida, então unidade = \"cx\".\n5. Prazo de entrega: \"26/03/2026\" convertido para o formato AAAA-MM-DD resulta em \"2026-03-26\".\n6. Valor unitário: \"R$ 2450,75\" convertido para número com ponto decimal resulta em 2450.75.\n7. Moeda: o símbolo \"R$\" indica real, então moeda = \"BRL\".\n8. Fornecedor: \"Informática Bitmais\".\n9. Não há campos extras a incluir. Todos os campos estão preenchidos com dados do texto.\n</raciocinio>\n\n<json>\n{\n  \"solicitante_area\": \"RH\",\n  \"item\": \"papel A4\",\n  \"quantidade\": 5,\n  \"unidade\": \"cx\",\n  \"prazo_entrega\": \"2026-03-26\",\n  \"valor_unitario\": 2450.75,\n  \"moeda\": \"BRL\",\n  \"fornecedor\": \"Informática Bitmais\"\n}\n</json>",
+  "tokens_entrada": 335,
+  "tokens_saida": 574,
+  "custo_usd": 0.0003205,
+  "latencia_s": 2.5635098999991897,
+  "tentativas": 1,
+  "stop_reason": "end_turn",
+  "esforco": "low",
+  "modelo": "claude-haiku-5-5",
+  "avaliacao": {
+    "json_valido": true,
+    "schema_valido": true,
+    "campos": {
+      "solicitante_area": true,
+      "item": true,
+      "quantidade": true,
+      "unidade": true,
+      "prazo_entrega": true,
+      "valor_unitario": true,
+      "moeda": true,
+      "fornecedor": true
+    },
+    "caso_correto": true
+  }
+}

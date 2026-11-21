@@ -1,0 +1,32 @@
+{
+  "tecnica": "T3",
+  "prompt_versao": "v1",
+  "prompt_hash12": "b3a7a7a94ceb",
+  "caso": "C20",
+  "tipo": "unidades_variadas",
+  "repeticao": 1,
+  "resposta": "<raciocinio>\n1. **solicitante_area**: o texto diz \"para a área de Compras\", então o valor é \"Compras\".\n2. **item**: o item pedido é \"fita adesiva\".\n3. **quantidade**: \"15unidades\" indica 15.\n4. **unidade**: a unidade é \"unidades\", que corresponde a \"un\" na lista permitida.\n5. **prazo_entrega**: \"Entrega até 2026-10-19\" já está no formato AAAA-MM-DD, então fica \"2026-10-19\".\n6. **valor_unitario**: \"R$ 8,90\" equivale ao número 8.90 (ponto decimal).\n7. **moeda**: o símbolo \"R$\" indica real brasileiro, então o valor é \"BRL\".\n8. **fornecedor**: \"Pode ser com a Metalúrgica Vale Verde\" menciona o fornecedor. A formulação é sugestiva, mas o nome está explícito, então é extraído como \"Metalúrgica Vale Verde\".\n</raciocinio>\n<json>\n{\n  \"solicitante_area\": \"Compras\",\n  \"item\": \"fita adesiva\",\n  \"quantidade\": 15,\n  \"unidade\": \"un\",\n  \"prazo_entrega\": \"2026-10-19\",\n  \"valor_unitario\": 8.90,\n  \"moeda\": \"BRL\",\n  \"fornecedor\": \"Metalúrgica Vale Verde\"\n}\n</json>",
+  "tokens_entrada": 337,
+  "tokens_saida": 697,
+  "custo_usd": 0.00038219999999999997,
+  "latencia_s": 4.652690300001268,
+  "tentativas": 1,
+  "stop_reason": "end_turn",
+  "esforco": "low",
+  "modelo": "claude-haiku-5-5",
+  "avaliacao": {
+    "json_valido": true,
+    "schema_valido": true,
+    "campos": {
+      "solicitante_area": true,
+      "item": true,
+      "quantidade": true,
+      "unidade": true,
+      "prazo_entrega": true,
+      "valor_unitario": true,
+      "moeda": true,
+      "fornecedor": true
+    },
+    "caso_correto": true
+  }
+}

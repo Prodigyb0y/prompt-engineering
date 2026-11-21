@@ -1,0 +1,32 @@
+{
+  "tecnica": "T4",
+  "prompt_versao": "v2",
+  "prompt_hash12": "2c3ccc1873da",
+  "caso": "D25",
+  "tipo": "ruido",
+  "repeticao": 3,
+  "resposta": "{\"solicitante_area\": \"Marketing\", \"item\": \"toner preto\", \"quantidade\": 25, \"unidade\": \"un\", \"prazo_entrega\": \"2026-02-15\", \"valor_unitario\": 380, \"moeda\": \"BRL\", \"fornecedor\": \"Químicos Horizonte\"}",
+  "tokens_entrada": 775,
+  "tokens_saida": 100,
+  "custo_usd": 0.0001275,
+  "latencia_s": 1.0205016999971122,
+  "tentativas": 1,
+  "stop_reason": "end_turn",
+  "esforco": "low",
+  "modelo": "claude-haiku-5-5",
+  "avaliacao": {
+    "json_valido": true,
+    "schema_valido": true,
+    "campos": {
+      "solicitante_area": true,
+      "item": true,
+      "quantidade": true,
+      "unidade": true,
+      "prazo_entrega": true,
+      "valor_unitario": true,
+      "moeda": true,
+      "fornecedor": true
+    },
+    "caso_correto": true
+  }
+}

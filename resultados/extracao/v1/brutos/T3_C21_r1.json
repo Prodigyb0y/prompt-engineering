@@ -1,0 +1,32 @@
+{
+  "tecnica": "T3",
+  "prompt_versao": "v1",
+  "prompt_hash12": "b3a7a7a94ceb",
+  "caso": "C21",
+  "tipo": "valor_br",
+  "repeticao": 1,
+  "resposta": "<raciocinio>\n1. Área: a solicitação diz \"para a área de Compras\", então solicitante_area = \"Compras\".\n2. Item: \"caneta esferográfica\".\n3. Quantidade: \"40 un\", então quantidade = 40 e unidade = \"un\".\n4. Prazo: \"10 de setembro de 2026\" vira 2026-09-10.\n5. Valor unitário: \"R$ 15.800,00\" equivale a 15800.00 em formato numérico, sem separador de milhar. O valor é alto para uma caneta, mas extraio o que está escrito.\n6. Moeda: o símbolo \"R$\" indica BRL.\n7. Fornecedor: \"Distribuidora Pinheiro\".\n8. Confiro que o objeto tem apenas os oito campos pedidos, com os nomes exatos.\n</raciocinio>\n\n<json>\n{\n  \"solicitante_area\": \"Compras\",\n  \"item\": \"caneta esferográfica\",\n  \"quantidade\": 40,\n  \"unidade\": \"un\",\n  \"prazo_entrega\": \"2026-09-10\",\n  \"valor_unitario\": 15800.00,\n  \"moeda\": \"BRL\",\n  \"fornecedor\": \"Distribuidora Pinheiro\"\n}\n</json>",
+  "tokens_entrada": 347,
+  "tokens_saida": 698,
+  "custo_usd": 0.0003837,
+  "latencia_s": 3.2582511000000522,
+  "tentativas": 1,
+  "stop_reason": "end_turn",
+  "esforco": "low",
+  "modelo": "claude-haiku-5-5",
+  "avaliacao": {
+    "json_valido": true,
+    "schema_valido": true,
+    "campos": {
+      "solicitante_area": true,
+      "item": true,
+      "quantidade": true,
+      "unidade": true,
+      "prazo_entrega": true,
+      "valor_unitario": true,
+      "moeda": true,
+      "fornecedor": true
+    },
+    "caso_correto": true
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "tecnica": "T1",
+  "prompt_versao": "v1",
+  "prompt_hash12": "1ef67d6a52fc",
+  "caso": "D18",
+  "tipo": "data_relativa",
+  "repeticao": 1,
+  "resposta": "{\"solicitante_area\": \"TI\", \"item\": \"cabo de rede cat6\", \"quantidade\": 50, \"unidade\": \"un\", \"prazo_entrega\": null, \"valor_unitario\": 380.00, \"moeda\": \"BRL\", \"fornecedor\": \"Papelaria Aurora Ltda\"}",
+  "tokens_entrada": 294,
+  "tokens_saida": 209,
+  "custo_usd": 0.0001339,
+  "latencia_s": 1.8092249000001175,
+  "tentativas": 1,
+  "stop_reason": "end_turn",
+  "esforco": "low",
+  "modelo": "claude-haiku-5-5",
+  "avaliacao": {
+    "json_valido": true,
+    "schema_valido": true,
+    "campos": {
+      "solicitante_area": true,
+      "item": true,
+      "quantidade": true,
+      "unidade": true,
+      "prazo_entrega": true,
+      "valor_unitario": true,
+      "moeda": true,
+      "fornecedor": true
+    },
+    "caso_correto": true
+  }
+}

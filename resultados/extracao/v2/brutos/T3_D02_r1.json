@@ -1,0 +1,32 @@
+{
+  "tecnica": "T3",
+  "prompt_versao": "v1",
+  "prompt_hash12": "b3a7a7a94ceb",
+  "caso": "D02",
+  "tipo": "completa",
+  "repeticao": 1,
+  "resposta": "<raciocinio>\n1. **solicitante_area**: o texto diz \"para a área de TI\", então o valor é \"TI\".\n2. **item**: o produto solicitado é \"teclado sem fio\".\n3. **quantidade**: \"50 un\" indica 50 unidades, então o valor é 50.\n4. **unidade**: a abreviação \"un\" está na lista permitida, então o valor é \"un\".\n5. **prazo_entrega**: \"11/07/2026\" está no formato brasileiro DD/MM/AAAA. Convertendo para AAAA-MM-DD, resulta em 2026-07-11.\n6. **valor_unitario**: \"R$ 49,90\" usa vírgula decimal, então o número é 49.90.\n7. **moeda**: o símbolo \"R$\" corresponde a \"BRL\".\n8. **fornecedor**: \"Distribuidora Pinheiro\" é o fornecedor indicado.\n</raciocinio>\n\n<json>\n{\n  \"solicitante_area\": \"TI\",\n  \"item\": \"teclado sem fio\",\n  \"quantidade\": 50,\n  \"unidade\": \"un\",\n  \"prazo_entrega\": \"2026-07-11\",\n  \"valor_unitario\": 49.90,\n  \"moeda\": \"BRL\",\n  \"fornecedor\": \"Distribuidora Pinheiro\"\n}\n</json>",
+  "tokens_entrada": 335,
+  "tokens_saida": 592,
+  "custo_usd": 0.0003295,
+  "latencia_s": 2.8919037000014214,
+  "tentativas": 1,
+  "stop_reason": "end_turn",
+  "esforco": "low",
+  "modelo": "claude-haiku-5-5",
+  "avaliacao": {
+    "json_valido": true,
+    "schema_valido": true,
+    "campos": {
+      "solicitante_area": true,
+      "item": true,
+      "quantidade": true,
+      "unidade": true,
+      "prazo_entrega": true,
+      "valor_unitario": true,
+      "moeda": true,
+      "fornecedor": true
+    },
+    "caso_correto": true
+  }
+}

@@ -5,7 +5,6 @@
 
 # Saídas locais
 logs/
-resultados/brutos/
 
 # Python
 __pycache__/
@@ -13,5 +12,3 @@ __pycache__/
 .venv/
 .pytest_cache/
 resultados/_local/
-resultados/v2/brutos/
-resultados/v2/iteracao/brutos/

@@ -1,0 +1,32 @@
+{
+  "tecnica": "T3",
+  "prompt_versao": "v1",
+  "prompt_hash12": "b3a7a7a94ceb",
+  "caso": "D20",
+  "tipo": "data_relativa",
+  "repeticao": 2,
+  "resposta": "<raciocinio>\n1. **solicitante_area:** o texto indica \"(solicitante: Financeiro)\", então o valor é \"Financeiro\".\n2. **item:** o pedido é de \"etiqueta adesiva\".\n3. **quantidade:** \"Solicito 4 cx\", logo o número é 4.\n4. **unidade:** \"cx\" está na lista permitida, então o valor é \"cx\".\n5. **prazo_entrega:** o texto diz \"Entrega o quanto antes, daqui uns 20 dias\". Não há data de referência para converter \"20 dias\" em AAAA-MM-DD, e a data de hoje não foi informada. Por isso o valor é null.\n6. **valor_unitario:** \"Cada unidade custa R$ 380,00\", logo o valor é 380.0. Como a solicitação fala em \"cada unidade\", o preço se refere ao valor unitário informado.\n7. **moeda:** o símbolo \"R$\" indica real, então o valor é \"BRL\".\n8. **fornecedor:** \"Pode ser com a Papelaria Aurora Ltda\", logo o valor é \"Papelaria Aurora Ltda\".\n9. Conferência: os oito campos estão presentes, sem campos extras, e os valores de unidade e moeda estão entre as opções permitidas.\n</raciocinio>\n\n<json>\n{\n  \"solicitante_area\": \"Financeiro\",\n  \"item\": \"etiqueta adesiva\",\n  \"quantidade\": 4,\n  \"unidade\": \"cx\",\n  \"prazo_entrega\": null,\n  \"valor_unitario\": 380.0,\n  \"moeda\": \"BRL\",\n  \"fornecedor\": \"Papelaria Aurora Ltda\"\n}\n</json>",
+  "tokens_entrada": 358,
+  "tokens_saida": 754,
+  "custo_usd": 0.0004128,
+  "latencia_s": 4.298673000001145,
+  "tentativas": 1,
+  "stop_reason": "end_turn",
+  "esforco": "low",
+  "modelo": "claude-haiku-5-5",
+  "avaliacao": {
+    "json_valido": true,
+    "schema_valido": true,
+    "campos": {
+      "solicitante_area": true,
+      "item": true,
+      "quantidade": true,
+      "unidade": true,
+      "prazo_entrega": true,
+      "valor_unitario": true,
+      "moeda": true,
+      "fornecedor": true
+    },
+    "caso_correto": true
+  }
+}

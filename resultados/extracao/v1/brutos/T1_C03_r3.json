@@ -1,0 +1,32 @@
+{
+  "tecnica": "T1",
+  "prompt_versao": "v1",
+  "prompt_hash12": "1ef67d6a52fc",
+  "caso": "C03",
+  "tipo": "completa",
+  "repeticao": 3,
+  "resposta": "{\"solicitante_area\": \"RH\", \"item\": \"álcool isopropílico\", \"quantidade\": 3, \"unidade\": \"l\", \"prazo_entrega\": \"2026-06-28\", \"valor_unitario\": 120.00, \"moeda\": \"BRL\", \"fornecedor\": \"Tecidos Santa Clara\"}",
+  "tokens_entrada": 289,
+  "tokens_saida": 106,
+  "custo_usd": 8.190000000000001e-05,
+  "latencia_s": 0.7767453000014939,
+  "tentativas": 1,
+  "stop_reason": "end_turn",
+  "esforco": "low",
+  "modelo": "claude-haiku-5-5",
+  "avaliacao": {
+    "json_valido": true,
+    "schema_valido": true,
+    "campos": {
+      "solicitante_area": true,
+      "item": true,
+      "quantidade": true,
+      "unidade": true,
+      "prazo_entrega": true,
+      "valor_unitario": true,
+      "moeda": true,
+      "fornecedor": true
+    },
+    "caso_correto": true
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "tecnica": "T3",
+  "prompt_versao": "v1",
+  "prompt_hash12": "b3a7a7a94ceb",
+  "caso": "D04",
+  "tipo": "campos_faltando",
+  "repeticao": 3,
+  "resposta": "<raciocinio>\n1. **solicitante_area**: a solicitação não informa setor ou área do solicitante, então é null.\n2. **item**: o produto solicitado é \"luva de proteção\".\n3. **quantidade**: foram pedidas 10 unidades, então o valor é 10.\n4. **unidade**: a solicitação usa \"cx\", que está na lista permitida.\n5. **prazo_entrega**: não há data ou prazo mencionado, então é null.\n6. **valor_unitario**: não há preço informado, então é null.\n7. **moeda**: sem valor informado, não há moeda identificável, então é null.\n8. **fornecedor**: a solicitação sugere a \"Metalúrgica Vale Verde\" (\"Pode ser com a...\"). Essa é a única indicação de fornecedor, então uso esse nome.\n</raciocinio>\n\n<json>\n{\n  \"solicitante_area\": null,\n  \"item\": \"luva de proteção\",\n  \"quantidade\": 10,\n  \"unidade\": \"cx\",\n  \"prazo_entrega\": null,\n  \"valor_unitario\": null,\n  \"moeda\": null,\n  \"fornecedor\": \"Metalúrgica Vale Verde\"\n}\n</json>",
+  "tokens_entrada": 301,
+  "tokens_saida": 529,
+  "custo_usd": 0.0002946,
+  "latencia_s": 2.97486249999929,
+  "tentativas": 1,
+  "stop_reason": "end_turn",
+  "esforco": "low",
+  "modelo": "claude-haiku-5-5",
+  "avaliacao": {
+    "json_valido": true,
+    "schema_valido": true,
+    "campos": {
+      "solicitante_area": true,
+      "item": true,
+      "quantidade": true,
+      "unidade": true,
+      "prazo_entrega": true,
+      "valor_unitario": true,
+      "moeda": true,
+      "fornecedor": true
+    },
+    "caso_correto": true
+  }
+}

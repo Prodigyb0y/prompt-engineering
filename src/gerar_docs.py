@@ -160,8 +160,14 @@ def medicao(r, anterior=None):
             "por isso os relatórios gerados originalmente ainda citam os caminhos antigos no próprio texto.", "",
             _tabela(["Antes", "Agora"], [["`dados/*.json`", "`dados/extracao/v1/`"], ["`dados/v2/`", "`dados/extracao/v2/`"], ["`resultados/*.md`, `resumo.json`", "`resultados/extracao/v1/`"],
                                        ["`resultados/v2/`", "`resultados/extracao/v2/`"], ["`prompts/T*.json`", "`prompts/extracao/`"], ["`docs/index.html` (demo anterior)", "substituída; o código antigo está em `src/legado/`"]]), "",
-            "As respostas brutas da rodada v2 ficavam fora do Git; as respostas gravadas que a demo anterior embutia foram preservadas em `resultados/extracao/v2/respostas_gravadas.json` "
-            "(recalculam exatamente o acerto oficial, e há teste para isso). As respostas brutas da iteração T4 v2 não foram preservadas: só os totais (`iteracao.json`).", "",
+            "### Política das respostas brutas", "",
+            "**Todas as respostas brutas do modelo ficam no Git**, para qualquer pessoa conferir os números sem chamar a API. O README anterior dizia o contrário para a extração; "
+            "isso mudou e as pastas deixaram de ser ignoradas.", "",
+            _tabela(["Rodada", "Pasta", "Arquivos"], [["Extração v1 (piloto + 600 respostas)", "`resultados/extracao/v1/brutos/`", "601 itens (600 respostas e a pasta `piloto/`)"],
+                                                   ["Extração v2 (600 respostas)", "`resultados/extracao/v2/brutos/`", "600"], ["Iteração T4 v1 → v2 (150 respostas do T4 v2)", "`resultados/extracao/v2/iteracao/brutos/`", "150"],
+                                                   ["Rodadas novas (P2 a P5)", "`resultados/biblioteca/brutos/` e `piloto/`", "um `.jsonl` por variante"]]), "",
+            "As pastas da extração foram recuperadas do computador do autor, onde ficaram fora do Git até aqui, e a auditoria (`src/auditar.py`) foi refeita sobre elas: reavaliou as respostas com 0 divergências, e os relatórios regenerados ficaram idênticos aos já publicados. "
+            "As respostas gravadas que a demo embutia continuam em `resultados/extracao/v2/respostas_gravadas.json`.", "",
             "### Comandos das rodadas antigas (extração)", "", "```bash",
             "PE_VERSAO=v2 .venv/bin/python src/rodar.py --completo    # PowerShell: $env:PE_VERSAO=\"v2\"",
             "PE_VERSAO=v2 .venv/bin/python src/rodar.py --iteracao",

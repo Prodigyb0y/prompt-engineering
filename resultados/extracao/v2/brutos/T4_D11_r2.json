@@ -1,0 +1,32 @@
+{
+  "tecnica": "T4",
+  "prompt_versao": "v1",
+  "prompt_hash12": "bb14abcde430",
+  "caso": "D11",
+  "tipo": "valor_br",
+  "repeticao": 2,
+  "resposta": "{\"solicitante_area\": \"Marketing\", \"item\": \"etiqueta adesiva\", \"quantidade\": 100, \"unidade\": \"cx\", \"prazo_entrega\": \"2026-07-07\", \"valor_unitario\": 12999, \"moeda\": \"BRL\", \"fornecedor\": \"Metalúrgica Vale Verde\"}",
+  "tokens_entrada": 707,
+  "tokens_saida": 111,
+  "custo_usd": 0.0001262,
+  "latencia_s": 1.7215795000010985,
+  "tentativas": 1,
+  "stop_reason": "end_turn",
+  "esforco": "low",
+  "modelo": "claude-haiku-5-5",
+  "avaliacao": {
+    "json_valido": true,
+    "schema_valido": true,
+    "campos": {
+      "solicitante_area": true,
+      "item": true,
+      "quantidade": true,
+      "unidade": true,
+      "prazo_entrega": true,
+      "valor_unitario": true,
+      "moeda": true,
+      "fornecedor": true
+    },
+    "caso_correto": true
+  }
+}

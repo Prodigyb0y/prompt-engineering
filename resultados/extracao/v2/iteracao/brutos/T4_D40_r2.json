@@ -1,0 +1,32 @@
+{
+  "tecnica": "T4",
+  "prompt_versao": "v2",
+  "prompt_hash12": "2c3ccc1873da",
+  "caso": "D40",
+  "tipo": "numero_extenso",
+  "repeticao": 2,
+  "resposta": "{\"solicitante_area\": \"Financeiro\", \"item\": \"luva de proteção\", \"quantidade\": 50, \"unidade\": \"un\", \"prazo_entrega\": \"2026-08-03\", \"valor_unitario\": 35, \"moeda\": \"BRL\", \"fornecedor\": \"Tecidos Santa Clara\"}",
+  "tokens_entrada": 772,
+  "tokens_saida": 105,
+  "custo_usd": 0.00012969999999999998,
+  "latencia_s": 1.018902000010712,
+  "tentativas": 1,
+  "stop_reason": "end_turn",
+  "esforco": "low",
+  "modelo": "claude-haiku-5-5",
+  "avaliacao": {
+    "json_valido": true,
+    "schema_valido": true,
+    "campos": {
+      "solicitante_area": true,
+      "item": true,
+      "quantidade": true,
+      "unidade": true,
+      "prazo_entrega": true,
+      "valor_unitario": true,
+      "moeda": true,
+      "fornecedor": true
+    },
+    "caso_correto": true
+  }
+}

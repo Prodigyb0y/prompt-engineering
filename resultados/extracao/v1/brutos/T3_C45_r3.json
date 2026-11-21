@@ -1,0 +1,32 @@
+{
+  "tecnica": "T3",
+  "prompt_versao": "v1",
+  "prompt_hash12": "b3a7a7a94ceb",
+  "caso": "C45",
+  "tipo": "ruido",
+  "repeticao": 3,
+  "resposta": "<raciocinio>\n1. **solicitante_area**: o texto menciona \"a área de Financeiro\", então o valor é \"Financeiro\".\n2. **item**: o material pedido é \"cabo elétrico 2,5mm\".\n3. **quantidade**: \"25 m\", portanto o número é 25.\n4. **unidade**: o texto usa \"m\" (metros), que está na lista permitida.\n5. **prazo_entrega**: \"09-dez-2026\" convertido para AAAA-MM-DD resulta em 2026-12-09.\n6. **valor_unitario**: \"R$ 2450,75 por unidade\". Em formato numérico, com ponto decimal, é 2450.75.\n7. **moeda**: o símbolo \"R$\" indica BRL.\n8. **fornecedor**: \"Papelaria Aurora Ltda\".\n\nObservação: o valor é descrito como \"por unidade\", mas a unidade do item é metro, então o preço pode estar referido a outra medida. Mantive o valor exatamente como informado. Também chamo atenção para o fato de uma papelaria fornecer cabo elétrico, o que é incomum, mas isso não altera a extração.\n</raciocinio>\n\n<json>\n{\n  \"solicitante_area\": \"Financeiro\",\n  \"item\": \"cabo elétrico 2,5mm\",\n  \"quantidade\": 25,\n  \"unidade\": \"m\",\n  \"prazo_entrega\": \"2026-12-09\",\n  \"valor_unitario\": 2450.75,\n  \"moeda\": \"BRL\",\n  \"fornecedor\": \"Papelaria Aurora Ltda\"\n}\n</json>",
+  "tokens_entrada": 370,
+  "tokens_saida": 754,
+  "custo_usd": 0.000414,
+  "latencia_s": 3.5954534000011336,
+  "tentativas": 1,
+  "stop_reason": "end_turn",
+  "esforco": "low",
+  "modelo": "claude-haiku-5-5",
+  "avaliacao": {
+    "json_valido": true,
+    "schema_valido": true,
+    "campos": {
+      "solicitante_area": true,
+      "item": true,
+      "quantidade": true,
+      "unidade": true,
+      "prazo_entrega": true,
+      "valor_unitario": true,
+      "moeda": true,
+      "fornecedor": true
+    },
+    "caso_correto": true
+  }
+}

@@ -42,8 +42,8 @@
     "texto": "Few-shot acertou 98,3% contra 91,7% (E3, 1,9× o custo) e o raciocínio 100,0% contra 95,0% (E5, 2,3× o custo). A direção é favorável nos dois, mas a diferença apareceu em 3 casos no E3 e em 1 caso no E5."
    },
    {
-    "titulo": "Encadear dois prompts não foi melhor do que pedir tudo de uma vez.",
-    "texto": "O fluxo encadeado acertou 78,3% contra 81,7% do prompt único, com custo parecido (E4). Em nenhum dos dois fluxos o e-mail deixou de citar um campo que faltava; todos os erros foram citar campo a mais (18 no encadeado e 13 no prompt único, em 60 respostas cada)."
+    "titulo": "Encadear ou não depende de como se conta o erro.",
+    "texto": "Pela regra oficial, o encadeado acertou 78,3% contra 81,7% do prompt único (E4). Lendo os erros, o encadeado pediu de novo um campo que já tinha 4 vez(es), contra 9, e nunca errou por extração do P1; a maior parte dos erros dele foi só confirmar um dado recebido. Contando só o que o e-mail pede de novo (regra escrita depois de ler os erros), o resultado se inverte: 93,3% contra 85,0%."
    },
    {
     "titulo": "Testar prompts com número custa pouco.",
@@ -510,7 +510,7 @@
    "latencia_media_s": 0.9492437649998464,
    "extras": [],
    "chamadas_por_resposta": 1.0,
-   "aprendi": "Escrever as definições foi fácil; difícil foi decidir a convenção de cada empate. Foi isso que virou exemplo. (Convenções e limites: dados/biblioteca/REVISAO_E_LIMITACOES.md)",
+   "aprendi": "O zero-shot errou 5 de 60 respostas, todas na urgência (media → baixa (5)), em 2 pedidos (S01 e S11); a categoria nunca errou. Todos esses pedidos trazem um prazo no texto (\"até sexta\", \"até o fim da semana\"): sem exemplo, o modelo tratou o prazo como pouco urgente. Com 6 exemplos, o few-shot errou 1 de 60 (alta → media, no pedido S20). Os exemplos ensinam a convenção da empresa para prazo e urgência, que a definição escrita não deixa clara. Lição: definições bastam para a categoria; a urgência é uma convenção e precisa de exemplo.",
    "exemplo": {
     "caso": "S13",
     "entrada": "Não consigo entrar no painel de vendas. A tela de login nem carrega e a VPN fica desconectando. Hoje não tenho como trabalhar de outro jeito.",
@@ -521,7 +521,8 @@
     },
     "nota": null
    },
-   "acerto_def": "Acerto: categoria e urgência iguais ao gabarito."
+   "acerto_def": "Acerto: categoria e urgência iguais ao gabarito.",
+   "aprendi_preparo": "Escrever as definições foi fácil; difícil foi decidir a convenção de cada empate. Foi isso que virou exemplo. (Convenções e limites: dados/biblioteca/REVISAO_E_LIMITACOES.md)"
   },
   {
    "id": "P3",
@@ -719,7 +720,7 @@
     "Campos citados a mais: 18"
    ],
    "chamadas_por_resposta": 2.0,
-   "aprendi": "Dar um nome fixo a cada campo dentro do prompt é o que permite conferir cada e-mail por regra em código, sem ler os e-mails um a um. (Regra de acerto: src/avaliadores.py)",
+   "aprendi": "Nas 60 respostas do fluxo encadeado, 13 saíram erradas pela regra oficial. Nenhuma deixou de pedir um campo que faltava; 9 só confirmaram um dado já recebido (por exemplo, \"com fornecedor X\"), quebrando a regra \"nunca cite\" sem pedir nada de novo, e 4 pediram de novo um campo que já tinha. A extração do P1 estava certa em 60 de 60, então o erro nasce no e-mail, não na passagem entre os dois prompts. Lição: \"nunca cite\" não bastou. Hipótese para a próxima versão: dizer o que fazer no lugar (abrir só com o item e a quantidade) e listar cada campo pedido em uma linha.",
    "exemplo": {
     "caso": "E02",
     "entrada": "Preciso comprar 20 metros de cabo elétrico 2,5mm (solicitante: Logística). Prazo: 12 de março de 2026.",
@@ -730,7 +731,8 @@
     },
     "nota": null
    },
-   "acerto_def": "Acerto: o e-mail cita todos os campos que faltam e nenhum que não falta."
+   "acerto_def": "Acerto: o e-mail cita todos os campos que faltam e nenhum que não falta.",
+   "aprendi_preparo": "Dar um nome fixo a cada campo dentro do prompt é o que permite conferir cada e-mail por regra em código, sem ler os e-mails um a um. (Regra de acerto: src/avaliadores.py)"
   },
   {
    "id": "P4",
@@ -921,7 +923,7 @@
     "Respostas com invenção de número ou valor: 0 de 60"
    ],
    "chamadas_por_resposta": 1.0,
-   "aprendi": "Ao escrever a regra de sentimento no prompt, vi que 9 dos meus 20 textos de teste não a seguiam. Corrigi os textos e passei a conferir o gabarito contra as regras do prompt por script: regra e gabarito têm de ser escritos juntos. (dados/biblioteca/REVISAO_E_LIMITACOES.md)",
+   "aprendi": "3 de 60 respostas erradas, todas no sentimento (neutro → insatisfeito (2) e irritado → insatisfeito (1)). O modelo foi para o rótulo do meio (\"insatisfeito\") quando o cliente apenas pede uma informação, sem emoção explícita, e quando a emoção é forte. A regra de sentimento do prompt separa os três por palavras, e o reclamante que só cobra uma previsão ficou numa zona cinzenta que o meu gabarito resolveu de um jeito e o modelo de outro. O \"não inventar\" funcionou: nenhum número de pedido ou valor foi inventado.",
    "exemplo": {
     "caso": "R13",
     "entrada": "Oi, tive um problema com a minha compra. Podem me ajudar?",
@@ -932,7 +934,8 @@
     },
     "nota": null
    },
-   "acerto_def": "Acerto: JSON válido, valores permitidos, resumo curto e nenhum número inventado."
+   "acerto_def": "Acerto: JSON válido, valores permitidos, resumo curto e nenhum número inventado.",
+   "aprendi_preparo": "Ao escrever a regra de sentimento no prompt, vi que 9 dos meus 20 textos de teste não a seguiam. Corrigi os textos e passei a conferir o gabarito contra as regras do prompt por script: regra e gabarito têm de ser escritos juntos. (dados/biblioteca/REVISAO_E_LIMITACOES.md)"
   },
   {
    "id": "P5",
@@ -1126,7 +1129,7 @@
    "latencia_media_s": 2.012519160000132,
    "extras": [],
    "chamadas_por_resposta": 1.0,
-   "aprendi": "O gabarito do P5 inclui o limite exato (R$ 5.000,00 não escala) e a conversão de moeda, porque são os pontos em que a conta pode errar. (dados/biblioteca/REVISAO_E_LIMITACOES.md)",
+   "aprendi": "Com raciocínio, a decisão saiu certa em 60 de 60 respostas. Sem raciocínio, os 3 erros foram todos no mesmo pedido (A19, tipo \"escalar_fornecedor_e_item\"), que reúne dois motivos para escalar ao mesmo tempo (fornecedor fora da lista e item controlado). Em 1 resposta o modelo escreveu uma decisão errada, se corrigiu no meio do texto e entregou duas decisões na mesma saída: a final estava certa, mas um código não consegue ler duas respostas, e por isso conta como erro. Quando duas regras da política disparam juntas, deixar o modelo escrever o raciocínio antes foi o que evitou o erro.",
    "exemplo": {
     "caso": "A07",
     "entrada": "{\"solicitante_area\": \"Logística\", \"item\": \"cabo de rede cat6\", \"quantidade\": 300, \"unidade\": \"m\", \"prazo_entrega\": \"2026-04-28\", \"valor_unitario\": 3.5, \"moeda\": \"USD\", \"fornecedor\": \"Metalúrgica Vale Verde\"}",
@@ -1137,7 +1140,8 @@
     },
     "nota": null
    },
-   "acerto_def": "Acerto: a decisão (aprovar, pedir informação ou escalar) igual ao gabarito."
+   "acerto_def": "Acerto: a decisão (aprovar, pedir informação ou escalar) igual ao gabarito.",
+   "aprendi_preparo": "O gabarito do P5 inclui o limite exato (R$ 5.000,00 não escala) e a conversão de moeda, porque são os pontos em que a conta pode errar. (dados/biblioteca/REVISAO_E_LIMITACOES.md)"
   }
  ],
  "experimentos": [
@@ -1535,6 +1539,13 @@
      "latencia_media_s": 0.9492437649998464,
      "latencia_mediana_s": 0.8130368999918574
     }
+   },
+   "explicacao": {
+    "titulo": "Por que o resultado saiu assim",
+    "paragrafos": [
+     "O zero-shot errou 5 de 60 respostas, todas na urgência (media → baixa (5)), em 2 pedidos (S01 e S11); a categoria nunca errou. Todos esses pedidos trazem um prazo no texto (\"até sexta\", \"até o fim da semana\"): sem exemplo, o modelo tratou o prazo como pouco urgente.",
+     "Com 6 exemplos, o few-shot errou 1 de 60 (alta → media, no pedido S20). Os exemplos ensinam a convenção da empresa para prazo e urgência, que a definição escrita não deixa clara."
+    ]
    }
   },
   {
@@ -1584,7 +1595,7 @@
      ]
     }
    ],
-   "quando_usar": "O prompt único acertou um pouco mais, mas a diferença é pequena e não é conclusiva, e os dois custaram parecido. Encadeie se precisar guardar e conferir o JSON da etapa intermediária; senão, comece pelo prompt único.",
+   "quando_usar": "O encadeado e o prompt único ficaram próximos pela regra oficial (78,3% contra 81,7%). Lendo os erros, o encadeado pediu de novo um campo que já tinha 4 vez(es), contra 9 do prompt único, e nunca por erro de extração. Encadeie quando o dado intermediário (o JSON) ajudar a evitar ambiguidade ou quando você precisar auditá-lo; em qualquer dos dois, escreva o que o e-mail deve fazer com os dados já recebidos, não só o que não citar.",
    "comparacao": {
     "base": "unico",
     "alternativa": "encadeado",
@@ -1748,6 +1759,15 @@
       "palavras_corpo_media": 39.56666666666667
      }
     }
+   },
+   "explicacao": {
+    "titulo": "Por que o resultado saiu assim (e onde o encadeamento falha)",
+    "paragrafos": [
+     "Onde o encadeamento falharia? No erro que passa da extração para o e-mail. Não foi o caso: a extração do P1 estava certa em 60 de 60 respostas, e em 0 dos 13 erros do encadeado a extração estava errada.",
+     "Os 13 erros do encadeado são de dois tipos: 9 só confirmaram um dado recebido (\"com fornecedor X\"), o que quebra a regra \"nunca cite\" do prompt mas não pede nada de novo, e 4 pediram de novo um campo que já tinha. Nenhum e-mail deixou de pedir um campo que faltava (0 casos).",
+     "No prompt único, 9 dos 11 erros foram pedir de novo um campo que já tinha, e 9 deles foram a área solicitante em pedidos cuja área era \"Compras\", o mesmo nome da equipe que assina o e-mail. No encadeado, em que o JSON já traz a área, isso aconteceu 1 vez(es).",
+     "Reanálise feita depois de ler os erros: se só contasse como erro o campo pedido de novo (e não o apenas mencionado), o encadeado teria 93,3% e o prompt único 85,0%, contra 78,3% e 81,7% pela regra oficial. Essa regra foi escrita depois de ver os erros e não substitui o número oficial: ela mostra que a conclusão depende de como se define erro."
+    ]
    }
   },
   {
@@ -1922,6 +1942,13 @@
      "latencia_media_s": 2.012519160000132,
      "latencia_mediana_s": 1.9878982000009273
     }
+   },
+   "explicacao": {
+    "titulo": "Por que o resultado saiu assim",
+    "paragrafos": [
+     "Com raciocínio, a decisão saiu certa em 60 de 60 respostas. Sem raciocínio, os 3 erros foram todos no mesmo pedido (A19, tipo \"escalar_fornecedor_e_item\"), que reúne dois motivos para escalar ao mesmo tempo (fornecedor fora da lista e item controlado). Em 1 resposta o modelo escreveu uma decisão errada, se corrigiu no meio do texto e entregou duas decisões na mesma saída: a final estava certa, mas um código não consegue ler duas respostas, e por isso conta como erro.",
+     "Quando duas regras da política disparam juntas, deixar o modelo escrever o raciocínio antes foi o que evitou o erro."
+    ]
    }
   }
  ],

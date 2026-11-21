@@ -1,0 +1,32 @@
+{
+  "tecnica": "T3",
+  "prompt_versao": "v1",
+  "prompt_hash12": "b3a7a7a94ceb",
+  "caso": "D16",
+  "tipo": "data_formato",
+  "repeticao": 2,
+  "resposta": "<raciocinio>\n1. **solicitante_area**: o texto diz \"para a área de TI\", então o valor é \"TI\".\n2. **item**: o objeto da compra é \"cabo elétrico 2,5mm\".\n3. **quantidade**: o pedido informa \"10 metros\", então o número é 10.\n4. **unidade**: \"metros\" corresponde a \"m\", que está na lista permitida.\n5. **prazo_entrega**: \"8 de fevereiro de 2026\" convertido para o formato AAAA-MM-DD resulta em 2026-02-08.\n6. **valor_unitario**: \"preço de tabela: R$ 120,00 por unidade\" indica o número 120.0.\n7. **moeda**: o símbolo \"R$\" indica real, então o valor é \"BRL\".\n8. **fornecedor**: o texto diz \"cotação feita com Tecidos Santa Clara\", então o fornecedor é \"Tecidos Santa Clara\". Observação: o nome sugere um fornecedor de tecidos, possivelmente incompatível com cabo elétrico, mas extraio o dado como consta no texto.\n\nNão há campos extras a incluir.\n</raciocinio>\n<json>\n{\n  \"solicitante_area\": \"TI\",\n  \"item\": \"cabo elétrico 2,5mm\",\n  \"quantidade\": 10,\n  \"unidade\": \"m\",\n  \"prazo_entrega\": \"2026-02-08\",\n  \"valor_unitario\": 120.0,\n  \"moeda\": \"BRL\",\n  \"fornecedor\": \"Tecidos Santa Clara\"\n}\n</json>",
+  "tokens_entrada": 352,
+  "tokens_saida": 697,
+  "custo_usd": 0.0003837,
+  "latencia_s": 2.9507085000004736,
+  "tentativas": 1,
+  "stop_reason": "end_turn",
+  "esforco": "low",
+  "modelo": "claude-haiku-5-5",
+  "avaliacao": {
+    "json_valido": true,
+    "schema_valido": true,
+    "campos": {
+      "solicitante_area": true,
+      "item": true,
+      "quantidade": true,
+      "unidade": true,
+      "prazo_entrega": true,
+      "valor_unitario": true,
+      "moeda": true,
+      "fornecedor": true
+    },
+    "caso_correto": true
+  }
+}

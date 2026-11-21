@@ -1,0 +1,32 @@
+{
+  "tecnica": "T3",
+  "prompt_versao": "v1",
+  "prompt_hash12": "b3a7a7a94ceb",
+  "caso": "C19",
+  "tipo": "unidades_variadas",
+  "repeticao": 2,
+  "resposta": "<raciocinio>\n1. Área do solicitante: \"solicitante: Manutenção\" → \"Manutenção\".\n2. Item: \"cabo de rede cat6\" → \"cabo de rede cat6\".\n3. Quantidade e unidade: \"12metros\" → quantidade 12, unidade \"m\" (metros está na lista permitida).\n4. Valor unitário: \"R$ 2450,75\" → vírgula decimal, então 2450.75.\n5. Moeda: símbolo \"R$\" → \"BRL\".\n6. Fornecedor: \"cotação feita com Embalagens Ponto Certo\" → \"Embalagens Ponto Certo\".\n7. Prazo: \"2026-11-19\" já está em AAAA-MM-DD → \"2026-11-19\".\n8. Campos com a lista exata do enunciado, sem campos extras.\n</raciocinio>\n\n<json>\n{\n  \"solicitante_area\": \"Manutenção\",\n  \"item\": \"cabo de rede cat6\",\n  \"quantidade\": 12,\n  \"unidade\": \"m\",\n  \"prazo_entrega\": \"2026-11-19\",\n  \"valor_unitario\": 2450.75,\n  \"moeda\": \"BRL\",\n  \"fornecedor\": \"Embalagens Ponto Certo\"\n}\n</json>",
+  "tokens_entrada": 343,
+  "tokens_saida": 565,
+  "custo_usd": 0.0003168,
+  "latencia_s": 3.0059605999995256,
+  "tentativas": 1,
+  "stop_reason": "end_turn",
+  "esforco": "low",
+  "modelo": "claude-haiku-5-5",
+  "avaliacao": {
+    "json_valido": true,
+    "schema_valido": true,
+    "campos": {
+      "solicitante_area": true,
+      "item": true,
+      "quantidade": true,
+      "unidade": true,
+      "prazo_entrega": true,
+      "valor_unitario": true,
+      "moeda": true,
+      "fornecedor": true
+    },
+    "caso_correto": true
+  }
+}

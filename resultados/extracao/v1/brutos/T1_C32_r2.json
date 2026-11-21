@@ -1,0 +1,32 @@
+{
+  "tecnica": "T1",
+  "prompt_versao": "v1",
+  "prompt_hash12": "1ef67d6a52fc",
+  "caso": "C32",
+  "tipo": "data_formato",
+  "repeticao": 2,
+  "resposta": "{\"solicitante_area\": \"RH\", \"item\": \"papel A4\", \"quantidade\": 5, \"unidade\": \"cx\", \"prazo_entrega\": \"2026-03-26\", \"valor_unitario\": 2450.75, \"moeda\": \"BRL\", \"fornecedor\": \"Informática Bitmais\"}",
+  "tokens_entrada": 286,
+  "tokens_saida": 101,
+  "custo_usd": 7.91e-05,
+  "latencia_s": 1.846965500000806,
+  "tentativas": 1,
+  "stop_reason": "end_turn",
+  "esforco": "low",
+  "modelo": "claude-haiku-5-5",
+  "avaliacao": {
+    "json_valido": true,
+    "schema_valido": true,
+    "campos": {
+      "solicitante_area": true,
+      "item": true,
+      "quantidade": true,
+      "unidade": true,
+      "prazo_entrega": true,
+      "valor_unitario": true,
+      "moeda": true,
+      "fornecedor": true
+    },
+    "caso_correto": true
+  }
+}

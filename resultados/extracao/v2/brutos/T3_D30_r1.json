@@ -1,0 +1,32 @@
+{
+  "tecnica": "T3",
+  "prompt_versao": "v1",
+  "prompt_hash12": "b3a7a7a94ceb",
+  "caso": "D30",
+  "tipo": "correcao",
+  "repeticao": 1,
+  "resposta": "<raciocinio>\n1. **solicitante_area**: a solicitação indica \"para a área de Financeiro\", então o valor é \"Financeiro\".\n2. **item**: \"monitor 24 polegadas\".\n3. **quantidade**: a mensagem inicial pede 50, mas a correção final diz \"são 100 un, não 50\". Prevalece a correção, então 100.\n4. **unidade**: \"un\", que aparece junto à quantidade.\n5. **prazo_entrega**: \"09/07/2026\" está no formato brasileiro DD/MM/AAAA. Convertido para AAAA-MM-DD: 2026-07-09.\n6. **valor_unitario**: \"R$ 8,90 por unidade\", convertido para número com ponto decimal: 8.9.\n7. **moeda**: o símbolo \"R$\" indica \"BRL\".\n8. **fornecedor**: \"Informática Bitmais\".\n\nNão há campos extras a incluir. O JSON segue exatamente os nomes solicitados.\n</raciocinio>\n\n<json>\n{\n  \"solicitante_area\": \"Financeiro\",\n  \"item\": \"monitor 24 polegadas\",\n  \"quantidade\": 100,\n  \"unidade\": \"un\",\n  \"prazo_entrega\": \"2026-07-09\",\n  \"valor_unitario\": 8.9,\n  \"moeda\": \"BRL\",\n  \"fornecedor\": \"Informática Bitmais\"\n}\n</json>",
+  "tokens_entrada": 362,
+  "tokens_saida": 825,
+  "custo_usd": 0.0004487,
+  "latencia_s": 3.81728590000057,
+  "tentativas": 1,
+  "stop_reason": "end_turn",
+  "esforco": "low",
+  "modelo": "claude-haiku-5-5",
+  "avaliacao": {
+    "json_valido": true,
+    "schema_valido": true,
+    "campos": {
+      "solicitante_area": true,
+      "item": true,
+      "quantidade": true,
+      "unidade": true,
+      "prazo_entrega": true,
+      "valor_unitario": true,
+      "moeda": true,
+      "fornecedor": true
+    },
+    "caso_correto": true
+  }
+}

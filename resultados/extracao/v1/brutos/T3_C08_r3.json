@@ -1,0 +1,32 @@
+{
+  "tecnica": "T3",
+  "prompt_versao": "v1",
+  "prompt_hash12": "b3a7a7a94ceb",
+  "caso": "C08",
+  "tipo": "completa",
+  "repeticao": 3,
+  "resposta": "<raciocinio>\n1. Área do solicitante: o texto menciona \"área de Manutenção\", então solicitante_area = \"Manutenção\".\n2. Item: \"tinta acrílica branca\".\n3. Quantidade: \"100 l\", logo quantidade = 100.\n4. Unidade: \"l\" (litros), que está na lista permitida.\n5. Prazo de entrega: \"28-jan-2026\" convertido para o formato AAAA-MM-DD, resultando em 2026-01-28.\n6. Valor unitário: \"R$ 8,90\", convertido para número decimal 8.90.\n7. Moeda: o símbolo \"R$\" indica real brasileiro, então moeda = \"BRL\".\n8. Fornecedor: \"Distribuidora Pinheiro\".\n9. O JSON deve conter apenas os oito campos especificados, sem campos extras.\n</raciocinio>\n\n<json>\n{\n  \"solicitante_area\": \"Manutenção\",\n  \"item\": \"tinta acrílica branca\",\n  \"quantidade\": 100,\n  \"unidade\": \"l\",\n  \"prazo_entrega\": \"2026-01-28\",\n  \"valor_unitario\": 8.90,\n  \"moeda\": \"BRL\",\n  \"fornecedor\": \"Distribuidora Pinheiro\"\n}\n</json>",
+  "tokens_entrada": 344,
+  "tokens_saida": 620,
+  "custo_usd": 0.00034439999999999997,
+  "latencia_s": 3.0311815999993996,
+  "tentativas": 1,
+  "stop_reason": "end_turn",
+  "esforco": "low",
+  "modelo": "claude-haiku-5-5",
+  "avaliacao": {
+    "json_valido": true,
+    "schema_valido": true,
+    "campos": {
+      "solicitante_area": true,
+      "item": true,
+      "quantidade": true,
+      "unidade": true,
+      "prazo_entrega": true,
+      "valor_unitario": true,
+      "moeda": true,
+      "fornecedor": true
+    },
+    "caso_correto": true
+  }
+}

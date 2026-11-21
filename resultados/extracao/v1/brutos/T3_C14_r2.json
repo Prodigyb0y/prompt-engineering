@@ -1,0 +1,32 @@
+{
+  "tecnica": "T3",
+  "prompt_versao": "v1",
+  "prompt_hash12": "b3a7a7a94ceb",
+  "caso": "C14",
+  "tipo": "campos_faltando",
+  "repeticao": 2,
+  "resposta": "<raciocinio>\n1. solicitante_area: a mensagem não informa área do solicitante, então null.\n2. item: \"teclado sem fio\".\n3. quantidade: 5.\n4. unidade: \"un\" (aparece \"un\" explicitamente).\n5. prazo_entrega: \"05-set-2026\" → setembro é o mês 09, então 2026-09-05.\n6. valor_unitario: \"R$ 1200,00 por unidade\" → 1200.0 (número).\n7. moeda: o símbolo R$ indica real brasileiro → \"BRL\".\n8. fornecedor: não mencionado → null.\n</raciocinio>\n\n<json>\n{\n  \"solicitante_area\": null,\n  \"item\": \"teclado sem fio\",\n  \"quantidade\": 5,\n  \"unidade\": \"un\",\n  \"prazo_entrega\": \"2026-09-05\",\n  \"valor_unitario\": 1200.00,\n  \"moeda\": \"BRL\",\n  \"fornecedor\": null\n}\n</json>",
+  "tokens_entrada": 316,
+  "tokens_saida": 329,
+  "custo_usd": 0.0001961,
+  "latencia_s": 2.5403370000021823,
+  "tentativas": 1,
+  "stop_reason": "end_turn",
+  "esforco": "low",
+  "modelo": "claude-haiku-5-5",
+  "avaliacao": {
+    "json_valido": true,
+    "schema_valido": true,
+    "campos": {
+      "solicitante_area": true,
+      "item": true,
+      "quantidade": true,
+      "unidade": true,
+      "prazo_entrega": true,
+      "valor_unitario": true,
+      "moeda": true,
+      "fornecedor": true
+    },
+    "caso_correto": true
+  }
+}

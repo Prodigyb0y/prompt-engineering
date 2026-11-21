@@ -1,0 +1,32 @@
+{
+  "tecnica": "T3",
+  "prompt_versao": "v1",
+  "prompt_hash12": "b3a7a7a94ceb",
+  "caso": "C45",
+  "tipo": "ruido",
+  "repeticao": 1,
+  "resposta": "<raciocinio>\n1. **solicitante_area**: a mensagem diz \"para a área de Financeiro\", então o valor é \"Financeiro\".\n2. **item**: \"cabo elétrico 2,5mm\". O \"2,5mm\" é a especificação do produto e fica no nome.\n3. **quantidade**: \"25 m\", então o número é 25.\n4. **unidade**: o texto usa \"m\" (metros), que está na lista permitida.\n5. **prazo_entrega**: \"09-dez-2026\" convertido para AAAA-MM-DD resulta em 2026-12-09.\n6. **valor_unitario**: \"R$ 2450,75 por unidade\". Na notação brasileira, a vírgula é decimal, então o valor é 2450.75. Observo que o preço é \"por unidade\" e a unidade de compra é metro, o que é uma inconsistência do pedido. Mesmo assim, o campo registra o valor informado.\n7. **moeda**: o símbolo \"R$\" indica BRL.\n8. **fornecedor**: \"Papelaria Aurora Ltda\".\n\nIgnorei as gírias e a informação \"enviado do meu celular\", que não são dados do pedido.\n</raciocinio>\n\n<json>\n{\n  \"solicitante_area\": \"Financeiro\",\n  \"item\": \"cabo elétrico 2,5mm\",\n  \"quantidade\": 25,\n  \"unidade\": \"m\",\n  \"prazo_entrega\": \"2026-12-09\",\n  \"valor_unitario\": 2450.75,\n  \"moeda\": \"BRL\",\n  \"fornecedor\": \"Papelaria Aurora Ltda\"\n}\n</json>",
+  "tokens_entrada": 370,
+  "tokens_saida": 692,
+  "custo_usd": 0.000383,
+  "latencia_s": 4.328045799997199,
+  "tentativas": 1,
+  "stop_reason": "end_turn",
+  "esforco": "low",
+  "modelo": "claude-haiku-5-5",
+  "avaliacao": {
+    "json_valido": true,
+    "schema_valido": true,
+    "campos": {
+      "solicitante_area": true,
+      "item": true,
+      "quantidade": true,
+      "unidade": true,
+      "prazo_entrega": true,
+      "valor_unitario": true,
+      "moeda": true,
+      "fornecedor": true
+    },
+    "caso_correto": true
+  }
+}

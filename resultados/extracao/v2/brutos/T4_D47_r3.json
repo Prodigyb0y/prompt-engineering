@@ -1,0 +1,32 @@
+{
+  "tecnica": "T4",
+  "prompt_versao": "v1",
+  "prompt_hash12": "bb14abcde430",
+  "caso": "D47",
+  "tipo": "email_longo",
+  "repeticao": 3,
+  "resposta": "{\"solicitante_area\": \"Produção\", \"item\": \"óleo lubrificante\", \"quantidade\": 5, \"unidade\": \"l\", \"prazo_entrega\": \"2026-12-08\", \"valor_unitario\": 380, \"moeda\": \"BRL\", \"fornecedor\": \"Químicos Horizonte\"}",
+  "tokens_entrada": 807,
+  "tokens_saida": 103,
+  "custo_usd": 0.0001322,
+  "latencia_s": 1.1935490000032587,
+  "tentativas": 1,
+  "stop_reason": "end_turn",
+  "esforco": "low",
+  "modelo": "claude-haiku-5-5",
+  "avaliacao": {
+    "json_valido": true,
+    "schema_valido": true,
+    "campos": {
+      "solicitante_area": true,
+      "item": true,
+      "quantidade": true,
+      "unidade": true,
+      "prazo_entrega": true,
+      "valor_unitario": true,
+      "moeda": true,
+      "fornecedor": true
+    },
+    "caso_correto": true
+  }
+}

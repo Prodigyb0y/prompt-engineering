@@ -8,6 +8,8 @@ Verificado na árvore de trabalho a partir do commit-base `1717963`; as alteraç
 - [x] **Dados fictícios.** Gerados por script com seed fixa, empresa fictícia Gutenberg Systems. Não verifiquei se algum nome inventado coincide com empresa real.
 - [x] **Gabaritos congelados antes de rodar.** P2 a P5 (20 casos cada) e extração v1 e v2, com SHA-256 conferido por teste. Revisão manual de 5 casos por prompt feita por mim, não por uma segunda pessoa (`dados/biblioteca/REVISAO_E_LIMITACOES.md`).
 - [x] **Regras de acerto escritas antes de rodar**, em código (`src/avaliadores.py`), com testes que não chamam a API.
+- [x] **Diagnóstico dos erros depois de medir** (P3, P4, E3, E4, E5): cada erro classificado a partir das respostas brutas, em `resultados/biblioteca/diagnostico.json` e `DIAGNOSTICO.md`; os textos "o que aprendi" e "por que o resultado saiu assim" da demo saem desses números (`tests/test_diagnostico.py`). Os números oficiais não mudaram; a reanálise por pedido está rotulada como pós-medição.
+- [x] **Política das respostas brutas consistente:** todas as respostas brutas (extração e biblioteca) ficam versionadas no Git, sem linhas de `.gitignore` para elas (`tests/test_readme.py`).
 - [x] **Conclusão na demo** (o que dá e o que não dá para concluir, gerada dos resultados), faixa de destaques no topo, glossário das técnicas, definição de acerto em cada cartão e nenhum p-valor no texto principal (`tests/test_resumo_e_demo.py`).
 - [x] **Histórico do Git reescrito para remover um texto de apresentação antigo.** Publicado com force-push a pedido do autor (30 commits mantidos, árvore final idêntica); busca pelos termos removidos no histórico e nas mensagens de commit: 0 ocorrências.
 - [x] **Frase de impacto** no topo do README e da demo.

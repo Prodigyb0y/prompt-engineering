@@ -1,0 +1,32 @@
+{
+  "tecnica": "T3",
+  "prompt_versao": "v1",
+  "prompt_hash12": "b3a7a7a94ceb",
+  "caso": "C35",
+  "tipo": "data_formato",
+  "repeticao": 3,
+  "resposta": "<raciocinio>\n1. **solicitante_area**: o texto diz \"(solicitante: Logística)\", então o valor é \"Logística\".\n2. **item**: \"óleo lubrificante\".\n3. **quantidade**: \"Solicito 3 l\", logo 3.\n4. **unidade**: \"l\" aparece na solicitação e está na lista permitida, então o valor é \"l\".\n5. **prazo_entrega**: \"precisa chegar em 14-jul-2026\". Julho é \"jul\", e o formato pedido é AAAA-MM-DD, resultando em \"2026-07-14\".\n6. **valor_unitario**: \"Cada unidade custa R$ 120,00\", então 120.0.\n7. **moeda**: o símbolo \"R$\" indica real brasileiro, portanto \"BRL\".\n8. **fornecedor**: \"cotação feita com Informática Bitmais\". O texto identifica esse nome como fornecedor da cotação, então o valor é \"Informática Bitmais\". Observação: o nome sugere uma empresa de informática, o que pode não combinar com a compra de óleo lubrificante, mas registro o dado como consta no texto.\n9. Não há campos extras a incluir.\n</raciocinio>\n\n<json>\n{\n  \"solicitante_area\": \"Logística\",\n  \"item\": \"óleo lubrificante\",\n  \"quantidade\": 3,\n  \"unidade\": \"l\",\n  \"prazo_entrega\": \"2026-07-14\",\n  \"valor_unitario\": 120.0,\n  \"moeda\": \"BRL\",\n  \"fornecedor\": \"Informática Bitmais\"\n}\n</json>",
+  "tokens_entrada": 341,
+  "tokens_saida": 767,
+  "custo_usd": 0.0004176,
+  "latencia_s": 3.6917125999971176,
+  "tentativas": 1,
+  "stop_reason": "end_turn",
+  "esforco": "low",
+  "modelo": "claude-haiku-5-5",
+  "avaliacao": {
+    "json_valido": true,
+    "schema_valido": true,
+    "campos": {
+      "solicitante_area": true,
+      "item": true,
+      "quantidade": true,
+      "unidade": true,
+      "prazo_entrega": true,
+      "valor_unitario": true,
+      "moeda": true,
+      "fornecedor": true
+    },
+    "caso_correto": true
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "tecnica": "T3",
+  "prompt_versao": "v1",
+  "prompt_hash12": "b3a7a7a94ceb",
+  "caso": "D29",
+  "tipo": "correcao",
+  "repeticao": 1,
+  "resposta": "<raciocinio>\n1. **solicitante_area**: o texto diz \"para a área de Marketing\", então o valor é \"Marketing\".\n2. **item**: o material pedido é \"óleo lubrificante\".\n3. **quantidade**: o texto diz \"4 l\", então a quantidade é 4.\n4. **unidade**: a unidade informada é \"l\", que está entre as opções permitidas.\n5. **prazo_entrega**: há duas datas. A primeira, 22/10/2026, é substituída pela segunda, \"Melhor ficar para 18/10/2026\", que é a mudança mais recente. Convertendo para o formato AAAA-MM-DD, fica 2026-10-18.\n6. **valor_unitario**: \"Cada unidade custa R$ 4,50\", então o valor é 4.5.\n7. **moeda**: o símbolo R$ indica \"BRL\".\n8. **fornecedor**: o texto informa \"Fornecedor: Eletrotécnica Faísca\".\n\nNenhum campo ficou sem informação, então não há necessidade de null.\n</raciocinio>\n\n<json>\n{\n  \"solicitante_area\": \"Marketing\",\n  \"item\": \"óleo lubrificante\",\n  \"quantidade\": 4,\n  \"unidade\": \"l\",\n  \"prazo_entrega\": \"2026-10-18\",\n  \"valor_unitario\": 4.5,\n  \"moeda\": \"BRL\",\n  \"fornecedor\": \"Eletrotécnica Faísca\"\n}\n</json>",
+  "tokens_entrada": 356,
+  "tokens_saida": 670,
+  "custo_usd": 0.0003706,
+  "latencia_s": 2.8693691000007675,
+  "tentativas": 1,
+  "stop_reason": "end_turn",
+  "esforco": "low",
+  "modelo": "claude-haiku-5-5",
+  "avaliacao": {
+    "json_valido": true,
+    "schema_valido": true,
+    "campos": {
+      "solicitante_area": true,
+      "item": true,
+      "quantidade": true,
+      "unidade": true,
+      "prazo_entrega": true,
+      "valor_unitario": true,
+      "moeda": true,
+      "fornecedor": true
+    },
+    "caso_correto": true
+  }
+}

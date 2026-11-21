@@ -1,0 +1,32 @@
+{
+  "tecnica": "T3",
+  "prompt_versao": "v1",
+  "prompt_hash12": "b3a7a7a94ceb",
+  "caso": "C38",
+  "tipo": "data_relativa",
+  "repeticao": 3,
+  "resposta": "<raciocinio>\n1. Área do solicitante: \"solicitante: Compras\" → \"Compras\".\n2. Item: \"caneta esferográfica\".\n3. Quantidade: \"8 caixas\" → 8.\n4. Unidade: \"caixas\" corresponde a \"cx\".\n5. Prazo de entrega: \"10 dias úteis\" é um prazo relativo, sem data de referência. Não é possível converter para AAAA-MM-DD, então fica null.\n6. Valor unitário: \"Cada unidade custa R$ 35,00\". Como a unidade de compra é a caixa, o valor é 35.00.\n7. Moeda: \"R$\" indica real → \"BRL\".\n8. Fornecedor: \"Informática Bitmais\".\n</raciocinio>\n\n<json>\n{\n  \"solicitante_area\": \"Compras\",\n  \"item\": \"caneta esferográfica\",\n  \"quantidade\": 8,\n  \"unidade\": \"cx\",\n  \"prazo_entrega\": null,\n  \"valor_unitario\": 35.00,\n  \"moeda\": \"BRL\",\n  \"fornecedor\": \"Informática Bitmais\"\n}\n</json>",
+  "tokens_entrada": 339,
+  "tokens_saida": 661,
+  "custo_usd": 0.00036439999999999997,
+  "latencia_s": 2.8595834000007017,
+  "tentativas": 1,
+  "stop_reason": "end_turn",
+  "esforco": "low",
+  "modelo": "claude-haiku-5-5",
+  "avaliacao": {
+    "json_valido": true,
+    "schema_valido": true,
+    "campos": {
+      "solicitante_area": true,
+      "item": true,
+      "quantidade": true,
+      "unidade": true,
+      "prazo_entrega": true,
+      "valor_unitario": true,
+      "moeda": true,
+      "fornecedor": true
+    },
+    "caso_correto": true
+  }
+}

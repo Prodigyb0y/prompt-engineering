@@ -1,0 +1,32 @@
+{
+  "tecnica": "T3",
+  "prompt_versao": "v1",
+  "prompt_hash12": "b3a7a7a94ceb",
+  "caso": "D29",
+  "tipo": "correcao",
+  "repeticao": 2,
+  "resposta": "<raciocinio>\n1. Item: \"óleo lubrificante\".\n2. Quantidade: 4.\n3. Unidade: \"l\" (litros), que está na lista permitida.\n4. Área do solicitante: \"Marketing\".\n5. Valor unitário: R$ 4,50, então 4.5 como número.\n6. Moeda: R$ indica BRL.\n7. Fornecedor: \"Eletrotécnica Faísca\".\n8. Prazo de entrega: a solicitação inicialmente diz 22/10/2026, mas a linha seguinte corrige para 18/10/2026. Usa-se a data mais recente informada, 18/10/2026, convertida para 2026-10-18.\n</raciocinio>\n<json>\n{\n  \"solicitante_area\": \"Marketing\",\n  \"item\": \"óleo lubrificante\",\n  \"quantidade\": 4,\n  \"unidade\": \"l\",\n  \"prazo_entrega\": \"2026-10-18\",\n  \"valor_unitario\": 4.5,\n  \"moeda\": \"BRL\",\n  \"fornecedor\": \"Eletrotécnica Faísca\"\n}\n</json>",
+  "tokens_entrada": 356,
+  "tokens_saida": 374,
+  "custo_usd": 0.0002226,
+  "latencia_s": 1.8886839000006148,
+  "tentativas": 1,
+  "stop_reason": "end_turn",
+  "esforco": "low",
+  "modelo": "claude-haiku-5-5",
+  "avaliacao": {
+    "json_valido": true,
+    "schema_valido": true,
+    "campos": {
+      "solicitante_area": true,
+      "item": true,
+      "quantidade": true,
+      "unidade": true,
+      "prazo_entrega": true,
+      "valor_unitario": true,
+      "moeda": true,
+      "fornecedor": true
+    },
+    "caso_correto": true
+  }
+}
