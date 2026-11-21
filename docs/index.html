@@ -108,7 +108,7 @@ h3{font-size:1.1rem;margin:0 0 8px}
 .bloco p{margin:0 0 8px}
 .bloco p:last-child{margin-bottom:0}
 .duas{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-pre{margin:0;font-family:var(--mono);font-size:.82rem;line-height:1.6;white-space:pre-wrap;word-break:break-word;background:var(--bg2);border:1px solid var(--borda);border-radius:12px;padding:14px;overflow:auto}
+pre{margin:0;font-family:var(--mono);font-size:.82rem;line-height:1.6;white-space:pre-wrap;overflow-wrap:break-word;background:var(--bg2);border:1px solid var(--borda);border-radius:12px;padding:14px;overflow:auto}
 pre.prompt{max-height:420px}
 .rotulo-pre{font-size:.8rem;color:var(--suave);margin:0 0 6px;display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
 mark.parte{color:inherit;border-radius:4px;padding:1px 0;background:color-mix(in srgb,var(--cor) 20%,transparent);box-shadow:inset 0 -2px 0 var(--cor);cursor:help}
@@ -174,7 +174,10 @@ mark.parte-regras{--cor:var(--c-regras)} mark.parte-casos_borda{--cor:var(--c-ca
 .tab[disabled]{opacity:.5;cursor:not-allowed;border-style:dashed}
 select{background:var(--panel);color:var(--texto);border:1px solid var(--borda);border-radius:10px;padding:9px 12px;font-family:inherit;font-size:.92rem;max-width:100%}
 .aviso-gravado{border-left:3px solid var(--aviso);background:var(--panel2);padding:10px 14px;border-radius:0 10px 10px 0;font-size:.9rem;margin:0 0 16px}
-.resp-grade{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;margin-top:14px}
+.resp-grade{display:grid;grid-template-columns:1fr;gap:14px;margin-top:14px}
+@media (min-width:700px){.resp-grade{grid-template-columns:repeat(2,minmax(0,1fr))}}
+/* as 4 técnicas lado a lado: o bloco passa da largura do texto para caber numa linha só */
+@media (min-width:1200px){.resp-grade{grid-template-columns:repeat(4,minmax(0,1fr));margin-inline:calc((min(1120px,100vw - 40px) - min(1360px,100vw - 40px)) / 2)}}
 .resp{background:var(--panel);border:1px solid var(--borda);border-radius:14px;padding:14px}
 .resp.certa{border-color:color-mix(in srgb,var(--ok) 50%,var(--borda))} .resp.errada{border-color:color-mix(in srgb,var(--erro) 55%,var(--borda))}
 .resp h5{margin:0 0 8px;display:flex;justify-content:space-between;gap:8px;align-items:center;font-size:.95rem}
@@ -416,7 +419,7 @@ function blocoExemplo(p) {
   let dir;
   if (ex.gravada) {
     const rot = ex.gravada.rotulo || ("Saída real gravada do modelo (repetição 1) " + (ex.gravada.correto ? "· correta" : "· errada"));
-    dir = h("div", {}, h("div", { class: "rotulo-pre" }, h("span", { text: rot })), h("pre", { text: ex.gravada.resposta }),
+    dir = h("div", {}, h("div", { class: "rotulo-pre" }, h("span", { text: rot })), h("pre", { text: quebravel(ex.gravada.resposta) }),
       h("div", { class: "rotulo-pre", style: "margin-top:10px", text: "Gabarito (escrito antes de rodar)" }), h("pre", { text: ex.esperado }));
   } else {
     dir = h("div", {}, h("div", { class: "rotulo-pre", text: "Saída esperada (gabarito)" }), h("pre", { text: ex.esperado }));
@@ -504,6 +507,8 @@ D.experimentos.forEach((e, i) => {
   lista.append(bloco);
 });
 
+/* JSON compacto não tem espaços: permite quebrar a linha depois de cada vírgula, sem cortar palavras no meio */
+const quebravel = (t) => String(t).replace(/,(?=")/g, ",\u200b");
 /* playground */
 const pg = $("#playground-corpo");
 let gSel = D.playground.findIndex((g) => g.medido), cSel = 0, repSel = 1;
@@ -530,7 +535,7 @@ function renderPlayground() {
     const r = v.reps[Math.min(repSel, v.reps.length) - 1];
     if (!r) return;
     grade.append(h("div", { class: "resp " + (r.correto ? "certa" : "errada") }, h("h5", {}, h("span", { text: v.rotulo }), h("span", { class: r.correto ? "ok" : "erro", text: r.correto ? "✓ correta" : "✗ errada" })),
-      h("pre", { text: r.resposta }),
+      h("pre", { text: quebravel(r.resposta) }),
       h("div", { class: "campos-chips", "aria-label": "Acerto por campo" }, Object.entries(r.campos || {}).map(([k, ok]) => h("span", { class: "campo " + (ok ? "c" : "e"), text: (ok ? "✓ " : "✗ ") + k })))));
   });
   pg.append(grade);

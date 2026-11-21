@@ -205,15 +205,19 @@ def relatorio(d):
           "## E3: onde o zero-shot errou", "", "| Variante | Respostas | Erradas | Campo errado | Urgência esperada → obtida |", "|---|---|---|---|---|"]
     for v, rot in (("zero_shot", "Zero-shot"), ("few_shot", "Few-shot")):
         x = e3[v]
-        L.append(f"| {rot} | {x['respostas']} | {x['erradas']} | {', '.join(f'{k}: {n}' for k, n in x['campo_errado'].items()) or '—'} | "
-                 f"{'; '.join(f'{t['esperada']} → {t['obtida']} ({t['n']})' for t in x['urgencia_esperada_obtida']) or '—'} |")
+        campos = ", ".join(f"{k}: {n}" for k, n in x["campo_errado"].items()) or "—"
+        trocas = "; ".join("{} → {} ({})".format(t["esperada"], t["obtida"], t["n"]) for t in x["urgencia_esperada_obtida"]) or "—"
+        L.append(f"| {rot} | {x['respostas']} | {x['erradas']} | {campos} | {trocas} |")
     e5 = d["E5"]
     L += ["", "## E5: onde a resposta direta errou", "", "| Variante | Respostas | Erradas | Erros (caso, tipo, esperada → obtida, vezes) |", "|---|---|---|---|"]
     for v, rot in (("direto", "Sem raciocínio"), ("cot", "Com raciocínio")):
         x = e5[v]
-        L.append(f"| {rot} | {x['respostas']} | {x['erradas']} | {'; '.join(f'{t['caso']} ({t['subtipo']}), {t['esperada']} → {t['obtida']}, {t['n']}x' for t in x['erros']) or '—'} |")
-    L += ["", "## P4: onde errou", "", f"{p4['erradas']} de {p4['respostas']} respostas erradas; campo errado: {', '.join(f'{k}: {n}' for k, n in p4['campo_errado'].items())}. "
-          f"Sentimento esperado → obtido: {'; '.join(f'{t['esperado']} → {t['obtido']} ({t['n']})' for t in p4['sentimento_esperado_obtido'])}. Invenções de número ou valor: {p4['invencoes']}.", ""]
+        erros = "; ".join("{} ({}), {} → {}, {}x".format(t["caso"], t["subtipo"], t["esperada"], t["obtida"], t["n"]) for t in x["erros"]) or "—"
+        L.append(f"| {rot} | {x['respostas']} | {x['erradas']} | {erros} |")
+    campos4 = ", ".join(f"{k}: {n}" for k, n in p4["campo_errado"].items())
+    trocas4 = "; ".join("{} → {} ({})".format(t["esperado"], t["obtido"], t["n"]) for t in p4["sentimento_esperado_obtido"])
+    L += ["", "## P4: onde errou", "", f"{p4['erradas']} de {p4['respostas']} respostas erradas; campo errado: {campos4}. "
+          f"Sentimento esperado → obtido: {trocas4}. Invenções de número ou valor: {p4['invencoes']}.", ""]
     return "\n".join(L)
 
 
